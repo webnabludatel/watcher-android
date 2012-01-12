@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Тип нарушения:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinner_tip_narusheniya"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:entries="@array/tip_narusheniya"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Опишите подробности:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.50"
+        android:inputType="textMultiLine" android:gravity="top|left">
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right" >
+
+        <Button
+            android:id="@+id/bttn_post_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Отменить" />
+
+        <Button
+            android:id="@+id/bttn_post_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Камера" />
+
+        <Button
+            android:id="@+id/post_narushenije"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Отправить" />
+    </LinearLayout>
+
+</LinearLayout>

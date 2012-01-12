@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nabludatel</string>
+    <string-array name="tip_narusheniya">
+        <item >Вброс</item>
+        <item >Карусель</item>
+        <item >Удаление</item>
+        <item >Работа комиссии</item>
+    </string-array>
+    <string name="str_spravochnik">Справочник</string>
+    <string name="str_post_narushenije">Сообщить о нарушении</string>
+    <string name="str_na_uchastke">На участке</string>
+
+</resources>
