@@ -1,0 +1,9 @@
+CLASS Narusheniye
+Integer type
+String Description
+Real Logitude
+Real Altitude 
+Date Time	
+String Image
+String Video
+ENDCLASS

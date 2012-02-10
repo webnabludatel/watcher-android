@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="TextTitleLarge" parent="android:Widget.TextView">
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="TextStyle" parent="android:Widget.TextView">
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="Input" parent="android:Widget.EditText"><item name="android:background">#FFFFFF</item><item name="android:textColor">#000000</item>
+    </style>
+    <style parent="@android:style/Widget.ListView" name="MyListView">
+        <item name="android:listSelector">@drawable/list_selector</item>
+        
+    </style>
+    
+    <style name="listview_style" parent="android:Widget.ListView">
+        <item name="android:divider">@color/grey</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:drawSelectorOnTop">true</item>
+        <item name="android:listSelector">@drawable/list_selector</item>
+    </style>
+    <style name="top_menu_style">
+        <item name="android:background">@color/main_1</item>
+        <item name="android:gravity">center|left</item>
+    </style>
+    <style name="main_pane_style">
+        <item name="android:background">@drawable/main_pane_canvas</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="main_window">
+        <item name="android:background">@color/white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+</resources>

@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nabludatel</string>
-    <string-array name="tip_narusheniya">
-        <item >Вброс</item>
-        <item >Карусель</item>
-        <item >Удаление</item>
-        <item >Работа комиссии</item>
+    <string name="app_name">Наблюдатель</string>
+
+    <string name="section_elections_district_title">Избирательный участок</string>
+    <string name="uik_district_number_hint">введите номер</string>
+    <string name="uik_district_number">Номер избирательного участка</string>
+    <string name="uik_district_chairman">Председатель</string>
+    <string name="uik_district_chairman_hint">ФИО</string>
+    <string name="uik_district_secretary">Секретарь</string>
+    <string name="uik_district_watchers_count">Всего наблюдателей</string>
+    <string name="uik_district_watchers_count_hint">число</string>
+    <string name="uik_district_banner_photo">Вывеска на участке</string>
+    <string name="uik_district_banner_photo_from_gallery">Выбрать фото</string>
+    <string name="uik_district_banner_photo_make">Камера</string>
+    <string name="section_before_elections">Подготовка</string>
+    <string name="admitted_before_eight">Были ли Вы допущены на участок до 8:00</string>
+    <string name="empty"></string>
+    <string name="ballot_box_check_allowed">Вам разрешили осмотреть урны</string>
+    <string name="ballot_box_empty">Урны пусты</string>
+    <string name="ballot_box_conform_to_reqs">Урны соответствуют требованиям</string>
+    <string name="ballot_box_violations_photo">Фото нарушений</string>
+    <string name="ballot_box_violations_photo_gallery">Из галереи</string>
+    <string name="ballot_box_violations_photo_camera">Камера</string>
+    <string name="ballot_box_sealed_in_your_presence">Урны опечатали при вас</string>
+    <string-array name="section_before_elections">
+        <item >Допуск на участок до 8:00</item>
+        <item >Урны</item>
+        <item >КОИБы</item>
+        <item >Оформление участка</item>
+        <item >Списки избирателей</item>
+        <item >Число избирателей</item>
     </string-array>
-    <string name="str_spravochnik">Справочник</string>
-    <string name="str_post_narushenije">Сообщить о нарушении</string>
-    <string name="str_na_uchastke">На участке</string>
+        <string name="ballot_box_title">Урны</string>
+        <string name="admitted_before_eight_title">Допуск на участок до 8:00</string>
+        <string-array name="root_sections">
+            <item >УИК</item>
+            <item >Подготовка</item>
+            <item >Ход голосования</item>
+            <item >Подсчет голосов</item>
+            <item >Заседание и протокол</item>
+            <item >ТИК/ИКМО</item>
+        </string-array>
+            <string name="sos">S.O.S</string>
+            <string name="back">&lt; Назад</string>
+            <string name="counter_set_on_zero">Счетчик на нуле</string>
+            <string name="conter_test_failures">Есть ли сбои при тестировании</string>
+            <string name="appearance_candidates_info">Правильно ли оформлены сведения о кандидатах</string>
+            <string name="appearance_ballot_sample_present">Есть ли образец заполнения бюллетеня</string>
+            <string name="appearance_ballot_extended_protocol">Есть ли увеличенная форма протокола</string>
+            <string name="appearance_campaign_materials_closer_than_50m">Есть ли агитационные материалы ближе 50 м</string>
+            <string name="appearance_vote_secrecy">Кабинки обеспечивают тайну голосвания</string>
+            <string name="appearance_violation_photo">Фото нарушений</string>
+            <string name="koib">КОИБ</string>
+            <string name="appearance">Оформление участка</string>
+            <string name="uik">Избирательный участок</string>
+            <string name="voters_lists_checked">Вам разрешили осмотреть альбомы</string>
+            <string name="voters_lists_are_ok">Альбомы соответствуют требованиям</string>
 
 </resources>
