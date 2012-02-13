@@ -1,25 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_window"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" android:gravity="bottom">
+    android:gravity="fill"
+    android:orientation="vertical"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical" >
 
-    <Button
-        android:id="@+id/btn_spravochnik"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Справочник" />
+        android:background="@color/black" >
 
-    <Button
-        android:id="@+id/bttn_main_post_narushenije"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Сообщить о нарушении" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:gravity="left" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="fill_parent"
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onBackButtonPress"
+                android:text="@string/back"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:gravity="right" >
+
+            <Button
+                android:id="@+id/sos_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sos" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Чеклист на участке" />
+        android:layout_weight="50"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/main_selector"
+            style="@style/listview_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/root_sections"
+            android:footerDividersEnabled="true" android:headerDividersEnabled="true">
+        </ListView>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/include1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/tabs_layout" />
 
 </LinearLayout>

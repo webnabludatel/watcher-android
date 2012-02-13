@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_window"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/LinearLayout05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/LinearLayout07"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:gravity="left" >
+
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onBackButtonPress"
+                android:text="@string/back"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout06"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:gravity="right" >
+
+            <Button
+                android:id="@+id/sos_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sos" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suspicious_voters_no_passport" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_06" />
+
+                <SeekBar
+                    android:id="@+id/suspicious_voters_no_passport"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:background="@drawable/for_frontend_04"
+                    android:max="2"
+                    android:progress="1"
+                    android:progressDrawable="@drawable/patch"
+                    android:tag="suspicious_voters_no_passport"
+                    android:thumb="@drawable/for_frontend_03"
+                    android:thumbOffset="0dp" />
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_12" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suspicious_voters_no_absentee_ballot" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/ImageView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_06" />
+
+                <SeekBar
+                    android:id="@+id/suspicious_voters_no_absentee_ballot"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:background="@drawable/for_frontend_04"
+                    android:max="2"
+                    android:progress="1"
+                    android:progressDrawable="@drawable/patch"
+                    android:tag="suspicious_voters_no_absentee_ballot"
+                    android:thumb="@drawable/for_frontend_03"
+                    android:thumbOffset="0dp" />
+
+                <ImageView
+                    android:id="@+id/ImageView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_12" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suspicious_voters_invalid_absentee_ballot" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout08"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_06" />
+
+                <SeekBar
+                    android:id="@+id/suspicious_voters_invalid_absentee_ballot"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:background="@drawable/for_frontend_04"
+                    android:max="2"
+                    android:progress="1"
+                    android:progressDrawable="@drawable/patch"
+                    android:tag="suspicious_voters_invalid_absentee_ballot"
+                    android:thumb="@drawable/for_frontend_03"
+                    android:thumbOffset="0dp" />
+
+                <ImageView
+                    android:id="@+id/ImageView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_12" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TextView01"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suspicious_voters_absentee_ballot_returned_or_replaced" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/ImageView09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_06" />
+
+                <SeekBar
+                    android:id="@+id/suspicious_voters_absentee_ballot_returned_or_replaced"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:background="@drawable/for_frontend_04"
+                    android:max="2"
+                    android:progress="1"
+                    android:progressDrawable="@drawable/patch"
+                    android:tag="suspicious_voters_absentee_ballot_returned_or_replaced"
+                    android:thumb="@drawable/for_frontend_03"
+                    android:thumbOffset="0dp" />
+
+                <ImageView
+                    android:id="@+id/ImageView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_12" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suspicious_voters_brought_by_transport" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/ImageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_06" />
+
+                <SeekBar
+                    android:id="@+id/suspicious_voters_brought_by_transport"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:background="@drawable/for_frontend_04"
+                    android:max="2"
+                    android:progress="1"
+                    android:progressDrawable="@drawable/patch"
+                    android:tag="suspicious_voters_brought_by_transport"
+                    android:thumb="@drawable/for_frontend_03"
+                    android:thumbOffset="0dp" />
+
+                <ImageView
+                    android:id="@+id/ImageView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_12" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suspicious_voters_voted_for_absent_person" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/ImageView07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_06" />
+
+                <SeekBar
+                    android:id="@+id/suspicious_voters_voted_for_absent_person"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:background="@drawable/for_frontend_04"
+                    android:max="2"
+                    android:progress="1"
+                    android:progressDrawable="@drawable/patch"
+                    android:tag="suspicious_voters_voted_for_absent_person"
+                    android:thumb="@drawable/for_frontend_03"
+                    android:thumbOffset="0dp" />
+
+                <ImageView
+                    android:id="@+id/ImageView08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/for_frontend_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout09"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/suspicious_voters_violations_photo_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="counter_violations_photo"
+                    android:text="@string/ballot_box_violations_photo_gallery" />
+
+                <Button
+                    android:id="@+id/suspicious_voters_violations_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onMakePhotoClick"
+                    android:tag="suspicious_voters_violations_photo"
+                    android:text="@string/ballot_box_violations_photo_camera" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
