@@ -66,6 +66,52 @@ public class Consts {
 			"Нарушений не зафиксировано", "Нарушений не зафиксировано",
 			"Нарушений не зафиксировано", "Нарушений не зафиксировано",
 			"Нарушений не зафиксировано", "Нарушений не зафиксировано" };
+	
+	public static final String[] SECTION_COUNTING = {
+		"Неиспользованные бюллетени", 
+		"Проголосовавшие избиратели",
+		"Вскрытие стационарных урн",
+		"Вскрытие переносных ящиков",
+		"Сортировка и подсчет",
+		"Контрольные соотношения"
+	};
+	
+	public static final String[] SECTION_COUNTING_DESCRIPTIONS = {
+		"Нарушений не зафиксировано", 
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано"
+	};
+	
+	public static final String [] SECTION_FINAL_MEETING = {
+		"Итоговое заседание",
+		"Упаковки бюллетеней",
+		"Протокол и увеличенная копия"
+	};
+	
+	public static final String [] SECTION_FINAL_MEETING_DESCRIPTIONS = {
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано"	
+	};
+	
+	public static final String [] SECTION_TIK_IKMO = {
+		"Помещение ТИК",
+		"Прием протокола и занесение данных в УФСТ",
+		"Жалобы"
+	};
+	
+	public static final String [] SECTION_TIK_IKMO_DESCRIPTION = {
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано",
+		"Нарушений не зафиксировано"
+	};
+	
+	public static final String PHOTO_FILE = "photo";
+	public static final String VIDEO_FILE = "video";
+	
 
 	public static String getDescriptionFill(int id) {
 		if (id == 0)

@@ -3,68 +3,34 @@
     style="@style/main_window"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="fill"
-    android:orientation="vertical"
-    android:scrollbarStyle="insideOverlay"
-    android:scrollbars="vertical" >
+    android:background="@drawable/background_fill"
+    android:gravity="center_horizontal|fill"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
+    <include
+        android:id="@+id/include2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black" >
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="left" >
-
-            <Button
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onBackButtonPress"
-                android:text="@string/back"
-                android:visibility="visible" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="right" >
-
-            <Button
-                android:id="@+id/sos_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sos" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+        layout="@layout/footer_layout" />
+
+    <FrameLayout
         android:id="@+id/main_layout"
+        style="@style/main_windows_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="50"
-        android:orientation="vertical" >
+        android:layout_gravity="center"
+        android:layout_weight="50" >
 
         <ListView
             android:id="@+id/main_selector"
             style="@style/listview_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/root_sections"
-            android:footerDividersEnabled="true" android:headerDividersEnabled="true">
+            android:layout_gravity="top"
+            android:entries="@array/root_sections" 
+            >
         </ListView>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <include
         android:id="@+id/include1"

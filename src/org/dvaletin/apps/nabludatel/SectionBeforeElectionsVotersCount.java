@@ -13,23 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 
-public class VotersCountActivity extends ABSNabludatelActivity {
+public class SectionBeforeElectionsVotersCount extends ABSNabludatelActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.section_before_elections_voters_count);
-		Button mBackButton = (Button) findViewById(R.id.back_button);
-		mBackButton.setVisibility(View.VISIBLE);
-		mBackButton.setText(Consts.ROOT_MENU_ITEMS[1]);
-		mBackButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				VotersCountActivity.this.finish();
-
-			}
-		});
 	}
 
 	@Override
@@ -50,13 +38,19 @@ public class VotersCountActivity extends ABSNabludatelActivity {
 	public void onPause() {
 	
 		EditText voters_count_total = (EditText) findViewById(R.id.voters_count_total);
-		prefs.edit().putInt(voters_count_total.getTag().toString(), Integer.valueOf(voters_count_total.getText().toString())).commit();
+		if(!voters_count_total.getText().toString().equals("")){
+			prefs.edit().putInt(voters_count_total.getTag().toString(), Integer.valueOf(voters_count_total.getText().toString())).commit();
+		}
 		
 		EditText voters_count_ballots_total = (EditText) findViewById(R.id.voters_count_ballots_total);
-		prefs.edit().putInt(voters_count_ballots_total.getTag().toString(), Integer.valueOf(voters_count_ballots_total.getText().toString())).commit();
+		if(!voters_count_ballots_total.getText().toString().equals("")){
+			prefs.edit().putInt(voters_count_ballots_total.getTag().toString(), Integer.valueOf(voters_count_ballots_total.getText().toString())).commit();
+		}
 		
 		EditText voters_count_ballot_at_home = (EditText) findViewById(R.id.voters_count_ballot_at_home);
-		prefs.edit().putInt(voters_count_ballot_at_home.getTag().toString(), Integer.valueOf(voters_count_ballot_at_home.getText().toString())).commit();
+		if(!voters_count_ballot_at_home.getText().toString().equals("")){
+			prefs.edit().putInt(voters_count_ballot_at_home.getTag().toString(), Integer.valueOf(voters_count_ballot_at_home.getText().toString())).commit();
+		}
 		
 		super.onPause();
 	}

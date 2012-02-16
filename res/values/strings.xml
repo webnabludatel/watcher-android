@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Наблюдатель</string>
-
+	<string name="violations_photo">Фото нарушений</string>
+	<string name="violations_photo_gallery">Из галереи</string>
+	<string name="violations_video_gallery">Из галереи</string>
+	<string name="violations_video">Видео нарушений</string>
+	<string name="empty"></string>
     <string name="section_elections_district_title">Избирательный участок</string>
     <string name="uik_district_number_hint">введите номер</string>
     <string name="uik_district_number">Номер избирательного участка</string>
@@ -15,10 +19,11 @@
     <string name="uik_district_banner_photo_make">Камера</string>
     <string name="section_before_elections">Подготовка</string>
     <string name="admitted_before_eight">Были ли Вы допущены на участок до 8:00</string>
-    <string name="empty"></string>
+
     <string name="ballot_box_check_allowed">Вам разрешили осмотреть урны</string>
     <string name="ballot_box_empty">Урны пусты</string>
     <string name="ballot_box_conform_to_reqs">Урны соответствуют требованиям</string>
+    
     <string name="ballot_box_violations_photo">Фото нарушений</string>
     <string name="ballot_box_violations_photo_gallery">Из галереи</string>
     <string name="ballot_box_violations_photo_camera">Камера</string>
@@ -60,7 +65,7 @@
             <string name="enter_number">Введите число</string>
             <string name="voters_count_ballots_total">Всего полученных в УИК бюллетеней</string>
             <string name="voters_count_ballot_at_home">Всего внесенных в реестр голосования на дому</string>
-            <string name="voters_title">Число избирателей</string>
+            <string name="voters_title">Списки избирателей</string>
             <string name="voters_lists_title">Списки избирателей</string>
             <string name="voters_count_title">Число избирателей</string>
             <string name="attendance_data_match_on_10">По состоянию на 10:00 ваши данные о явке совпадают с данными ИК</string>
@@ -100,5 +105,53 @@
             <string name="webview_back">Назад</string>
             <string name="webview_forward">Вперед</string>
             <string name="webview_find_next">Искать далее</string>
-
+            <string name="search">Найти</string>
+            <string name="unused_ballots_counted_after_vote_finish">Неиспользованые бюллетени подсчитаны сразу же после окончания голосования?</string>
+            <string name="unused_ballots_counted_before_other_actions">Бюллетени подсчитаны и погашены до других подсчетов?</string>
+            <string name="unused_ballots_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола?</string>
+            <string name="unused_ballots_title">Неиспользованные бюллетени</string>
+            <string name="confirmed_voters_announced">Оглашение было по каждой книге?</string>
+            <string name="confirmed_voters_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола?</string>
+            <string name="confirmed_voters_violations_photo">Фото нарушений</string>
+            <string name="ballot_box_opening_video">Видео вскрытия урн</string>
+            <string name="ballot_box_opening_ballot_bundles">Были ли замечены сложенные пачки бюллетеней?</string>
+            <string name="absentee_ballot_box_opening_number_of_applications_announced">Объявлено ли число заявлений перед вскрытием каждого ящика?</string>
+            <string name="absentee_ballot_box_opening_ballot_bundles">Были ли замечены сложенные пачки бюллетеней?</string>
+            <string name="counting_ballots_presented_or_announced">Предъявляются или оглашаются ли бюллетени при сортировке?</string>
+            <string name="counting_ballots_sorted_in_separate_bundles">Перекладываются ли бюллетени отдельно в каждой рассортированной пачке на глазах у наблюдателей?</string>
+            <string name="counting_ballots_marks_noticed_in_ballots">Видели ли Вы отметки в бюллетенях?</string>
+            <string name="counting_ballots_suspicious_counting">Возникли ли у Вас сомнения в правильности подчета?</string>
+            <string name="counting_ballots_ballot_check_allowed">Дали ли Вам ознакомиться с бюллетенями?</string>
+            <string name="counting_ballots_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола?</string>
+            <string name="control_calculations_conducted">Выполнены ли контрольные соотношения?</string>
+            <string name="control_calculations_performed">Произведен ли пересчет?</string>
+            <string name="confirmed_voters_title">Проголосовавшие избиратели</string>
+            <string name="report_button_label">Отчет</string>
+            <string name="counting_absentee_ballot_title">Вскрытие переносных ящиков</string>
+            <string name="ballot_box_open_title">Вскрытие стационарных урн</string>
+            <string name="control_calculations_title">Контрольные соотношения</string>
+            <string name="counting_ballots_title">Сортировка и подсчет</string>
+            <string name="tik_located_in_administration_building">ТИК в здании местной администрации?</string>
+            <string name="tik_building_addmittance_cleared">Вы допущены в здание?</string>
+            <string name="tik_other_watchers_admittance_cleared">Другие наблюдатели допущены в здание?</string>
+            <string name="tik_watching_of_the_entire_procedure_allowed">Вы можете наблюдать за всей процедурой приема?</string>
+            <string name="tik_other_watchers_allowed_to_watch_entire_procedure">Другие наблюдатели могут наблюдать за всей процедурой приема?</string>
+            <string name="tik_protocols_are_received_in_a_single_room">Прием протоколов в едином помещении?</string>
+            <string name="tik_extended_table_in_the_same_room">Увеличенная форма таблицы в том же помещении?</string>
+            <string name="tik_administation_personnel_participate_in_protocol_processing">Сотрудники администрации участвуют в приеме протоколов?</string>
+            <string name="tik_watching_of_the_entire_procedure_is_allowed">Вы можете наблюдать за всей процедурой приема?</string>
+            <string name="tik_number_of_complains">Количество письменных жалоб</string>
+            <string name="tik_all_complains_are_checked">Все ли письменные жалобы рассмотрены?</string>
+			<string name="section_tik_ikmo_tik_district_title">Прием протокола и занесение данных в УФСТ</string>
+			<string name="section_tik_ikmo_tik_processing_title">Прием протокола и занесение данных в УФСТ</string>
+			<string name="tik_accepted_uik_protocol">ТИК принял протокол УИК</string>
+			<string name="tik_made_corrections_to_uik_protocol">В протоколы УИК внесены правки</string>
+			<string name="tik_entered_data_to_extended_table_immediately">Данные занесены в увеличенную форму сразу по прибытии</string>
+			<string name="tik_entered_data_to_extended_table_properly">Данные занесены правильно</string>
+			<string name="tik_entered_data_put_to_gas_vybody_immediately">Данные из УФСТ сразу переносятся в ГАС &quot;Выборы&quot;</string>
+			<string name="tik_time_of_agreement_signing">Время подписания договора</string>
+			<string name="tik_announced_decline_of_uik_protocol">ТИК объявил об отказе в приеме протокола</string>
+			<string name="tik_held_first_copy_of_protocol">Первый экземпляр протокола остался в ТИК</string>
+			<string name="section_tik_ikmo_tik_complains_title">Жалобы</string>
+			<string name="tik_time_of_agreement_signing_hint">ЧЧ:мм</string>	
 </resources>

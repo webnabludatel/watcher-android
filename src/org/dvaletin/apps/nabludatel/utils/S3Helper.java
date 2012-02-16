@@ -1,8 +1,7 @@
-package org.dvaletin.apps.nabludatel;
+package org.dvaletin.apps.nabludatel.utils;
 
 import java.io.File;
 
-import org.dvaletin.apps.nabludatel.utils.Consts;
 
 import android.util.Log;
 

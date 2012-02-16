@@ -5,67 +5,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/LinearLayout05"
+    <include
+        android:id="@+id/include1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/footer_layout" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        style="@style/main_windows_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/LinearLayout07"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="left" >
-
-            <Button
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onBackButtonPress"
-                android:text="@string/back"
-                android:visibility="visible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayout06"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="right" >
-
-            <Button
-                android:id="@+id/sos_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sos" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:id="@+id/linearLayout1"
+        <ScrollView
+            android:id="@+id/scrollView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView1"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/counter_set_on_zero"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_height="wrap_content" >
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right" >
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/counter_set_on_zero"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout01"
@@ -98,20 +68,13 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/conter_test_failures" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayout02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right" >
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/conter_test_failures" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout03"
@@ -144,37 +107,38 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/TextView01"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ballot_box_violations_photo"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-			<LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/koib_violations_photo_gallery"
+                <TextView
+                    android:id="@+id/TextView01"
+                    style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="counter_violations_photo"
-                    android:text="@string/ballot_box_violations_photo_gallery" />
+                    android:text="@string/ballot_box_violations_photo"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <Button
-                    android:id="@+id/koib_violations_photo_camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onMakePhotoClick"
-                    android:tag="counter_violations_photo"
-                    android:text="@string/ballot_box_violations_photo_camera" />
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
+                    <Button
+                        android:id="@+id/koib_violations_photo_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="counter_violations_photo"
+                        android:text="@string/ballot_box_violations_photo_gallery" />
+
+                    <Button
+                        android:id="@+id/koib_violations_photo_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onMakePhotoClick"
+                        android:tag="counter_violations_photo"
+                        android:text="@string/ballot_box_violations_photo_camera" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+
+    </FrameLayout>
 
 </LinearLayout>

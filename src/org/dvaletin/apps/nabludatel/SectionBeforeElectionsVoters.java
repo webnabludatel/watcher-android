@@ -12,23 +12,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 
-public class VotersActivity extends ABSNabludatelActivity {
+public class SectionBeforeElectionsVoters extends ABSNabludatelActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.section_before_elections_voters);
-		Button mBackButton = (Button) findViewById(R.id.back_button);
-		mBackButton.setVisibility(View.VISIBLE);
-		mBackButton.setText(Consts.ROOT_MENU_ITEMS[1]);
-		mBackButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				VotersActivity.this.finish();
-
-			}
-		});
 	}
 
 	@Override

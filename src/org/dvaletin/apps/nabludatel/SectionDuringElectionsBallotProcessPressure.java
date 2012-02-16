@@ -9,23 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 
-public class ElectionsPressure extends ABSNabludatelActivity {
+public class SectionDuringElectionsBallotProcessPressure extends ABSNabludatelActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.section_during_elections_ballot_process_pressure);
-		Button mBackButton = (Button) findViewById(R.id.back_button);
-        mBackButton.setVisibility(View.VISIBLE);
-        mBackButton.setText(Consts.ROOT_MENU_ITEMS[2]);
-        mBackButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				
-				ElectionsPressure.this.finish();
-				
-			}
-		});
 	}
 	
 	

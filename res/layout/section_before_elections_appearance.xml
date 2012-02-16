@@ -5,66 +5,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/LinearLayout05"
+    <include
+        android:id="@+id/include1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/footer_layout" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        style="@style/main_windows_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/LinearLayout07"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="left" >
-
-            <Button
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onBackButtonPress"
-                android:text="@string/back"
-                android:visibility="visible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayout06"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="right" >
-
-            <Button
-                android:id="@+id/sos_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sos" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="50" >
-
-        <LinearLayout
-            android:id="@+id/linearLayout1"
+        <ScrollView
+            android:id="@+id/scrollView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView1"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/appearance_candidates_info" />
+            android:layout_height="wrap_content"
+            android:layout_weight="50" >
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right" >
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appearance_candidates_info" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout01"
@@ -97,20 +67,13 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/appearance_candidates_info" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayout02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right" >
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appearance_candidates_info" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout03"
@@ -143,20 +106,13 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView3"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/appearance_ballot_extended_protocol" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayout04"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right" >
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appearance_ballot_extended_protocol" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout08"
@@ -189,20 +145,13 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/appearance_campaign_materials_closer_than_50m" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayout09"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right" >
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appearance_campaign_materials_closer_than_50m" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout10"
@@ -235,20 +184,13 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView5"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/appearance_vote_secrecy" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayout11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right" >
+                <TextView
+                    android:id="@+id/textView5"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appearance_vote_secrecy" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout12"
@@ -281,81 +223,37 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView6"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/appearance_violation_photo" />
+                <TextView
+                    android:id="@+id/textView6"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appearance_violation_photo" />
 
-            <LinearLayout
-                android:id="@+id/appearance_violation_photo_gallery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Button
+                <LinearLayout
                     android:id="@+id/appearance_violation_photo_gallery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tag="appearance_violation_photo"
-                    android:text="@string/ballot_box_violations_photo_gallery" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-                <Button
-                    android:id="@+id/appearance_violation_photo_camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onMakePhotoClick"
-                    android:tag="counter_violations_photo"
-                    android:text="@string/ballot_box_violations_photo_camera" />
+                    <Button
+                        android:id="@+id/appearance_violation_photo_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="appearance_violation_photo"
+                        android:text="@string/ballot_box_violations_photo_gallery" />
+
+                    <Button
+                        android:id="@+id/appearance_violation_photo_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onMakePhotoClick"
+                        android:tag="counter_violations_photo"
+                        android:text="@string/ballot_box_violations_photo_camera" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black" >
-
-        <Button
-            android:id="@+id/button1"
-            style="@style/TabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:layout_weight="50"
-            android:drawableTop="@drawable/tab_icon_1_30"
-            android:text="@string/tab_watcher" />
-
-        <Button
-            android:id="@+id/button2"
-            style="@style/TabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:layout_weight="50"
-            android:drawableTop="@drawable/tab_icon_2_30"
-            android:text="@string/tab_checklist" />
-
-        <Button
-            android:id="@+id/button3"
-            style="@style/TabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:drawableTop="@drawable/tab_icon_3_30"
-            android:text="@string/tab_spravochnik" />
-
-        <Button
-            android:id="@+id/button4"
-            style="@style/TabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:drawableTop="@drawable/tab_icon_4_30"
-            android:text="@string/tab_sos" />
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
