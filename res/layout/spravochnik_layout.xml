@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    style="@style/main_window"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/spravochnik_search_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:maxLines="1" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/spravochnik_search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:onClick="onSpravochnikSearchClick"
+            android:text="@string/search" />
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/spravichnik_vew"
+        style="@style/main_windows_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:background="@color/white" >
+
+    </WebView>
+
+</LinearLayout>

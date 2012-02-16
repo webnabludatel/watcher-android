@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.dvaletin.apps.nabludatel"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+
+        android:label="@string/app_name" >
+        <activity
+            android:name=".NabludatelActivity"
+            android:label="@string/app_name"  android:launchMode="standard" android:configChanges="orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SectionElectionsDistrict" android:label="@string/section_elections_district_title"></activity>
+        <activity android:label="@string/section_before_elections" android:name="SectionBeforePrepare"></activity>
+        <activity android:label="@string/admitted_before_eight_title" android:name="AdmittedBefore8AM"></activity>
+        <activity android:label="@string/ballot_box_title" android:name="BullotBox"></activity>
+        <activity android:name="KOIBActivity" android:label="@string/koib"></activity>
+        <activity android:name="OformllenijeUchastka" android:label="@string/appearance"></activity>
+        <activity android:name="UIKDistrictActivity" android:label="@string/uik"></activity>
+        <activity android:label="@string/voters_title" android:name="VotersActivity"></activity>
+        <activity android:label="@string/voters_count_title" android:name="VotersCountActivity"></activity>
+        <activity android:label="@string/section_during_elections_attendance_title" android:name="ElectionsAttendance"></activity>
+        <activity android:label="@string/section_during_elections_bullot_title" android:name="ElectionsBullot"></activity>
+        <activity android:label="@string/section_during_elections_ballot_process_pressure_title" android:name="ElectionsPressure"></activity>
+        <activity android:label="@string/section_during_elections_suspicious_voters_title" android:name="ElectionsSuspiciousVouters"></activity>
+        <activity android:label="@string/section_during_elections_absentee_vote_title" android:name="ElectionsAbsenteeVote"></activity>
+        <activity android:label="@string/section_during_elections_bundle_of_ballots_title" android:name="ElectionsBundleBullots"></activity>
+        <activity android:label="@string/spravochnik_title" android:name="SpravochnikActivity"></activity>
+    </application>
+
+</manifest>
