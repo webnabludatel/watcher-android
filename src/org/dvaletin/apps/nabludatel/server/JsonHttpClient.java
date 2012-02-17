@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.util.zip.GZIPInputStream;
 
 /**
  * JSON HTTP Client.
@@ -20,12 +19,6 @@ import java.util.zip.GZIPInputStream;
  */
 public class JsonHttpClient {
 	private static final String T = JsonHttpClient.class.getSimpleName();
-
-	private final boolean gzipEnabled;
-
-	public JsonHttpClient(boolean gzipEnabled) {
-		this.gzipEnabled = gzipEnabled;
-	}
 
 	/**
 	 * Will create new {@link DefaultHttpClient} and perform request.
@@ -39,13 +32,9 @@ public class JsonHttpClient {
 	public JSONObject request(String request, HttpEntityEnclosingRequestBase method) throws JSONException, IOException {
 		HttpClient httpClient = new DefaultHttpClient();
 
-		// Set HTTP parameters
-		method.setEntity(new StringEntity(request));
 		method.setHeader("Accept", "application/json");
-		method.setHeader("Content-type", "application/json");
-		if (gzipEnabled) {
-			method.setHeader("Accept-Encoding", "gzip");
-		}
+		method.setHeader("Content-type", "application/x-www-form-urlencoded");
+		method.setEntity(new StringEntity(request));
 
 		long t = System.currentTimeMillis();
 		HttpResponse response = httpClient.execute(method);
@@ -64,11 +53,6 @@ public class JsonHttpClient {
 				// Read the content stream
 				InputStream inputStream = entity.getContent();
 				try {
-					Header contentEncoding = response.getFirstHeader("Content-Encoding");
-					if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
-						inputStream = new GZIPInputStream(inputStream);
-					}
-
 					// convert content stream to a String
 					String responseBody = readLines(inputStream);
 					// Transform the String into a JSONObject

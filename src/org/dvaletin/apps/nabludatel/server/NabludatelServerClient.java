@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,16 +19,15 @@ import java.security.NoSuchAlgorithmException;
  * @author Alexey Efimov
  */
 public class NabludatelServerClient {
-	private final JsonHttpClient client;
+	private final JsonHttpClient client = new JsonHttpClient();
 	private final String serverApiRoot;
 
 	public NabludatelServerClient(String serverApiRoot) {
 		this.serverApiRoot = serverApiRoot;
-		this.client = new JsonHttpClient(false);
 	}
 
 	public String authentication(String deviceId) throws NabludatelServerException, JSONException {
-		String request = "device_id=" + deviceId;
+		String request = "device_id=" + urlEncode(deviceId);
 		String url = "/authentications.json";
 		return post(request, url).getString("secret");
 	}
@@ -51,14 +51,14 @@ public class NabludatelServerClient {
 	}
 
 	private static String toRequest(String deviceId, JSONObject payload) {
-		return "device_id=" + deviceId + "&payload=" + payload;
+		return "device_id=" + urlEncode(deviceId) + "&payload=" + urlEncode(payload.toString());
 	}
 
 	private static String toDigestUrl(String prefix, String request, String secret) throws NabludatelServerException {
 		try {
 			String digest = md5(request + secret, "UTF-8").toLowerCase();
-			return prefix + "?digest=" + digest;
-        } catch (NoSuchAlgorithmException e) {
+			return prefix + "?digest=" + urlEncode(digest);
+		} catch (NoSuchAlgorithmException e) {
 			throw new NabludatelServerException("Can't find MD5 digest algorithm realization", e);
 		} catch (UnsupportedEncodingException e) {
 			throw new NabludatelServerException("Can't find UTF-8 encoding", e);
@@ -82,6 +82,14 @@ public class NabludatelServerClient {
 			throw new NabludatelServerException("Error in input parameters: " + response.get("errors"));
 		} catch (IOException e) {
 			throw new NabludatelServerException(e);
+		}
+	}
+
+	private static String urlEncode(String param) {
+		try {
+			return URLEncoder.encode(param, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return param;
 		}
 	}
 
