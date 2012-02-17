@@ -23,6 +23,9 @@ public class Consts {
 	public static final String ACTIVITY_JSON_DATA = "json";
 	public static final String ACTIVITY_URL_DATA = "url";
 
+	public static final int SEEKBAR_FALSE = 0;
+	public static final int SEEKBAR_TRUE = 2;
+	
 	public static final String getS3AccessKey() {
 		return S3_SECRET_KEY;
 	}

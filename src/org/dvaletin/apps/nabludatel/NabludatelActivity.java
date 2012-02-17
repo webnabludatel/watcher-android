@@ -576,7 +576,17 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		}
 	}
 	
-	public void onSpravochnikClick(View v) {
+	public void onReportButtonClick(View v){
+		Intent intent = new Intent(this, NabludatelReportActivity.class);
+		startActivity(intent);
+	}
+	
+	public void onProfileButtonClick(View v){
+		Intent intent = new Intent(this, NabludatelProfileActivity.class);
+		startActivity(intent);
+	}
+	
+	public void onSpravochnikButtonClick(View v) {
 
 		String url = "file:///android_asset/spravochnik/golos_index.html";
 		Intent intent = new Intent(this, SpravochnikActivity.class);

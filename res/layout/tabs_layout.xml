@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bottom_pane_gradient_fill" >
-
+
     <Button
         android:id="@+id/nabludatel_button"
         style="@style/TabButton"
@@ -12,18 +12,29 @@
         android:layout_height="wrap_content"
         android:layout_weight="50"
         android:drawableTop="@drawable/tab_icon_1_30"
+        android:onClick="onProfileButtonClick"
         android:text="@string/tab_watcher" />
-
+
     <Button
         android:id="@+id/checklist_button"
         style="@style/TabButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="0dp"
         android:layout_weight="50"
         android:drawableTop="@drawable/tab_icon_2_30"
+        android:onClick="onCheckListButtonClick"
         android:text="@string/tab_checklist" />
-
+
+    <Button
+        android:id="@+id/report_button"
+        style="@style/TabButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:drawableTop="@drawable/tab_icon_5_30"
+        android:onClick="onReportButtonClick"
+        android:text="@string/report_button_label" />
+
     <Button
         android:id="@+id/spravochnik_button"
         style="@style/TabButton"
@@ -31,9 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="50"
         android:drawableTop="@drawable/tab_icon_3_30"
-        android:onClick="onSpravochnikClick"
+        android:onClick="onSpravochnikButtonClick"
         android:text="@string/tab_spravochnik" />
-
+
     <Button
         android:id="@+id/sos_button"
         style="@style/TabButton"
@@ -41,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="50"
         android:drawableTop="@drawable/tab_icon_4_30"
+        android:onClick="onSOSButtonClick"
         android:text="@string/tab_sos" />
 
 </LinearLayout>

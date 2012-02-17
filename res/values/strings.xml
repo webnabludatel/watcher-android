@@ -153,5 +153,14 @@
 			<string name="tik_announced_decline_of_uik_protocol">ТИК объявил об отказе в приеме протокола</string>
 			<string name="tik_held_first_copy_of_protocol">Первый экземпляр протокола остался в ТИК</string>
 			<string name="section_tik_ikmo_tik_complains_title">Жалобы</string>
-			<string name="tik_time_of_agreement_signing_hint">ЧЧ:мм</string>	
+			<string name="tik_time_of_agreement_signing_hint">ЧЧ:мм</string>
+			<string name="nabludatel_napravleniye">Фото направления</string>
+			<string name="nabludatel_fio">Ваши имя и фамилия</string>
+			<string name="nabludatel_email">E-mail</string>
+			<string name="nabludatel_id">Ваш идентификатор</string>
+			<string name="nabludatel_title">Наблюдатель</string>
+			<string name="nabludatel_save_elections_district">Сохранить</string>
+			<string name="nabludatel_change_elections_district">Сменить участок</string>
+			<string name="nabludatel_profile_title">Профиль наблюдателя</string>
+			<string name="nabludatel_report_title">Отчет о наблюдении</string>	
 </resources>

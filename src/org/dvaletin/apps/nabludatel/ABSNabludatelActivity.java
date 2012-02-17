@@ -56,6 +56,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e){
+			e.printStackTrace();
 		}
 		
 	}
@@ -67,8 +69,12 @@ public abstract class ABSNabludatelActivity extends Activity {
 				String tagString = tag.toString();
 				if(v.getChildAt(i) instanceof SeekBar){
 					try {
-						int value = from.getInt(tagString);
-						((SeekBar)v.getChildAt(i)).setProgress(value);
+						boolean value = from.getBoolean(tagString);
+						if(value){
+							((SeekBar)v.getChildAt(i)).setProgress(Consts.SEEKBAR_TRUE);
+						}else{
+							((SeekBar)v.getChildAt(i)).setProgress(Consts.SEEKBAR_FALSE);
+						}
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -113,7 +119,13 @@ public abstract class ABSNabludatelActivity extends Activity {
 				if(v.getChildAt(i) instanceof SeekBar){
 					SeekBar bar = (SeekBar)v.getChildAt(i);
 					try {
-						json.put(tag.toString(), bar.getProgress());
+						int progress = bar.getProgress();
+						if(progress == Consts.SEEKBAR_FALSE){
+							json.put(tag.toString(), false);
+						}
+						if(progress == Consts.SEEKBAR_TRUE){
+							json.put(tag.toString(), true);
+						}
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -121,20 +133,21 @@ public abstract class ABSNabludatelActivity extends Activity {
 				}
 				if(v.getChildAt(i) instanceof EditText){
 					EditText ed = (EditText) v.getChildAt(i);
-					if(ed.getInputType() == android.text.InputType.TYPE_CLASS_NUMBER){
-						try{
-							String value = ed.getText().toString();
-							if(!value.equals(""))
+					if(!ed.getText().toString().equals("")){
+						if(ed.getInputType() == android.text.InputType.TYPE_CLASS_NUMBER){
+							try{
+								String value = ed.getText().toString();
 								json.put(tag.toString(), Integer.valueOf(value));
-						} catch (JSONException e){
-							e.printStackTrace();
-						}
-					}else{
-						try {
-							json.put(tag.toString(), ed.getText().toString());
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							} catch (JSONException e){
+								e.printStackTrace();
+							}
+						}else{
+							try {
+								json.put(tag.toString(), ed.getText().toString());
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -154,7 +167,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	
 	public JSONObject makeJSON(ViewGroup v){
 		getViewGroupJSON(v);
-		if(photo != null){
+		if(photo != null && photo.size() > 0){
 			JSONArray photos = new JSONArray();
 			for(int i=0; i<photo.size(); i++){
 				photos.put(photo.get(i).getAbsolutePath());
@@ -166,7 +179,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 				e.printStackTrace();
 			}
 		}
-		if(video != null){
+		if(video != null && video.size() > 0){
 			JSONArray videos = new JSONArray();
 			for(int i=0; i<video.size(); i++){
 				videos.put(video.get(i).getAbsolutePath());
@@ -233,7 +246,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 		// start the image capture Intent
 		startActivityForResult(intent,
-				Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+				Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
 		return new File(pictureFileUri.get(pictureFileUri.size()-1).getPath());
 	}
 	
@@ -285,5 +298,28 @@ public abstract class ABSNabludatelActivity extends Activity {
 	
 	public void onBackButtonPress(View v){
 		this.finish();
+	}
+	
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
+		switch(requestCode){
+		case Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:{
+			if(resultCode == 0){
+				// The user has cancelled image capture
+				if(photo.size() > 0){
+					photo.remove(photo.size()-1);
+				}
+			}
+		}
+		case Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE:{
+			if(resultCode == 0){
+				if(video.size() > 0){
+					video.remove(video.size()-1);
+				}
+			}
+			break;
+		}
+		}
 	}
 }
