@@ -6,31 +6,55 @@
     android:background="@drawable/background_fill"
     android:gravity="center_horizontal|fill"
     android:orientation="vertical" >
-
-    <include
-        android:id="@+id/include2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/footer_layout" />
 
-    <FrameLayout
-        android:id="@+id/main_layout"
-        style="@style/main_windows_list_view"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="50" >
-
-        <ListView
-            android:id="@+id/main_selector"
-            style="@style/listview_style"
+        android:layout_weight="50"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            style="@style/main_windows_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:entries="@array/root_sections" 
-            >
-        </ListView>
-    </FrameLayout>
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/elections_district_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onElectionsDictrictAddClick"
+                android:text="@string/add_elections_district" />
+
+            <Spinner
+                android:id="@+id/elections_district_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/elections_district" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/main_layout"
+            style="@style/main_windows_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50" >
+
+            <ListView
+                android:id="@+id/main_selector"
+                style="@style/listview_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:entries="@array/root_sections" >
+            </ListView>
+        </FrameLayout>
+
+    </LinearLayout>
 
     <include
         android:id="@+id/include1"

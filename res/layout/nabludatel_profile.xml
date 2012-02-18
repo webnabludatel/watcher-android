@@ -223,7 +223,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:text="@string/nabludatel_save_elections_district" />
+                        android:text="@string/nabludatel_save_elections_district" 
+                        android:onClick="onPollingPlaceSaveClick"/>
 
                     <Button
                         android:id="@+id/button3"

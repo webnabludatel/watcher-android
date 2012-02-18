@@ -162,5 +162,17 @@
 			<string name="nabludatel_save_elections_district">Сохранить</string>
 			<string name="nabludatel_change_elections_district">Сменить участок</string>
 			<string name="nabludatel_profile_title">Профиль наблюдателя</string>
-			<string name="nabludatel_report_title">Отчет о наблюдении</string>	
+			<string name="nabludatel_report_title">Отчет о наблюдении</string>
+			<string name="add_elections_district">Добавить участок</string>
+			<string-array name="elections_district">
+				<item >Нет участков</item>
+			</string-array>
+				<string name="district_type">Тип участка</string>
+				<string-array name="district_types">
+					<item >УИК</item>
+					<item >ТИК</item>
+					<item >ИКМО</item>
+				</string-array>
+				<string name="elections_district_fio_invalid">Введите ФИО председателя и секретаря комиссии.</string>
+				<string name="elections_district_number_invalid">Неправильный номер участка или кол-во наблюдателей.</string>	
 </resources>
