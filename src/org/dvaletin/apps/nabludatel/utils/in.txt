@@ -1,9 +1,29 @@
-CLASS Narusheniye
-Integer type
-String Description
-Real Logitude
-Real Altitude 
-Date Time	
-String Image
-String Video
+CLASS CheckListItem
+Float lat
+Float lng
+String name
+Integer timestamp
+String value
+Integer pollingplace
+ENDCLASS
+
+CLASS MediaItem
+String filepath
+String mediatype
+String serverurl
+Integer timestamp
+Integer checklistitem
+Integer pollingplace
+ENDCLASS
+
+CLASS PollingPlace
+String chairman
+Float lat
+Float lng
+String name
+Integer number
+String secretary
+Integer timestamp
+Integer totalobservers
+String type
 ENDCLASS

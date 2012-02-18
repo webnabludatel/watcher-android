@@ -38,11 +38,11 @@ public class Consts {
 		return S3_PICTURE_BUCKET;
 	}
 
-	public static final String[] ROOT_MENU_ITEMS = { "УИК", "Подготовка",
+	public static final String[] ROOT_MENU_ITEMS = {"Подготовка",
 			"Ход голосования", "Подсчет голосов", "Заседание и протокол",
 			"ТИК/ИКМО" };
 
-	public static final String[] ROOT_MENU_DESCRIPTIONS = { "Не заполнено",
+	public static final String[] ROOT_MENU_DESCRIPTIONS = {
 			"Не зафиксировано", "Не зафиксировано", "Не зафиксировано",
 			"Не зафиксировано", "Не зафиксировано" };
 
@@ -110,6 +110,12 @@ public class Consts {
 		"Нарушений не зафиксировано",
 		"Нарушений не зафиксировано",
 		"Нарушений не зафиксировано"
+	};
+	
+	public static final String [] DISTRICT_TYPE = {
+		"uik",
+		"tik",
+		"ikmo"
 	};
 	
 	public static final String PHOTO_FILE = "photo";

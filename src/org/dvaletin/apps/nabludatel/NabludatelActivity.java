@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.PollingPlaceSQLHelper;
 import org.dvaletin.apps.nabludatel.utils.S3Helper;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
@@ -22,7 +24,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
@@ -54,7 +59,19 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     }
     
     public void activateRootMenu(){
-    	
+    	Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
+    	PollingPlaceSQLHelper mPollingPlaceSQLHelper = new PollingPlaceSQLHelper(this);
+    	mPollingPlaceSQLHelper.open();
+    	String from [] = new String[]{PollingPlaceSQLHelper.POLLINGPLACE_NUMBER_KEY};
+    	int[] to = new int[]{android.R.id.text1};
+    	Cursor c = mPollingPlaceSQLHelper.getPollingPlaceNumbers();
+    	if(c.getCount()>0){
+	    	SimpleCursorAdapter adapter =
+	    		  new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, c, 
+	    				  from, to );
+	    	adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+	    	district.setAdapter(adapter);
+    	}
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
     	if(mRootListViewAdapter == null){
 	    	ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
@@ -74,30 +91,26 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 					long pItemId) {
 				switch(pItemPosition){
 				case 0:{
-					NabludatelActivity.this.activateSectionElectionsDistrict();
-					break;
-				}
-				case 1:{
 					NabludatelActivity.this.activateSectionBeforeElections();
 					break;
 				}
-				case 2:{
+				case 1:{
 					NabludatelActivity.this.activateSectionDuringElections();
 					break;
 				}
-				case 3:{
+				case 2:{
 					NabludatelActivity.this.activateSectionCounting();
 					break;
 				}
-				case 4:{
+				case 3:{
 					NabludatelActivity.this.activateSectionFinalMeeting();
 					break;
 				}
-				case 5:{
+				case 4:{
 					
 					break;
 				}
-				case 6:{
+				case 5:{
 					
 					break;
 				}
@@ -111,53 +124,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
         });
         
     }
-    
-    
-    protected void activateSectionElectionsDistrict() {
-    	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
-
-    	if(mElectionsDistrictAdapter == null){
-	    	ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
-	    	
-	    	for(int i=0; i<Consts.SECTION_ELECTIONS_DISTRICT.length; i++){
-	    		mListViewItems.add(new NabludatelListViewItem(Consts.SECTION_ELECTIONS_DISTRICT[i], Consts.SECTION_ELECTIONS_DISTRICT_DESCRIPTIONS[i]));
-	    	}
-	    	mElectionsDistrictAdapter = new NabludatelCustomListViewAdapter(this, mListViewItems);
-    	}
-	    
-    	mMainSelector.setAdapter(mElectionsDistrictAdapter);
-    	
-    	ArrayAdapter<String> mMainSelectorAdapter = new ArrayAdapter<String>(
-                this, R.layout.list_view_item_layout, R.id.list_view_item_title, Consts.SECTION_ELECTIONS_DISTRICT);
-                
-        
-        mMainSelector.setAdapter(mMainSelectorAdapter);
-        mMainSelector.setOnItemClickListener(new OnItemClickListener (){
-
-			@Override
-			public void onItemClick(AdapterView<?> pAdapterView, View argpView1, int pItemPosition,
-					long pItemId) {
-				Intent mIntentToStart = null;
-				int mActivityResult = 0;
-				switch(pItemPosition){
-				case 0:{
-					mIntentToStart = new Intent(NabludatelActivity.this, SectionElectionsDistrict.class);
-					mActivityResult = R.layout.section_elections_district;
-					break;
-				}
-				default:{
-					mIntentToStart = null;
-					break;
-				}
-				}
-				if(mIntentToStart!=null){
-					NabludatelActivity.this.startActivityForResult(mIntentToStart, mActivityResult);
-				}
-			}
-        	
-        });
-		
-	}
     
     protected void activateSectionBeforeElections() {
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
@@ -594,6 +560,11 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		startActivity(intent);
 	}
 	
+	public void onElectionsDictrictAddClick(View v)
+	{
+		Intent intent = new Intent(this, ElectionsDistrictActivity.class);
+		startActivity(intent);
+	}
 	public void onPause(){
 		prefs.edit().putString(Consts.ACTIVITY_JSON_DATA, mainJSON.toString()).commit();
 		super.onPause();

@@ -25,3 +25,21 @@ local.properties
 
 # Windows
 desktop.ini
+
+
+#dvaletin local
+/tmp
+/.settings
+/.classpath
+/.dropbox
+/.project
+/Icon^M
+/protocol.doc
+/protocol.odt
+/WatcherChecklist_v2.0.xml
+/WatcherChecklist.xml
+/Татьяна Мисютина - обсуждение интерфейса.txt
+/bin
+/gen
+/screens
+
