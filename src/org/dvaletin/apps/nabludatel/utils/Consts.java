@@ -18,6 +18,8 @@ public class Consts {
 	public static final int ACTIVITY_RESULT_OK = 100;
 	public static final int ACTIVITY_RESULT_NOT_OK = 101;
 	public static final int ACTIVITY_RESULT_DATA_CHANGED = 102;
+	public static final int ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT = 103;
+	
 
 	//
 	public static final String ACTIVITY_JSON_DATA = "json";
@@ -120,6 +122,7 @@ public class Consts {
 	
 	public static final String PHOTO_FILE = "photo";
 	public static final String VIDEO_FILE = "video";
+	public static final String PREFS_ELECTIONS_DISRICT = "elections_district";
 	
 
 	public static String getDescriptionFill(int id) {

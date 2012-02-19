@@ -4,15 +4,23 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.GenericSQLHelper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public abstract class ABSNabludatelActivity extends Activity {
 	protected SharedPreferences prefs;
@@ -30,15 +39,61 @@ public abstract class ABSNabludatelActivity extends Activity {
 	protected ArrayList<File> photo;
 	protected ArrayList<File> video;
 	JSONObject json = new JSONObject();
+	long mCurrentElectionsDistrict = -1;
+	GenericSQLHelper mElectionsDB;
+	GenericSQLHelper mMediaDB;
+	double lat;
+	double lng;
+	LocationListener mLocationListener;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); 
+		Intent intent = getIntent();
+		mCurrentElectionsDistrict = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, -1);
 		prefs = this.getPreferences(MODE_PRIVATE);
+		mElectionsDB = new GenericSQLHelper(this);
+		
 		pictureFileUri = new ArrayList<Uri>();
 		videoFileUri = new ArrayList<Uri>();
 		
 		photo = new ArrayList<File>();
 		video = new ArrayList<File>();
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		mElectionsDB.open();
+		setCallbacks((ViewGroup)(findViewById(android.R.id.content).getRootView()));
+		restore();
+		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+		// Define a listener that responds to location updates
+		mLocationListener = new LocationListener(){
+			public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+		    public void onProviderEnabled(String provider) {}
+
+		    public void onProviderDisabled(String provider) {}
+
+			@Override
+			public void onLocationChanged(Location location) {
+				lat = location.getLatitude();
+				lng = location.getLongitude();	
+			}
+		};
+		
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+
+		
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		locationManager.removeUpdates(mLocationListener);
+		mElectionsDB.close();
 	}
 	
 	public void onMakePhotoClick(View v){
@@ -49,18 +104,122 @@ public abstract class ABSNabludatelActivity extends Activity {
 		startNarusheniyeVideo();
 	}
 	
-	public void restore(Intent from){
-		try {
-			json = new JSONObject(from.getStringExtra(Consts.ACTIVITY_JSON_DATA));
-			restoreDataFromJSON((ViewGroup)findViewById(android.R.id.content).getRootView(), json);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e){
-			e.printStackTrace();
-		}
+	public void restore(){
 		
+		if(mCurrentElectionsDistrict == -1) return;
+		Cursor c = mElectionsDB.getAllCheckListItemsByElectionsDistrictId(this.mCurrentElectionsDistrict);
+		c.moveToFirst();
+		HashMap<String, String> mRestoreHashMap = new HashMap<String,String>();
+		for(int i=0; i < c.getCount(); i++){
+			
+			
+			mRestoreHashMap.put(c.getString(GenericSQLHelper.CHECKLISTITEM_NAME_COLUMN), 
+					c.getString(GenericSQLHelper.CHECKLISTITEM_VALUE_COLUMN));
+			c.moveToNext();
+		}
+		restore((ViewGroup)findViewById(android.R.id.content).getRootView(), mRestoreHashMap);
 	}
+	
+	public void restore(ViewGroup v, HashMap<String, String> from){
+		for(int i=0; i< v.getChildCount(); i++){
+			if (v.getChildAt(i) instanceof ViewGroup) {
+				restore((ViewGroup) (v.getChildAt(i)), from);
+			}
+
+			if (v.getChildAt(i) instanceof SeekBar) {
+				try{
+					String data = from.get(v.getChildAt(i).getTag().toString());
+					if(data != null){
+						SeekBar bar = (SeekBar)v.getChildAt(i);
+						if(data.equals(String.valueOf(true))){
+							bar.setProgress(Consts.SEEKBAR_TRUE);
+						}
+						if(data.equals(String.valueOf(false))){
+							bar.setProgress(Consts.SEEKBAR_FALSE);
+						}
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public void setCallbacks(ViewGroup v) {
+		for (int i = 0; i < v.getChildCount(); i++) {
+			if (v.getChildAt(i) instanceof ViewGroup) {
+				setCallbacks((ViewGroup) (v.getChildAt(i)));
+			}
+
+			if (v.getChildAt(i) instanceof SeekBar) {
+				SeekBar bar = (SeekBar) v.getChildAt(i);
+				bar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+					int mInitialProgress;
+					boolean mIsProgressChanged = false;
+					@Override
+					public void onProgressChanged(SeekBar seekBar,
+							int progress, boolean fromUser) {
+						if (fromUser) {
+							mIsProgressChanged = true;
+							
+						}
+						switch(progress){
+						case Consts.SEEKBAR_TRUE:{
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_15));
+							break;
+						}
+						case Consts.SEEKBAR_FALSE:{
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_11));
+							break;
+						}
+						default:{
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_04));
+						}
+						}
+
+					}
+
+					@Override
+					public void onStartTrackingTouch(SeekBar seekBar) {
+						this.mInitialProgress = seekBar.getProgress();
+						mIsProgressChanged = false;
+					}
+
+					@Override
+					public void onStopTrackingTouch(SeekBar seekBar) {
+						int progress = seekBar.getProgress();
+						if(mIsProgressChanged && progress != mInitialProgress) {
+							
+							if (progress == Consts.SEEKBAR_TRUE) {
+								ABSNabludatelActivity.this.mElectionsDB
+										.addCheckListItem(lat, lng, seekBar
+												.getTag().toString(), System
+												.currentTimeMillis(), String
+												.valueOf(true),
+												mCurrentElectionsDistrict);
+								// TODO: implement background color change
+								
+							}
+							if (progress == Consts.SEEKBAR_FALSE) {
+								ABSNabludatelActivity.this.mElectionsDB
+										.addCheckListItem(lat, lng, seekBar
+												.getTag().toString(), System
+												.currentTimeMillis(), String
+												.valueOf(false),
+												mCurrentElectionsDistrict);
+							}
+							if (progress != Consts.SEEKBAR_TRUE && progress != Consts.SEEKBAR_FALSE){
+								seekBar.setProgress(mInitialProgress);
+							}
+						}
+					}
+
+				});
+			}
+
+		}
+	}
+	
 	public void restoreDataFromJSON(ViewGroup v, JSONObject from){
 		Object tag;
 		for(int i=0; i<v.getChildCount(); i++){
@@ -160,6 +319,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	}
 	
 	public Intent save(){
+		
 		Intent result = new Intent();
 		result.putExtra(Consts.ACTIVITY_JSON_DATA, makeJSON((ViewGroup)findViewById(android.R.id.content).getRootView()).toString());
 		return result;

@@ -2,10 +2,11 @@ package org.dvaletin.apps.nabludatel;
 
 import java.util.Arrays;
 import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.PollingPlaceSQLHelper;
-
+import org.dvaletin.apps.nabludatel.utils.GenericSQLHelper;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,34 +17,13 @@ import android.widget.Spinner;
 public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 	private static final int DIALOG_FIO_ERROR = 1;
 	private static final int DIALOG_NUMBER_ERROR = 2;
-	PollingPlaceSQLHelper mPollingPlaceSQLHelper = null;
+	
+	long new_district_id = -1;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mPollingPlaceSQLHelper = new PollingPlaceSQLHelper(this);
 		setContentView(R.layout.elections_district_profile);
 		EditText uik_district_number = (EditText)findViewById(R.id.uik_district_number);
-//		uik_district_number.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-//
-//			@Override
-//			public void onFocusChange(View v, boolean hasFocus) {
-//				if(!hasFocus && v instanceof EditText){
-//					try{
-//						int i = Integer.valueOf(((EditText) v).getText().toString());
-//						if(i <= 0){
-//							showDialog(DIALOG_NUMBER_ERROR);
-//							v.requestFocus();
-//						}
-//					}catch (Exception e){
-//						e.printStackTrace();
-//						showDialog(DIALOG_NUMBER_ERROR);
-//						v.requestFocus();
-//					}
-//				}
-//				
-//			}
-//			
-//		});
 	}
 	
 	@Override
@@ -53,6 +33,9 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
     		return false;
     	}
     	if(savePlace()){
+    		Intent toReturn = new Intent();
+    		toReturn.putExtra(Consts.PREFS_ELECTIONS_DISRICT, this.new_district_id);
+    		setResult(Activity.RESULT_OK, toReturn);
     		finish();
     		return true;
     	}
@@ -90,8 +73,8 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		long time = System.currentTimeMillis();
 		if(to_return){
 			
-			mPollingPlaceSQLHelper.open().addPollingPlace(uik_district_chairman, 0f, 0f, "", uik_district, uik_district_secretary, time, uik_watchers, district_type);
-			mPollingPlaceSQLHelper.close();
+			long id = mElectionsDB.addPollingPlace(uik_district_chairman, 0f, 0f, "", uik_district, uik_district_secretary, time, uik_watchers, district_type);
+			this.new_district_id = id;
 		}
 		
 		return to_return;
