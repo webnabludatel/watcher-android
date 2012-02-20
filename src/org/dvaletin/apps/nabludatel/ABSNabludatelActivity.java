@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.GenericSQLHelper;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +20,6 @@ import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import org.dvaletin.apps.nabludatel.utils.Tumbler;
 
 public abstract class ABSNabludatelActivity extends Activity {
 	protected SharedPreferences prefs;
@@ -40,8 +40,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 	protected ArrayList<File> video;
 	JSONObject json = new JSONObject();
 	long mCurrentElectionsDistrict = -1;
-	GenericSQLHelper mElectionsDB;
-	GenericSQLHelper mMediaDB;
+	ElectionsDBHelper mElectionsDB;
+
 	double lat;
 	double lng;
 	LocationListener mLocationListener;
@@ -51,7 +51,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		Intent intent = getIntent();
 		mCurrentElectionsDistrict = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, -1);
 		prefs = this.getPreferences(MODE_PRIVATE);
-		mElectionsDB = new GenericSQLHelper(this);
+		mElectionsDB = new ElectionsDBHelper(this);
 		
 		pictureFileUri = new ArrayList<Uri>();
 		videoFileUri = new ArrayList<Uri>();
@@ -113,8 +113,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 		for(int i=0; i < c.getCount(); i++){
 			
 			
-			mRestoreHashMap.put(c.getString(GenericSQLHelper.CHECKLISTITEM_NAME_COLUMN), 
-					c.getString(GenericSQLHelper.CHECKLISTITEM_VALUE_COLUMN));
+			mRestoreHashMap.put(c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN), 
+					c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN));
 			c.moveToNext();
 		}
 		restore((ViewGroup)findViewById(android.R.id.content).getRootView(), mRestoreHashMap);
@@ -151,8 +151,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 				setCallbacks((ViewGroup) (v.getChildAt(i)));
 			}
 
-			if (v.getChildAt(i) instanceof SeekBar) {
-				SeekBar bar = (SeekBar) v.getChildAt(i);
+			if (v.getChildAt(i) instanceof Tumbler) {
+				Tumbler bar = (Tumbler) v.getChildAt(i);
 				bar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 					int mInitialProgress;
 					boolean mIsProgressChanged = false;
@@ -163,19 +163,14 @@ public abstract class ABSNabludatelActivity extends Activity {
 							mIsProgressChanged = true;
 							
 						}
-						switch(progress){
-						case Consts.SEEKBAR_TRUE:{
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_15));
-							break;
-						}
-						case Consts.SEEKBAR_FALSE:{
+						if(((Tumbler)seekBar).getTumblerValue().equals("true")){
 							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_11));
-							break;
-						}
-						default:{
+						}else if(((Tumbler)seekBar).getTumblerValue().equals("false")){
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_15));
+						}else {
 							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_04));
 						}
-						}
+						
 
 					}
 
@@ -190,26 +185,13 @@ public abstract class ABSNabludatelActivity extends Activity {
 						int progress = seekBar.getProgress();
 						if(mIsProgressChanged && progress != mInitialProgress) {
 							
-							if (progress == Consts.SEEKBAR_TRUE) {
+							if (!((Tumbler)seekBar).getTumblerValue().equals("")) {
 								ABSNabludatelActivity.this.mElectionsDB
 										.addCheckListItem(lat, lng, seekBar
 												.getTag().toString(), System
-												.currentTimeMillis(), String
-												.valueOf(true),
+												.currentTimeMillis(), 
+												((Tumbler)seekBar).getTumblerValue(),
 												mCurrentElectionsDistrict);
-								// TODO: implement background color change
-								
-							}
-							if (progress == Consts.SEEKBAR_FALSE) {
-								ABSNabludatelActivity.this.mElectionsDB
-										.addCheckListItem(lat, lng, seekBar
-												.getTag().toString(), System
-												.currentTimeMillis(), String
-												.valueOf(false),
-												mCurrentElectionsDistrict);
-							}
-							if (progress != Consts.SEEKBAR_TRUE && progress != Consts.SEEKBAR_FALSE){
-								seekBar.setProgress(mInitialProgress);
 							}
 						}
 					}

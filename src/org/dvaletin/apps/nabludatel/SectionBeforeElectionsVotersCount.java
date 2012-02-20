@@ -1,17 +1,7 @@
 package org.dvaletin.apps.nabludatel;
 
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 
 public class SectionBeforeElectionsVotersCount extends ABSNabludatelActivity {
 	@Override

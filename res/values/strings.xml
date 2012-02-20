@@ -174,5 +174,8 @@
 					<item >ИКМО</item>
 				</string-array>
 				<string name="elections_district_fio_invalid">Введите ФИО председателя и секретаря комиссии.</string>
-				<string name="elections_district_number_invalid">Неправильный номер участка или кол-во наблюдателей.</string>	
+				<string name="elections_district_number_invalid">Неправильный номер участка или кол-во наблюдателей.</string>
+				<string name="elections_district_title">Избирательный участок</string>
+				<string name="yes">Да</string>
+				<string name="no">Нет</string>	
 </resources>

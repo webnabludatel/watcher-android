@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.GenericSQLHelper;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.S3Helper;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,9 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
@@ -60,7 +58,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     
     public void activateRootMenu(){
     	Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
-    	String from [] = new String[]{GenericSQLHelper.POLLINGPLACE_NUMBER_KEY};
+    	String from [] = new String[]{ElectionsDBHelper.POLLINGPLACE_NUMBER_KEY};
     	int[] to = new int[]{android.R.id.text1};
     	Cursor c = mElectionsDB.open().getPollingPlaceNumbers();
     	mElectionsDB.close();

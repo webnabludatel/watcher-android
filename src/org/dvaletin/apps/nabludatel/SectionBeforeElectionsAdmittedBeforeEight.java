@@ -2,7 +2,6 @@ package org.dvaletin.apps.nabludatel;
 
 
 import android.os.Bundle;
-import android.widget.SeekBar;
 
 public class SectionBeforeElectionsAdmittedBeforeEight extends ABSNabludatelActivity {
 
