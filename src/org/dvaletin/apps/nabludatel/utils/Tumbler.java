@@ -11,9 +11,11 @@ import android.util.AttributeSet;
 import android.widget.SeekBar;
 
 public class Tumbler extends SeekBar {
+	public static final String TUMBLER_UNDEFINED="undef";
+	public static final String TUMBLER_TRUE="true";
+	public static final String TUMBLER_FALSE="false";
 	private String loValue;
 	private String hiValue;
-	private String tumblerValue;
 	public Tumbler(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		Context c = getContext();
@@ -31,7 +33,13 @@ public class Tumbler extends SeekBar {
 	}
 	
 	public void setTumbler(String value){
-		tumblerValue = value;
+		if(value.equals(loValue)){
+			this.setProgress(0);
+		}else if(value.equals(hiValue)){
+			this.setProgress(getMax());
+		}else {
+			this.setProgress(1);
+		}
 	}
 	
 	public String getTumblerValue(){
@@ -41,7 +49,7 @@ public class Tumbler extends SeekBar {
 		if(getProgress() == 0){
 			return loValue;
 		}
-		return "";
+		return TUMBLER_UNDEFINED;
 	}
 
 
