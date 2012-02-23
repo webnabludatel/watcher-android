@@ -1,12 +1,12 @@
 package org.dvaletin.apps.nabludatel.server;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpResponseException;
+
 /**
  * @author Alexey Efimov
  */
 public class NabludatelServerException extends Exception {
-	public NabludatelServerException() {
-	}
-
 	public NabludatelServerException(String detailMessage) {
 		super(detailMessage);
 	}
@@ -17,5 +17,17 @@ public class NabludatelServerException extends Exception {
 
 	public NabludatelServerException(Throwable throwable) {
 		super(throwable);
+	}
+
+	public boolean isUnauthorized() {
+		return isHttpResponseCode(HttpStatus.SC_UNAUTHORIZED);
+	}
+
+	public boolean isHttpResponseCode(int code) {
+		if (getCause() instanceof HttpResponseException) {
+			HttpResponseException responseException = (HttpResponseException) getCause();
+			return responseException.getStatusCode() == code;
+		}
+		return false;
 	}
 }

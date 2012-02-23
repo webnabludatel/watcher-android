@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="org.dvaletin.apps.nabludatel.tests"
+          android:versionCode="1"
+          android:versionName="1.0">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+                     android:targetPackage="org.dvaletin.apps.nabludatel"
+                     android:label="Tests for org.dvaletin.apps.nabludatel"/>
+</manifest>

@@ -45,7 +45,7 @@ public class SectionBeforeElectionsAppearance extends ABSNabludatelActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			mS3Helper.uploadImageToS3(photo);
+//			mNabludatelMediaClient.uploadImageToS3(photo);
 		}
 		
 		SeekBar appearance_candidates_info = (SeekBar) findViewById(R.id.appearance_candidates_info);
