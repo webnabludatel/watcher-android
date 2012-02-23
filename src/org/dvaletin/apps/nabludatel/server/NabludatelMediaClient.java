@@ -1,7 +1,7 @@
 package org.dvaletin.apps.nabludatel.server;
 
 import android.util.Log;
-import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -23,9 +23,9 @@ public class NabludatelMediaClient {
 	private final String deviceId;
 	private final AmazonS3Client s3Client;
 
-	public NabludatelMediaClient(String deviceId, String accessKey, String secretKey) {
+	public NabludatelMediaClient(String deviceId, AWSCredentials awsCredentials) {
 		this.deviceId = deviceId;
-		this.s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
+		this.s3Client = new AmazonS3Client(awsCredentials);
 	}
 
 	public String toUrl(File file) {

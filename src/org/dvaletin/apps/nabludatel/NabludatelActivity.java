@@ -4,6 +4,7 @@ package org.dvaletin.apps.nabludatel;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.server.NabludatelMediaClient;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
@@ -30,7 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
-	NabludatelMediaClient mNabludatelMediaClient;
+	NabludatelCloud mNabludatelCloud;
 	String deviceId;
 	JSONObject mainJSON;
 	protected static final String TAG_CAMERA = "Camera";
@@ -44,7 +45,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
         super.onCreate(savedInstanceState);
         TelephonyManager t = (TelephonyManager) getSystemService(Context. TELEPHONY_SERVICE);
         deviceId = t.getDeviceId();
-    	mNabludatelMediaClient = new NabludatelMediaClient(t.getDeviceId(), null, null);
+    	mNabludatelCloud = new NabludatelCloud(t.getDeviceId());
     	setContentView(R.layout.main);
     	try {
 			mainJSON = new JSONObject(prefs.getString(Consts.ACTIVITY_JSON_DATA, ""));
@@ -417,22 +418,27 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     public void sendJSON(JSONObject toSend){
     	//TODO 
     }
-    
-    public JSONArray uploadPhotos(JSONArray photos){
-    	try{
+
+	public JSONArray uploadPhotos(JSONArray photos) {
+		// TODO: This is wrong way :) Use NabludatelCloud instead of directly uploading
+		NabludatelMediaClient mediaClient = mNabludatelCloud.getMediaClient();
+		if (mediaClient == null) {
+			return null;
+		}
+		try {
 			JSONArray photoURLs = new JSONArray();
-			for(int i=0; i< photos.length(); i++){
+			for (int i = 0; i < photos.length(); i++) {
 				File photoFile = new File((String) photos.get(i));
-				photoURLs.put(mNabludatelMediaClient.upload(photoFile));
+				photoURLs.put(mediaClient.upload(photoFile));
 			}
 			return photoURLs;
-		} catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;	
-    }
+		return null;
+	}
 
-    @Override
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
     	
     	if(keyCode != KeyEvent.KEYCODE_BACK){

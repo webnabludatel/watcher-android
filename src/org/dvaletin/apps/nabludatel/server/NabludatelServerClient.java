@@ -31,8 +31,12 @@ public class NabludatelServerClient {
 		this.deviceId = deviceId;
 	}
 
-	public String authentication() throws NabludatelServerException, JSONException {
-		return post(deviceIdToRequest(), "/authentications.json").getString("secret");
+	public String authenticationSecret() throws NabludatelServerException, JSONException {
+		return authentication().getString("secret");
+	}
+
+	public JSONObject authentication() throws NabludatelServerException, JSONException {
+		return post(deviceIdToRequest(), "/authentications.json");
 	}
 
 	public long postNewMessage(String secret, JSONObject payload) throws NabludatelServerException, JSONException {

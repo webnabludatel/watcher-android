@@ -8,29 +8,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 /**
  * @author Alexey Efimov
  */
 public class NabludatelMediaClientTest extends TestCase {
-	private static final String accessKey;
-	private static final String secretKey;
-	static {
-		try {
-			Properties properties = new Properties();
-			properties.load(NabludatelMediaClient.class.getResourceAsStream("aws.properties"));
-			accessKey = properties.getProperty("android.access.key");
-			secretKey = properties.getProperty("android.secret.key");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private final NabludatelMediaClient client = new NabludatelMediaClient("test_android", accessKey, secretKey);
+	private final NabludatelMediaClient client = new NabludatelCloud("test_android").getMediaClient();
 
 	public void testOverwriteUpload() throws Exception {
+		assertNotNull(client);
+
 		File sampleDir = Environment.getExternalStorageDirectory();
 		File file = new File(sampleDir, "-tmp.txt");
 		try {

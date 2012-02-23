@@ -8,8 +8,7 @@ import org.json.JSONObject;
  * @author Alexey Efimov
  */
 public class NabludatelServerClientTest extends AndroidTestCase {
-	private final NabludatelServerClient client =
-			new NabludatelServerClient("http://webnabludatel.org/api/v1", "test_android");
+	private final NabludatelServerClient client = new NabludatelCloud("test_android").getServerClient();
 
 	private static JSONObject createTestMessagePayload() throws JSONException {
 		JSONObject payload = new JSONObject();
@@ -20,21 +19,21 @@ public class NabludatelServerClientTest extends AndroidTestCase {
 	public NabludatelServerClientTest() {
 	}
 
-	public void testAuthentication() throws Exception {
-		String secret = client.authentication();
+	public void testAuthenticationSecret() throws Exception {
+		String secret = client.authenticationSecret();
 		assertNotNull(secret);
 		assertNotSame("", secret);
 	}
 
 	public void testPostNewMessage() throws Exception {
-		String secret = client.authentication();
+		String secret = client.authenticationSecret();
 		JSONObject payload = createTestMessagePayload();
 		long messageId = client.postNewMessage(secret, payload);
 		assertTrue(messageId != -1L);
 	}
 
 	public void testEditMessage() throws Exception {
-		String secret = client.authentication();
+		String secret = client.authenticationSecret();
 		JSONObject payload = createTestMessagePayload();
 		long messageId = client.postNewMessage(secret, payload);
 		messageId = client.editMessage(messageId, secret, payload);
@@ -42,7 +41,7 @@ public class NabludatelServerClientTest extends AndroidTestCase {
 	}
 
 	public void testAttachMediaToMessage() throws Exception {
-		String secret = client.authentication();
+		String secret = client.authenticationSecret();
 		JSONObject payload = createTestMessagePayload();
 		long messageId = client.postNewMessage(secret, payload);
 		messageId = client.attachMediaToMessage(messageId, secret, payload);
