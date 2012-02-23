@@ -9,7 +9,7 @@ import android.widget.SeekBar;
 public class SectionBeforeElectionsAppearance extends ABSNabludatelActivity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.section_before_elections_appearance);
+		setContentView(R.layout.section_during_elections_appearance);
 	}
 	
 	@Override

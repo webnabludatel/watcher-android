@@ -126,17 +126,12 @@ public abstract class ABSNabludatelActivity extends Activity {
 				restore((ViewGroup) (v.getChildAt(i)), from);
 			}
 
-			if (v.getChildAt(i) instanceof SeekBar) {
+			if (v.getChildAt(i) instanceof Tumbler) {
 				try{
 					String data = from.get(v.getChildAt(i).getTag().toString());
 					if(data != null){
-						SeekBar bar = (SeekBar)v.getChildAt(i);
-						if(data.equals(String.valueOf(true))){
-							bar.setProgress(Consts.SEEKBAR_TRUE);
-						}
-						if(data.equals(String.valueOf(false))){
-							bar.setProgress(Consts.SEEKBAR_FALSE);
-						}
+						Tumbler bar = (Tumbler)v.getChildAt(i);
+						bar.setTumbler(data);
 					}
 				}catch(Exception e){
 					e.printStackTrace();
@@ -164,9 +159,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 							
 						}
 						if(((Tumbler)seekBar).getTumblerValue().equals("true")){
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_11));
-						}else if(((Tumbler)seekBar).getTumblerValue().equals("false")){
 							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_15));
+						}else if(((Tumbler)seekBar).getTumblerValue().equals("false")){
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_11));
 						}else {
 							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_04));
 						}
@@ -183,16 +178,18 @@ public abstract class ABSNabludatelActivity extends Activity {
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						int progress = seekBar.getProgress();
-						if(mIsProgressChanged && progress != mInitialProgress) {
-							
-							if (!((Tumbler)seekBar).getTumblerValue().equals("")) {
-								ABSNabludatelActivity.this.mElectionsDB
-										.addCheckListItem(lat, lng, seekBar
-												.getTag().toString(), System
-												.currentTimeMillis(), 
-												((Tumbler)seekBar).getTumblerValue(),
-												mCurrentElectionsDistrict);
-							}
+						if (mIsProgressChanged && progress != mInitialProgress) {
+
+							ABSNabludatelActivity.this.mElectionsDB
+								.addCheckListItem(
+											lat, 
+											lng, 
+											seekBar.getTag().toString(), 
+											System.currentTimeMillis(),
+											((Tumbler) seekBar).getTumblerValue(),
+											mCurrentElectionsDistrict, 
+											((Tumbler) seekBar).getViolation());
+
 						}
 					}
 

@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nabludatel="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel"
     style="@style/main_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/include1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/footer_layout" />
-
     <FrameLayout
         android:id="@+id/frameLayout1"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -39,55 +34,68 @@
                     android:id="@+id/LinearLayout01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView01"
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/absentee_vote_registry_check_allowed"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_registry_check_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Наблюдатели не смогли своевременно (до вызеда) ознакомиться с реестром заявок голосования на дому" />
 
-                    <ImageView
-                        android:id="@+id/ImageView02"
+                    <TextView
+                        android:id="@+id/TextView2"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/absentee_vote_registry_is_valid" />
+                    android:text="@string/absentee_vote_registry_is_correct" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView03"
+                    <TextView
+                        android:id="@+id/TextView3"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
-                        android:id="@+id/absentee_vote_registry_is_valid"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/absentee_vote_registry_is_correct"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -95,38 +103,50 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="absentee_vote_registry_is_valid"
+                        android:tag="absentee_vote_registry_is_correct"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Реестр для голосования на дому заполнен неправильно"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView04"
+                    <TextView
+                        android:id="@+id/TextView4"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/absentee_vote_ballots_number_mismatch" />
+                    android:text="@string/abstentee_vote_registry_is_valid" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout08"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView05"
+                    <TextView
+                        android:id="@+id/TextView5"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/no" />
 
-                    <SeekBar
-                        android:id="@+id/absentee_vote_ballots_number_mismatch"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/abstentee_vote_registry_is_valid"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -134,16 +154,27 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="absentee_vote_ballots_number_mismatch"
+                        android:tag="abstentee_vote_registry_is_valid"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp"
+                        nabludatel:loValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:violationText="Корректная выписка из реестра заявок голосвания на дому не предъявлена"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView06"
+                    <TextView
+                        android:id="@+id/TextView6"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/yes" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/TextView01"
@@ -156,16 +187,17 @@
                     android:id="@+id/LinearLayout02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView09"
+                    <TextView
+                        android:id="@+id/TextView7"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/no" />
 
-                    <SeekBar
-                        android:id="@+id/absentee_vote_registry_is_correct"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/absentee_vote_ballots_number_mismatch"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -173,37 +205,49 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="absentee_vote_registry_is_correct"
+                        android:tag="absentee_vote_ballots_number_mismatch"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp"
+                        nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
+                        nabludatel:violationText="Количество бюллетеней превышает число заявок более чем на 5%" />
 
-                    <ImageView
-                        android:id="@+id/ImageView10"
+                    <TextView
+                        android:id="@+id/TextView8"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/yes" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView04"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView4"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/absentee_vote_ballots_number_mismatch" />
+                    android:text="@string/absentee_vote_voters_not_in_registry" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView11"
+                    <TextView
+                        android:id="@+id/TextView9"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/no" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/absentee_vote_voters_not_in_registry"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -214,36 +258,48 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_voters_not_in_registry"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:loValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:violationText="Голосование на дому лиц, не внесённых в реестр"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView12"
+                    <TextView
+                        android:id="@+id/TextView10"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/ImageView03"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textView11"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/absentee_vote_protocol_concluded" />
+                    android:text="@string/absentee_vote_akt_after_returning" />
 
                 <LinearLayout
-                    android:id="@+id/LinearLayout10"
+                    android:id="@+id/LinearLayout05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView07"
+                    <TextView
+                        android:id="@+id/TextView02"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
-                        android:id="@+id/absentee_vote_protocol_concluded"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/absentee_vote_akt_after_returning"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -251,16 +307,27 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="absentee_vote_protocol_concluded"
+                        android:tag="absentee_vote_akt_after_returning"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp"
+                        nabludatel:loValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:violationText="Акт о голосовании на дому составлен не сразу по возвращении" />
 
-                    <ImageView
-                        android:id="@+id/ImageView08"
+                    <TextView
+                        android:id="@+id/TextView03"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
@@ -268,21 +335,22 @@
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/suspicious_voters_violations_photo_gallery"
+                        android:id="@+id/absentee_vote_violations_photo_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="counter_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:tag="absentee_vote_violations_photo"
+                        android:text="@string/violations_photo_gallery" />
 
                     <Button
-                        android:id="@+id/suspicious_voters_violations_photo"
+                        android:id="@+id/absentee_vote_violations_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onMakePhotoClick"
-                        android:tag="suspicious_voters_violations_photo"
+                        android:tag="absentee_vote_violations_photo"
                         android:text="@string/ballot_box_violations_photo_camera" />
                 </LinearLayout>
             </LinearLayout>
+
         </ScrollView>
 
     </FrameLayout>

@@ -7,7 +7,7 @@
 
     <FrameLayout
         android:id="@+id/frameLayout1"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -15,7 +15,7 @@
 
     <FrameLayout
         android:id="@+id/frameLayout2"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -35,7 +35,7 @@
 
     <FrameLayout
         android:id="@+id/frameLayout3"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 

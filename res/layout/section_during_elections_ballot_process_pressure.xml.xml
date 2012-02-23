@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nabludatel="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel"
     style="@style/main_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/include1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/footer_layout" />
-
     <FrameLayout
         android:id="@+id/frameLayout1"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -39,41 +34,103 @@
                     android:id="@+id/LinearLayout01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView01"
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/no" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_process_pressure_on_voters"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
                         android:tag="ballot_process_pressure_on_voters"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Оказывалось давление на голосующих" />
 
-                    <ImageView
-                        android:id="@+id/ImageView02"
+                    <TextView
+                        android:id="@+id/TextView2"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/yes" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ballot_process_ballot_photo" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/ballot_process_ballot_photo"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="ballot_process_ballot_photo"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Избиратели фотографируют свои бюллетени" />
+
+                    <TextView
+                        android:id="@+id/TextView02"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/violations_photo" 
-                    />
+                    android:text="@string/violations_photo" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
@@ -81,23 +138,25 @@
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/koib_violations_photo_gallery"
+                        android:id="@+id/pressure_violations_photo_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="counter_violations_photo"
+                        android:layout_weight="1"
+                        android:tag="pressure_violations_photo"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 
                     <Button
-                        android:id="@+id/koib_violations_photo_camera"
+                        android:id="@+id/pressure_violations_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
-                        android:tag="counter_violations_photo"
+                        android:tag="pressure_violations_photo"
                         android:text="@string/ballot_box_violations_photo_camera" />
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-
     </FrameLayout>
 
 </LinearLayout>

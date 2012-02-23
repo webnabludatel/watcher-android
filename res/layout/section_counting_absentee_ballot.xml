@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nabludatel="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel"
     style="@style/main_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,9 +14,10 @@
 
     <FrameLayout
         android:id="@+id/frameLayout1"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:tag="absentee_ballot_box_opening_video" >
 
         <ScrollView
             android:id="@+id/scrollView1"
@@ -44,6 +46,7 @@
                         android:id="@+id/ballot_box_opening_video_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:tag="ballot_box_opening_video"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 
@@ -51,10 +54,18 @@
                         android:id="@+id/ballot_box_opening_video"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="ballot_box_opening_video"
                         android:text="@string/ballot_box_violations_photo_camera" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -67,15 +78,16 @@
                     android:id="@+id/LinearLayout02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView03"
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/absentee_ballot_box_opening_number_of_applications_announced"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -86,36 +98,48 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_ballot_box_opening_number_of_applications_announced"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Число заявлений не объявлено перед вскрытием каждого ящика"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView04"
+                    <TextView
+                        android:id="@+id/TextView2"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/absentee_ballot_box_opening_ballot_bundles" />
+                    android:text="@string/absentee_ballot_voters_recorded_in_protocol_immediately" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView01"
+                    <TextView
+                        android:id="@+id/TextView3"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
-                        android:id="@+id/absentee_ballot_box_opening_ballot_bundles"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/absentee_ballot_voters_recorded_in_protocol_immediately"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -123,17 +147,22 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="absentee_ballot_box_opening_ballot_bundles"
+                        android:tag="absentee_ballot_voters_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView02"
+                    <TextView
+                        android:id="@+id/TextView4"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
             </LinearLayout>
+
         </ScrollView>
 
     </FrameLayout>

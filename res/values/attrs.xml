@@ -3,5 +3,6 @@
     <declare-styleable name="Tumbler">
         <attr name="hiValue" format="string"/>
     	<attr name="loValue" format="string"/>
+    	<attr name="violationText" format="string"/>
     </declare-styleable>
 </resources>

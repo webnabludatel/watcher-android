@@ -3,18 +3,13 @@
     style="@style/main_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <include
-        android:id="@+id/include1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/footer_layout" />
+    android:orientation="vertical" xmlns:ns="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel">
 
     <FrameLayout
         android:id="@+id/frameLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" style="@style/main_windows_list_view">
+        android:layout_height="wrap_content" 
+        style="@style/main_pane_style">
 
         <ScrollView
             android:id="@+id/scrollView1"
@@ -28,37 +23,63 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/textView1"
-                    style="@style/TextTitleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/voters_count_title" />
-
-                <TextView
                     android:id="@+id/textView2"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/voters_count_total"
+                    android:text="@string/known_voters_number"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <EditText
-                    android:id="@+id/voters_count_total"
+                <LinearLayout
+                    android:id="@+id/LinearLayout01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/known_voters_number"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        ns:hiValue="false"
+                        ns:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="known_voters_number"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        ns:violationText="Наблюдателям не сообщили число избирателей" />
+
+                    <TextView
+                        android:id="@+id/TextView3"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    style="@style/list_divider_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_number"
-                    android:inputType="number"
-                    android:tag="voters_count_totalvoters_count_total" >
-
-                    <requestFocus />
-                </EditText>
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView5"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/voters_count_ballots_total"
+                    android:text="@string/voters_count_total"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
@@ -67,14 +88,21 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_number"
                     android:inputType="number"
-                    android:tag="voters_count_ballots_total" />
+                    android:tag="voters_count_total" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView6"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/voters_count_ballot_at_home"
+                    android:text="@string/voters_count_ballots_total"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
@@ -83,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_number"
                     android:inputType="number"
-                    android:tag="voters_count_ballot_at_home" />
+                    android:tag="voters_count_ballots_total" />
             </LinearLayout>
         </ScrollView>
 

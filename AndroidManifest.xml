@@ -51,6 +51,7 @@
         <activity android:label="@string/nabludatel_profile_title" android:name="NabludatelProfileActivity" android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:windowSoftInputMode="stateAlwaysHidden" android:label="@string/nabludatel_report_title" android:name="NabludatelReportActivity"></activity>
         <activity android:name="ElectionsDistrictActivity" android:label="@string/elections_district_title"></activity>
+        <activity android:name="ViolationCheckListActivity" android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 
 </manifest>

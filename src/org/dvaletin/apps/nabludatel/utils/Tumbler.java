@@ -16,12 +16,14 @@ public class Tumbler extends SeekBar {
 	public static final String TUMBLER_FALSE="false";
 	private String loValue;
 	private String hiValue;
+	private String violationText;
 	public Tumbler(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		Context c = getContext();
 		TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Tumbler);
 		loValue = a.getString(R.styleable.Tumbler_loValue);
 		hiValue = a.getString(R.styleable.Tumbler_hiValue);
+		violationText = a.getString(R.styleable.Tumbler_violationText);
 	}
 
 	public Tumbler(Context context, AttributeSet attrs) {
@@ -30,6 +32,7 @@ public class Tumbler extends SeekBar {
 		TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Tumbler);
 		loValue = a.getString(R.styleable.Tumbler_loValue);
 		hiValue = a.getString(R.styleable.Tumbler_hiValue);
+		violationText = a.getString(R.styleable.Tumbler_violationText);
 	}
 	
 	public void setTumbler(String value){
@@ -60,5 +63,10 @@ public class Tumbler extends SeekBar {
 	
 	public String getHiValue() {
 		return hiValue;
+	}
+
+	public String getViolation() {
+		// TODO Auto-generated method stub
+		return this.violationText;
 	}
 }

@@ -18,55 +18,38 @@
     <string name="uik_district_banner_photo_from_gallery">Выбрать фото</string>
     <string name="uik_district_banner_photo_make">Камера</string>
     <string name="section_before_elections">Подготовка</string>
-    <string name="admitted_before_eight">Были ли Вы допущены на участок до 8:00</string>
+    <string name="admitted_before_eight">Вы допущены на участок до 8:00</string>
 
-    <string name="ballot_box_check_allowed">Вам разрешили осмотреть урны</string>
+    <string name="ballot_box_check_allowed">Предъявлены пустые ящики и пустые КОИБы</string>
     <string name="ballot_box_empty">Урны пусты</string>
     <string name="ballot_box_conform_to_reqs">Урны соответствуют требованиям</string>
     
     <string name="ballot_box_violations_photo">Фото нарушений</string>
     <string name="ballot_box_violations_photo_gallery">Из галереи</string>
     <string name="ballot_box_violations_photo_camera">Камера</string>
-    <string name="ballot_box_sealed_in_your_presence">Урны опечатали при вас</string>
-    <string-array name="section_before_elections">
-        <item >Допуск на участок до 8:00</item>
-        <item >Урны</item>
-        <item >КОИБы</item>
-        <item >Оформление участка</item>
-        <item >Списки избирателей</item>
-        <item >Число избирателей</item>
-    </string-array>
         <string name="ballot_box_title">Урны</string>
         <string name="admitted_before_eight_title">Допуск на участок до 8:00</string>
-        <string-array name="root_sections">
-            <item >УИК</item>
-            <item >Подготовка</item>
-            <item >Ход голосования</item>
-            <item >Подсчет голосов</item>
-            <item >Заседание и протокол</item>
-            <item >ТИК/ИКМО</item>
-        </string-array>
             <string name="sos">S.O.S</string>
             <string name="back">&lt; Назад</string>
             <string name="counter_set_on_zero">Счетчик на нуле</string>
             <string name="conter_test_failures">Есть ли сбои при тестировании</string>
-            <string name="appearance_candidates_info">Правильно ли оформлены сведения о кандидатах</string>
-            <string name="appearance_ballot_sample_present">Есть ли образец заполнения бюллетеня</string>
-            <string name="appearance_ballot_extended_protocol">Есть ли увеличенная форма протокола</string>
-            <string name="appearance_campaign_materials_closer_than_50m">Есть ли агитационные материалы ближе 50 м</string>
+            <string name="appearance_candidates_info">Правильно оформленные сведения о кандидатах</string>
+            <string name="appearance_ballot_sample_present">Образец заполнения бюллетеня</string>
+            <string name="appearance_ballot_extended_protocol">Увеличенная форма протокола</string>
+            <string name="appearance_campaign_materials_closer_than_50m">Агитационные материалы ближе 50 м</string>
             <string name="appearance_vote_secrecy">Кабинки обеспечивают тайну голосвания</string>
             <string name="appearance_violation_photo">Фото нарушений</string>
             <string name="koib">КОИБ</string>
             <string name="appearance">Оформление участка</string>
             <string name="uik">Избирательный участок</string>
-            <string name="voters_lists_checked">Вам разрешили осмотреть альбомы</string>
-            <string name="voters_lists_are_ok">Альбомы соответствуют требованиям</string>
-            <string name="voters_count_total">Всего внесенных в список избирателей</string>
+            <string name="voters_lists_checked">Вы смогли ознакомиться со списками</string>
+            <string name="voters_lists_are_not_ok">Пометки в списках избирателей</string>
+            <string name="voters_count_total">Всего избирателей в списке</string>
             <string name="enter_number">Введите число</string>
-            <string name="voters_count_ballots_total">Всего полученных в УИК бюллетеней</string>
+            <string name="voters_count_ballots_total">В реестре голосующих на дому</string>
             <string name="voters_count_ballot_at_home">Всего внесенных в реестр голосования на дому</string>
             <string name="voters_title">Списки избирателей</string>
-            <string name="voters_lists_title">Списки избирателей</string>
+            <string name="voters_lists_title">Статистика участка</string>
             <string name="voters_count_title">Число избирателей</string>
             <string name="attendance_data_match_on_10">По состоянию на 10:00 ваши данные о явке совпадают с данными ИК</string>
             <string name="attendance_data_match_on_12">По состоянию на 12:00 ваши данные о явке совпадают с данными ИК</string>
@@ -75,57 +58,56 @@
             <string name="attendance_data_comments">Комментарий по данным о явке</string>
             <string name="attendance_data_comments_hint">Введите комментарий</string>
             <string name="section_during_elections_attendance_title">Данные о явке</string>
-            <string name="ballot_process_watch_allowed">Вам позволили беспрепятственно наблюдать за ходом голосования</string>
+            <string name="ballot_process_watch_allowed">Перемещение наблюдателей ограничено</string>
             <string name="ballot_box_watch_allowed">Вам позволили наблюдать за урнами</string>
             <string name="section_during_elections_bullot">Помехи наблюдателям</string>
             <string name="section_during_elections_bullot_title">Помехи наблюдателям</string>
-            <string name="suspicious_voters_no_passport">Присутствовали ли избиратели, голосовавшие без предъявления паспорта</string>
-            <string name="suspicious_voters_no_absentee_ballot">Присутствовали ли избиратели, голосовавшие без открепительных удостоверений?</string>
-            <string name="suspicious_voters_invalid_absentee_ballot">Присутствовали ли избиратели, голосовавшие по чужим открепительным удостоверениям</string>
+            <string name="suspicious_voters_no_passport">Голосование без паспорта, регистрации, открепительного, по чужим документам</string>
+            <string name="suspicious_voters_no_absentee_ballot">Голосование за других лиц по сговору с членами УИК</string>
+            <string name="suspicious_voters_invalid_absentee_ballot">Голосование по чужим открепительным, неизъятие талона</string>
             <string name="suspicious_voters_absentee_ballot_returned_or_replaced">Осуществлялся ли возврат либо замена открепительных удостоверений после голосвания</string>
-            <string name="suspicious_voters_brought_by_transport">Осуществлялся ли подвоз групп голосующих транспортом</string>
+            <string name="suspicious_voters_brought_by_transport">Организованный подвоз групп голосующих</string>
             <string name="suspicious_voters_voted_for_absent_person">Осущестлялось ли голосование за отустствующих избирателей</string>
-            <string name="ballot_process_pressure_on_voters">Оказывалось ли давление на голосующих</string>
+            <string name="ballot_process_pressure_on_voters">Давление на голосующих</string>
             <string name="section_during_elections_ballot_process_pressure_title">Давление на голосующих</string>
             <string name="section_during_elections_suspicious_voters_title">Подозрительные голосующие</string>
-            <string name="bundle_of_ballots_vote">Осуществлялось ли голосование пачкой бюллетеней (вброс)</string>
-            <string name="absentee_vote_registry_check_allowed">Вам дали своевременно ознакомиться с выпиской из реестра и количеством выданных бюллетеней</string>
-            <string name="absentee_vote_registry_is_valid">Предъявлена ли корректная выписка из реестра</string>
-            <string name="absentee_vote_ballots_number_mismatch">Имеется ли расхождение между количеством выданных бюллетеней и избирателей в выписке</string>
-            <string name="absentee_vote_registry_is_correct">Правильно ли заполнен реестр для голосования вне помещения</string>
-            <string name="absentee_vote_voters_not_in_registry">Осуществлялось ли голосование лицами, не внесенными в реестр</string>
+            <string name="bundle_of_ballots_vote">Голосование пачкой бюллетеней (вброс)</string>
+            <string name="absentee_vote_registry_check_allowed">Вы своевременно (до выезда) ознакомились с реестром голосования на дому </string>
+            <string name="absentee_vote_registry_is_valid">Вместо выписки из реестра &quot;список из собеса&quot; или &quot;совета ветеранов&quot;</string>
+            <string name="absentee_vote_ballots_number_mismatch">Количество бюллетеней превышает число заявок более чем на 5%</string>
+            <string name="absentee_vote_registry_is_correct">Реестр заполнен правильно: указаны ФИО, что ещё нужно?</string>
             <string name="absentee_vote_protocol_concluded">Составлен ли своевременно акт о голосовании вне участка</string>
             <string name="section_during_elections_absentee_vote_title">Нарушения при голосовании вне участка</string>
             <string name="section_during_elections_bundle_of_ballots_title">Голосование пачкой бюллетеней (вброс)</string>
-            <string name="tab_watcher">Наблюдатель</string>
-            <string name="tab_checklist">Чеклист</string>
+            <string name="tab_watcher">Я</string>
+            <string name="tab_checklist">Наблюдение</string>
             <string name="tab_spravochnik">Справочник</string>
-            <string name="tab_sos">S.O.S</string>
+            <string name="tab_sos">Меня удаляют</string>
             <string name="spravochnik_title">Справочник</string>
             <string name="webview_back">Назад</string>
             <string name="webview_forward">Вперед</string>
             <string name="webview_find_next">Искать далее</string>
             <string name="search">Найти</string>
-            <string name="unused_ballots_counted_after_vote_finish">Неиспользованые бюллетени подсчитаны сразу же после окончания голосования?</string>
-            <string name="unused_ballots_counted_before_other_actions">Бюллетени подсчитаны и погашены до других подсчетов?</string>
+            <string name="unused_ballots_counted_after_vote_finish">Подсчёт начался сразу после окончания голосования</string>
+            <string name="unused_ballots_counted_before_other_actions">Бюллетени подсчитаны и погашены до других подсчетов</string>
             <string name="unused_ballots_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола?</string>
             <string name="unused_ballots_title">Неиспользованные бюллетени</string>
-            <string name="confirmed_voters_announced">Оглашение было по каждой книге?</string>
-            <string name="confirmed_voters_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола?</string>
+            <string name="confirmed_voters_announced">Данные подсчёта оглашаются по каждой книге и в сумме по всем</string>
+            <string name="confirmed_voters_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола</string>
             <string name="confirmed_voters_violations_photo">Фото нарушений</string>
             <string name="ballot_box_opening_video">Видео вскрытия урн</string>
-            <string name="ballot_box_opening_ballot_bundles">Были ли замечены сложенные пачки бюллетеней?</string>
-            <string name="absentee_ballot_box_opening_number_of_applications_announced">Объявлено ли число заявлений перед вскрытием каждого ящика?</string>
+            <string name="ballot_box_opening_ballot_bundles">Замечены сложенные пачки бюллетеней</string>
+            <string name="absentee_ballot_box_opening_number_of_applications_announced">Число заявлений объявлено перед вскрытием каждого ящика</string>
             <string name="absentee_ballot_box_opening_ballot_bundles">Были ли замечены сложенные пачки бюллетеней?</string>
-            <string name="counting_ballots_presented_or_announced">Предъявляются или оглашаются ли бюллетени при сортировке?</string>
-            <string name="counting_ballots_sorted_in_separate_bundles">Перекладываются ли бюллетени отдельно в каждой рассортированной пачке на глазах у наблюдателей?</string>
-            <string name="counting_ballots_marks_noticed_in_ballots">Видели ли Вы отметки в бюллетенях?</string>
-            <string name="counting_ballots_suspicious_counting">Возникли ли у Вас сомнения в правильности подчета?</string>
-            <string name="counting_ballots_ballot_check_allowed">Дали ли Вам ознакомиться с бюллетенями?</string>
-            <string name="counting_ballots_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола?</string>
-            <string name="control_calculations_conducted">Выполнены ли контрольные соотношения?</string>
-            <string name="control_calculations_performed">Произведен ли пересчет?</string>
-            <string name="confirmed_voters_title">Проголосовавшие избиратели</string>
+            <string name="counting_ballots_presented_or_announced">Бюллетени предъявлены и оглашены при сортировке</string>
+            <string name="counting_ballots_sorted_in_separate_bundles">Бюллетени перекладывались отдельно в каждой рассортированной пачке при подсчёте</string>
+            <string name="counting_ballots_marks_noticed_in_ballots">Вы могли видеть отметки в бюллетенях</string>
+            <string name="counting_ballots_suspicious_counting">Возникли сомнения в правильности подсчёта</string>
+            <string name="counting_ballots_ballot_check_allowed">Вы смогли проверить правильность подсчёта</string>
+            <string name="counting_ballots_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола</string>
+            <string name="control_calculations_conducted">Контрольные соотношения выполнены</string>
+            <string name="control_calculations_performed">При невыполнении произведен пересчёт</string>
+            <string name="confirmed_voters_title">Списки проголосовавших</string>
             <string name="report_button_label">Отчет</string>
             <string name="counting_absentee_ballot_title">Вскрытие переносных ящиков</string>
             <string name="ballot_box_open_title">Вскрытие стационарных урн</string>
@@ -176,6 +158,38 @@
 				<string name="elections_district_fio_invalid">Введите ФИО председателя и секретаря комиссии.</string>
 				<string name="elections_district_number_invalid">Неправильный номер участка или кол-во наблюдателей.</string>
 				<string name="elections_district_title">Избирательный участок</string>
-				<string name="yes">Да</string>
-				<string name="no">Нет</string>	
+				<string name="yes">да</string>
+				<string name="no">нет</string>
+				<string name="admitted_before_eight_violation_text">Наблюдатели не допущены на участок до 8:00</string>
+				<string name="present">есть</string>
+				<string name="ballot_box_sealed_in_your_presence">Ящики опечатали при вас</string>
+				<string name="ballot_box_empty_photo">Фото пустых ящиков</string>
+				<string name="watching">Наблюдение</string>
+				<string name="elections_districts">Избирательные участки</string>
+				<string name="voters_lists_violations_photo">Фото книг без персональных данных</string>
+				<string name="exists">Есть</string>
+				<string name="known_voters_number">Вы смогли узнать число избирателей</string>
+				<string name="ballots_is_given_with_signage">Бюллетени выдаются членам УИК под роспись</string>
+				<string name="observers_putin">Число наблюдателей от Путина В.В.</string>
+				<string name="observers_mironov">Число наблюдателей от Миронова С.М.</string>
+				<string name="observers_zhirinovskiy">Число наблюдателей от Жириновского В.В.</string>
+				<string name="observers_zyuganov">Число наблюдателей от Зюганова Г.А.</string>
+				<string name="observers_prohorov">Число наблюдателей от Прохорова М.Д.</string>
+				<string name="unused_ballots_violation_photo">Фото нарушений</string>
+				<string name="absentee_ballot_voters_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола</string>
+				<string name="ballot_box_mix_up_ballots">Ящики перед вскрытием встряхивали и переворачивали</string>
+				<string name="ballot_voters_recorded_in_protocol_immediately">Данные сразу внесены в увеличенную форму протокола</string>
+				<string name="koib_electricity_problem">Были сбои электропитания</string>
+				<string name="koib_nonelectricity_problem">Были другие сбои в работе КОИБов</string>
+				<string name="koib_recalculations_performed">По требованию голоса пересчитаны вручную</string>
+				<string name="books_are_correctly_stitched">Книги со списками избирателей сброшюрованы</string>
+				<string name="photo_video_allowed">Незаконное ограничение на фото- и видеосъёмку</string>
+				<string name="portable_ballot_box_watch_allowed">Переносные ящики всегда в поле зрения</string>
+				<string name="observer_removal">Случаи удаления наблюдателей или членов УИК</string>
+				<string name="ballot_process_ballot_photo">Избиратели фотографируют свои бюллетени</string>
+				<string name="suspicious_voters_already_voted">Случаи, когда за пришедших избирателей уже проголосовали</string>
+				<string name="suspicious_mass_absentee_ballot">Массовое голосование по открепительным талонам</string>
+				<string name="absentee_vote_voters_not_in_registry">Проголосовали лица, не внесённые в реестр</string>
+				<string name="absentee_vote_akt_after_returning">Акт о голосовании на дому составлен сразу по возвращении</string>
+				<string name="abstentee_vote_registry_is_valid">Вместо выписки из реестра \"список из собеса\" или \"совета ветеранов\"</string>	
 </resources>

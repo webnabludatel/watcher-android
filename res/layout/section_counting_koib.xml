@@ -28,7 +28,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/confirmed_voters_announced" />
+                    android:text="@string/koib_electricity_problem" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout01"
@@ -41,33 +41,35 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
-                    <SeekBar
-                        android:id="@+id/confirmed_voters_announced"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/koib_electricity_problem"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="confirmed_voters_announced"
+                        android:tag="koib_electricity_problem"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Были сбои электропитания на участках с КОИБами" />
 
                     <TextView
                         android:id="@+id/TextView2"
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/ImageView01"
+                    android:id="@+id/imageView1"
                     style="@style/list_divider_style"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_devider" />
 
@@ -76,7 +78,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/confirmed_voters_recorded_in_protocol_immediately" />
+                    android:text="@string/koib_nonelectricity_problem" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout03"
@@ -85,27 +87,81 @@
                     android:gravity="center_vertical|right" >
 
                     <TextView
-                        android:id="@+id/TextView3"
+                        android:id="@+id/TextView10"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/koib_nonelectricity_problem"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="koib_nonelectricity_problem"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Подсчёт бюллетеней производился с нарушениями" />
+
+                    <TextView
+                        android:id="@+id/TextView9"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView13"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/koib_recalculations_performed" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView8"
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/yes" />
 
-                    <SeekBar
-                        android:id="@+id/confirmed_voters_recorded_in_protocol_immediately"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/koib_recalculations_performed"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="confirmed_voters_recorded_in_protocol_immediately"
+                        android:tag="koib_recalculations_performed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Ручной пересчёт по требованию наблюдателей на участке с КОИБ не производился" />
 
                     <TextView
-                        android:id="@+id/TextView4"
+                        android:id="@+id/TextView7"
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -113,7 +169,7 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/imageView2"
                     style="@style/list_divider_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,7 +180,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/confirmed_voters_violations_photo" />
+                    android:text="@string/violations_photo" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
@@ -132,22 +188,21 @@
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/confirmed_voters_violations_photo_gallery"
+                        android:id="@+id/koib_violations_photo_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:tag="confirmed_voters_violations_photo"
+                        android:tag="koib_violations_photo"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 
                     <Button
-                        android:id="@+id/confirmed_voters_violations_photo"
+                        android:id="@+id/koib_violations_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
-                        android:tag="confirmed_voters_violations_photo"
+                        android:tag="koib_violations_photo"
                         android:text="@string/ballot_box_violations_photo_camera" />
-
                 </LinearLayout>
             </LinearLayout>
 

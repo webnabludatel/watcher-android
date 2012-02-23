@@ -1,6 +1,7 @@
 package org.dvaletin.apps.nabludatel.utils;
 
 public class Consts {
+
 	public static final int MEDIA_TYPE_IMAGE = 0;
 	public static final int MEDIA_TYPE_VIDEO = 1;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -21,26 +22,22 @@ public class Consts {
 	public static final int SEEKBAR_FALSE = 0;
 	public static final int SEEKBAR_TRUE = 2;
 
-	public static final String[] ROOT_MENU_ITEMS = {"Подготовка",
-			"Ход голосования", "Подсчет голосов", "Заседание и протокол",
-			"ТИК/ИКМО" };
+	public static final String[] ROOT_MENU_ITEMS = {"Открытие участка",
+			"Голосование", "Подсчет", "Заседание и протокол"};
 
 	public static final String[] ROOT_MENU_DESCRIPTIONS = {
-			"Не зафиксировано", "Не зафиксировано", "Не зафиксировано",
-			"Не зафиксировано", "Не зафиксировано" };
+			"Отметок нет",  "Отметок нет", "Отметок нет", "Отметок нет"};
 
 	public static final String[] SECTION_ELECTIONS_DISTRICT = { "Избирательный участок" };
 
 	public static final String[] SECTION_ELECTIONS_DISTRICT_DESCRIPTIONS = { "Не заполнено" };
 
 	public static final String[] SECTION_BEFORE_ELECTIONS = {
-			"Допуск на участок до 8:00", "Урны", "КОИБы", "Оформление участка",
-			"Списки избирателей", "Число избирателей" };
+			"Избирательные ящики", "Списки избирателей", "Статистика участка", "Бюллетени",
+			"Наблюдатели на участке" };
 
 	public static final String[] SECTION_BEFORE_ELECTIONS_DESCRIPTIONS = {
-			"Нарушений не зафиксировано", "Нарушений не зафиксировано",
-			"Нарушений не зафиксировано", "Нарушений не зафиксировано",
-			"Нарушений не зафиксировано", "Не заполнено" };
+		"Отметок нет",  "Отметок нет", "Отметок нет", "Отметок нет", "Отметок нет"};
 
 	public static final String[] SECTION_DURING_ELECTIONS = { "Данные о явке",
 			"Помехи наблюдателям", "Давление на голосующих",
@@ -104,6 +101,8 @@ public class Consts {
 	public static final String PHOTO_FILE = "photo";
 	public static final String VIDEO_FILE = "video";
 	public static final String PREFS_ELECTIONS_DISRICT = "elections_district";
+	public static final String PREFS_TITLE = "window_title";
+	public static final String PREFS_LAYOUT_ID = "layout_id";
 	
 
 	public static String getDescriptionFill(int id) {

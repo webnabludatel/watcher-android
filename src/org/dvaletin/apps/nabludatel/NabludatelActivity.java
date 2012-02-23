@@ -4,10 +4,12 @@ package org.dvaletin.apps.nabludatel;
 import java.io.File;
 import java.util.ArrayList;
 
+
+import org.dvaletin.apps.nabludatel.utils.*;
+
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.server.NabludatelMediaClient;
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,8 +38,9 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	JSONObject mainJSON;
 	protected static final String TAG_CAMERA = "Camera";
 	
-	NabludatelCustomListViewAdapter mRootListViewAdapter, mElectionsDistrictAdapter, mBeforeElectionsAdapter;
-	NabludatelCustomListViewAdapter mDuringElectionsListViewAdapter, mAfterElectionsListViewAdapter;
+	NabludatelCustomListViewAdapter mRootListViewAdapter, mElectionsDistrictAdapter;
+	NabludatelChecklistListViewAdapter mBeforeElectionsAdapter, mDuringElectionsAdapter;
+	NabludatelCustomListViewAdapter mAfterElectionsListViewAdapter;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -98,6 +101,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     		district.setVisibility(View.INVISIBLE);
     	}
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
+    	
     	if(mRootListViewAdapter == null && c.getCount() > 0){
 	    	ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
 	    	
@@ -155,110 +159,49 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
     	if(mBeforeElectionsAdapter == null){
-	    	ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
 	    	
-	    	for(int i=0; i<Consts.SECTION_BEFORE_ELECTIONS.length; i++){
-	    		mListViewItems.add(new NabludatelListViewItem(Consts.SECTION_BEFORE_ELECTIONS[i], Consts.SECTION_BEFORE_ELECTIONS_DESCRIPTIONS[i]));
-	    	}
-	    	mBeforeElectionsAdapter = new NabludatelCustomListViewAdapter(this, mListViewItems);
+	    	mBeforeElectionsAdapter = new NabludatelChecklistListViewAdapter(this, new SectionBeforeElections());
     	}          
     	
     	
         
         mMainSelector.setAdapter(mBeforeElectionsAdapter);
         mMainSelector.setOnItemClickListener(new OnItemClickListener (){
-
 			@Override
 			public void onItemClick(AdapterView<?> pAdapterView, View argpView1, int pItemPosition,
 					long pItemId) {
-				Intent mIntentToStart = null;
-				int mActivityResult = 0;
-				switch(pItemPosition){
-				case 0:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_before_elections_admitted_before_eight, SectionBeforeElectionsAdmittedBeforeEight.class);
-					break;
-				}
-				case 1:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_before_elections_bullot_box, SectionBeforeElectionsBullotBox.class);
-					break;
-				}
-				case 2:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_before_elections_koib, SectionBeforeElectionsKoib.class);
-					break;
-				}
-				case 3:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_before_elections_appearance, SectionBeforeElectionsAppearance.class);
-					break;
-				}
-				case 4:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_before_elections_voters,  SectionBeforeElectionsVoters.class);
-					break;
-				}
-				case 5:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_before_elections_voters_count, SectionBeforeElectionsVotersCount.class);
-					break;
-				}
-				default:{
-					break;
-				}
-				}
-
+				NabludatelActivity.this.startNabludatelActivity(
+						((ListViewActivityItem)mBeforeElectionsAdapter.getItem(pItemPosition))
+							.getTitle(),
+						((ListViewActivityItem)mBeforeElectionsAdapter.getItem(pItemPosition))
+							.getLayout(), 
+						((ListViewActivityItem)mBeforeElectionsAdapter.getItem(pItemPosition))
+							.getActivity());
 			}
-        	
         });
-		
 	}
 
     public void activateSectionDuringElections(){
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-    	if(mDuringElectionsListViewAdapter == null){
-	    	ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
+    	if(mDuringElectionsAdapter == null){
 	    	
-	    	for(int i=0; i<Consts.SECTION_DURING_ELECTIONS.length; i++){
-	    		mListViewItems.add(new NabludatelListViewItem(Consts.SECTION_DURING_ELECTIONS[i], Consts.SECTION_DURING_ELECTIONS_DESCRIPTIONS[i]));
-	    	}
-	    	mDuringElectionsListViewAdapter = new NabludatelCustomListViewAdapter(this, mListViewItems);
+	    	mDuringElectionsAdapter = new NabludatelChecklistListViewAdapter(this, new SectionDuringElections());
     	}          
         
-        mMainSelector.setAdapter(mDuringElectionsListViewAdapter);
+        mMainSelector.setAdapter(mDuringElectionsAdapter);
         mMainSelector.setOnItemClickListener(new OnItemClickListener (){
 
-			@Override
+        	@Override
 			public void onItemClick(AdapterView<?> pAdapterView, View argpView1, int pItemPosition,
 					long pItemId) {
-				Intent mIntentToStart = null;
-				int mActivityResult = 0;
-				switch(pItemPosition){
-				case 0:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_during_elections_attendance, SectionDuringElectionsAttendance.class);
-					break;
-				}
-				case 1:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_during_elections_ballot, SectionDuringElectionsBullot.class);
-					break;
-				}
-				case 2:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_during_elections_ballot_process_pressure, SectionDuringElectionsBallotProcessPressure.class);
-					break;
-				}
-				case 3:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_during_elections_suspicious_voters, SectionDuringElectionsSuspiciousVouters.class);
-					break;
-				}
-				case 4:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_during_elections_bundle_of_ballots, SectionDuringElectionsBundleOfBallots.class);
-					break;
-				}
-				case 5:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_during_elections_absentee_vote, SectionDuringElectionsAbsenteeVote.class);
-					break;
-				}
-				default:{
-					mIntentToStart = null;
-					break;
-				}
-				}
+				NabludatelActivity.this.startNabludatelActivity(
+						((ListViewActivityItem)mDuringElectionsAdapter.getItem(pItemPosition))
+							.getTitle(),
+						((ListViewActivityItem)mDuringElectionsAdapter.getItem(pItemPosition))
+							.getLayout(), 
+						((ListViewActivityItem)mDuringElectionsAdapter.getItem(pItemPosition))
+							.getActivity());
 			}
         	
         });
@@ -286,30 +229,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 				Intent mIntentToStart = null;
 				int mActivityResult = 0;
 				switch(pItemPosition){
-				case 0:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_unused_ballots_counted_after_vote_finish, SectionCountingUnusedBallots.class);
-					break;
-				}
-				case 1:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_unused_ballots_counted_after_vote_finish, SectionCountingConfirmedVoters.class);
-					break;
-				}
-				case 2:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_ballot_box, SectionCountingBallotBox.class);
-					break;
-				}
-				case 3:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_absentee_ballot, SectionCountingAbsenteeBallot.class);
-					break;
-				}
-				case 4:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_counting_ballots, SectionCountingCountingBullots.class);
-					break;
-				}
-				case 5:{
-					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_control_calculations, SectionCountingControlCalculations.class);
-					break;
-				}
+				
 				default:{
 					mIntentToStart = null;
 					break;
@@ -382,7 +302,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     		
     		break;
     	}
-    	case R.layout.section_elections_district:{
+    	case R.layout.elections_district_profile:{
 
 			JSONObject json = null;
 			try{
@@ -491,6 +411,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			return json;
 		}
 	}
+	
 
 	public class NabludatelCustomListViewAdapter extends BaseAdapter {
 		private ArrayList<NabludatelListViewItem> mItemsArrayList;
@@ -578,12 +499,14 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 	
 
-    public void startNabludatelActivity(int resultCode, Class<?> c){
+    public void startNabludatelActivity(String title, int layoutId, Class<? extends ABSNabludatelActivity> c){
     	long mCurrentElectionsDistrict = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1);
     	if(mCurrentElectionsDistrict != -1){
     		Intent intent = new Intent(this, c);
     		intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, mCurrentElectionsDistrict);
-    		this.startActivityForResult(intent, resultCode);
+    		intent.putExtra(Consts.PREFS_TITLE, title);
+    		intent.putExtra(Consts.PREFS_LAYOUT_ID, layoutId);
+    		this.startActivityForResult(intent, layoutId);
     	}
 	}
 }
