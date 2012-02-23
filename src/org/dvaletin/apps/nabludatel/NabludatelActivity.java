@@ -54,14 +54,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
         TelephonyManager t = (TelephonyManager) getSystemService(Context. TELEPHONY_SERVICE);
         deviceId = t.getDeviceId();
     	mNabludatelCloud = new NabludatelCloud(t.getDeviceId());
-    	setContentView(R.layout.main);
-    	try {
-			mainJSON = new JSONObject(prefs.getString(Consts.ACTIVITY_JSON_DATA, ""));
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			mainJSON = new JSONObject();
-		}	
+    	setContentView(R.layout.main);	
     	activateRootMenu();
     }
     
@@ -268,6 +261,19 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+    	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
+    	int violations = -1;
+    	if( data != null ) 
+    		violations = data.getIntExtra(Consts.PREFS_VIOLATIONS, -1);
+    	if(violations >= 0){
+    		for(int i = 0; i < mBeforeElectionsAdapter.getCount(); i++){
+    			if(((ListViewActivityItem)mBeforeElectionsAdapter.getItem(i)).getLayout() == requestCode){
+    				mBeforeElectionsAdapter.updateViolations(i, violations);
+    				mMainSelector.setAdapter(mBeforeElectionsAdapter);
+    				break;
+    			}
+    		}
+    	}
     	switch(requestCode){
     	case Consts.ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT:{
     		if(data != null){
@@ -298,7 +304,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 				
 			sendJSON(json);
 			
-			((NabludatelListViewItem) this.mRootListViewAdapter.getItem(0)).setDescription(Consts.getDescriptionFill(json.length()));
+			((NabludatelListViewItem) this.mRootListViewAdapter.getItem(0)).setDescription(Consts.getViolationDescription(json.length()));
 		
 			try {
 				mainJSON.put("section_elections_district", json);

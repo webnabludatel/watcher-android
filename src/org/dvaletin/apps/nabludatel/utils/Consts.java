@@ -104,25 +104,16 @@ public class Consts {
 	public static final String PREFS_ELECTIONS_DISRICT = "elections_district";
 	public static final String PREFS_TITLE = "window_title";
 	public static final String PREFS_LAYOUT_ID = "layout_id";
+	public static final String PREFS_VIOLATIONS = "violations_count";
 	
 
-	public static String getDescriptionFill(int id) {
+	public static String getViolationDescription(int id) {
 		if (id == 0)
-			return "Не заполнено";
-		if (id % 10 == 1)
-			return "Заполнен " + id + " пункт";
-		if (id % 10 > 1 && id % 10 < 5)
-			return "Заполнено " + id + " пункта";
-		return "Заполнено " + id + " пунктов";
-	}
-
-	public static String getDescriptionViolation(int id) {
-		if (id == 0)
-			return "Нарушений не зафиксировано";
+			return "Отметок нет";
 		if (id == 1)
-			return "Зафиксировано " + id + " нарушение";
+			return "Отмечен " + id + " пункт";
 		if (id > 1 && id < 5)
-			return "Зафиксировано " + id + " нарушения";
-		return "Зафиксировано " + id + " нарушений";
+			return "Отмечено " + id + " пункта";
+		return "Отмечено " + id + " пунктов";
 	}
 }

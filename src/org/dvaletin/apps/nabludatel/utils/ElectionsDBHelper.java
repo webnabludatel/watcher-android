@@ -13,7 +13,7 @@ public class ElectionsDBHelper {
 
 	private static final String TAG = "Elections.DB";
 	protected static final String DATABASE_NAME = "Elections.DB";
-	protected static final int DATABASE_VERSION = 2;
+	protected static final int DATABASE_VERSION = 3;
 	protected SQLiteDatabase mDb;
 	protected final Context mContext;
 	protected MyDbHelper mDbHelper;
@@ -48,6 +48,8 @@ public class ElectionsDBHelper {
 	public static final int CHECKLISTITEM_POLLINGPLACE_COLUMN = 6;
 	public static final String CHECKLISTITEM_VIOLATION_KEY = "violation";
 	public static final int CHECKLISTITEM_VIOLATION_COLUMN = 7;
+	public static final String CHECKLISTITEM_SERVER_STATUS_KEY = "serverstatus";
+	public static final int CHECKLISTITEM_SERVER_STATUS_COLUMN = 8;
 	public static final String CHECKLISTITEM_ROW_ID = "_id";
 	private static final String DATABASE_CHECKLISTITEM_CREATE = "create table "
 			+ CHECKLISTITEM_TABLE + " (" + CHECKLISTITEM_ROW_ID
@@ -57,7 +59,8 @@ public class ElectionsDBHelper {
 			+ CHECKLISTITEM_TIMESTAMP_KEY + " integer  " + ", "
 			+ CHECKLISTITEM_VALUE_KEY + " text  " + ", "
 			+ CHECKLISTITEM_POLLINGPLACE_KEY + " integer  " + ", "
-			+ CHECKLISTITEM_VIOLATION_KEY + " text "		
+			+ CHECKLISTITEM_VIOLATION_KEY + " text " + ", "
+			+ CHECKLISTITEM_SERVER_STATUS_KEY + " integer "
 			+ ");";
 	public static final String POLLINGPLACE_TABLE = "PollingPlace";
 	public static final String POLLINGPLACE_CHAIRMAN_KEY = "chairman";
@@ -145,10 +148,24 @@ public class ElectionsDBHelper {
 		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY,
 				mCurrentElectionsDistrict);
 		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, violation);
+		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, (long)-1);
 		return mDb.insert(CHECKLISTITEM_TABLE, null, contentValues);
 
 	}
 
+	public long addCheckListItem(Violation value) {
+		return addCheckListItem(
+				value.getLat(), 
+				value.getLng(), 
+				value.getKey(), 
+				value.getTimestamp(),
+				value.getValue(), 
+				value.getDistrict(),
+				value.getViolation()
+		);
+		
+	}
+	
 	public long updateCheckListItem(long rowIndex, Float lat, Float lng,
 			String name, Integer timestamp, String value, Integer pollingplace, String violation) {
 		String where = CHECKLISTITEM_ROW_ID + " = " + rowIndex;
@@ -213,6 +230,23 @@ public class ElectionsDBHelper {
 			res.moveToFirst();
 		}
 		return res;
+	}
+	
+	public Cursor getAllCheckListItemsNotInSync(){
+		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
+				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
+				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
+				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
+				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY }, 
+				CHECKLISTITEM_SERVER_STATUS_KEY + " <> " + "-1", 
+				null, null, null, null);
+	}
+	
+	public long updateCheckListItemServerSync(long rowIndex, long server_status){
+		String where = CHECKLISTITEM_ROW_ID + " = " + rowIndex;
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, server_status);
+		return mDb.update(CHECKLISTITEM_TABLE, contentValues, where, null);
 	}
 
 	public long addPollingPlace(String chairman, Float lat, Float lng,
@@ -407,4 +441,5 @@ public class ElectionsDBHelper {
 		}
 	}
 
+	
 }

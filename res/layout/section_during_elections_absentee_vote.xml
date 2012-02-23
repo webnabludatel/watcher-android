@@ -208,8 +208,8 @@
                         android:tag="absentee_vote_ballots_number_mismatch"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp"
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Количество бюллетеней превышает число заявок более чем на 5%" />
 
                     <TextView
@@ -328,6 +328,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/violations_photo" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
