@@ -302,7 +302,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:tag="observer_conditions_violations_photo"
-                        android:text="Button" />
+                        android:text="@string/ballot_box_violations_photo_camera" />
 
                 </LinearLayout>
 

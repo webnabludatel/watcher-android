@@ -55,8 +55,8 @@
                         android:tag="suspicious_voters_no_absentee_ballot"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Голосование за других лиц по сговору с членами УИК"/>
 
                     <TextView
@@ -106,8 +106,8 @@
                         android:tag="suspicious_voters_already_voted"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp"
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Случаи, когда за пришедших избирателей уже проголосовали" />
 
                     <TextView
@@ -157,8 +157,8 @@
                         android:tag="suspicious_voters_no_passport"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Голосование без паспорта, регистрации, открепительного, по чужим документам"/>
 
                     <TextView
@@ -208,8 +208,8 @@
                         android:tag="suspicious_voters_invalid_absentee_ballot"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Голосование по чужим открепительным, неизъятие талона"/>
 
                     <TextView
@@ -259,8 +259,8 @@
                         android:tag="suspicious_mass_absentee_ballot"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Массовое голосование по открепительным талонам"/>
 
                     <TextView
@@ -310,8 +310,8 @@
                         android:tag="suspicious_voters_brought_by_transport"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp"
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Организованный подвоз групп голосующих" />
 
                     <TextView
@@ -366,6 +366,7 @@
 
                 <TextView
                     android:id="@+id/textView13"
+                    style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/violations_video" />

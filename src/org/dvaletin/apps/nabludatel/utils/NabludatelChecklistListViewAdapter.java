@@ -1,5 +1,8 @@
 package org.dvaletin.apps.nabludatel.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.dvaletin.apps.nabludatel.R;
 import org.dvaletin.apps.nabludatel.NabludatelActivity.NabludatelCustomListViewAdapter.ViewHolder;
 
@@ -13,10 +16,14 @@ import android.widget.TextView;
 public class NabludatelChecklistListViewAdapter extends android.widget.BaseAdapter {
 	SectionList items;
 	private LayoutInflater mInflater;
-	
+	private int [] violations;
 	public NabludatelChecklistListViewAdapter(Context context, SectionList pItems){
 		items = pItems;
 		mInflater = LayoutInflater.from(context);
+		violations = new int [items.listItems.length];
+		for(int i=0; i< violations.length; i++){
+			violations[i] = 0;
+		}
 	}
 
 	@Override
@@ -54,9 +61,13 @@ public class NabludatelChecklistListViewAdapter extends android.widget.BaseAdapt
 		}
 
 		holder.txtTitle.setText(items.listItems[position].getTitle());
-		holder.txtDescription.setText(items.listItems[position].getViolationsDescription());
+		holder.txtDescription.setText(Consts.getViolationDescription(violations[position]));
 		
 		return convertView;
+	}
+	
+	public void updateViolations(int position, int v){
+		violations[position] = v;
 	}
 
 	public class ViewHolder {

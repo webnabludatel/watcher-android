@@ -92,8 +92,8 @@
                         android:tag="ballot_box_mix_up_ballots"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Ящики перед вскрытием встряхивали и переворачивали"/>
 
                     <TextView
@@ -143,8 +143,8 @@
                         android:tag="ballot_box_opening_ballot_bundles"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="В стационарных урнах замечены сложенные пачки бюллетеней"/>
 
                     <TextView

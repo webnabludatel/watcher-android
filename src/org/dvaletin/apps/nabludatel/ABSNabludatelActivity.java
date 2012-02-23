@@ -5,9 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
+import org.dvaletin.apps.nabludatel.utils.Violation;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,105 +47,151 @@ public abstract class ABSNabludatelActivity extends Activity {
 	JSONObject json = new JSONObject();
 	long mCurrentElectionsDistrict = -1;
 	ElectionsDBHelper mElectionsDB;
-
+	HashMap<String, Violation> myState;
+	HashMap<String, View> activeViews;
 	double lat;
 	double lng;
 	LocationListener mLocationListener;
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState); 
+		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
-		mCurrentElectionsDistrict = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, -1);
+		mCurrentElectionsDistrict = intent.getLongExtra(
+				Consts.PREFS_ELECTIONS_DISRICT, -1);
 		prefs = this.getPreferences(MODE_PRIVATE);
 		mElectionsDB = new ElectionsDBHelper(this);
-		
+
 		pictureFileUri = new ArrayList<Uri>();
 		videoFileUri = new ArrayList<Uri>();
-		
+
 		photo = new ArrayList<File>();
 		video = new ArrayList<File>();
 	}
-	
+
 	@Override
-	public void onResume(){
+	public void onResume() {
 		super.onResume();
 		mElectionsDB.open();
-		setCallbacks((ViewGroup)(findViewById(android.R.id.content).getRootView()));
+		setCallbacks((ViewGroup) (findViewById(android.R.id.content)
+				.getRootView()));
 		restore();
-		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) this
+				.getSystemService(Context.LOCATION_SERVICE);
 
 		// Define a listener that responds to location updates
-		mLocationListener = new LocationListener(){
-			public void onStatusChanged(String provider, int status, Bundle extras) {}
+		mLocationListener = new LocationListener() {
+			public void onStatusChanged(String provider, int status,
+					Bundle extras) {
+			}
 
-		    public void onProviderEnabled(String provider) {}
+			public void onProviderEnabled(String provider) {
+			}
 
-		    public void onProviderDisabled(String provider) {}
+			public void onProviderDisabled(String provider) {
+			}
 
 			@Override
 			public void onLocationChanged(Location location) {
 				lat = location.getLatitude();
-				lng = location.getLongitude();	
+				lng = location.getLongitude();
 			}
 		};
-		
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
 
-		
+		locationManager.requestLocationUpdates(
+				LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+
 	}
-	
+
 	@Override
-	public void onPause(){
-		super.onPause();
-		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+	public void onPause() {
+		LocationManager locationManager = (LocationManager) this
+				.getSystemService(Context.LOCATION_SERVICE);
 		locationManager.removeUpdates(mLocationListener);
+		save();
 		mElectionsDB.close();
+		super.onPause();
 	}
-	
-	public void onMakePhotoClick(View v){
+
+	public void onMakePhotoClick(View v) {
 		startNarusheniyePhoto();
 	}
-	
-	public void onMakeVideoClick(View v){
+
+	public void onMakeVideoClick(View v) {
 		startNarusheniyeVideo();
 	}
-	
-	public void restore(){
-		
-		if(mCurrentElectionsDistrict == -1) return;
-		Cursor c = mElectionsDB.getAllCheckListItemsByElectionsDistrictId(this.mCurrentElectionsDistrict);
-		c.moveToFirst();
-		HashMap<String, String> mRestoreHashMap = new HashMap<String,String>();
-		for(int i=0; i < c.getCount(); i++){
-			
-			
-			mRestoreHashMap.put(c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN), 
-					c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN));
-			c.moveToNext();
+
+	public void save() {
+		for (Entry<String, Violation> entry : myState.entrySet()) {
+			mElectionsDB.addCheckListItem(entry.getValue());
 		}
-		restore((ViewGroup)findViewById(android.R.id.content).getRootView(), mRestoreHashMap);
 	}
 	
-	public void restore(ViewGroup v, HashMap<String, String> from){
-		for(int i=0; i< v.getChildCount(); i++){
+	public void fillActiveViews(ViewGroup v){
+		for (int i = 0; i < v.getChildCount(); i++) {
 			if (v.getChildAt(i) instanceof ViewGroup) {
-				restore((ViewGroup) (v.getChildAt(i)), from);
+				fillActiveViews((ViewGroup) (v.getChildAt(i)));
 			}
 
-			if (v.getChildAt(i) instanceof Tumbler) {
-				try{
-					String data = from.get(v.getChildAt(i).getTag().toString());
-					if(data != null){
-						Tumbler bar = (Tumbler)v.getChildAt(i);
-						bar.setTumbler(data);
-					}
-				}catch(Exception e){
+			if (v.getChildAt(i).getTag() != null) {
+				try {
+					String tag = v.getChildAt(i).getTag().toString();
+					activeViews.put(tag, v.getChildAt(i));
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
 	}
-	
+
+	public void restore() {
+		myState = new HashMap<String, Violation>();
+		activeViews = new HashMap<String, View>();
+		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
+		if (mCurrentElectionsDistrict == -1)
+			return;
+		Cursor c = mElectionsDB
+				.getAllCheckListItemsByElectionsDistrictId(this.mCurrentElectionsDistrict);
+		c.moveToFirst();
+
+		for (int i = 0; i < c.getCount(); i++) {
+			String key = c
+					.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN);
+			if(activeViews.keySet().contains(key)){
+				myState.put(
+					key,
+					new Violation(
+							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
+							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
+							c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
+							c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN),
+							c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN),
+							c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN),
+							c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN)));
+			}
+			c.moveToNext();
+		}
+		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
+				myState, activeViews);
+	}
+
+	public void restore(ViewGroup v, HashMap<String, Violation> from, HashMap<String, View> to) {
+		Iterator i =   to.entrySet().iterator();
+		while(i.hasNext()){
+			Map.Entry entry = (Map.Entry)i.next();
+			if (entry.getValue() instanceof Tumbler) {
+				try {
+					Violation data = from.get(entry.getKey().toString());
+					if (data != null) {
+						Tumbler bar = (Tumbler) entry.getValue();
+						bar.setTumbler(data.getValue());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	public void setCallbacks(ViewGroup v) {
 		for (int i = 0; i < v.getChildCount(); i++) {
 			if (v.getChildAt(i) instanceof ViewGroup) {
@@ -151,21 +203,29 @@ public abstract class ABSNabludatelActivity extends Activity {
 				bar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 					int mInitialProgress;
 					boolean mIsProgressChanged = false;
+
 					@Override
 					public void onProgressChanged(SeekBar seekBar,
 							int progress, boolean fromUser) {
 						if (fromUser) {
 							mIsProgressChanged = true;
-							
+
 						}
-						if(((Tumbler)seekBar).getTumblerValue().equals("true")){
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_15));
-						}else if(((Tumbler)seekBar).getTumblerValue().equals("false")){
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_11));
-						}else {
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this.getResources().getDrawable(R.drawable.for_frontend_04));
+						if (((Tumbler) seekBar).getTumblerValue()
+								.equals("true")) {
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this
+									.getResources().getDrawable(
+											R.drawable.for_frontend_15));
+						} else if (((Tumbler) seekBar).getTumblerValue()
+								.equals("false")) {
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this
+									.getResources().getDrawable(
+											R.drawable.for_frontend_11));
+						} else {
+							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this
+									.getResources().getDrawable(
+											R.drawable.for_frontend_04));
 						}
-						
 
 					}
 
@@ -179,16 +239,36 @@ public abstract class ABSNabludatelActivity extends Activity {
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						int progress = seekBar.getProgress();
 						if (mIsProgressChanged && progress != mInitialProgress) {
-
-							ABSNabludatelActivity.this.mElectionsDB
-								.addCheckListItem(
-											lat, 
-											lng, 
-											seekBar.getTag().toString(), 
-											System.currentTimeMillis(),
-											((Tumbler) seekBar).getTumblerValue(),
-											mCurrentElectionsDistrict, 
-											((Tumbler) seekBar).getViolation());
+							String key = seekBar.getTag().toString();
+							Violation v = ABSNabludatelActivity.this.myState
+									.get(key);
+							if (v == null) {
+								ABSNabludatelActivity.this.myState.put(
+										key,
+										new Violation(lat, lng, seekBar
+												.getTag().toString(), System
+												.currentTimeMillis(),
+												((Tumbler) seekBar)
+														.getTumblerValue(),
+												mCurrentElectionsDistrict,
+												((Tumbler) seekBar)
+														.getViolation()));
+							} else {
+								v.setValue(((Tumbler) seekBar)
+										.getTumblerValue());
+								v.setCoordinates(lat, lng);
+								v.setTimeStamp(System.currentTimeMillis());
+							}
+							// ABSNabludatelActivity.this.mElectionsDB
+							// .addCheckListItem(
+							// lat,
+							// lng,
+							// seekBar.getTag().toString(),
+							// System.currentTimeMillis(),
+							// ((Tumbler) seekBar).getTumblerValue(),
+							// mCurrentElectionsDistrict,
+							// ((Tumbler) seekBar).getViolation()
+							// );
 
 						}
 					}
@@ -198,149 +278,15 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 		}
 	}
-	
-	public void restoreDataFromJSON(ViewGroup v, JSONObject from){
-		Object tag;
-		for(int i=0; i<v.getChildCount(); i++){
-			tag = v.getChildAt(i).getTag();
-			if(tag != null){
-				String tagString = tag.toString();
-				if(v.getChildAt(i) instanceof SeekBar){
-					try {
-						boolean value = from.getBoolean(tagString);
-						if(value){
-							((SeekBar)v.getChildAt(i)).setProgress(Consts.SEEKBAR_TRUE);
-						}else{
-							((SeekBar)v.getChildAt(i)).setProgress(Consts.SEEKBAR_FALSE);
-						}
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				if(v.getChildAt(i) instanceof EditText){
-					EditText ed = (EditText) v.getChildAt(i);
-					if(ed.getInputType() == android.text.InputType.TYPE_CLASS_NUMBER){
-						try {
-							int value = from.getInt(tagString);
-							ed.setText(Integer.valueOf(value));
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else {
-						try {
-							String value = from.getString(tagString);
-							ed.setText(value);
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
-				if(v.getChildAt(i) instanceof ViewGroup)
-				{
-					restoreDataFromJSON((ViewGroup)v.getChildAt(i), from);
-				}
-			}
-		}
-	}
-	public JSONObject getViewGroupJSON(ViewGroup v){
-		Object tag;
-		if(json == null){
-			json = new JSONObject();
-		}
-		for(int i=0; i< v.getChildCount(); i++){
-			tag = v.getChildAt(i).getTag();
-			if(tag != null){
-				
-				if(v.getChildAt(i) instanceof SeekBar){
-					SeekBar bar = (SeekBar)v.getChildAt(i);
-					try {
-						int progress = bar.getProgress();
-						if(progress == Consts.SEEKBAR_FALSE){
-							json.put(tag.toString(), false);
-						}
-						if(progress == Consts.SEEKBAR_TRUE){
-							json.put(tag.toString(), true);
-						}
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				if(v.getChildAt(i) instanceof EditText){
-					EditText ed = (EditText) v.getChildAt(i);
-					if(!ed.getText().toString().equals("")){
-						if(ed.getInputType() == android.text.InputType.TYPE_CLASS_NUMBER){
-							try{
-								String value = ed.getText().toString();
-								json.put(tag.toString(), Integer.valueOf(value));
-							} catch (JSONException e){
-								e.printStackTrace();
-							}
-						}else{
-							try {
-								json.put(tag.toString(), ed.getText().toString());
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-			}
-			if(v.getChildAt(i) instanceof ViewGroup){
-				getViewGroupJSON((ViewGroup)v.getChildAt(i));
-			}
-		}
-		return json;
-	}
-	
-	public Intent save(){
-		
-		Intent result = new Intent();
-		result.putExtra(Consts.ACTIVITY_JSON_DATA, makeJSON((ViewGroup)findViewById(android.R.id.content).getRootView()).toString());
-		return result;
-	}
-	
-	public JSONObject makeJSON(ViewGroup v){
-		getViewGroupJSON(v);
-		if(photo != null && photo.size() > 0){
-			JSONArray photos = new JSONArray();
-			for(int i=0; i<photo.size(); i++){
-				photos.put(photo.get(i).getAbsolutePath());
-			}
-			try {
-				json.put(Consts.PHOTO_FILE, photos);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if(video != null && video.size() > 0){
-			JSONArray videos = new JSONArray();
-			for(int i=0; i<video.size(); i++){
-				videos.put(video.get(i).getAbsolutePath());
-			}
-			try {
-				json.put(Consts.VIDEO_FILE, videos);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return json;
-	}
-	
+
 	protected void startNarusheniyePhoto() {
 
 		// File pictureFile = takePicture(R.layout.post_narushenije);
 		File pictureFile = startCameraPhoto();
 		photo.add(pictureFile);
 	}
-	
-	protected void startNarusheniyeVideo(){
+
+	protected void startNarusheniyeVideo() {
 		File videoFile = startCameraVideo();
 		video.add(videoFile);
 	}
@@ -351,20 +297,20 @@ public abstract class ABSNabludatelActivity extends Activity {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		Uri toAdd = getOutputMediaFileUri(Consts.MEDIA_TYPE_IMAGE);
 		pictureFileUri.add(toAdd); // create
-																			// a
-																			// file
-																			// to
-																			// save
-																			// the
-																			// image
+									// a
+									// file
+									// to
+									// save
+									// the
+									// image
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, toAdd); // set the
-																	// image
-																	// file name
+															// image
+															// file name
 
 		// start the image capture Intent
 		startActivityForResult(intent,
 				Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-		return new File(pictureFileUri.get(pictureFileUri.size()-1).getPath());
+		return new File(pictureFileUri.get(pictureFileUri.size() - 1).getPath());
 	}
 
 	protected File startCameraVideo() {
@@ -373,22 +319,22 @@ public abstract class ABSNabludatelActivity extends Activity {
 		Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 		Uri toAdd = getOutputMediaFileUri(Consts.MEDIA_TYPE_VIDEO);
 		videoFileUri.add(toAdd); // create
-																			// a
-																			// file
-																			// to
-																			// save
-																			// the
-																			// image
+									// a
+									// file
+									// to
+									// save
+									// the
+									// image
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, toAdd); // set the
-																	// image
-																	// file name
+															// image
+															// file name
 
 		// start the image capture Intent
 		startActivityForResult(intent,
 				Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
-		return new File(pictureFileUri.get(pictureFileUri.size()-1).getPath());
+		return new File(pictureFileUri.get(pictureFileUri.size() - 1).getPath());
 	}
-	
+
 	/** Create a file Uri for saving an image or video */
 	protected static Uri getOutputMediaFileUri(int type) {
 		return Uri.fromFile(getOutputMediaFile(type));
@@ -430,35 +376,39 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 		return mediaFile;
 	}
-	
-	public JSONObject getJSON(){
-		return json;
-	}
-	
-	public void onBackButtonPress(View v){
+
+	public void onBackButtonPress(View v) {
 		this.finish();
 	}
-	
-	@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
 
-		switch(requestCode){
-		case Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:{
-			if(resultCode == 0){
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (requestCode) {
+		case Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE: {
+			if (resultCode == 0) {
 				// The user has cancelled image capture
-				if(photo.size() > 0){
-					photo.remove(photo.size()-1);
+				if (photo.size() > 0) {
+					photo.remove(photo.size() - 1);
 				}
 			}
 		}
-		case Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE:{
-			if(resultCode == 0){
-				if(video.size() > 0){
-					video.remove(video.size()-1);
+		case Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE: {
+			if (resultCode == 0) {
+				if (video.size() > 0) {
+					video.remove(video.size() - 1);
 				}
 			}
 			break;
 		}
 		}
+	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent();
+		intent.putExtra(Consts.PREFS_VIOLATIONS, myState.entrySet().size());
+		setResult(RESULT_CANCELED, intent);
+		super.onBackPressed();
 	}
 }

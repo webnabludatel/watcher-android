@@ -207,8 +207,8 @@
                         android:tag="counting_ballots_suspicious_counting"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="false"
-                        nabludatel:hiValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
                         nabludatel:violationText="Возникли сомнения в правильности подсчёта голосов"/>
 
                     <TextView
