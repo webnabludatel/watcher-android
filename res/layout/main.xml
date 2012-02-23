@@ -6,55 +6,85 @@
     android:background="@drawable/background_fill"
     android:gravity="center_horizontal|fill"
     android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+
+    <include
+        android:id="@+id/include2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="50"
-        android:orientation="vertical" >
-
+        android:layout_weight="10"
+        layout="@layout/footer_layout" />
+
+    <FrameLayout
+        android:id="@+id/main_window_frame"
+        style="@style/main_window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50" >
+
         <LinearLayout
-            android:id="@+id/linearLayout2"
-            style="@style/main_windows_list_view"
+            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="50"
             android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/PanelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/elections_districts" />
 
-            <Button
-                android:id="@+id/elections_district_add"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                style="@style/main_pane_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="onElectionsDictrictAddClick"
-                android:text="@string/add_elections_district" />
-
-            <Spinner
-                android:id="@+id/elections_district_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/elections_district" />
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
+                <Spinner
+                    android:id="@+id/elections_district_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/elections_district" />
+
+                <Button
+                    android:id="@+id/elections_district_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onElectionsDictrictAddClick"
+                    android:text="@string/add_elections_district" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/PanelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/watching" />
+
+            <FrameLayout
+                android:id="@+id/main_layout"
+                style="@style/main_pane_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50" >
+
+                <ListView
+                    android:id="@+id/main_selector"
+                    style="@style/listview_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top">
+                </ListView>
+            </FrameLayout>
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/main_layout"
-            style="@style/main_windows_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50" >
 
-            <ListView
-                android:id="@+id/main_selector"
-                style="@style/listview_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:entries="@array/root_sections" >
-            </ListView>
-        </FrameLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <include
         android:id="@+id/include1"

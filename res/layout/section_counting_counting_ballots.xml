@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nabludatel="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel"
     style="@style/main_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/include1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/footer_layout" />
-
     <FrameLayout
         android:id="@+id/frameLayout1"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -39,15 +34,16 @@
                     android:id="@+id/LinearLayout01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView01"
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/counting_ballots_presented_or_announced"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -58,14 +54,24 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_presented_or_announced"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Сортировка производилась с нарушениями"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView02"
+                    <TextView
+                        android:id="@+id/TextView2"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/list_divider_style"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -78,15 +84,16 @@
                     android:id="@+id/LinearLayout03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView05"
+                    <TextView
+                        android:id="@+id/TextView10"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/counting_ballots_sorted_in_separate_bundles"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -97,14 +104,25 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_sorted_in_separate_bundles"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Подсчёт бюллетеней производился с нарушениями"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView06"
+                    <TextView
+                        android:id="@+id/TextView9"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView13"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -117,15 +135,16 @@
                     android:id="@+id/LinearLayout02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView03"
+                    <TextView
+                        android:id="@+id/TextView8"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/counting_ballots_marks_noticed_in_ballots"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -136,14 +155,25 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_marks_noticed_in_ballots"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:loValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:violationText="Наблюдатели не могли видеть отметки избирателей в бюллетенях"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView04"
+                    <TextView
+                        android:id="@+id/TextView7"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -156,15 +186,16 @@
                     android:id="@+id/LinearLayout04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView07"
+                    <TextView
+                        android:id="@+id/TextView6"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/no" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/counting_ballots_suspicious_counting"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -175,14 +206,25 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_suspicious_counting"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
+                        nabludatel:violationText="Возникли сомнения в правильности подсчёта голосов"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView08"
+                    <TextView
+                        android:id="@+id/TextView5"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/yes" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView16"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -195,15 +237,16 @@
                     android:id="@+id/LinearLayout05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView09"
+                    <TextView
+                        android:id="@+id/TextView4"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/counting_ballots_ballot_check_allowed"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -214,14 +257,25 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_ballot_check_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:loValue="true"
+                        nabludatel:hiValue="false"
+                        nabludatel:violationText="Наблюдатели не смогли проверить правильность подсчёта"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView10"
+                    <TextView
+                        android:id="@+id/TextView3"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView14"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -234,15 +288,16 @@
                     android:id="@+id/LinearLayout06"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right" >
+                    android:gravity="center_vertical|right" >
 
-                    <ImageView
-                        android:id="@+id/ImageView12"
+                    <TextView
+                        android:id="@+id/TextView2"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_06" />
+                        android:text="@string/yes" />
 
-                    <SeekBar
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/counting_ballots_recorded_in_protocol_immediately"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -253,21 +308,33 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:loValue="true"
+                        
+                        nabludatel:hiValue="false"
+                        nabludatel:violationText="При подсчете голосов данные не сразу внесены в увеличенную форму протокола"/>
 
-                    <ImageView
-                        android:id="@+id/ImageView11"
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/for_frontend_12" />
+                        android:text="@string/no" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView15"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
 
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/confirmed_voters_violations_photo" />
+                    android:text="@string/violations_video" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
@@ -278,18 +345,21 @@
                         android:id="@+id/counting_ballots_violations_video_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="counter_violations_photo"
+                        android:layout_weight="1"
+                        android:tag="counting_ballots_violations_video"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 
                     <Button
                         android:id="@+id/counting_ballots_violations_video"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="counting_ballots_violations_video"
                         android:text="@string/ballot_box_violations_photo_camera" />
                 </LinearLayout>
             </LinearLayout>
+
         </ScrollView>
 
     </FrameLayout>

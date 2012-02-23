@@ -8,9 +8,8 @@
 
     <FrameLayout
         android:id="@+id/frameLayout1"
-        style="@style/main_pane_style"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" style="@style/main_pane_style">
 
         <ScrollView
             android:id="@+id/scrollView1"
@@ -28,7 +27,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/confirmed_voters_announced" />
+                    android:text="@string/unused_ballots_counted_after_vote_finish" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout01"
@@ -43,8 +42,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/yes" />
 
-                    <SeekBar
-                        android:id="@+id/confirmed_voters_announced"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/unused_ballots_counted_after_vote_finish"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -52,9 +51,13 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="confirmed_voters_announced"
+                        android:tag="unused_ballots_counted_after_vote_finish"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Подсчёт неиспользованых бюллетеней начался не сразу по окончании голосования"
+                        />
 
                     <TextView
                         android:id="@+id/TextView2"
@@ -76,7 +79,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/confirmed_voters_recorded_in_protocol_immediately" />
+                    android:text="@string/unused_ballots_counted_before_other_actions" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout03"
@@ -91,8 +94,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/yes" />
 
-                    <SeekBar
-                        android:id="@+id/confirmed_voters_recorded_in_protocol_immediately"
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/unused_ballots_counted_before_other_actions"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -100,12 +103,67 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="confirmed_voters_recorded_in_protocol_immediately"
+                        android:tag="unused_ballots_counted_before_other_actions"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Неиспользованые бюллетени не были подсчитаны и погашены до других подсчётов"
+                        />
 
                     <TextView
                         android:id="@+id/TextView4"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unused_ballots_recorded_in_protocol_immediately" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView5"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/unused_ballots_recorded_in_protocol_immediately"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="unused_ballots_recorded_in_protocol_immediately"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp" 
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>
+
+                    <TextView
+                        android:id="@+id/TextView6"
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,11 +178,11 @@
                     android:src="@drawable/list_devider" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textView4"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/confirmed_voters_violations_photo" />
+                    android:text="@string/violations_photo" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
@@ -132,20 +190,20 @@
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/confirmed_voters_violations_photo_gallery"
+                        android:id="@+id/unused_ballots_violation_photo_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:tag="confirmed_voters_violations_photo"
+                        android:tag="unused_ballots_violation_photo"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 
                     <Button
-                        android:id="@+id/confirmed_voters_violations_photo"
+                        android:id="@+id/unused_ballots_violation_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
-                        android:tag="confirmed_voters_violations_photo"
+                        android:tag="unused_ballots_violation_photo"
                         android:text="@string/ballot_box_violations_photo_camera" />
 
                 </LinearLayout>

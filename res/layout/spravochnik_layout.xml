@@ -33,7 +33,7 @@
 
     <WebView
         android:id="@+id/spravichnik_vew"
-        style="@style/main_windows_list_view"
+        style="@style/main_pane_style"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50"
