@@ -37,7 +37,7 @@ public class SectionBeforeElectionsVoters extends ABSNabludatelActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			mS3Helper.uploadImageToS3(photo);
+//			mNabludatelMediaClient.uploadImageToS3(photo);
 		}
 
 		SeekBar voters_lists_checked = (SeekBar) findViewById(R.id.voters_lists_checked);

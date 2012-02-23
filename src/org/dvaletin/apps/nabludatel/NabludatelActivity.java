@@ -4,9 +4,9 @@ package org.dvaletin.apps.nabludatel;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.dvaletin.apps.nabludatel.server.NabludatelMediaClient;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-import org.dvaletin.apps.nabludatel.utils.S3Helper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
-	S3Helper mS3Helper;
+	NabludatelMediaClient mNabludatelMediaClient;
 	String deviceId;
 	JSONObject mainJSON;
 	protected static final String TAG_CAMERA = "Camera";
@@ -44,7 +44,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
         super.onCreate(savedInstanceState);
         TelephonyManager t = (TelephonyManager) getSystemService(Context. TELEPHONY_SERVICE);
         deviceId = t.getDeviceId();
-    	mS3Helper = new S3Helper(t.getDeviceId());
+    	mNabludatelMediaClient = new NabludatelMediaClient(t.getDeviceId(), null, null);
     	setContentView(R.layout.main);
     	try {
 			mainJSON = new JSONObject(prefs.getString(Consts.ACTIVITY_JSON_DATA, ""));
@@ -423,11 +423,10 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			JSONArray photoURLs = new JSONArray();
 			for(int i=0; i< photos.length(); i++){
 				File photoFile = new File((String) photos.get(i));
-				mS3Helper.uploadImageToS3(photoFile);
-				photoURLs.put(Consts.getAmazonS3Url(deviceId, photoFile));
+				photoURLs.put(mNabludatelMediaClient.upload(photoFile));
 			}
 			return photoURLs;
-		} catch (JSONException e){
+		} catch (Exception e){
 			e.printStackTrace();
 		}
 		return null;	

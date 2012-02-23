@@ -1,13 +1,6 @@
 package org.dvaletin.apps.nabludatel.utils;
 
-import java.io.File;
-
 public class Consts {
-	private static final String S3_ACCESS_KEY_ID = "AKIAJ4IVZVGUAAYUUWZQ";
-	private static final String S3_SECRET_KEY = "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";
-
-	private static final String S3_PICTURE_BUCKET = "nabludatel";
-
 	public static final int MEDIA_TYPE_IMAGE = 0;
 	public static final int MEDIA_TYPE_VIDEO = 1;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -27,18 +20,6 @@ public class Consts {
 
 	public static final int SEEKBAR_FALSE = 0;
 	public static final int SEEKBAR_TRUE = 2;
-	
-	public static final String getS3AccessKey() {
-		return S3_SECRET_KEY;
-	}
-
-	public static final String getS3AccessKeyId() {
-		return S3_ACCESS_KEY_ID;
-	}
-
-	public static final String getS3PictureBucket() {
-		return S3_PICTURE_BUCKET;
-	}
 
 	public static final String[] ROOT_MENU_ITEMS = {"Подготовка",
 			"Ход голосования", "Подсчет голосов", "Заседание и протокол",
@@ -143,10 +124,5 @@ public class Consts {
 		if (id > 1 && id < 5)
 			return "Зафиксировано " + id + " нарушения";
 		return "Зафиксировано " + id + " нарушений";
-	}
-
-	public static String getAmazonS3Url(String deviceId, File file) {
-		return "https://s3-eu-west-1.amazonaws.com/" + getS3PictureBucket()
-				+ "/android/" + deviceId + "/" + file.getName();
 	}
 }

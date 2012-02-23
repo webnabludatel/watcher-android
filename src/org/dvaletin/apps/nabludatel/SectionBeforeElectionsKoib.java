@@ -34,7 +34,7 @@ public class SectionBeforeElectionsKoib extends ABSNabludatelActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			mS3Helper.uploadImageToS3(photo);
+//			mNabludatelMediaClient.uploadImageToS3(photo);
 		}
 		
 		SeekBar counter_set_on_zero = (SeekBar) findViewById(R.id.counter_set_on_zero);
