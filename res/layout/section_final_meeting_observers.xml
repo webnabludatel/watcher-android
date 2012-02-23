@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nabludatel="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel"
+    style="@style/main_window"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" style="@style/main_pane_style">
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_observers" />
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_observers_1" />
+
+                <EditText
+                    android:id="@+id/EditText01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_number"
+                    android:inputType="number"
+                    android:tag="final_meeting_observers_1" />
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView04"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_observers_2" />
+
+                <EditText
+                    android:id="@+id/EditText04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_number"
+                    android:inputType="number"
+                    android:tag="final_meeting_observers_2" />
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_observers_3" />
+
+                <EditText
+                    android:id="@+id/EditText03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_number"
+                    android:inputType="number"
+                    android:tag="final_meeting_observers_3" />
+
+                <ImageView
+                    android:id="@+id/ImageView04"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_observers_4" />
+
+                <EditText
+                    android:id="@+id/EditText02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_number"
+                    android:inputType="number"
+                    android:tag="final_meeting_observers_4" />
+
+                <ImageView
+                    android:id="@+id/ImageView03"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_observers_5" />
+
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_number"
+                    android:inputType="number"
+                    android:tag="final_meeting_observers_5" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nabludatel="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel"
+    style="@style/main_window"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        style="@style/main_pane_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_is_provided" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_is_provided"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_is_provided"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Комиссия не предоставила копию протокола" />
+
+                    <TextView
+                        android:id="@+id/TextView2"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_is_provided_before_sumission" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView4"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_is_provided_before_sumission"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_is_provided_before_sumission"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Копия протокола не была выдана до отправки протокола в ТИК" />
+
+                    <TextView
+                        android:id="@+id/TextView3"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView03"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_is_signed_by_all_required_personnel" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_is_signed_by_all_required_personnel"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_is_signed_by_all_required_personnel"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="На копии протокола недостаточно подписей" />
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_signatures_commented" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_signatures_commented"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_signatures_commented"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Подписи на копии протокола не расшифрованы" />
+
+                    <TextView
+                        android:id="@+id/TextView06"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView04"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView09"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_has_stamp" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView08"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exists" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_has_stamp"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_has_stamp"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="На копии протокола нет печати комиссии" />
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView10"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_is_marked_as_genuine" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView11"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exists" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_is_marked_as_genuine"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_is_marked_as_genuine"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="На копии протокола нет надписи  &quot;верно&quot;" />
+
+                    <TextView
+                        android:id="@+id/TextView12"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView06"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView13"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_is_marked_with_date" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView15"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exists" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_is_marked_with_date"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_is_marked_with_date"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="На копии протокола нет даты заверения" />
+
+                    <TextView
+                        android:id="@+id/TextView14"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView07"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView18"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol_copy_is_marked_with_time" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView17"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exists" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/protocol_copy_is_marked_with_time"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="protocol_copy_is_marked_with_time"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="На копии протокола нет времени заверения" />
+
+                    <TextView
+                        android:id="@+id/TextView16"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/violations_photo" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/protocol_violations_photo_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="protocol_copy_violations_photo"
+                        android:text="@string/ballot_box_violations_photo_gallery" />
+
+                    <Button
+                        android:id="@+id/protocol_violations_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onMakePhotoClick"
+                        android:tag="protocol_copy_violations_photo"
+                        android:text="@string/ballot_box_violations_photo_camera" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+</LinearLayout>

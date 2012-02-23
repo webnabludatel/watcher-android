@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nabludatel="http://schemas.android.com/apk/res/org.dvaletin.apps.nabludatel"
+    style="@style/main_window"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" style="@style/main_pane_style">
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_conducted" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView1"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/final_meeting_conducted"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="final_meeting_conducted"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Итоговое заседание не проводилось" />
+
+                    <TextView
+                        android:id="@+id/TextView2"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_administration" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView3"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exists" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/final_meeting_administration"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="final_meeting_administration"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="Представители администрации не присутствовали на итоговом заседании" />
+
+                    <TextView
+                        android:id="@+id/TextView4"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_meeting_main_comission" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right" >
+
+                    <TextView
+                        android:id="@+id/TextView5"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exists" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/final_meeting_number_of_complains_is_added_to_protocol"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="false"
+                        nabludatel:loValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="final_meeting_number_of_complains_is_added_to_protocol"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="В протокол не внесено количество поданных жалоб" />
+
+                    <TextView
+                        android:id="@+id/TextView6"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+</LinearLayout>

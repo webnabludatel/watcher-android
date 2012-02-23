@@ -1,7 +1,6 @@
 package org.dvaletin.apps.nabludatel.utils;
 
 public class Consts {
-
 	public static final int MEDIA_TYPE_IMAGE = 0;
 	public static final int MEDIA_TYPE_VIDEO = 1;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -22,8 +21,10 @@ public class Consts {
 	public static final int SEEKBAR_FALSE = 0;
 	public static final int SEEKBAR_TRUE = 2;
 
+
 	public static final String[] ROOT_MENU_ITEMS = {"Открытие участка",
 			"Голосование", "Подсчет", "Заседание и протокол"};
+
 
 	public static final String[] ROOT_MENU_DESCRIPTIONS = {
 			"Отметок нет",  "Отметок нет", "Отметок нет", "Отметок нет"};
