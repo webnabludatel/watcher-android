@@ -4,12 +4,15 @@ package org.dvaletin.apps.nabludatel;
 import java.io.File;
 import java.util.ArrayList;
 
+//<<<<<<< HEAD
 
 import org.dvaletin.apps.nabludatel.utils.*;
 
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.server.NabludatelMediaClient;
-
+import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
+import org.dvaletin.apps.nabludatel.utils.NabludatelChecklistListViewAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,9 +41,11 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	JSONObject mainJSON;
 	protected static final String TAG_CAMERA = "Camera";
 	
-	NabludatelCustomListViewAdapter mRootListViewAdapter, mElectionsDistrictAdapter;
+	NabludatelCustomListViewAdapter mRootListViewAdapter;
 	NabludatelChecklistListViewAdapter mBeforeElectionsAdapter, mDuringElectionsAdapter;
-	NabludatelCustomListViewAdapter mAfterElectionsListViewAdapter;
+	NabludatelChecklistListViewAdapter mAfterElectionsListViewAdapter;
+	NabludatelChecklistListViewAdapter mFinalMeetingAdapter;
+	NabludatelChecklistListViewAdapter mCountingAdapter;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -211,30 +216,23 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     public void activateSectionCounting(){
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-    	if(mAfterElectionsListViewAdapter == null){
-	    	ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
-	    	
-	    	for(int i=0; i<Consts.SECTION_COUNTING.length; i++){
-	    		mListViewItems.add(new NabludatelListViewItem(Consts.SECTION_COUNTING[i], Consts.SECTION_COUNTING_DESCRIPTIONS[i]));
-	    	}
-	    	mAfterElectionsListViewAdapter = new NabludatelCustomListViewAdapter(this, mListViewItems);
+    	if(mCountingAdapter == null){
+    		mCountingAdapter = new NabludatelChecklistListViewAdapter(this, new SectionCounting());
     	}          
         
-        mMainSelector.setAdapter(mAfterElectionsListViewAdapter);
+        mMainSelector.setAdapter(mCountingAdapter);
         mMainSelector.setOnItemClickListener(new OnItemClickListener (){
 
-			@Override
+        	@Override
 			public void onItemClick(AdapterView<?> pAdapterView, View argpView1, int pItemPosition,
 					long pItemId) {
-				Intent mIntentToStart = null;
-				int mActivityResult = 0;
-				switch(pItemPosition){
-				
-				default:{
-					mIntentToStart = null;
-					break;
-				}
-				}
+				NabludatelActivity.this.startNabludatelActivity(
+						((ListViewActivityItem)mCountingAdapter.getItem(pItemPosition))
+							.getTitle(),
+						((ListViewActivityItem)mCountingAdapter.getItem(pItemPosition))
+							.getLayout(), 
+						((ListViewActivityItem)mCountingAdapter.getItem(pItemPosition))
+							.getActivity());
 			}
         	
         });
@@ -244,44 +242,24 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	public void activateSectionFinalMeeting() {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mAfterElectionsListViewAdapter == null) {
-			ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
-
-			for (int i = 0; i < Consts.SECTION_FINAL_MEETING.length; i++) {
-				mListViewItems.add(new NabludatelListViewItem(
-						Consts.SECTION_FINAL_MEETING[i],
-						Consts.SECTION_FINAL_MEETING_DESCRIPTIONS[i]));
-			}
-			mAfterElectionsListViewAdapter = new NabludatelCustomListViewAdapter(
-					this, mListViewItems);
+		if (mFinalMeetingAdapter == null) {
+			mFinalMeetingAdapter = new NabludatelChecklistListViewAdapter(
+					this, new SectionFinalMeeting());
 		}
 
-		mMainSelector.setAdapter(mAfterElectionsListViewAdapter);
+		mMainSelector.setAdapter(mFinalMeetingAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> pAdapterView,
-					View argpView1, int pItemPosition, long pItemId) {
-				Intent mIntentToStart = null;
-				int mActivityResult = 0;
-				switch (pItemPosition) {
-				case 0: {
-//					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_control_calculations, SectionCountingControlCalculations.class);
-					break;
-				}
-				case 1: {
-//					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_control_calculations, SectionCountingControlCalculations.class);
-					break;
-				}
-				case 2: {
-//					NabludatelActivity.this.startNabludatelActivity(R.layout.section_counting_control_calculations, SectionCountingControlCalculations.class);
-					break;
-				}
-				default: {
-					mIntentToStart = null;
-					break;
-				}
-				}
+			public void onItemClick(AdapterView<?> pAdapterView, View argpView1, int pItemPosition,
+					long pItemId) {
+				NabludatelActivity.this.startNabludatelActivity(
+						((ListViewActivityItem)mFinalMeetingAdapter.getItem(pItemPosition))
+							.getTitle(),
+						((ListViewActivityItem)mFinalMeetingAdapter.getItem(pItemPosition))
+							.getLayout(), 
+						((ListViewActivityItem)mFinalMeetingAdapter.getItem(pItemPosition))
+							.getActivity());
 			}
 
 		});
