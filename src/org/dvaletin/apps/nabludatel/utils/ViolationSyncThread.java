@@ -2,6 +2,7 @@ package org.dvaletin.apps.nabludatel.utils;
 
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -11,14 +12,49 @@ public class ViolationSyncThread implements Runnable {
 	NabludatelCloud cloudHelper;
 	ElectionsDBHelper mElectionsDB;
 	String deviceId;
+	IViolationSyncCallCallback callback = null;
 	
-	public void init(ElectionsDBHelper dbHelper, String id){
-		mElectionsDB = dbHelper;
+	public void init(Context context, String id){
+		mElectionsDB = new ElectionsDBHelper(context);
+		mElectionsDB.open();
 		this.deviceId = id;
+		cloudHelper = new NabludatelCloud(deviceId);
+		callback = new IViolationSyncCallCallback() {
+
+			@Override
+			public void onViolationSyncStart() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onViolationSyncFinish() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onViolationSyncProgresUpdate(int progress) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onViolationSyncError(String msg) {
+				// TODO Auto-generated method stub
+				
+			}};
 	}
+	
+	public void setViolationSyncCallCallback(IViolationSyncCallCallback toCall){
+		callback = toCall;
+	}
+	
 	@Override
 	public void run() {
+		callback.onViolationSyncStart();
 		try{
+			
 			if(deviceId == null){
 				Log.e(TAG, "Device ID is not set, exiting");
 				return;
@@ -26,13 +62,14 @@ public class ViolationSyncThread implements Runnable {
 			if(mElectionsDB == null){
 				Log.e(TAG, "ElectionsDBHelper is not set, exiting");
 			}
-			cloudHelper = new NabludatelCloud(deviceId);
+
 			cloudHelper.authentication();
 			if(cloudHelper.isAuthenticated()){
-				mElectionsDB.open();
+//				mElectionsDB.open();
 				Cursor c = mElectionsDB.getAllCheckListItems();
 				c.moveToFirst();
 				for(int i=0; i< c.getCount(); i++){
+					callback.onViolationSyncProgresUpdate((int)( (i/c.getCount())*100 ));
 					long rowId = c.getLong(0);
 					double lat = c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN);
 					double lng = c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN);
@@ -52,11 +89,20 @@ public class ViolationSyncThread implements Runnable {
 					}
 					c.moveToNext();
 				}
-				mElectionsDB.close();
+//				mElectionsDB.close();
+			}else{
+				cloudHelper.authentication();
 			}
 		}catch(Exception e){
+//			callback.onViolationSyncError(TAG+" "+e.getMessage());
 			e.printStackTrace();
 		}
+		callback.onViolationSyncFinish();
 	}
-
+	public interface IViolationSyncCallCallback{
+		public void onViolationSyncStart();
+		public void onViolationSyncFinish();
+		public void onViolationSyncProgresUpdate(int progress);
+		public void onViolationSyncError(String msg);
+	}
 }

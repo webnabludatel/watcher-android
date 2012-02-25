@@ -214,7 +214,8 @@ public class ElectionsDBHelper {
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
-				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY }, CHECKLISTITEM_ROW_ID + " = "
+				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY,
+				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SCREEN_ID_KEY}, CHECKLISTITEM_ROW_ID + " = "
 				+ rowIndex, null, null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -372,10 +373,10 @@ public class ElectionsDBHelper {
 
 	}
 	
-	public long updateMediaItemServerStatus(long rowIndex, int serverStatus){
+	public long updateMediaItemServerStatus(long rowIndex, long mediaServerId){
 		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, serverStatus);
+		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, mediaServerId);
 		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
 	}
 	
@@ -395,11 +396,11 @@ public class ElectionsDBHelper {
 		return mDb.delete(MEDIAITEM_TABLE, null, null) > 0;
 	}
 
-	public Cursor getAllMediaItem() {
+	public Cursor getAllMediaItems() {
 		return mDb.query(MEDIAITEM_TABLE, new String[] { MEDIAITEM_ROW_ID,
 				MEDIAITEM_FILEPATH_KEY, MEDIAITEM_MEDIATYPE_KEY,
 				MEDIAITEM_SERVERURL_KEY, MEDIAITEM_TIMESTAMP_KEY,
-				MEDIAITEM_CHECKLISTITEM_KEY, MEDIAITEM_POLLINGPLACE_KEY },
+				MEDIAITEM_CHECKLISTITEM_KEY, MEDIAITEM_POLLINGPLACE_KEY, MEDIAITEM_SERVER_STATUS_KEY },
 				null, null, null, null, null);
 	}
 
@@ -408,7 +409,7 @@ public class ElectionsDBHelper {
 				MEDIAITEM_ROW_ID, MEDIAITEM_FILEPATH_KEY,
 				MEDIAITEM_MEDIATYPE_KEY, MEDIAITEM_SERVERURL_KEY,
 				MEDIAITEM_TIMESTAMP_KEY, MEDIAITEM_CHECKLISTITEM_KEY,
-				MEDIAITEM_POLLINGPLACE_KEY }, MEDIAITEM_ROW_ID + " = "
+				MEDIAITEM_POLLINGPLACE_KEY, MEDIAITEM_SERVER_STATUS_KEY }, MEDIAITEM_ROW_ID + " = "
 				+ rowIndex, null, null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -457,22 +458,35 @@ public class ElectionsDBHelper {
 	}
 
 	public long getPollingPlaceServerIdByNumber(long pollingPlace) {
-		Cursor c = this.getPollingPlaceByNumber(pollingPlace);
-		c.moveToFirst();
-		long toReturn = -1L;
-		if(c.getCount() > 0)
-			toReturn = c.getLong(POLLINGPLACE_SERVER_NUMBER_COLUMN);
-		return toReturn;
+		Cursor res = this.getPollingPlaceByNumber(pollingPlace);
+		if(res != null){
+			if(res.getCount() > 0){
+				return res.getLong(POLLINGPLACE_SERVER_NUMBER_COLUMN);
+			}
+		}
+		return -1L;
 	}
 
 	public String getPollingPlaceNameByNumber(long pollingPlace) {
-		Cursor c = this.getPollingPlaceByNumber(pollingPlace);
-		c.moveToFirst();
-		String toReturn = null;
-		if(c.getCount() > 0)
-			toReturn = c.getString(POLLINGPLACE_NAME_COLUMN);
-		return toReturn;
+		Cursor res = this.getPollingPlaceByNumber(pollingPlace);
+		if(res != null){
+			res.moveToFirst();
+			if(res.getCount() > 0){
+				return res.getString(POLLINGPLACE_NAME_COLUMN);
+			}
+		}
+		return null;
 	}
+
+	public long getCheckListItemServerId(long mediaChecklistId) {
+		Cursor res = this.getCheckListItem(mediaChecklistId);
+		if (res != null) {
+			res.moveToFirst();
+			return res.getLong(CHECKLISTITEM_SERVER_STATUS_COLUMN);
+		}
+		return -1L;
+	}
+
 
 	
 }

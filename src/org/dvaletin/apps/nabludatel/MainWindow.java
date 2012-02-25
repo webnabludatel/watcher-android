@@ -6,10 +6,16 @@ import java.util.TimerTask;
 
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
+import org.dvaletin.apps.nabludatel.utils.MediaSyncThread;
+import org.dvaletin.apps.nabludatel.utils.MediaSyncThread.IMediaSyncCallCallback;
 import org.dvaletin.apps.nabludatel.utils.ViolationSyncThread;
+import org.dvaletin.apps.nabludatel.utils.ViolationSyncThread.IViolationSyncCallCallback;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -23,8 +29,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 
-public class MainWindow extends TabActivity {
+public class MainWindow extends TabActivity implements IViolationSyncCallCallback, IMediaSyncCallCallback{
+	private static final int DIALOG_SYNC_ERROR = 1000;
+	
 	ViolationSyncThread violationSync;
+	MediaSyncThread mediaSync;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		int buttonResource = getResources().getIdentifier("drawable/button", null, getPackageName());
@@ -65,21 +75,40 @@ public class MainWindow extends TabActivity {
 		String deviceId = tm.getDeviceId();
 		violationSync = new ViolationSyncThread();
 		
-		violationSync.init(new ElectionsDBHelper(this), deviceId);
+		violationSync.init(this, deviceId);
+		violationSync.setViolationSyncCallCallback(this);
 		TimerTask violationSyncTask;
-		final Handler handler = new Handler();
-		Timer t = new Timer();
+		final Handler violationSyncHandler = new Handler();
+		Timer violationSyncTimer = new Timer();
 		violationSyncTask = new TimerTask(){
 
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				handler.post(violationSync);
+				violationSyncHandler.post(violationSync);
 				Log.d("ViolationSyncTask:", "started");
 			}
 			
 		};
-		t.schedule(violationSyncTask, 300, 30000);
+		violationSyncTimer.schedule(violationSyncTask, 300, 30000);
+		
+		
+		mediaSync = new MediaSyncThread();
+		mediaSync.init(this, deviceId);
+		mediaSync.setMediaSyncCallback(this);
+		final Handler mediaSyncHandler = new Handler();
+		Timer mediaSyncTimer = new Timer();
+		TimerTask mediaSyncTask = new TimerTask(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mediaSyncHandler.post(mediaSync);
+				Log.d("MediaSyncTask:", "started");
+			}
+			
+		};
+		mediaSyncTimer.schedule(mediaSyncTask, 3000, 30000);
 	}
 
 	private void setupUI() {
@@ -134,5 +163,69 @@ public class MainWindow extends TabActivity {
 				}
 			}
 		});
+	}
+
+	@Override
+	public void onViolationSyncStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onViolationSyncFinish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onViolationSyncError(String msg) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(msg)
+		       .setCancelable(false)
+		       .setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       });
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+
+	@Override
+	public void onViolationSyncProgresUpdate(int progress) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMediaSyncStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMediaSyncFinish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMediaSyncProgresUpdate(int progress) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMediaSyncError(String msg) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(msg)
+		       .setCancelable(false)
+		       .setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       });
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }
