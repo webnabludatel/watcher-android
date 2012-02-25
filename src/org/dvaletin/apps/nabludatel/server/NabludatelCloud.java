@@ -37,10 +37,11 @@ public class NabludatelCloud {
 		this.authentication = authentication;
 	}
 
-	private static JSONObject toMessagePayload(String key, String value, double lat, double lng, long timestamp) throws JSONException {
+	private static JSONObject toMessagePayload(String pollingPlaceId, String key, String value, double lat, double lng, long timestamp) throws JSONException {
 		JSONObject payload = new JSONObject();
+		payload.putOpt("polling_place_id", pollingPlaceId);
 		payload.put("key", key);
-		payload.put("value", String.valueOf(value));
+		payload.put("value", value);
 		payload.put("lat", lat);
 		payload.put("lng", lng);
 		if (timestamp > 0L) {
@@ -49,16 +50,20 @@ public class NabludatelCloud {
 		return payload;
 	}
 
-	public long postNewMessage(String key, String value, double lat, double lon, long timestamp) {
+	public long postNewMessage(String key, String value, double lat, double lng, long timestamp) {
+		return postNewMessage(null, key, value, lat, lng, timestamp);
+	}
+
+	public long postNewMessage(String pollingPlaceId, String key, String value, double lat, double lng, long timestamp) {
 		try {
-			JSONObject payload = toMessagePayload(key, value, lat, lon, timestamp);
+			JSONObject payload = toMessagePayload(pollingPlaceId, key, value, lat, lng, timestamp);
 			return postNewMessage(payload);
 		} catch (JSONException e) {
 			Log.w(T, "Can create JSON object", e);
 		}
 		return -1L;
 	}
-	
+
 	public long postNewMessage(JSONObject payload) {
 		try {
 			return serverClient.postNewMessage(authenticationSecret(), payload);
@@ -73,9 +78,12 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long editMessage(long messageId, String key, String value, double lat, double lon, long timestamp) {
+	public long editMessage(long messageId, String key, String value, double lat, double lng, long timestamp) {
+		return editMessage(messageId, null, key, value, lat, lng, timestamp);
+	}
+	public long editMessage(long messageId, String pollingPlaceId, String key, String value, double lat, double lng, long timestamp) {
 		try {
-			JSONObject payload = toMessagePayload(key, value, lat, lon, timestamp);
+			JSONObject payload = toMessagePayload(pollingPlaceId, key, value, lat, lng, timestamp);
 			return editMessage(messageId, payload);
 		} catch (JSONException e) {
 			Log.w(T, "Can create JSON object", e);
