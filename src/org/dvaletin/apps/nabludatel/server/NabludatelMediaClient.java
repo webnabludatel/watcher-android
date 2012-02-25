@@ -6,8 +6,11 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import org.dvaletin.apps.nabludatel.utils.Encodings;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * S3 client.
@@ -28,12 +31,12 @@ public class NabludatelMediaClient {
 		this.s3Client = new AmazonS3Client(awsCredentials);
 	}
 
-	public String toUrl(File file) {
+	public String toUrl(File file) throws NoSuchAlgorithmException {
 		return "https://s3-eu-west-1.amazonaws.com/" + BUCKET + "/" + toS3FileName(file);
 	}
 
-	private String toS3FileName(File file) {
-		return deviceId + '/' + file.getName();
+	private String toS3FileName(File file) throws NoSuchAlgorithmException {
+		return Encodings.md5(deviceId) + '/' + file.getName();
 	}
 
 	/**
@@ -58,7 +61,7 @@ public class NabludatelMediaClient {
 		}
 	}
 
-	private PutObjectRequest putRequest(File file) {
+	private PutObjectRequest putRequest(File file) throws NoSuchAlgorithmException {
 		return new PutObjectRequest(BUCKET, toS3FileName(file), file);
 	}
 }

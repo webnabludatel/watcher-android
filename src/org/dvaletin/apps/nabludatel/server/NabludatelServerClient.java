@@ -1,16 +1,14 @@
 package org.dvaletin.apps.nabludatel.server;
 
 import android.util.Log;
-import org.apache.commons.codec.binary.Hex;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.dvaletin.apps.nabludatel.utils.Encodings;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.URLEncoder;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -65,23 +63,21 @@ public class NabludatelServerClient {
 	}
 
 	private String toRequest(JSONObject payload) {
-		return deviceIdToRequest() + "&payload=" + urlEncode(payload.toString());
+		return deviceIdToRequest() + "&payload=" + Encodings.urlEncode(payload.toString());
 	}
 
 	private String deviceIdToRequest() {
-		return "device_id=" + urlEncode(deviceId);
+		return "device_id=" + Encodings.urlEncode(deviceId);
 	}
 
 	private String toDigestUrl(String prefix, JSONObject payload, String secret) throws NabludatelServerException {
 		try {
 			String token = deviceId + payload + secret;
-			String digest = md5(token, "UTF-8").toLowerCase();
+			String digest = Encodings.md5(token).toLowerCase();
 			Log.d(T, "MD5 of " + token + " -> " + digest);
-			return prefix + "?digest=" + urlEncode(digest);
+			return prefix + "?digest=" + Encodings.urlEncode(digest);
 		} catch (NoSuchAlgorithmException e) {
 			throw new NabludatelServerException("Can't find MD5 digest algorithm realization", e);
-		} catch (UnsupportedEncodingException e) {
-			throw new NabludatelServerException("Can't find UTF-8 encoding", e);
 		}
 	}
 
@@ -106,22 +102,5 @@ public class NabludatelServerClient {
 		} catch (IOException e) {
 			throw new NabludatelServerException(e);
 		}
-	}
-
-	private static String urlEncode(String param) {
-		try {
-			return URLEncoder.encode(param, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			return param;
-		}
-	}
-
-	private static String md5(String s, String encoding) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		// Create MD5 Hash
-		MessageDigest digest = MessageDigest.getInstance("MD5");
-		digest.update(s.getBytes(encoding));
-
-		// Create Hex String
-		return new String(Hex.encodeHex(digest.digest()));
 	}
 }
