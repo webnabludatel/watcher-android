@@ -1,13 +1,13 @@
 package org.dvaletin.apps.nabludatel.server;
 
-import android.test.AndroidTestCase;
+import junit.framework.TestCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * @author Alexey Efimov
  */
-public class NabludatelServerClientTest extends AndroidTestCase {
+public class NabludatelServerClientTest extends TestCase {
 	private final NabludatelServerClient client = new NabludatelCloud("test_android").getServerClient();
 
 	private static JSONObject createTestMessagePayload() throws JSONException {

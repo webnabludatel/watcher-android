@@ -19,8 +19,14 @@ public class NabludatelMediaClientTest extends TestCase {
 		assertNotNull(client);
 
 		File sampleDir = Environment.getExternalStorageDirectory();
+		if (!sampleDir.exists()) {
+			assertTrue(sampleDir.mkdirs());
+		}
 		File file = new File(sampleDir, "-tmp.txt");
 		try {
+			if (file.exists()) {
+				assertTrue(file.delete());
+			}
 			FileOutputStream out = new FileOutputStream(file);
 			try {
 				String s = "test" + System.currentTimeMillis();

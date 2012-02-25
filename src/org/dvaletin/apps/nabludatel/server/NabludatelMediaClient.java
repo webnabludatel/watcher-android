@@ -9,7 +9,6 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import org.dvaletin.apps.nabludatel.utils.Encodings;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 /**

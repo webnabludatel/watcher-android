@@ -97,7 +97,7 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long uploadMediaToMessage(long messageId, File file, String mediaType) {
+	public long uploadMediaToMessage(long messageId, File file, String mediaType) throws NabludatelCloudRequestTimeTooSkewedException {
 		NabludatelMediaClient mediaClient = getMediaClient();
 		if (mediaClient != null) {
 			try {
@@ -112,6 +112,9 @@ public class NabludatelCloud {
 				if (e.isUnauthorized()) {
 					resetAuthentication();
 				}
+				if (e.isRequestTimeTooSkewed()) {
+					throw new NabludatelCloudRequestTimeTooSkewedException(e);
+				}
 			} catch (JSONException e) {
 				Log.w(T, "Parse JSON error", e);
 			}
@@ -121,11 +124,11 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long uploadPhotoToMessage(long messageId, File file) {
+	public long uploadPhotoToMessage(long messageId, File file) throws NabludatelCloudRequestTimeTooSkewedException {
 		return uploadMediaToMessage(messageId, file, "photo");
 	}
 
-	public long uploadVideoToMessage(long messageId, File file) {
+	public long uploadVideoToMessage(long messageId, File file) throws NabludatelCloudRequestTimeTooSkewedException {
 		return uploadMediaToMessage(messageId, file, "video");
 	}
 
@@ -153,7 +156,8 @@ public class NabludatelCloud {
 
 	private String authenticationSecret() {
 		try {
-			authentication().getString("secret");
+			JSONObject auth = authentication();
+			return auth != null ? auth.getString("secret") : null;
 		} catch (JSONException e) {
 			Log.w(T, "Parse JSON error", e);
 		}
