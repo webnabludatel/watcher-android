@@ -23,14 +23,18 @@ public class NabludatelCloud {
 	private final String deviceId;
 
 	private final NabludatelServerClient serverClient;
-	private JSONObject lastAuthentication;
-	private String lastSecret;
+	private JSONObject authentication;
 
 	private NabludatelMediaClient mediaClient;
 
 	public NabludatelCloud(String deviceId) {
 		this.deviceId = deviceId;
 		this.serverClient = new NabludatelServerClient("http://webnabludatel.org/api/v1", deviceId);
+	}
+
+	public NabludatelCloud(String deviceId, JSONObject authentication) {
+		this(deviceId);
+		this.authentication = authentication;
 	}
 
 	private static JSONObject toMessagePayload(String key, String value, double lat, double lng, long timestamp) throws JSONException {
@@ -131,41 +135,38 @@ public class NabludatelCloud {
 	}
 
 	private void resetAuthentication() {
-		lastSecret = null;
-		lastAuthentication = null;
+		authentication = null;
 	}
 
 	public JSONObject authentication() {
-		if (lastAuthentication == null) {
+		if (authentication == null) {
 			try {
-				lastAuthentication = doAuthentication();
+				authentication = doAuthentication();
 			} catch (NabludatelServerException e) {
 				Log.w(T, "Authentication error", e);
 			} catch (JSONException e) {
 				Log.w(T, "Parse JSON error", e);
 			}
 		}
-		return lastAuthentication;
+		return authentication;
 	}
 
 	private String authenticationSecret() {
-		if (lastSecret == null) {
-			try {
-				lastSecret = authentication().getString("secret");
-			} catch (JSONException e) {
-				Log.w(T, "Parse JSON error", e);
-			}
+		try {
+			authentication().getString("secret");
+		} catch (JSONException e) {
+			Log.w(T, "Parse JSON error", e);
 		}
-		return lastSecret;
+		return null;
 	}
 
 	public boolean isAuthenticated() {
-		return lastAuthentication != null;
+		return authentication != null;
 	}
 
 	public long getAuthenticatedUserId() {
 		try {
-			return lastAuthentication != null ? lastAuthentication.getLong("user_id") : -1L;
+			return authentication != null ? authentication.getLong("user_id") : -1L;
 		} catch (JSONException e) {
 			Log.w(T, "Parse JSON error", e);
 		}
