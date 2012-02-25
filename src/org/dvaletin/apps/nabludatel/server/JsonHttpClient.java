@@ -45,30 +45,34 @@ public class JsonHttpClient {
 				" " + requestLine.getProtocolVersion() + "\" " + statusLine.getStatusCode() +
 				" " + timeMs + " ms");
 
+		String responseBody = readResponse(response);
 		if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 			// Get hold of the response entity (-> the data):
-			HttpEntity entity = response.getEntity();
+			// Return empty object
+			return responseBody != null ? new JSONObject(responseBody) : new JSONObject();
+		}
+		throw new HttpResponseException(statusLine.getStatusCode(),
+				responseBody != null && responseBody.startsWith("{") && responseBody.endsWith("}") ?
+						new JSONObject(responseBody).toString() : statusLine.getReasonPhrase());
+	}
 
-			if (entity != null) {
-				// Read the content stream
-				InputStream inputStream = entity.getContent();
+	private static String readResponse(HttpResponse response) throws IOException {
+		HttpEntity entity = response.getEntity();
+		if (entity != null) {
+			// Read the content stream
+			InputStream inputStream = entity.getContent();
+			try {
+				// convert content stream to a String
+				return readLines(inputStream);
+			} finally {
 				try {
-					// convert content stream to a String
-					String responseBody = readLines(inputStream);
-					// Transform the String into a JSONObject
-					return new JSONObject(responseBody);
-				} finally {
-					try {
-						inputStream.close();
-					} catch (IOException e) {
-						Log.w(T, "Error while closing response stream: " + e);
-					}
+					inputStream.close();
+				} catch (IOException e) {
+					Log.w(T, "Error while closing response stream: " + e);
 				}
 			}
-			// Return empty object
-			return new JSONObject();
 		}
-		throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+		return null;
 	}
 
 	private static String readLines(InputStream is) throws IOException {
