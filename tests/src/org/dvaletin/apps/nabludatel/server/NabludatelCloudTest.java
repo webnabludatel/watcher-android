@@ -13,14 +13,14 @@ public class NabludatelCloudTest extends TestCase {
 	private final NabludatelCloud cloud = new NabludatelCloud("test_android");
 
 	public void testPostNewMessage() throws Exception {
-		long id = cloud.postNewMessage("test_key", "test_value", "lat", "lon", System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", "lat", "lng", System.currentTimeMillis());
 		assertTrue(id > 0);
 	}
 
 	public void testEditMessage() throws Exception {
-		long id = cloud.postNewMessage("test_key", "test_value", "lat1", "lon1", System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", "lat1", "lng1", System.currentTimeMillis());
 		assertTrue(id > 0);
-		long editedId = cloud.editMessage(id, "test_key", "test_value_edited", "lat2", "lon2", System.currentTimeMillis());
+		long editedId = cloud.editMessage(id, "test_key", "test_value_edited", "lat2", "lng2", System.currentTimeMillis());
 		assertTrue(id > 0);
 		assertTrue(id == editedId);
 	}
@@ -49,7 +49,7 @@ public class NabludatelCloudTest extends TestCase {
 	}
 
 	public void testUploadVideoToMessage() throws Exception {
-		long id = cloud.postNewMessage("test_key", "test_value", "lat", "lon", System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", "lat", "lng", System.currentTimeMillis());
 		File sampleDir = Environment.getExternalStorageDirectory();
 		File file = new File(sampleDir, "-tmp.mpg");
 		try {

@@ -33,12 +33,12 @@ public class NabludatelCloud {
 		this.serverClient = new NabludatelServerClient("http://webnabludatel.org/api/v1", deviceId);
 	}
 
-	private static JSONObject toMessagePayload(String key, String value, String lat, String lon, long timestamp) throws JSONException {
+	private static JSONObject toMessagePayload(String key, String value, String lat, String lng, long timestamp) throws JSONException {
 		JSONObject payload = new JSONObject();
 		payload.put("key", key);
 		payload.put("value", value);
 		payload.put("lat", lat);
-		payload.put("lon", lon);
+		payload.put("lng", lng);
 		payload.put("timestamp", timestamp);
 		return payload;
 	}
