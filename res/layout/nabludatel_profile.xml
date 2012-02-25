@@ -48,10 +48,24 @@
                             android:text="@string/nabludatel_fio" />
 
                         <EditText
-                            android:id="@+id/editText1"
+                            android:id="@+id/last_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/uik_district_chairman_hint"
+                            android:hint="@string/last_name_hint" >
+
+                        </EditText>
+
+                        <EditText
+                            android:id="@+id/first_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/first_name_hint" />
+
+                        <EditText
+                            android:id="@+id/middle_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/middle_name_hint"
                             android:inputType="textPersonName" />
 
                         <TextView
@@ -62,9 +76,10 @@
                             android:text="@string/nabludatel_email" />
 
                         <EditText
-                            android:id="@+id/editText2"
+                            android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="@string/email_hint"
                             android:inputType="textEmailAddress" />
 
                         <TextView
@@ -72,27 +87,14 @@
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nabludatel_id" />
+                            android:text="@string/nabludatel_telephone" />
 
                         <EditText
-                            android:id="@+id/editText3"
+                            android:id="@+id/phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:editable="false" />
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
-
-                        <Button
-                            android:id="@+id/button1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="onMakePhotoClick"
-                            android:text="@string/nabludatel_napravleniye" />
-
+                            android:editable="false"
+                            android:hint="@string/phone_hint" />
                     </LinearLayout>
 
                 </FrameLayout>

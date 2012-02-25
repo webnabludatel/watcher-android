@@ -96,7 +96,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	    		
 	    	});
     	}else{
-    		district.setVisibility(View.INVISIBLE);
+//    		district.setVisibility(View.INVISIBLE);
     	}
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
     	
@@ -117,33 +117,33 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			public void onItemClick(AdapterView<?> pAdapterView, View argpView1, int pItemPosition,
 					long pItemId) {
 				switch(pItemPosition){
-				case 0:{
-					NabludatelActivity.this.activateSectionBeforeElections();
-					break;
-				}
-				case 1:{
-					NabludatelActivity.this.activateSectionDuringElections();
-					break;
-				}
-				case 2:{
-					NabludatelActivity.this.activateSectionCounting();
-					break;
-				}
-				case 3:{
-					NabludatelActivity.this.activateSectionFinalMeeting();
-					break;
-				}
-				case 4:{
-					
-					break;
-				}
-				case 5:{
-					
-					break;
-				}
-				default:{
-					break;
-				}
+					case 0:{
+						NabludatelActivity.this.activateSectionBeforeElections();
+						break;
+					}
+					case 1:{
+						NabludatelActivity.this.activateSectionDuringElections();
+						break;
+					}
+					case 2:{
+						NabludatelActivity.this.activateSectionCounting();
+						break;
+					}
+					case 3:{
+						NabludatelActivity.this.activateSectionFinalMeeting();
+						break;
+					}
+					case 4:{
+						
+						break;
+					}
+					case 5:{
+						
+						break;
+					}
+					default:{
+						break;
+					}
 				}
 				
 			}
@@ -265,7 +265,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     	int violations = -1;
     	if( data != null ) 
     		violations = data.getIntExtra(Consts.PREFS_VIOLATIONS, -1);
-    	if(violations >= 0){
+    	if(violations >= 0 && mBeforeElectionsAdapter!=null){
     		for(int i = 0; i < mBeforeElectionsAdapter.getCount(); i++){
     			if(((ListViewActivityItem)mBeforeElectionsAdapter.getItem(i)).getLayout() == requestCode){
     				mBeforeElectionsAdapter.updateViolations(i, violations);
@@ -457,13 +457,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		startActivity(intent);
 	}
 	
-	public void onSpravochnikButtonClick(View v) {
-
-		String url = "file:///android_asset/spravochnik/golos_index.html";
-		Intent intent = new Intent(this, SpravochnikActivity.class);
-		intent.putExtra(Consts.ACTIVITY_URL_DATA, url);
-		startActivity(intent);
-	}
+	
 	
 	public void onElectionsDictrictAddClick(View v)
 	{
@@ -485,12 +479,16 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
     public void startNabludatelActivity(String title, int layoutId, Class<? extends ABSNabludatelActivity> c){
     	long mCurrentElectionsDistrict = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1);
+    	
+    	Intent intent = new Intent(this, c);
     	if(mCurrentElectionsDistrict != -1){
-    		Intent intent = new Intent(this, c);
     		intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, mCurrentElectionsDistrict);
-    		intent.putExtra(Consts.PREFS_TITLE, title);
-    		intent.putExtra(Consts.PREFS_LAYOUT_ID, layoutId);
-    		this.startActivityForResult(intent, layoutId);
     	}
+		intent.putExtra(Consts.PREFS_TITLE, title);
+		intent.putExtra(Consts.PREFS_LAYOUT_ID, layoutId);
+		intent.putExtra(Consts.PREFS_LATITUDE, lat);
+		intent.putExtra(Consts.PREFS_LONGITUDE, lng);
+		this.startActivityForResult(intent, layoutId);
+    	
 	}
 }

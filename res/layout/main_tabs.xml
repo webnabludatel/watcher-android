@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        style="@style/main_window"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+
+        <RadioGroup
+            android:id="@+id/states"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/first"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/first"
+                style="@style/TabButton"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_radio"
+                android:drawableTop="@drawable/tab_icon_1_30"
+                android:gravity="center_horizontal"
+                android:height="70dip"
+                android:text="@string/tab_watcher"
+                android:textSize="10dp"
+                android:width="80dip" />
+
+            <RadioButton
+                android:id="@+id/second"
+                style="@style/TabButton"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_radio"
+                android:drawableTop="@drawable/tab_icon_2_30"
+                android:gravity="center_horizontal"
+                android:height="70dip"
+                android:text="@string/tab_checklist"
+                android:textSize="10dp"
+                android:width="80dip" />
+
+            <RadioButton
+                android:id="@+id/third"
+                style="@style/TabButton"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_radio"
+                android:drawableTop="@drawable/tab_icon_5_30"
+                android:gravity="center_horizontal"
+                android:height="70dip"
+                android:text="@string/tab_report"
+                android:textSize="10dp"
+                android:width="80dip" />
+
+            <RadioButton
+                android:id="@+id/fourth"
+                style="@style/TabButton"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_radio"
+                android:drawableTop="@drawable/tab_icon_3_30"
+                android:gravity="center_horizontal"
+                android:height="70dip"
+                android:text="@string/tab_spravochnik"
+                android:textSize="10dp"
+                android:width="80dip" />
+
+            <RadioButton
+                android:id="@+id/fifth"
+                style="@style/TabButton"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_radio"
+                android:drawableTop="@drawable/tab_icon_4_30"
+                android:gravity="center_horizontal"
+                android:height="70dip"
+                android:text="@string/tab_sos"
+                android:textSize="10dp"
+                android:width="80dip" />
+
+        </RadioGroup>
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</TabHost>

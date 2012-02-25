@@ -4,7 +4,7 @@ public class Violation {
 	double lat, lng;
 	String key;
 	String value;
-	long district;
+	long district_id;
 	String violation;
 	long timestamp;
 	
@@ -16,7 +16,7 @@ public class Violation {
 		this.key = key;
 		this.timestamp = currentTimeMillis;
 		this.value = value;
-		this.district = mCurrentElectionsDistrict;
+		this.district_id = mCurrentElectionsDistrict;
 		this.violation = violation;
 	}
 
@@ -81,14 +81,14 @@ public class Violation {
 	 * @return the district
 	 */
 	public long getDistrict() {
-		return district;
+		return district_id;
 	}
 
 	/**
 	 * @param district the district to set
 	 */
 	public void setDistrict(long district) {
-		this.district = district;
+		this.district_id = district;
 	}
 
 	/**

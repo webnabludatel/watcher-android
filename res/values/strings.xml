@@ -7,8 +7,8 @@
 	<string name="violations_video">Видео нарушений</string>
 	<string name="empty"></string>
     <string name="section_elections_district_title">Избирательный участок</string>
-    <string name="uik_district_number_hint">введите номер</string>
-    <string name="uik_district_number">Номер избирательного участка</string>
+    <string name="uik_district_number_hint">введите номер или название</string>
+    <string name="uik_district_number">Номер УИК или назване ТИК</string>
     <string name="uik_district_chairman">Председатель</string>
     <string name="uik_district_chairman_hint">ФИО</string>
     <string name="uik_district_secretary">Секретарь</string>
@@ -82,7 +82,7 @@
             <string name="tab_watcher">Я</string>
             <string name="tab_checklist">Наблюдение</string>
             <string name="tab_spravochnik">Справочник</string>
-            <string name="tab_sos">Меня удаляют</string>
+            <string name="tab_sos">S.O.S</string>
             <string name="spravochnik_title">Справочник</string>
             <string name="webview_back">Назад</string>
             <string name="webview_forward">Вперед</string>
@@ -153,7 +153,6 @@
 				<string-array name="district_types">
 					<item >УИК</item>
 					<item >ТИК</item>
-					<item >ИКМО</item>
 				</string-array>
 				<string name="elections_district_fio_invalid">Введите ФИО председателя и секретаря комиссии.</string>
 				<string name="elections_district_number_invalid">Неправильный номер участка или кол-во наблюдателей.</string>
@@ -220,5 +219,20 @@
 				<string name="protocol_copy_has_stamp">Печать комиссии на копии</string>
 				<string name="protocol_copy_is_marked_as_genuine">Надпись \"верно\"</string>
 				<string name="protocol_copy_is_marked_with_date">Дата заверения</string>
-				<string name="protocol_copy_is_marked_with_time">Время заверения (отличное от времени составления протокола)</string>	
+				<string name="protocol_copy_is_marked_with_time">Время заверения (отличное от времени составления протокола)</string>
+				<string name="tab_report">Отчет</string>
+				<string name="nabludatel_telephone">Телефон</string>
+				<string name="nabludatel_settings_facebook">Facebook</string>
+				<string name="nabludatel_settings_twitter">Twitter</string>
+				<string name="nabludatel_settings_manual">ФИО+E-Mail</string>
+				<string name="nabludatel_settings_status">Статус участника</string>
+				<string name="official_observer_title">Официальный наблюдатель</string>
+				<string name="official_observer_hint">Загрузите фото удостоверения</string>
+				<string name="registration_status">Статус наблюдателя</string>
+				<string name="registration_status_unregistered">Неизвестно</string>
+				<string name="last_name_hint">Фамилия</string>
+				<string name="first_name_hint">Имя</string>
+				<string name="middle_name_hint">Отчество</string>
+				<string name="email_hint">E-Mail</string>
+				<string name="phone_hint">Телефон</string>	
 </resources>

@@ -52,6 +52,12 @@ public class NabludatelCloud {
 		}
 		return -1L;
 	}
+	
+	public long postNewMessage(String key, String value, double lat,
+			double lng, long currentTimeMillis) {
+		return postNewMessage(key, value, String.valueOf(lat), String.valueOf(lng), currentTimeMillis);
+		
+	}
 
 	public long postNewMessage(JSONObject payload) {
 		try {
@@ -206,4 +212,6 @@ public class NabludatelCloud {
 		}
 		return mediaClient;
 	}
+
+
 }

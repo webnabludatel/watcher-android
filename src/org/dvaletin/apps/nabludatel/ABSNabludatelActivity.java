@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.Violation;
@@ -30,9 +31,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -42,8 +45,10 @@ public abstract class ABSNabludatelActivity extends Activity {
 	protected SharedPreferences prefs;
 	protected ArrayList<Uri> pictureFileUri;
 	protected ArrayList<Uri> videoFileUri;
-	protected ArrayList<File> photo;
-	protected ArrayList<File> video;
+	protected HashMap<File, String> photo;
+	protected HashMap<File, String> video;
+	File photoRequestFile;
+	File videoRequestFile;
 	JSONObject json = new JSONObject();
 	long mCurrentElectionsDistrict = -1;
 	ElectionsDBHelper mElectionsDB;
@@ -52,20 +57,39 @@ public abstract class ABSNabludatelActivity extends Activity {
 	double lat;
 	double lng;
 	LocationListener mLocationListener;
+	int screenId;
+	Intent toReturn;
+	NabludatelCloud cloudHelper;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		mCurrentElectionsDistrict = intent.getLongExtra(
 				Consts.PREFS_ELECTIONS_DISRICT, -1);
+		screenId = intent.getIntExtra(Consts.PREFS_LAYOUT_ID, -1);
+		lat = intent.getDoubleExtra(Consts.PREFS_LATITUDE, 0.0d);
+		lng = intent.getDoubleExtra(Consts.PREFS_LONGITUDE, 0.0d);
+		String title = intent.getStringExtra(Consts.PREFS_TITLE);
+		if(title != null){
+			setTitle(title);
+		}
+		if(screenId != -1){
+			this.setContentView(screenId);
+		}
 		prefs = this.getPreferences(MODE_PRIVATE);
 		mElectionsDB = new ElectionsDBHelper(this);
 
 		pictureFileUri = new ArrayList<Uri>();
 		videoFileUri = new ArrayList<Uri>();
 
-		photo = new ArrayList<File>();
-		video = new ArrayList<File>();
+		photo = new HashMap<File, String>();
+		video = new HashMap<File, String>();
+		toReturn = new Intent();
+		
+		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		String deviceId = tm.getDeviceId();
+		cloudHelper = new NabludatelCloud(deviceId);
+		
 	}
 
 	@Override
@@ -113,16 +137,50 @@ public abstract class ABSNabludatelActivity extends Activity {
 	}
 
 	public void onMakePhotoClick(View v) {
-		startNarusheniyePhoto();
+		if(v.getTag() != null)
+			startNarusheniyePhoto(v.getTag().toString());
 	}
 
 	public void onMakeVideoClick(View v) {
-		startNarusheniyeVideo();
+		if(v.getTag() != null)
+			startNarusheniyeVideo(v.getTag().toString());
 	}
 
 	public void save() {
+		for(Entry<String, View> entry : activeViews.entrySet()){
+			if(entry.getValue() instanceof EditText){
+				EditText ed = (EditText)entry.getValue();
+
+				if(!ed.getText().toString().equals("")){
+					myState.put(entry.getKey(), new Violation(
+							lat, 
+							lng, 
+							ed.getTag().toString(), 
+							System.currentTimeMillis(),
+							ed.getText().toString(),
+							mCurrentElectionsDistrict,
+							""
+					));
+				}
+			}
+		}
 		for (Entry<String, Violation> entry : myState.entrySet()) {
-			mElectionsDB.addCheckListItem(entry.getValue());
+			mElectionsDB.addCheckListItem(entry.getValue(), screenId);
+		}
+		//TODO
+		Iterator i =  photo.entrySet().iterator();
+		while(i.hasNext()){
+			Map.Entry entry = (Map.Entry)i.next();
+			File photoFile = (File) entry.getKey();
+			String checklist_item = (String) entry.getValue();
+			mElectionsDB.addMediaItem(
+					photoFile.getAbsolutePath(),
+					"photo",
+					"",
+					System.currentTimeMillis(),
+					checklist_item,
+					mCurrentElectionsDistrict
+					);
 		}
 	}
 	
@@ -150,7 +208,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		if (mCurrentElectionsDistrict == -1)
 			return;
 		Cursor c = mElectionsDB
-				.getAllCheckListItemsByElectionsDistrictId(this.mCurrentElectionsDistrict);
+				.getAllCheckListItemsByElectionsDistrictIdAndScreenId(this.mCurrentElectionsDistrict, screenId);
 		c.moveToFirst();
 
 		for (int i = 0; i < c.getCount(); i++) {
@@ -186,6 +244,17 @@ public abstract class ABSNabludatelActivity extends Activity {
 						bar.setTumbler(data.getValue());
 					}
 				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(entry.getValue() instanceof EditText){
+				try {
+					Violation data = from.get(entry.getKey().toString());
+					if(data != null) {
+						EditText ed = (EditText) entry.getValue();
+						ed.setText(data.getValue());
+					}
+				}catch (Exception e){
 					e.printStackTrace();
 				}
 			}
@@ -279,16 +348,17 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 
-	protected void startNarusheniyePhoto() {
+	protected void startNarusheniyePhoto(String key) {
 
 		// File pictureFile = takePicture(R.layout.post_narushenije);
-		File pictureFile = startCameraPhoto();
-		photo.add(pictureFile);
+		photoRequestFile = startCameraPhoto();
+		
+		photo.put(photoRequestFile, key);
 	}
 
-	protected void startNarusheniyeVideo() {
-		File videoFile = startCameraVideo();
-		video.add(videoFile);
+	protected void startNarusheniyeVideo(String key) {
+		videoRequestFile = startCameraVideo();
+		video.put(videoRequestFile, key);
 	}
 
 	protected File startCameraPhoto() {
@@ -377,9 +447,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 		return mediaFile;
 	}
 
-	public void onBackButtonPress(View v) {
-		this.finish();
-	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -404,11 +471,15 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 	
+	public Intent getReturnIntent(){
+		return toReturn;
+	}
+	
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent();
-		intent.putExtra(Consts.PREFS_VIOLATIONS, myState.entrySet().size());
-		setResult(RESULT_CANCELED, intent);
+		toReturn.putExtra(Consts.PREFS_VIOLATIONS, myState.entrySet().size());
+		setResult(RESULT_CANCELED, toReturn);
 		super.onBackPressed();
 	}
+
 }

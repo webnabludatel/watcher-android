@@ -95,8 +95,7 @@ public class Consts {
 	
 	public static final String [] DISTRICT_TYPE = {
 		"uik",
-		"tik",
-		"ikmo"
+		"tik"
 	};
 	
 	public static final String PHOTO_FILE = "photo";
@@ -105,6 +104,8 @@ public class Consts {
 	public static final String PREFS_TITLE = "window_title";
 	public static final String PREFS_LAYOUT_ID = "layout_id";
 	public static final String PREFS_VIOLATIONS = "violations_count";
+	public static final String PREFS_LATITUDE = "lat";
+	public static final String PREFS_LONGITUDE = "lng";
 	
 
 	public static String getViolationDescription(int id) {

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_window"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@+id/frameLayout3"
+                    style="@style/main_pane_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <Button
+                            android:id="@+id/facebook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/button_facebook"
+                            android:gravity="center_vertical|left"
+                            android:onClick="onFacebookSetupClick"
+                            android:tag="facebook"
+                            android:text="@string/nabludatel_settings_facebook" />
+
+                        <Button
+                            android:id="@+id/twitter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/button_twitter"
+                            android:gravity="center_vertical|left"
+                            android:onClick="onTwitterSetupClick"
+                            android:tag="twitter"
+                            android:text="@string/nabludatel_settings_twitter" />
+
+                        <Button
+                            android:id="@+id/manual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical|left"
+                            android:onClick="onManualSetipClick"
+                            android:tag="manual"
+                            android:text="@string/nabludatel_settings_manual" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/PanelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_status" />
+
+                <FrameLayout
+                    android:id="@+id/frameLayout2"
+                    style="@style/main_pane_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/registration_status"
+                        style="@style/TextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/registration_status_unregistered" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/PanelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/official_observer_title" />
+
+                <FrameLayout
+                    android:id="@+id/frameLayout4"
+                    style="@style/main_pane_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/official_observer_hint" />
+
+                        <Button
+                            android:id="@+id/button1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onMakePhotoClick"
+                            android:text="@string/ballot_box_violations_photo_camera" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
+
+</LinearLayout>
