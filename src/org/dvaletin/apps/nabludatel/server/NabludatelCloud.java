@@ -33,17 +33,19 @@ public class NabludatelCloud {
 		this.serverClient = new NabludatelServerClient("http://webnabludatel.org/api/v1", deviceId);
 	}
 
-	private static JSONObject toMessagePayload(String key, String value, String lat, String lng, long timestamp) throws JSONException {
+	private static JSONObject toMessagePayload(String key, String value, double lat, double lng, long timestamp) throws JSONException {
 		JSONObject payload = new JSONObject();
 		payload.put("key", key);
-		payload.put("value", value);
+		payload.put("value", String.valueOf(value));
 		payload.put("lat", lat);
 		payload.put("lng", lng);
-		payload.put("timestamp", timestamp);
+		if (timestamp > 0L) {
+			payload.put("timestamp", timestamp);
+		}
 		return payload;
 	}
 
-	public long postNewMessage(String key, String value, String lat, String lon, long timestamp) {
+	public long postNewMessage(String key, String value, double lat, double lon, long timestamp) {
 		try {
 			JSONObject payload = toMessagePayload(key, value, lat, lon, timestamp);
 			return postNewMessage(payload);
@@ -53,12 +55,6 @@ public class NabludatelCloud {
 		return -1L;
 	}
 	
-	public long postNewMessage(String key, String value, double lat,
-			double lng, long currentTimeMillis) {
-		return postNewMessage(key, value, String.valueOf(lat), String.valueOf(lng), currentTimeMillis);
-		
-	}
-
 	public long postNewMessage(JSONObject payload) {
 		try {
 			return serverClient.postNewMessage(authenticationSecret(), payload);
@@ -73,7 +69,7 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long editMessage(long messageId, String key, String value, String lat, String lon, long timestamp) {
+	public long editMessage(long messageId, String key, String value, double lat, double lon, long timestamp) {
 		try {
 			JSONObject payload = toMessagePayload(key, value, lat, lon, timestamp);
 			return editMessage(messageId, payload);
@@ -139,7 +135,7 @@ public class NabludatelCloud {
 		lastAuthentication = null;
 	}
 
-	private JSONObject authentication() {
+	public JSONObject authentication() {
 		if (lastAuthentication == null) {
 			try {
 				lastAuthentication = doAuthentication();
@@ -161,6 +157,19 @@ public class NabludatelCloud {
 			}
 		}
 		return lastSecret;
+	}
+
+	public boolean isAuthenticated() {
+		return lastAuthentication != null;
+	}
+
+	public long getAuthenticatedUserId() {
+		try {
+			return lastAuthentication != null ? lastAuthentication.getLong("user_id") : -1L;
+		} catch (JSONException e) {
+			Log.w(T, "Parse JSON error", e);
+		}
+		return -1L;
 	}
 
 	public NabludatelServerClient getServerClient() {

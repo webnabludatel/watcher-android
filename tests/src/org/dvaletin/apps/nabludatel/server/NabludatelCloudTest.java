@@ -2,6 +2,7 @@ package org.dvaletin.apps.nabludatel.server;
 
 import android.os.Environment;
 import junit.framework.TestCase;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,21 +13,29 @@ import java.io.FileOutputStream;
 public class NabludatelCloudTest extends TestCase {
 	private final NabludatelCloud cloud = new NabludatelCloud("test_android");
 
+	public void testAuthentication() {
+		JSONObject authentication = cloud.authentication();
+		assertNotNull(authentication);
+
+		assertTrue(cloud.isAuthenticated());
+		assertTrue(cloud.getAuthenticatedUserId() != -1L);
+	}
+
 	public void testPostNewMessage() throws Exception {
-		long id = cloud.postNewMessage("test_key", "test_value", "lat", "lng", System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
 		assertTrue(id > 0);
 	}
 
 	public void testEditMessage() throws Exception {
-		long id = cloud.postNewMessage("test_key", "test_value", "lat1", "lng1", System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
 		assertTrue(id > 0);
-		long editedId = cloud.editMessage(id, "test_key", "test_value_edited", "lat2", "lng2", System.currentTimeMillis());
+		long editedId = cloud.editMessage(id, "test_key", "test_value_edited", 0.2, 0.3, System.currentTimeMillis());
 		assertTrue(id > 0);
 		assertTrue(id == editedId);
 	}
 
 	public void testUploadPhotoToMessage() throws Exception {
-		long id = cloud.postNewMessage("test_key", "test_value", "lat", "lon", System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
 		File sampleDir = Environment.getExternalStorageDirectory();
 		File file = new File(sampleDir, "-tmp.jpg");
 		try {
@@ -49,7 +58,7 @@ public class NabludatelCloudTest extends TestCase {
 	}
 
 	public void testUploadVideoToMessage() throws Exception {
-		long id = cloud.postNewMessage("test_key", "test_value", "lat", "lng", System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
 		File sampleDir = Environment.getExternalStorageDirectory();
 		File file = new File(sampleDir, "-tmp.mpg");
 		try {
