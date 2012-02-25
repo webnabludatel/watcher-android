@@ -90,7 +90,7 @@
                         android:id="@+id/bundle_of_ballots_photo_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="counter_violations_photo"
+                        android:tag="bundle_of_ballots_photo"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 
                     <Button
@@ -132,7 +132,7 @@
                         android:id="@+id/bundle_of_ballots_video"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="onMakePhotoClick"
+                        android:onClick="onMakeVideoClick"
                         android:tag="bundle_of_ballots_video"
                         android:text="@string/ballot_box_violations_photo_camera" />
                 </LinearLayout>

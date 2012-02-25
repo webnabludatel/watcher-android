@@ -354,7 +354,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:onClick="onMakePhotoClick"
+                        android:onClick="onMakeVideoClick"
                         android:tag="counting_ballots_violations_video"
                         android:text="@string/ballot_box_violations_photo_camera" />
                 </LinearLayout>
