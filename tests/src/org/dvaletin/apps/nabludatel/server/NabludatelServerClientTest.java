@@ -44,7 +44,18 @@ public class NabludatelServerClientTest extends AndroidTestCase {
 		String secret = client.authenticationSecret();
 		JSONObject payload = createTestMessagePayload();
 		long messageId = client.postNewMessage(secret, payload);
-		messageId = client.attachMediaToMessage(messageId, secret, payload);
-		assertTrue(messageId != -1L);
+		long mediaItemId = client.attachMediaToMessage(messageId, secret, payload);
+		assertTrue(mediaItemId != -1L);
+	}
+
+	public void testDeleteMediaFromMessage() throws Exception {
+		String secret = client.authenticationSecret();
+		JSONObject payload = createTestMessagePayload();
+		long messageId = client.postNewMessage(secret, payload);
+		long mediaItemId = client.attachMediaToMessage(messageId, secret, payload);
+		assertTrue(mediaItemId != -1L);
+		payload.put("delete", true);
+		long deletedMediaItemId = client.deleteMediaFromMessage(messageId, mediaItemId, secret, payload);
+		assertTrue(mediaItemId == deletedMediaItemId);
 	}
 }

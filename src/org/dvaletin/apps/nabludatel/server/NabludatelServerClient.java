@@ -57,6 +57,13 @@ public class NabludatelServerClient {
 		return post(request, url).getLong("media_item_id");
 	}
 
+	// todo: This method will throw 404, it not implemented on server.
+	public long deleteMediaFromMessage(long messageId, long mediaItemId, String secret, JSONObject payload) throws NabludatelServerException, JSONException {
+		String request = toRequest(payload);
+		String url = toDigestUrl("/messages/" + messageId + "/media_items/" + mediaItemId + ".json", payload, secret);
+		return put(request, url).getLong("media_item_id");
+	}
+
 	private String toRequest(JSONObject payload) {
 		return deviceIdToRequest() + "&payload=" + urlEncode(payload.toString());
 	}
@@ -89,10 +96,13 @@ public class NabludatelServerClient {
 	private JSONObject request(String request, HttpEntityEnclosingRequestBase method) throws NabludatelServerException, JSONException {
 		try {
 			JSONObject response = client.request(request, method);
-			if (response.get("status").equals("ok")) {
+			if (response.getString("status").equals("ok")) {
 				return response.getJSONObject("result");
 			}
-			throw new NabludatelServerException("Error in input parameters: " + response.get("errors"));
+			if (response.has("error")) {
+				throw new NabludatelServerException(response.getString("error"));
+			}
+			throw new NabludatelServerException("Unknown response: " + response);
 		} catch (IOException e) {
 			throw new NabludatelServerException(e);
 		}
