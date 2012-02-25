@@ -33,7 +33,7 @@ public class NabludatelMediaClient {
 	}
 
 	private String toS3FileName(File file) {
-		return deviceId + file.getName();
+		return deviceId + '/' + file.getName();
 	}
 
 	/**
