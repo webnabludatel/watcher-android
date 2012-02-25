@@ -33,7 +33,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		if(district_id != -1){
 			Cursor c = mElectionsDB.getPollingPlaceByNumber(district_id);
 			if(c.getCount() > 0){
-				uik_district_number.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_NUMBER_COLUMN));
+				uik_district_number.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_NAME_COLUMN));
 				uik_district_chairman.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_CHAIRMAN_COLUMN));
 				uik_district_secretary.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_SECRETARY_COLUMN));
 				uik_district_watchers_count.setText(String.valueOf(c.getInt(ElectionsDBHelper.POLLINGPLACE_TOTALOBSERVERS_COLUMN)));
@@ -83,7 +83,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		String district_type = Consts.DISTRICT_TYPE[position];
 		long time = System.currentTimeMillis();
 		long id = mElectionsDB.addPollingPlace(uik_district_chairman, lat, lng,
-				"", uik_district_number, uik_district_secretary, time,
+				uik_district_number, -1, uik_district_secretary, time,
 				uik_watchers, district_type);
 		
 		getReturnIntent().putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);

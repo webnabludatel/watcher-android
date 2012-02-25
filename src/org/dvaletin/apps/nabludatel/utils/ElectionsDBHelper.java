@@ -13,7 +13,7 @@ public class ElectionsDBHelper {
 
 	private static final String TAG = "Elections.DB";
 	protected static final String DATABASE_NAME = "Elections.DB";
-	protected static final int DATABASE_VERSION = 5;
+	protected static final int DATABASE_VERSION = 6;
 	protected SQLiteDatabase mDb;
 	protected final Context mContext;
 	protected MyDbHelper mDbHelper;
@@ -54,10 +54,12 @@ public class ElectionsDBHelper {
 	public static final int CHECKLISTITEM_SCREEN_ID_COLUMN = 9;
 	public static final String CHECKLISTITEM_ROW_ID = "_id";
 	private static final String DATABASE_CHECKLISTITEM_CREATE = "create table "
-			+ CHECKLISTITEM_TABLE + " (" + CHECKLISTITEM_ROW_ID
+			+ CHECKLISTITEM_TABLE + " (" 
+			+ CHECKLISTITEM_ROW_ID
 			+ " integer primary key autoincrement" + ", "
-			+ CHECKLISTITEM_LAT_KEY + " float  " + ", " + CHECKLISTITEM_LNG_KEY
-			+ " float  " + ", " + CHECKLISTITEM_NAME_KEY + " text  " + ", "
+			+ CHECKLISTITEM_LAT_KEY + " float  " + ", " 
+			+ CHECKLISTITEM_LNG_KEY	+ " float  " + ", " 
+			+ CHECKLISTITEM_NAME_KEY + " text  " + ", "
 			+ CHECKLISTITEM_TIMESTAMP_KEY + " integer  " + ", "
 			+ CHECKLISTITEM_VALUE_KEY + " text  " + ", "
 			+ CHECKLISTITEM_POLLINGPLACE_KEY + " integer  " + ", "
@@ -74,8 +76,8 @@ public class ElectionsDBHelper {
 	public static final int POLLINGPLACE_LNG_COLUMN = 3;
 	public static final String POLLINGPLACE_NAME_KEY = "name";
 	public static final int POLLINGPLACE_NAME_COLUMN = 4;
-	public static final String POLLINGPLACE_NUMBER_KEY = "number";
-	public static final int POLLINGPLACE_NUMBER_COLUMN = 5;
+	public static final String POLLINGPLACE_SERVER_NUMBER_KEY = "number";
+	public static final int POLLINGPLACE_SERVER_NUMBER_COLUMN = 5;
 	public static final String POLLINGPLACE_SECRETARY_KEY = "secretary";
 	public static final int POLLINGPLACE_SECRETARY_COLUMN = 6;
 	public static final String POLLINGPLACE_TIMESTAMP_KEY = "timestamp";
@@ -95,7 +97,7 @@ public class ElectionsDBHelper {
 			+ POLLINGPLACE_LAT_KEY	+ " float  "	+ ", "
 			+ POLLINGPLACE_LNG_KEY	+ " float  "	+ ", "
 			+ POLLINGPLACE_NAME_KEY	+ " text  "		+ ", "
-			+ POLLINGPLACE_NUMBER_KEY	+ " text  "	+ ", "
+			+ POLLINGPLACE_SERVER_NUMBER_KEY	+ " integer  "	+ ", "
 			+ POLLINGPLACE_SECRETARY_KEY+ " text  "	+ ", "
 			+ POLLINGPLACE_TIMESTAMP_KEY+ " long  "	+ ", "
 			+ POLLINGPLACE_TOTALOBSERVERS_KEY+ " integer  "	+ ", "
@@ -125,7 +127,7 @@ public class ElectionsDBHelper {
 			+ MEDIAITEM_MEDIATYPE_KEY + " text  " + ", "
 			+ MEDIAITEM_SERVERURL_KEY + " text  " + ", "
 			+ MEDIAITEM_TIMESTAMP_KEY + " integer  " + ", "
-			+ MEDIAITEM_CHECKLISTITEM_KEY + " text  " + ", "
+			+ MEDIAITEM_CHECKLISTITEM_KEY + " integer  " + ", "
 			+ MEDIAITEM_POLLINGPLACE_KEY + " integer  " + ", "
 			+ MEDIAITEM_SERVER_STATUS_KEY + " integer "
 			+ ");";
@@ -248,14 +250,14 @@ public class ElectionsDBHelper {
 	}
 
 	public long addPollingPlace(String chairman, double lat, double lng,
-			String name, String number, String secretary, long time,
+			String name, long number, String secretary, long time,
 			int totalobservers, String type) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(POLLINGPLACE_CHAIRMAN_KEY, chairman);
 		contentValues.put(POLLINGPLACE_LAT_KEY, lat);
 		contentValues.put(POLLINGPLACE_LNG_KEY, lng);
 		contentValues.put(POLLINGPLACE_NAME_KEY, name);
-		contentValues.put(POLLINGPLACE_NUMBER_KEY, number);
+		contentValues.put(POLLINGPLACE_SERVER_NUMBER_KEY, number);
 		contentValues.put(POLLINGPLACE_SECRETARY_KEY, secretary);
 		contentValues.put(POLLINGPLACE_TIMESTAMP_KEY, time);
 		contentValues.put(POLLINGPLACE_TOTALOBSERVERS_KEY, totalobservers);
@@ -273,7 +275,7 @@ public class ElectionsDBHelper {
 		contentValues.put(POLLINGPLACE_LAT_KEY, lat);
 		contentValues.put(POLLINGPLACE_LNG_KEY, lng);
 		contentValues.put(POLLINGPLACE_NAME_KEY, name);
-		contentValues.put(POLLINGPLACE_NUMBER_KEY, number);
+		contentValues.put(POLLINGPLACE_SERVER_NUMBER_KEY, number);
 		contentValues.put(POLLINGPLACE_SECRETARY_KEY, secretary);
 		contentValues.put(POLLINGPLACE_TIMESTAMP_KEY, timestamp);
 		contentValues.put(POLLINGPLACE_TOTALOBSERVERS_KEY, totalobservers);
@@ -295,7 +297,7 @@ public class ElectionsDBHelper {
 		return mDb.query(POLLINGPLACE_TABLE, new String[] {
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
 				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
-				POLLINGPLACE_NAME_KEY, POLLINGPLACE_NUMBER_KEY,
+				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
 				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
 				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY }, null,
 				null, null, null, null);
@@ -305,7 +307,7 @@ public class ElectionsDBHelper {
 		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
 				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
-				POLLINGPLACE_NAME_KEY, POLLINGPLACE_NUMBER_KEY,
+				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
 				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
 				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY },
 				POLLINGPLACE_ROW_ID + " = " + rowIndex, null, null, null, null);
@@ -319,7 +321,7 @@ public class ElectionsDBHelper {
 		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
 				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
-				POLLINGPLACE_NAME_KEY, POLLINGPLACE_NUMBER_KEY,
+				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
 				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
 				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY },
 				POLLINGPLACE_ROW_ID + " = " + district_id, null,
@@ -332,7 +334,7 @@ public class ElectionsDBHelper {
 
 	public Cursor getPollingPlaceNumbers() {
 		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
-				POLLINGPLACE_ROW_ID, POLLINGPLACE_NUMBER_KEY, }, null, null,
+				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY, }, null, null,
 				null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -341,7 +343,7 @@ public class ElectionsDBHelper {
 	}
 
 	public long addMediaItem(String filepath, String mediatype,
-			String serverurl, long timestamp, String checklistitem,
+			String serverurl, long timestamp, long checklistitem,
 			long pollingplace) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(MEDIAITEM_FILEPATH_KEY, filepath);
@@ -356,8 +358,8 @@ public class ElectionsDBHelper {
 	}
 
 	public long updateMediaItem(long rowIndex, String filepath,
-			String mediatype, String serverurl, Integer timestamp,
-			Integer checklistitem, long pollingplace) {
+			String mediatype, String serverurl, long timestamp,
+			long checklistitem, long pollingplace) {
 		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(MEDIAITEM_FILEPATH_KEY, filepath);
@@ -452,6 +454,24 @@ public class ElectionsDBHelper {
 			// Create a new one.
 			onCreate(db);
 		}
+	}
+
+	public long getPollingPlaceServerIdByNumber(long pollingPlace) {
+		Cursor c = this.getPollingPlaceByNumber(pollingPlace);
+		c.moveToFirst();
+		long toReturn = -1L;
+		if(c.getCount() > 0)
+			toReturn = c.getLong(POLLINGPLACE_SERVER_NUMBER_COLUMN);
+		return toReturn;
+	}
+
+	public String getPollingPlaceNameByNumber(long pollingPlace) {
+		Cursor c = this.getPollingPlaceByNumber(pollingPlace);
+		c.moveToFirst();
+		String toReturn = null;
+		if(c.getCount() > 0)
+			toReturn = c.getString(POLLINGPLACE_NAME_COLUMN);
+		return toReturn;
 	}
 
 	

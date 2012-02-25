@@ -51,7 +51,8 @@
                             android:id="@+id/last_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/last_name_hint" >
+                            android:hint="@string/last_name_hint"
+                            android:tag="last_name" >
 
                         </EditText>
 
@@ -59,14 +60,16 @@
                             android:id="@+id/first_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/first_name_hint" />
+                            android:hint="@string/first_name_hint"
+                            android:tag="first_name" />
 
                         <EditText
                             android:id="@+id/middle_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/middle_name_hint"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:tag="middle_name" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -80,7 +83,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/email_hint"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"
+                            android:tag="email" />
 
                         <TextView
                             android:id="@+id/textView3"
@@ -93,8 +97,9 @@
                             android:id="@+id/phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:hint="@string/phone_hint" />
+                            android:hint="@string/phone_hint"
+                            android:tag="phone" />
+
                     </LinearLayout>
 
                 </FrameLayout>

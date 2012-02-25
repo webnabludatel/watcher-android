@@ -60,7 +60,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     
     public void activateRootMenu(){
     	Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
-    	String from [] = new String[]{ElectionsDBHelper.POLLINGPLACE_NUMBER_KEY};
+    	String from [] = new String[]{ElectionsDBHelper.POLLINGPLACE_NAME_KEY};
     	int[] to = new int[]{android.R.id.text1};
     	Cursor c = mElectionsDB.open().getPollingPlaceNumbers();
     	mElectionsDB.close();

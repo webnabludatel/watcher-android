@@ -59,7 +59,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	LocationListener mLocationListener;
 	int screenId;
 	Intent toReturn;
-	NabludatelCloud cloudHelper;
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,9 +86,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 		video = new HashMap<File, String>();
 		toReturn = new Intent();
 		
-		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		String deviceId = tm.getDeviceId();
-		cloudHelper = new NabludatelCloud(deviceId);
 		
 	}
 
@@ -131,7 +128,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 		locationManager.removeUpdates(mLocationListener);
-		save();
+
 		mElectionsDB.close();
 		super.onPause();
 	}
@@ -167,20 +164,58 @@ public abstract class ABSNabludatelActivity extends Activity {
 		for (Entry<String, Violation> entry : myState.entrySet()) {
 			mElectionsDB.addCheckListItem(entry.getValue(), screenId);
 		}
-		//TODO
-		Iterator i =  photo.entrySet().iterator();
-		while(i.hasNext()){
-			Map.Entry entry = (Map.Entry)i.next();
-			File photoFile = (File) entry.getKey();
-			String checklist_item = (String) entry.getValue();
-			mElectionsDB.addMediaItem(
-					photoFile.getAbsolutePath(),
-					"photo",
-					"",
-					System.currentTimeMillis(),
-					checklist_item,
-					mCurrentElectionsDistrict
-					);
+	}
+
+	public void savePhotos(){
+
+		int numOfPhotos = photo.size();
+		if(numOfPhotos > 0){
+			HashMap<String, Integer> photoItemsCache = new HashMap<String, Integer>();
+			Iterator i = photo.entrySet().iterator();
+			while(i.hasNext()){
+				Map.Entry entry = (Map.Entry) i.next();
+				String key = (String)entry.getValue();
+				int items = 0;
+				try{
+					items = photoItemsCache.get(key);
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+				items++;
+				photoItemsCache.put((String)entry.getValue(), items);
+			}
+			
+			i = photoItemsCache.entrySet().iterator();
+			while(i.hasNext()){
+				Map.Entry entry = (Map.Entry) i.next();
+				String key = (String)entry.getKey();
+				long violationId = mElectionsDB.addCheckListItem(
+						lat,
+						lng,
+						(String)entry.getKey(),
+						System.currentTimeMillis(),
+						String.valueOf((Integer)entry.getValue()),
+						mCurrentElectionsDistrict,
+						"",
+						screenId
+						);
+				Iterator j = photo.entrySet().iterator();
+				while(j.hasNext()){
+					Map.Entry photoEntry = (Map.Entry)j.next();
+					String checklist_item = (String) photoEntry.getValue();
+					if(checklist_item.equals(key)){
+						File photoFile = (File) photoEntry.getKey();
+						mElectionsDB.addMediaItem(
+								photoFile.getAbsolutePath(),
+								"photo",
+								"",
+								System.currentTimeMillis(),
+								violationId,
+								mCurrentElectionsDistrict
+								);
+					}
+				}
+			}
 		}
 	}
 	
@@ -477,8 +512,10 @@ public abstract class ABSNabludatelActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		save();
+		savePhotos();
 		toReturn.putExtra(Consts.PREFS_VIOLATIONS, myState.entrySet().size());
-		setResult(RESULT_CANCELED, toReturn);
+		setResult(RESULT_OK, toReturn);
 		super.onBackPressed();
 	}
 

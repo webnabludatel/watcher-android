@@ -1,12 +1,21 @@
 package org.dvaletin.apps.nabludatel;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
+import org.dvaletin.apps.nabludatel.utils.ViolationSyncThread;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.TabHost;
 
 public class MainWindow extends TabActivity {
+	ViolationSyncThread violationSync;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		int buttonResource = getResources().getIdentifier("drawable/button", null, getPackageName());
@@ -47,8 +57,31 @@ public class MainWindow extends TabActivity {
 				.setContent(new Intent(this, SosActivity.class)));
 		
 		setupUI();
+		setupUpdateThreads();
 	}
 	
+	private void setupUpdateThreads() {
+		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		String deviceId = tm.getDeviceId();
+		violationSync = new ViolationSyncThread();
+		
+		violationSync.init(new ElectionsDBHelper(this), deviceId);
+		TimerTask violationSyncTask;
+		final Handler handler = new Handler();
+		Timer t = new Timer();
+		violationSyncTask = new TimerTask(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				handler.post(violationSync);
+				Log.d("ViolationSyncTask:", "started");
+			}
+			
+		};
+		t.schedule(violationSyncTask, 300, 30000);
+	}
+
 	private void setupUI() {
 		RadioButton rbFirst = (RadioButton) findViewById(R.id.first);
 		RadioButton rbSecond = (RadioButton) findViewById(R.id.second);
