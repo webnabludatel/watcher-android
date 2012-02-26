@@ -53,9 +53,10 @@ public class NabludatelMediaClient {
 					.withCannedAcl(CannedAccessControlList.PublicRead);
 			PutObjectResult result = s3Client.putObject(putObjectRequest);
 			time = System.currentTimeMillis() - time;
-			Log.i(T, "Uploaded " + file.getName() + " to " + toUrl(folderName, file) +
+			String url = toUrl(folderName, file);
+			Log.i(T, "Uploaded " + file.getName() + " to " + url +
 					", etag (md5) " + result.getETag() + " " + time + " ms");
-			return toUrl(null, file);
+			return url;
 		} catch (Exception e) {
 			throw new NabludatelServerException("Failed to upload " + file.getName() + " to S3 storage", e);
 		}

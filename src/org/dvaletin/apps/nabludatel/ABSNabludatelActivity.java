@@ -137,7 +137,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 				String newValue = ed.getText().toString();
 				if (!newValue.equals("")) {
-					updateViolationState(entry.getKey(), newValue);
+					updateViolationState(entry.getKey(), newValue, "");
 				}
 			}
 		}
@@ -146,13 +146,18 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 
-	private Violation updateViolationState(String key, String newValue) {
+	private Violation updateViolationState(String key, String newValue, String violation) {
 		Violation v = myState.get(key);
 		if (v == null) {
-			v = new Violation(0L, System.currentTimeMillis(), lat, lng, key, newValue, mCurrentPollingPlaceId, "");
+			v = new Violation(0L, System.currentTimeMillis(), lat, lng,
+					key, newValue, mCurrentPollingPlaceId, violation);
 			myState.put(key, v);
 		} else {
 			v.setValue(newValue);
+			if (v.isChanged()) {
+				v.setCoordinates(lat, lng);
+				v.setTimestamp(System.currentTimeMillis());
+			}
 		}
 		return v;
 	}
@@ -181,13 +186,51 @@ public abstract class ABSNabludatelActivity extends Activity {
 			for (Entry<String,Integer> entry : itemsCache.entrySet()){
 				String checkListItemKey = entry.getKey();
 				String value = String.valueOf(entry.getValue());
-				Violation violation = saveViolation(updateViolationState(checkListItemKey, value));
+				Violation violation = saveViolation(updateViolationState(checkListItemKey, value, ""));
+				Set<File> processedFiles = new HashSet<File>();
+				Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(violation.getId(), mediaType);
+				c.moveToFirst();
+				for (int i = 0; i < c.getCount(); i++) {
+					long mediaRowId = c.getLong(0);
+					String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+					long timestamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
+
+					boolean found = false;
+					for (Entry<File, String> fe : files.entrySet()) {
+						File file = fe.getKey();
+						if (checkListItemKey.equals(fe.getValue()) &&
+								file.getAbsolutePath().equals(filePath)) {
+							// Update file
+							if (file.lastModified() != timestamp) {
+								mElectionsDB.updateMediaItem(
+										mediaRowId,
+										file.getAbsolutePath(),
+										mediaType, "",
+										file.lastModified(),
+										violation.getId(),
+										mCurrentPollingPlaceId
+								);
+							}
+							processedFiles.add(file);
+							found = true;
+						}
+					}
+					if (!found) {
+						// Remove file
+						mElectionsDB.removeMediaItem(mediaRowId);
+					}
+
+					c.moveToNext();
+				}
+
 				for (Entry<File, String> fe : files.entrySet()) {
-					if (checkListItemKey.equals(fe.getValue())) {
+					File file = fe.getKey();
+					if (checkListItemKey.equals(fe.getValue()) && !processedFiles.contains(file)) {
+						// Create new media item
 						mElectionsDB.addMediaItem(
-								fe.getKey().getAbsolutePath(),
+								file.getAbsolutePath(),
 								mediaType, "",
-								System.currentTimeMillis(),
+								file.lastModified(),
 								violation.getId(),
 								mCurrentPollingPlaceId
 						);
@@ -325,21 +368,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						int progress = seekBar.getProgress();
 						if (mIsProgressChanged && progress != mInitialProgress) {
-							String key = seekBar.getTag().toString();
-							Violation v = ABSNabludatelActivity.this.myState.get(key);
-							Tumbler tumbler = (Tumbler) seekBar;
-							if (v == null) {
-								v = new Violation(0L, System.currentTimeMillis(), lat, lng,
-										seekBar.getTag().toString(),
-										tumbler.getTumblerValue(),
-										mCurrentPollingPlaceId,
-										tumbler.getViolation());
-								ABSNabludatelActivity.this.myState.put(key, v);
-							} else {
-								v.setValue(tumbler.getTumblerValue());
-								v.setCoordinates(lat, lng);
-								v.setTimestamp(System.currentTimeMillis());
-							}
+							updateViolationState(seekBar.getTag().toString(),
+									((Tumbler) seekBar).getTumblerValue(),
+									((Tumbler) seekBar).getViolation());
 						}
 					}
 
