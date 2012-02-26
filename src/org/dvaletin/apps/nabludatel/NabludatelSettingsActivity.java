@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -79,15 +78,15 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 			String last_name = data.getStringExtra("last_name");
 			long res;
 			if(cloudHelper.isAuthenticated()){
-				res = cloudHelper.postNewMessage("last_name", last_name, lat, lng, System.currentTimeMillis());
+				res = cloudHelper.postNewMessage("last_name", last_name, lat, lng, System.currentTimeMillis(), 0, 0);
 				String first_name = data.getStringExtra("first_name");
-				res = cloudHelper.postNewMessage("first_name", first_name, lat, lng, System.currentTimeMillis());
+				res = cloudHelper.postNewMessage("first_name", first_name, lat, lng, System.currentTimeMillis(), 0, 0);
 				String middle_name = data.getStringExtra("middle_name");
-				res = cloudHelper.postNewMessage("middle_name", middle_name, lat, lng, System.currentTimeMillis());
+				res = cloudHelper.postNewMessage("middle_name", middle_name, lat, lng, System.currentTimeMillis(), 0, 0);
 				String email = data.getStringExtra("email");
-				res = cloudHelper.postNewMessage("email", email, lat, lng, System.currentTimeMillis());
+				res = cloudHelper.postNewMessage("email", email, lat, lng, System.currentTimeMillis(), 0, 0);
 				String phone = data.getStringExtra("phone");
-				res = cloudHelper.postNewMessage("phone", phone, lat, lng, System.currentTimeMillis());
+				res = cloudHelper.postNewMessage("phone", phone, lat, lng, System.currentTimeMillis(), 0, 0);
 			}
 			break;
 		}

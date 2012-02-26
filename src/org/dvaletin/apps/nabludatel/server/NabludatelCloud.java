@@ -37,26 +37,59 @@ public class NabludatelCloud {
 		this.authentication = authentication;
 	}
 
-	private static JSONObject toMessagePayload(String pollingPlaceId, String key, String value, double lat, double lng, long timestamp) throws JSONException {
+	private static JSONObject toMessagePayload(String key, String value, double lat, double lng, long timestamp, long internalId, long pollingPlaceId) throws JSONException {
 		JSONObject payload = new JSONObject();
-		payload.putOpt("polling_place_id", pollingPlaceId);
 		payload.put("key", key);
 		payload.put("value", value);
 		payload.put("lat", lat);
 		payload.put("lng", lng);
+		if (internalId > 0L) {
+			payload.put("internal_id", internalId);
+		}
+		if (pollingPlaceId > 0L) {
+			payload.put("polling_place_internal_id", pollingPlaceId);
+		}
 		if (timestamp > 0L) {
 			payload.put("timestamp", timestamp);
 		}
 		return payload;
 	}
 
-	public long postNewMessage(String key, String value, double lat, double lng, long timestamp) {
-		return postNewMessage(null, key, value, lat, lng, timestamp);
+	private static JSONObject toMediaItemPayload(long timestamp, File file, String mediaType, String url, long internalId, long checkListItemId) throws JSONException {
+		JSONObject payload = new JSONObject();
+		payload.put("url", url);
+		payload.put("type", mediaType);
+		if (internalId > 0L) {
+			payload.put("internal_id", internalId);
+		}
+		if (checkListItemId > 0L) {
+			payload.put("checklist_item_internal_id", checkListItemId);
+		}
+		if (timestamp <= 0L) {
+			timestamp = file.lastModified();
+		}
+		payload.put("timestamp", timestamp);
+		return payload;
 	}
 
-	public long postNewMessage(String pollingPlaceId, String key, String value, double lat, double lng, long timestamp) {
+	private static JSONObject toDeleteMediaItemPayload(long timestamp, long internalId, long checkListItemId) throws JSONException {
+		JSONObject payload = new JSONObject();
+		payload.put("delete", true);
+		if (internalId > 0L) {
+			payload.put("internal_id", internalId);
+		}
+		if (checkListItemId > 0L) {
+			payload.put("checklist_item_internal_id", checkListItemId);
+		}
+		if (timestamp > 0L) {
+			payload.put("timestamp", timestamp);
+		}
+		return payload;
+	}
+
+	public long postNewMessage(String key, String value, double lat, double lng, long timestamp, long internalId, long pollingPlaceInternalId) {
 		try {
-			JSONObject payload = toMessagePayload(pollingPlaceId, key, value, lat, lng, timestamp);
+			JSONObject payload = toMessagePayload(key, value, lat, lng, timestamp, internalId, pollingPlaceInternalId);
 			return postNewMessage(payload);
 		} catch (JSONException e) {
 			Log.w(T, "Can create JSON object", e);
@@ -78,9 +111,9 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long editMessage(long messageId, String pollingPlaceId, String key, String value, double lat, double lng, long timestamp) {
+	public long editMessage(long messageId, String key, String value, double lat, double lng, long timestamp, long internalId, long pollingPlaceInternalId) {
 		try {
-			JSONObject payload = toMessagePayload(pollingPlaceId, key, value, lat, lng, timestamp);
+			JSONObject payload = toMessagePayload(key, value, lat, lng, timestamp, internalId, pollingPlaceInternalId);
 			return editMessage(messageId, payload);
 		} catch (JSONException e) {
 			Log.w(T, "Can create JSON object", e);
@@ -102,15 +135,12 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long uploadMediaToMessage(long messageId, String folderName, File file, String mediaType) throws NabludatelCloudRequestTimeTooSkewedException {
+	public long uploadMediaToMessage(long messageId, long timestamp, String folderName, File file, String mediaType, long internalId, long checkItemInternalId) throws NabludatelCloudRequestTimeTooSkewedException {
 		NabludatelMediaClient mediaClient = getMediaClient();
 		if (mediaClient != null) {
 			try {
 				String url = mediaClient.upload(folderName, file);
-				JSONObject payload = new JSONObject();
-				payload.put("url", url);
-				payload.put("type", mediaType);
-				payload.put("timestamp", file.lastModified());
+				JSONObject payload = toMediaItemPayload(timestamp, file, mediaType, url, internalId, checkItemInternalId);
 				return serverClient.attachMediaToMessage(messageId, authenticationSecret(), payload);
 			} catch (NabludatelServerException e) {
 				Log.w("Can't upload media to message " + messageId, e);
@@ -125,6 +155,21 @@ public class NabludatelCloud {
 			}
 		} else {
 			Log.w(T, "Can't upload media to message " + messageId + ", media client not initialized");
+		}
+		return -1L;
+	}
+
+	public long setMediaDeletedForMessage(long messageId, long mediaItemId, long timestamp, long internalId, long checkItemInternalId) {
+		try {
+			JSONObject payload = toDeleteMediaItemPayload(timestamp, internalId, checkItemInternalId);
+			return serverClient.deleteMediaFromMessage(messageId, mediaItemId, authenticationSecret(), payload);
+		} catch (NabludatelServerException e) {
+			Log.w("Can't set media deleted for message " + messageId, e);
+			if (e.isUnauthorized()) {
+				resetAuthentication();
+			}
+		} catch (JSONException e) {
+			Log.w(T, "Parse JSON error", e);
 		}
 		return -1L;
 	}

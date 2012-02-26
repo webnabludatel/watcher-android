@@ -190,7 +190,7 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 	}
 
 	@Override
-	public void onViolationSyncProgresUpdate(int progress) {
+	public void onViolationSyncProgressUpdate(int progress) {
 		// TODO Auto-generated method stub
 		
 	}

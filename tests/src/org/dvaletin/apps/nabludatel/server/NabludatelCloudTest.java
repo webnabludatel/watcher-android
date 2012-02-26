@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * @author Alexey Efimov
@@ -22,23 +23,32 @@ public class NabludatelCloudTest extends TestCase {
 	}
 
 	public void testPostNewMessage() throws Exception {
-		long id = cloud.postNewMessage("test_polling_id", "test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
-		assertTrue(id > 0);
-
-		id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis(), 1L, 1L);
 		assertTrue(id > 0);
 	}
 
 	public void testEditMessage() throws Exception {
-		long id = cloud.postNewMessage("test_polling_id", "test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis(), 1L, 1L);
 		assertTrue(id > 0);
-		long editedId = cloud.editMessage(id, "test_polling_id", "test_key", "test_value_edited", 0.2, 0.3, System.currentTimeMillis());
+		long editedId = cloud.editMessage(id, "test_key", "test_value_edited", 0.2, 0.3, System.currentTimeMillis(), 1L, 1L);
 		assertTrue(id > 0);
 		assertTrue(id == editedId);
 	}
 
 	public void testUploadMediaToMessage() throws Exception {
-		long id = cloud.postNewMessage("test_polling_id", "test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis(), 1L, 1L);
+		long mediaId = uploadTestFile(id);
+		assertTrue(mediaId > 0);
+	}
+
+	public void testSetDeletedMediaForMessage() throws Exception {
+		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis(), 1L, 1L);
+		long mediaId = uploadTestFile(id);
+		long deletedMediaId = cloud.setMediaDeletedForMessage(id, mediaId, System.currentTimeMillis(), 1L, 1L);
+		assertTrue(mediaId == deletedMediaId);
+	}
+
+	private long uploadTestFile(long id) throws IOException, NabludatelCloudRequestTimeTooSkewedException {
 		File sampleDir = Environment.getExternalStorageDirectory();
 		File file = new File(sampleDir, "-tmp.jpg");
 		try {
@@ -48,8 +58,7 @@ public class NabludatelCloudTest extends TestCase {
 				out.write(s.getBytes());
 				out.flush();
 
-				long mediaId = cloud.uploadMediaToMessage(id, "tests", file, "photo");
-				assertTrue(mediaId > 0);
+				return cloud.uploadMediaToMessage(id, 0L, "tests", file, "photo", 1L, 1L);
 			} finally {
 				out.close();
 			}

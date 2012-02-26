@@ -73,28 +73,26 @@ public class MediaSyncThread implements Runnable {
 				Cursor c = mElectionsDB.getAllMediaItems();
 				c.moveToFirst();
 				for (int i = 0; i < c.getCount(); i++) {
-					callback.onMediaSyncProgresUpdate((int) ((i / c.getCount()) * 100));
+					callback.onMediaSyncProgresUpdate((i / c.getCount()) * 100);
 					long mediaRowId = c.getLong(0);
-					String filePath = c.getString(mElectionsDB.MEDIAITEM_FILEPATH_COLUMN);
-					String mediaType = c.getString(mElectionsDB.MEDIAITEM_MEDIATYPE_COLUMN);
-					String mediaURL = c.getString(mElectionsDB.MEDIAITEM_SERVERURL_COLUMN);
-					long mediaTimeStamp = c.getLong(mElectionsDB.MEDIAITEM_TIMESTAMP_COLUMN);
-					long mediaChecklistId = c.getLong(mElectionsDB.MEDIAITEM_CHECKLISTITEM_COLUMN);
-					long mediaPollingPlace = c.getLong(mElectionsDB.CHECKLISTITEM_POLLINGPLACE_COLUMN);
-					long mediaServerStatus = c.getLong(mElectionsDB.MEDIAITEM_SERVER_STATUS_COLUMN);
-					
+					String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+					String mediaType = c.getString(ElectionsDBHelper.MEDIAITEM_MEDIATYPE_COLUMN);
+					long mediaTimeStamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
+					long mediaChecklistId = c.getLong(ElectionsDBHelper.MEDIAITEM_CHECKLISTITEM_COLUMN);
+					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_STATUS_COLUMN);
+
 					long serverMessageId = mElectionsDB.getCheckListItemServerId(mediaChecklistId);
 					String violationName = mElectionsDB.getCheckListItemViolationName(mediaChecklistId);
-//					long serverPollingPlaceId = mElectionsDB.getPollingPlaceServerIdByNumber(mediaPollingPlace);
-					if(serverMessageId != -1L && mediaServerStatus == -1L){
+					if(serverMessageId != -1L && mediaItemServerId == -1L){
 						File toSend = new File(filePath);
 						if(toSend.exists()){
-							long mediaServerId = cloudHelper.uploadMediaToMessage(serverMessageId, violationName, toSend, mediaType);
+							mediaItemServerId = cloudHelper.uploadMediaToMessage(serverMessageId, mediaTimeStamp, violationName, toSend, mediaType, mediaRowId, mediaChecklistId);
 							Log.d(TAG, "Item sent:" + toSend.getCanonicalPath());
-							mElectionsDB.updateMediaItemServerStatus(mediaRowId, mediaServerId);
+							mElectionsDB.updateMediaItemServerStatus(mediaRowId, mediaItemServerId);
 						}else{
 							Log.d(TAG, "File "+toSend.getCanonicalPath()+" does not exists, deleting record MediaItem:"+mediaRowId);
 							mElectionsDB.removeMediaItem(mediaRowId);
+							cloudHelper.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId, mediaChecklistId);
 						}
 					}
 					c.moveToNext();

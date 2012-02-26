@@ -34,7 +34,7 @@ public class ViolationSyncThread implements Runnable {
 			}
 
 			@Override
-			public void onViolationSyncProgresUpdate(int progress) {
+			public void onViolationSyncProgressUpdate(int progress) {
 				// TODO Auto-generated method stub
 				
 			}
@@ -70,7 +70,7 @@ public class ViolationSyncThread implements Runnable {
 				Cursor c = mElectionsDB.getAllCheckListItems();
 				c.moveToFirst();
 				for(int i=0; i< c.getCount(); i++){
-					callback.onViolationSyncProgresUpdate((int)( (i/c.getCount())*100 ));
+					callback.onViolationSyncProgressUpdate((i / c.getCount()) * 100);
 					long rowId = c.getLong(0);
 					double lat = c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN);
 					double lng = c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN);
@@ -79,16 +79,15 @@ public class ViolationSyncThread implements Runnable {
 					String value = c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN);
 					long pollingPlace = c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN);
 					String violation = c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN);
-					String pollingPlaceName = mElectionsDB.getPollingPlaceNameByNumber(pollingPlace);
-					long server_status = c.getLong(ElectionsDBHelper.CHECKLISTITEM_SERVER_STATUS_COLUMN);
-	//				Cursor pollingPlaceNameCursor = mElectionsDB.getPollingPlaceByNumber(pollingPlace);
-					if(server_status == -1){
-						
-						long serverId = cloudHelper.postNewMessage(name, violation, lat, lng, timestamp);
-						Log.d(TAG, "violation sent "+violation);
-						if(serverId != -1){
-							mElectionsDB.updateCheckListItemServerSync(rowId, serverId);
-						}
+					long serverId = c.getLong(ElectionsDBHelper.CHECKLISTITEM_SERVER_STATUS_COLUMN);
+					if(serverId == -1){
+						serverId = cloudHelper.postNewMessage(name, value, lat, lng, timestamp, rowId, pollingPlace);
+					} else {
+						serverId = cloudHelper.editMessage(serverId, name, value, lat, lng, timestamp, rowId, pollingPlace);
+					}
+					Log.d(TAG, "violation sent "+violation);
+					if(serverId != -1){
+						mElectionsDB.updateCheckListItemServerSync(rowId, serverId);
 					}
 					c.moveToNext();
 				}
@@ -106,7 +105,7 @@ public class ViolationSyncThread implements Runnable {
 	public interface IViolationSyncCallCallback{
 		public void onViolationSyncStart();
 		public void onViolationSyncFinish();
-		public void onViolationSyncProgresUpdate(int progress);
+		public void onViolationSyncProgressUpdate(int progress);
 		public void onViolationSyncError(String msg);
 	}
 }
