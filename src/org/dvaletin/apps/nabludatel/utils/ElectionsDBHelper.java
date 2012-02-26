@@ -13,7 +13,7 @@ public class ElectionsDBHelper {
 
 	private static final String TAG = "Elections.DB";
 	protected static final String DATABASE_NAME = "Elections.DB";
-	protected static final int DATABASE_VERSION = 6;
+	protected static final int DATABASE_VERSION = 7;
 	protected SQLiteDatabase mDb;
 	protected final Context mContext;
 	protected MyDbHelper mDbHelper;
@@ -48,10 +48,12 @@ public class ElectionsDBHelper {
 	public static final int CHECKLISTITEM_POLLINGPLACE_COLUMN = 6;
 	public static final String CHECKLISTITEM_VIOLATION_KEY = "violation";
 	public static final int CHECKLISTITEM_VIOLATION_COLUMN = 7;
-	public static final String CHECKLISTITEM_SERVER_STATUS_KEY = "serverstatus";
-	public static final int CHECKLISTITEM_SERVER_STATUS_COLUMN = 8;
 	public static final String CHECKLISTITEM_SCREEN_ID_KEY = "screen_id";
-	public static final int CHECKLISTITEM_SCREEN_ID_COLUMN = 9;
+	public static final int CHECKLISTITEM_SCREEN_ID_COLUMN = 8;
+	public static final String CHECKLISTITEM_SERVER_STATUS_KEY = "serverstatus";
+	public static final int CHECKLISTITEM_SERVER_STATUS_COLUMN = 9;
+	public static final String CHECKLISTITEM_SERVER_ID_KEY = "server_id";
+	public static final int CHECKLISTITEM_SERVER_ID_COLUMN = 10;
 	public static final String CHECKLISTITEM_ROW_ID = "_id";
 	private static final String DATABASE_CHECKLISTITEM_CREATE = "create table "
 			+ CHECKLISTITEM_TABLE + " (" 
@@ -64,8 +66,9 @@ public class ElectionsDBHelper {
 			+ CHECKLISTITEM_VALUE_KEY + " text  " + ", "
 			+ CHECKLISTITEM_POLLINGPLACE_KEY + " integer  " + ", "
 			+ CHECKLISTITEM_VIOLATION_KEY + " text " + ", "
+			+ CHECKLISTITEM_SCREEN_ID_KEY + " integer " + ", "
 			+ CHECKLISTITEM_SERVER_STATUS_KEY + " integer " + ", "
-			+ CHECKLISTITEM_SCREEN_ID_KEY + " integer "
+			+ CHECKLISTITEM_SERVER_ID_KEY + " integer "
 			+ ");";
 	public static final String POLLINGPLACE_TABLE = "PollingPlace";
 	public static final String POLLINGPLACE_CHAIRMAN_KEY = "chairman";
@@ -119,6 +122,8 @@ public class ElectionsDBHelper {
 	public static final int MEDIAITEM_POLLINGPLACE_COLUMN = 6;
 	public static final String MEDIAITEM_SERVER_STATUS_KEY = "serverstatus";
 	public static final int MEDIAITEM_SERVER_STATUS_COLUMN = 7;
+	public static final String MEDIAITEM_SERVER_ID_KEY = "server_id";
+	public static final int MEDIAITEM_SERVER_ID_COLUMN = 7;
 	public static final String MEDIAITEM_ROW_ID = "_id";
 	protected static final String DATABASE_MEDIAITEM_CREATE = "create table "
 			+ MEDIAITEM_TABLE + " (" + MEDIAITEM_ROW_ID
@@ -129,7 +134,8 @@ public class ElectionsDBHelper {
 			+ MEDIAITEM_TIMESTAMP_KEY + " integer  " + ", "
 			+ MEDIAITEM_CHECKLISTITEM_KEY + " integer  " + ", "
 			+ MEDIAITEM_POLLINGPLACE_KEY + " integer  " + ", "
-			+ MEDIAITEM_SERVER_STATUS_KEY + " integer "
+			+ MEDIAITEM_SERVER_STATUS_KEY + " integer " + ", "
+			+ MEDIAITEM_SERVER_ID_KEY + " integer "
 			+ ");";
 
 	public long addCheckListItem(double lat, double lng, String name, long l,
@@ -143,8 +149,9 @@ public class ElectionsDBHelper {
 		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY,
 				mCurrentElectionsDistrictId);
 		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, violation);
-		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, (long)-1);
 		contentValues.put(CHECKLISTITEM_SCREEN_ID_KEY, screen_id );
+		contentValues.put(CHECKLISTITEM_SERVER_ID_KEY, (long)-1);
+		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, (long)-1);
 		return mDb.insert(CHECKLISTITEM_TABLE, null, contentValues);
 
 	}
@@ -187,13 +194,17 @@ public class ElectionsDBHelper {
 		return mDb.delete(CHECKLISTITEM_TABLE, null, null) > 0;
 	}
 
-	public Cursor getAllCheckListItems() {
+	public Cursor getAllCheckListItemsNotSynchronizedWithServer() {
 		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
 				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY,
-				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SCREEN_ID_KEY}, null, null, null, null, null);
+				CHECKLISTITEM_SCREEN_ID_KEY,
+				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SERVER_ID_KEY},
+				CHECKLISTITEM_SERVER_STATUS_KEY + " <> 1 OR "
+				+ CHECKLISTITEM_SERVER_ID_KEY + " = -1",
+				null, null, null, null);
 	}
 
 	public Cursor getAllCheckListItemsByElectionsDistrictIdAndScreenId(
@@ -203,7 +214,7 @@ public class ElectionsDBHelper {
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
 				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY,
-				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SCREEN_ID_KEY},
+				CHECKLISTITEM_SERVER_ID_KEY, CHECKLISTITEM_SCREEN_ID_KEY},
 				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + electionsDistrictId + " AND " 
 				+ CHECKLISTITEM_SCREEN_ID_KEY + " = " + screen_id, // where
 				null, null, null, null);
@@ -215,7 +226,9 @@ public class ElectionsDBHelper {
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
 				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY,
-				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SCREEN_ID_KEY}, CHECKLISTITEM_ROW_ID + " = "
+				CHECKLISTITEM_SCREEN_ID_KEY,
+				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SERVER_ID_KEY},
+				CHECKLISTITEM_ROW_ID + " = "
 				+ rowIndex, null, null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -243,21 +256,12 @@ public class ElectionsDBHelper {
 		}
 		return null;
 	}
-	
-	public Cursor getAllCheckListItemsNotInSync(){
-		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
-				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
-				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
-				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
-				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY }, 
-				CHECKLISTITEM_SERVER_STATUS_KEY + " <> " + "-1", 
-				null, null, null, null);
-	}
-	
-	public long updateCheckListItemServerSync(long rowIndex, long server_status){
+
+	public long updateCheckListItemServerId(long rowIndex, long serverId){
 		String where = CHECKLISTITEM_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, server_status);
+		contentValues.put(CHECKLISTITEM_SERVER_ID_KEY, serverId);
+		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, 1);
 		return mDb.update(CHECKLISTITEM_TABLE, contentValues, where, null);
 	}
 
@@ -365,6 +369,7 @@ public class ElectionsDBHelper {
 		contentValues.put(MEDIAITEM_CHECKLISTITEM_KEY, checklistitem);
 		contentValues.put(MEDIAITEM_POLLINGPLACE_KEY, pollingplace);
 		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, (long) -1);
+		contentValues.put(MEDIAITEM_SERVER_ID_KEY, (long) -1);
 		return mDb.insert(MEDIAITEM_TABLE, null, contentValues);
 
 	}
@@ -384,10 +389,11 @@ public class ElectionsDBHelper {
 
 	}
 	
-	public long updateMediaItemServerStatus(long rowIndex, long mediaServerId){
+	public long updateMediaItemServerId(long rowIndex, long mediaServerId){
 		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, mediaServerId);
+		contentValues.put(MEDIAITEM_SERVER_ID_KEY, mediaServerId);
+		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, 1);
 		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
 	}
 	
@@ -407,12 +413,15 @@ public class ElectionsDBHelper {
 		return mDb.delete(MEDIAITEM_TABLE, null, null) > 0;
 	}
 
-	public Cursor getAllMediaItems() {
+	public Cursor getAllMediaItemsNotSynchronizedWithServer() {
 		return mDb.query(MEDIAITEM_TABLE, new String[] { MEDIAITEM_ROW_ID,
 				MEDIAITEM_FILEPATH_KEY, MEDIAITEM_MEDIATYPE_KEY,
 				MEDIAITEM_SERVERURL_KEY, MEDIAITEM_TIMESTAMP_KEY,
-				MEDIAITEM_CHECKLISTITEM_KEY, MEDIAITEM_POLLINGPLACE_KEY, MEDIAITEM_SERVER_STATUS_KEY },
-				null, null, null, null, null);
+				MEDIAITEM_CHECKLISTITEM_KEY, MEDIAITEM_POLLINGPLACE_KEY,
+				MEDIAITEM_SERVER_STATUS_KEY, MEDIAITEM_SERVER_ID_KEY},
+				MEDIAITEM_SERVER_STATUS_KEY + "<> 1 OR "
+				+ MEDIAITEM_SERVER_ID_KEY + " = -1",
+				null, null, null, null);
 	}
 
 	public Cursor getMediaItem(long rowIndex) {
@@ -420,8 +429,10 @@ public class ElectionsDBHelper {
 				MEDIAITEM_ROW_ID, MEDIAITEM_FILEPATH_KEY,
 				MEDIAITEM_MEDIATYPE_KEY, MEDIAITEM_SERVERURL_KEY,
 				MEDIAITEM_TIMESTAMP_KEY, MEDIAITEM_CHECKLISTITEM_KEY,
-				MEDIAITEM_POLLINGPLACE_KEY, MEDIAITEM_SERVER_STATUS_KEY }, MEDIAITEM_ROW_ID + " = "
-				+ rowIndex, null, null, null, null);
+				MEDIAITEM_POLLINGPLACE_KEY,
+				MEDIAITEM_SERVER_STATUS_KEY, MEDIAITEM_SERVER_ID_KEY},
+				MEDIAITEM_ROW_ID + " = " + rowIndex,
+				null, null, null, null);
 		if (res != null) {
 			res.moveToFirst();
 		}
@@ -493,11 +504,8 @@ public class ElectionsDBHelper {
 		Cursor res = this.getCheckListItem(mediaChecklistId);
 		if (res != null) {
 			res.moveToFirst();
-			return res.getLong(CHECKLISTITEM_SERVER_STATUS_COLUMN);
+			return res.getLong(CHECKLISTITEM_SERVER_ID_COLUMN);
 		}
 		return -1L;
 	}
-
-
-	
 }

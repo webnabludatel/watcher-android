@@ -70,7 +70,7 @@ public class MediaSyncThread implements Runnable {
 			if (cloudHelper.isAuthenticated()) {
 //				mElectionsDB.open();
 
-				Cursor c = mElectionsDB.getAllMediaItems();
+				Cursor c = mElectionsDB.getAllMediaItemsNotSynchronizedWithServer();
 				c.moveToFirst();
 				for (int i = 0; i < c.getCount(); i++) {
 					callback.onMediaSyncProgresUpdate((i / c.getCount()) * 100);
@@ -79,20 +79,22 @@ public class MediaSyncThread implements Runnable {
 					String mediaType = c.getString(ElectionsDBHelper.MEDIAITEM_MEDIATYPE_COLUMN);
 					long mediaTimeStamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
 					long mediaChecklistId = c.getLong(ElectionsDBHelper.MEDIAITEM_CHECKLISTITEM_COLUMN);
-					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_STATUS_COLUMN);
+					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
 
 					long serverMessageId = mElectionsDB.getCheckListItemServerId(mediaChecklistId);
 					String violationName = mElectionsDB.getCheckListItemViolationName(mediaChecklistId);
-					if(serverMessageId != -1L && mediaItemServerId == -1L){
+					if(serverMessageId != -1L){
 						File toSend = new File(filePath);
 						if(toSend.exists()){
 							mediaItemServerId = cloudHelper.uploadMediaToMessage(serverMessageId, mediaTimeStamp, violationName, toSend, mediaType, mediaRowId, mediaChecklistId);
 							Log.d(TAG, "Item sent:" + toSend.getCanonicalPath());
-							mElectionsDB.updateMediaItemServerStatus(mediaRowId, mediaItemServerId);
+							mElectionsDB.updateMediaItemServerId(mediaRowId, mediaItemServerId);
 						}else{
 							Log.d(TAG, "File "+toSend.getCanonicalPath()+" does not exists, deleting record MediaItem:"+mediaRowId);
 							mElectionsDB.removeMediaItem(mediaRowId);
-							cloudHelper.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId, mediaChecklistId);
+							if(mediaItemServerId != -1){
+								cloudHelper.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId, mediaChecklistId);
+							}
 						}
 					}
 					c.moveToNext();

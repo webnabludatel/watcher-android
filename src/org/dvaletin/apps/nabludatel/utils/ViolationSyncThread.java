@@ -67,7 +67,7 @@ public class ViolationSyncThread implements Runnable {
 			cloudHelper.authentication();
 			if(cloudHelper.isAuthenticated()){
 //				mElectionsDB.open();
-				Cursor c = mElectionsDB.getAllCheckListItems();
+				Cursor c = mElectionsDB.getAllCheckListItemsNotSynchronizedWithServer();
 				c.moveToFirst();
 				for(int i=0; i< c.getCount(); i++){
 					callback.onViolationSyncProgressUpdate((i / c.getCount()) * 100);
@@ -79,7 +79,7 @@ public class ViolationSyncThread implements Runnable {
 					String value = c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN);
 					long pollingPlace = c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN);
 					String violation = c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN);
-					long serverId = c.getLong(ElectionsDBHelper.CHECKLISTITEM_SERVER_STATUS_COLUMN);
+					long serverId = c.getLong(ElectionsDBHelper.CHECKLISTITEM_SERVER_ID_COLUMN);
 					if(serverId == -1){
 						serverId = cloudHelper.postNewMessage(name, value, lat, lng, timestamp, rowId, pollingPlace);
 					} else {
@@ -87,7 +87,7 @@ public class ViolationSyncThread implements Runnable {
 					}
 					Log.d(TAG, "violation sent "+violation);
 					if(serverId != -1){
-						mElectionsDB.updateCheckListItemServerSync(rowId, serverId);
+						mElectionsDB.updateCheckListItemServerId(rowId, serverId);
 					}
 					c.moveToNext();
 				}
