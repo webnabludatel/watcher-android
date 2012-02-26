@@ -63,7 +63,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		if(screenId != -1){
 			this.setContentView(screenId);
 		}
-		prefs = this.getPreferences(MODE_PRIVATE);
+		prefs = this.getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
 		mElectionsDB = new ElectionsDBHelper(this);
 
 		pictureFileUri = new ArrayList<Uri>();
