@@ -1,7 +1,6 @@
 package org.dvaletin.apps.nabludatel;
 
 
-import java.io.File;
 import java.util.ArrayList;
 
 //<<<<<<< HEAD
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import org.dvaletin.apps.nabludatel.utils.*;
 
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
-import org.dvaletin.apps.nabludatel.server.NabludatelMediaClient;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.NabludatelChecklistListViewAdapter;
@@ -324,21 +322,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     }
 
 	public JSONArray uploadPhotos(JSONArray photos) {
-		// TODO: This is wrong way :) Use NabludatelCloud instead of directly uploading
-		NabludatelMediaClient mediaClient = mNabludatelCloud.getMediaClient();
-		if (mediaClient == null) {
-			return null;
-		}
-		try {
-			JSONArray photoURLs = new JSONArray();
-			for (int i = 0; i < photos.length(); i++) {
-				File photoFile = new File((String) photos.get(i));
-				photoURLs.put(mediaClient.upload(photoFile));
-			}
-			return photoURLs;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 

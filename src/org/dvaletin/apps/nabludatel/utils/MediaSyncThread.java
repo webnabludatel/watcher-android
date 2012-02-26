@@ -2,7 +2,6 @@ package org.dvaletin.apps.nabludatel.utils;
 
 import java.io.File;
 
-import org.dvaletin.apps.nabludatel.MainWindow;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloudRequestTimeTooSkewedException;
 
@@ -74,7 +73,7 @@ public class MediaSyncThread implements Runnable {
 				Cursor c = mElectionsDB.getAllMediaItems();
 				c.moveToFirst();
 				for (int i = 0; i < c.getCount(); i++) {
-					callback.onMediaSyncProgresUpdate((int)( (i/c.getCount())*100 ));
+					callback.onMediaSyncProgresUpdate((int) ((i / c.getCount()) * 100));
 					long mediaRowId = c.getLong(0);
 					String filePath = c.getString(mElectionsDB.MEDIAITEM_FILEPATH_COLUMN);
 					String mediaType = c.getString(mElectionsDB.MEDIAITEM_MEDIATYPE_COLUMN);
@@ -90,8 +89,7 @@ public class MediaSyncThread implements Runnable {
 					if(serverMessageId != -1L && mediaServerStatus == -1L){
 						File toSend = new File(filePath);
 						if(toSend.exists()){
-							long mediaServerId = cloudHelper.uploadMediaToMessage(serverMessageId, toSend, mediaType);
-//							long mediaServervId = cloudHelper.uploadMediaToMessage(serverMessageId, toSend, mediaType, violationName);
+							long mediaServerId = cloudHelper.uploadMediaToMessage(serverMessageId, violationName, toSend, mediaType);
 							Log.d(TAG, "Item sent:" + toSend.getCanonicalPath());
 							mElectionsDB.updateMediaItemServerStatus(mediaRowId, mediaServerId);
 						}else{

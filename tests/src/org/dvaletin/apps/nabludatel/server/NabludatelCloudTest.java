@@ -48,7 +48,7 @@ public class NabludatelCloudTest extends TestCase {
 				out.write(s.getBytes());
 				out.flush();
 
-				long mediaId = cloud.uploadMediaToMessage(id, file, "photo");
+				long mediaId = cloud.uploadMediaToMessage(id, "tests", file, "photo");
 				assertTrue(mediaId > 0);
 			} finally {
 				out.close();

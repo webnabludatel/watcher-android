@@ -30,37 +30,38 @@ public class NabludatelMediaClient {
 		this.s3Client = new AmazonS3Client(awsCredentials);
 	}
 
-	public String toUrl(File file) throws NoSuchAlgorithmException {
-		return "https://s3-eu-west-1.amazonaws.com/" + BUCKET + "/" + toS3FileName(file);
+	public String toUrl(String folderName, File file) throws NoSuchAlgorithmException {
+		return "https://s3-eu-west-1.amazonaws.com/" + BUCKET + "/" + toS3FileName(folderName, file);
 	}
 
-	private String toS3FileName(File file) throws NoSuchAlgorithmException {
-		return Encodings.md5(deviceId) + '/' + file.getName();
+	private String toS3FileName(String folderName, File file) throws NoSuchAlgorithmException {
+		return (folderName != null ? folderName + "/" : "") + Encodings.md5(deviceId) + '/' + file.getName();
 	}
 
 	/**
 	 * Upload file and return URL to it.
 	 *
+	 * @param folderName Folder name
 	 * @param file Local file
 	 * @return Access URL to file on storage.
 	 * @throws NabludatelServerException It upload has error.
 	 */
-	public String upload(File file) throws NabludatelServerException {
+	public String upload(String folderName, File file) throws NabludatelServerException {
 		try {
 			long time = System.currentTimeMillis();
-			PutObjectRequest putObjectRequest = putRequest(file)
+			PutObjectRequest putObjectRequest = putRequest(folderName, file)
 					.withCannedAcl(CannedAccessControlList.PublicRead);
 			PutObjectResult result = s3Client.putObject(putObjectRequest);
 			time = System.currentTimeMillis() - time;
-			Log.i(T, "Uploaded " + file.getName() + " to " + toUrl(file) +
+			Log.i(T, "Uploaded " + file.getName() + " to " + toUrl(null, file) +
 					", etag (md5) " + result.getETag() + " " + time + " ms");
-			return toUrl(file);
+			return toUrl(null, file);
 		} catch (Exception e) {
 			throw new NabludatelServerException("Failed to upload " + file.getName() + " to S3 storage", e);
 		}
 	}
 
-	private PutObjectRequest putRequest(File file) throws NoSuchAlgorithmException {
-		return new PutObjectRequest(BUCKET, toS3FileName(file), file);
+	private PutObjectRequest putRequest(String folderName, File file) throws NoSuchAlgorithmException {
+		return new PutObjectRequest(BUCKET, toS3FileName(folderName, file), file);
 	}
 }

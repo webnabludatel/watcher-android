@@ -64,7 +64,7 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long postNewMessage(JSONObject payload) {
+	private long postNewMessage(JSONObject payload) {
 		try {
 			return serverClient.postNewMessage(authenticationSecret(), payload);
 		} catch (NabludatelServerException e) {
@@ -78,9 +78,6 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long editMessage(long messageId, String key, String value, double lat, double lng, long timestamp) {
-		return editMessage(messageId, null, key, value, lat, lng, timestamp);
-	}
 	public long editMessage(long messageId, String pollingPlaceId, String key, String value, double lat, double lng, long timestamp) {
 		try {
 			JSONObject payload = toMessagePayload(pollingPlaceId, key, value, lat, lng, timestamp);
@@ -91,7 +88,7 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long editMessage(long mesageId, JSONObject payload) {
+	private long editMessage(long mesageId, JSONObject payload) {
 		try {
 			return serverClient.editMessage(mesageId, authenticationSecret(), payload);
 		} catch (NabludatelServerException e) {
@@ -105,11 +102,11 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long uploadMediaToMessage(long messageId, File file, String mediaType) throws NabludatelCloudRequestTimeTooSkewedException {
+	public long uploadMediaToMessage(long messageId, String folderName, File file, String mediaType) throws NabludatelCloudRequestTimeTooSkewedException {
 		NabludatelMediaClient mediaClient = getMediaClient();
 		if (mediaClient != null) {
 			try {
-				String url = mediaClient.upload(file);
+				String url = mediaClient.upload(folderName, file);
 				JSONObject payload = new JSONObject();
 				payload.put("url", url);
 				payload.put("type", mediaType);

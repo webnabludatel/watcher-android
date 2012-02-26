@@ -33,8 +33,8 @@ public class NabludatelMediaClientTest extends TestCase {
 				out.write(s.getBytes());
 				out.flush();
 
-				String url = client.upload(file);
-				assertEquals(client.toUrl(file), url);
+				String url = client.upload("tests", file);
+				assertEquals(client.toUrl(null, file), url);
 
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				ByteArrayOutputStream bytes = new ByteArrayOutputStream();
