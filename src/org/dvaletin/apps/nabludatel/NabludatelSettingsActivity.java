@@ -51,4 +51,14 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, 0l);
 		startActivityForResult(intent, NABLUDATEL_MANUAL_SETUP);
 	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode != 0) {
+			this.mElectionsDB.open();
+			savePhotos();
+		}
+	}
 }

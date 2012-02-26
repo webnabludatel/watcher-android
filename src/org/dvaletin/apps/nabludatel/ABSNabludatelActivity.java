@@ -242,10 +242,11 @@ public abstract class ABSNabludatelActivity extends Activity {
 			}
 			c.moveToNext();
 		}
-		restore(myState, activeViews);
+		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
+				myState, activeViews);
 	}
 
-	public void restore(HashMap<String, Violation> from, HashMap<String, View> to) {
+	public void restore(ViewGroup v, HashMap<String, Violation> from, HashMap<String, View> to) {
 		for (Entry<String, View> stringViewEntry : to.entrySet()) {
 			Entry entry = (Entry) stringViewEntry;
 			if (entry.getValue() instanceof Tumbler) {
