@@ -132,14 +132,6 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long uploadPhotoToMessage(long messageId, File file) throws NabludatelCloudRequestTimeTooSkewedException {
-		return uploadMediaToMessage(messageId, file, "photo");
-	}
-
-	public long uploadVideoToMessage(long messageId, File file) throws NabludatelCloudRequestTimeTooSkewedException {
-		return uploadMediaToMessage(messageId, file, "video");
-	}
-
 	private JSONObject doAuthentication() throws JSONException, NabludatelServerException {
 		resetAuthentication();
 		return serverClient.authentication();

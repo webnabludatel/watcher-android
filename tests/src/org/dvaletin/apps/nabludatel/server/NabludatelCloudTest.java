@@ -37,7 +37,7 @@ public class NabludatelCloudTest extends TestCase {
 		assertTrue(id == editedId);
 	}
 
-	public void testUploadPhotoToMessage() throws Exception {
+	public void testUploadMediaToMessage() throws Exception {
 		long id = cloud.postNewMessage("test_polling_id", "test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
 		File sampleDir = Environment.getExternalStorageDirectory();
 		File file = new File(sampleDir, "-tmp.jpg");
@@ -48,30 +48,7 @@ public class NabludatelCloudTest extends TestCase {
 				out.write(s.getBytes());
 				out.flush();
 
-				long mediaId = cloud.uploadPhotoToMessage(id, file);
-				assertTrue(mediaId > 0);
-			} finally {
-				out.close();
-			}
-		} finally {
-			if (!file.delete()) {
-				file.deleteOnExit();
-			}
-		}
-	}
-
-	public void testUploadVideoToMessage() throws Exception {
-		long id = cloud.postNewMessage("test_polling_id", "test_key", "test_value", 0.0, 0.1, System.currentTimeMillis());
-		File sampleDir = Environment.getExternalStorageDirectory();
-		File file = new File(sampleDir, "-tmp.mpg");
-		try {
-			FileOutputStream out = new FileOutputStream(file);
-			try {
-				String s = "test" + System.currentTimeMillis();
-				out.write(s.getBytes());
-				out.flush();
-
-				long mediaId = cloud.uploadVideoToMessage(id, file);
+				long mediaId = cloud.uploadMediaToMessage(id, file, "photo");
 				assertTrue(mediaId > 0);
 			} finally {
 				out.close();
