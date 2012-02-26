@@ -2,6 +2,7 @@ package org.dvaletin.apps.nabludatel.server;
 
 import android.os.Environment;
 import junit.framework.TestCase;
+import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -58,7 +59,7 @@ public class NabludatelCloudTest extends TestCase {
 				out.write(s.getBytes());
 				out.flush();
 
-				return cloud.uploadMediaToMessage(id, 0L, "tests", file, "photo", 1L, 1L);
+				return cloud.uploadMediaToMessage(id, 0L, "tests", file, Consts.PHOTO_FILE, 1L, 1L);
 			} finally {
 				out.close();
 			}

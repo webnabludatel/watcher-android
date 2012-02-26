@@ -10,9 +10,9 @@ public class Violation {
 	private long timestamp;
 	private boolean changed;
 	
-	public Violation(long id, double lat, double lng, String key,
-			long currentTimeMillis, String value,
-			long pollingPlaceId, String violation) {
+	public Violation(long id, long currentTimeMillis, double lat, double lng, String key,
+					 String value,
+					 long pollingPlaceId, String violation) {
 		this.id = id;
 		this.lat = lat;
 		this.lng = lng;

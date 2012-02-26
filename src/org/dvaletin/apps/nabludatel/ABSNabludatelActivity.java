@@ -33,8 +33,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 	protected SharedPreferences prefs;
 	protected ArrayList<Uri> pictureFileUri;
 	protected ArrayList<Uri> videoFileUri;
-	protected HashMap<File, String> photo;
-	protected HashMap<File, String> video;
+	protected HashMap<File, String> photos;
+	protected HashMap<File, String> videos;
 	File photoRequestFile;
 	File videoRequestFile;
 	long mCurrentPollingPlaceId = -1;
@@ -69,8 +69,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 		pictureFileUri = new ArrayList<Uri>();
 		videoFileUri = new ArrayList<Uri>();
 
-		photo = new HashMap<File, String>();
-		video = new HashMap<File, String>();
+		photos = new HashMap<File, String>();
+		videos = new HashMap<File, String>();
 		toReturn = new Intent();
 		
 		
@@ -136,35 +136,40 @@ public abstract class ABSNabludatelActivity extends Activity {
 				EditText ed = (EditText)entry.getValue();
 
 				String newValue = ed.getText().toString();
-				if(!newValue.equals("")){
-					String key = entry.getKey();
-					Violation v = myState.get(key);
-					if (v == null) {
-						v = new Violation(0L, lat, lng,
-							ed.getTag().toString(),
-							System.currentTimeMillis(),
-							newValue, mCurrentPollingPlaceId, "");
-						myState.put(key, v);
-					} else {
-						v.setValue(newValue);
-					}
+				if (!newValue.equals("")) {
+					updateViolationState(entry.getKey(), newValue);
 				}
 			}
 		}
 		for (Entry<String, Violation> entry : myState.entrySet()) {
-			Violation value = entry.getValue();
-			if (value.isChanged() || value.getId() <= 0) {
-				if (value.getId() <= 0) {
-					value.setId(mElectionsDB.addCheckListItem(value, screenId));
-				} else {
-					mElectionsDB.updateCheckListItem(value);
-				}
-				value.setChanged(false);
-			}
+			saveViolation(entry.getValue());
 		}
 	}
 
-	private void addMediaItems(String mediaType, HashMap<File, String> files) {
+	private Violation updateViolationState(String key, String newValue) {
+		Violation v = myState.get(key);
+		if (v == null) {
+			v = new Violation(0L, System.currentTimeMillis(), lat, lng, key, newValue, mCurrentPollingPlaceId, "");
+			myState.put(key, v);
+		} else {
+			v.setValue(newValue);
+		}
+		return v;
+	}
+
+	private Violation saveViolation(Violation v) {
+		if (v.isChanged() || v.getId() <= 0) {
+			if (v.getId() <= 0) {
+				v.setId(mElectionsDB.addCheckListItem(v, screenId));
+			} else {
+				mElectionsDB.updateCheckListItem(v);
+			}
+			v.setChanged(false);
+		}
+		return v;
+	}
+
+	private void saveMediaItems(String mediaType, Map<File, String> files) {
 		if (files.size() > 0){
 			HashMap<String, Integer> itemsCache = new HashMap<String, Integer>();
 			for (Entry<File, String> entry : files.entrySet()) {
@@ -175,24 +180,15 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 			for (Entry<String,Integer> entry : itemsCache.entrySet()){
 				String checkListItemKey = entry.getKey();
-				long violationId = mElectionsDB.addCheckListItem(
-						lat,
-						lng,
-						checkListItemKey,
-						System.currentTimeMillis(),
-						String.valueOf(entry.getValue()),
-						mCurrentPollingPlaceId,
-						"",
-						screenId
-				);
+				String value = String.valueOf(entry.getValue());
+				Violation violation = saveViolation(updateViolationState(checkListItemKey, value));
 				for (Entry<File, String> fe : files.entrySet()) {
 					if (checkListItemKey.equals(fe.getValue())) {
 						mElectionsDB.addMediaItem(
 								fe.getKey().getAbsolutePath(),
-								mediaType,
-								"",
+								mediaType, "",
 								System.currentTimeMillis(),
-								violationId,
+								violation.getId(),
 								mCurrentPollingPlaceId
 						);
 					}
@@ -202,11 +198,11 @@ public abstract class ABSNabludatelActivity extends Activity {
 	}
 
 	public void savePhotos(){
-		addMediaItems("photo", photo);
+		saveMediaItems(Consts.PHOTO_FILE, photos);
 	}
 
 	public void saveVideos(){
-		addMediaItems("video", video);
+		saveMediaItems(Consts.VIDEO_FILE, videos);
 	}
 	
 	public void fillActiveViews(ViewGroup v){
@@ -242,10 +238,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 				myState.put(
 					key,
 					new Violation(c.getLong(0),
-							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
+							c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN), c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
 							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
 							c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
-							c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN),
 							c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN),
 							c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN),
 							c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN)));
@@ -334,9 +329,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 							Violation v = ABSNabludatelActivity.this.myState.get(key);
 							Tumbler tumbler = (Tumbler) seekBar;
 							if (v == null) {
-								v = new Violation(0L, lat, lng,
+								v = new Violation(0L, System.currentTimeMillis(), lat, lng,
 										seekBar.getTag().toString(),
-										System.currentTimeMillis(),
 										tumbler.getTumblerValue(),
 										mCurrentPollingPlaceId,
 										tumbler.getViolation());
@@ -360,14 +354,14 @@ public abstract class ABSNabludatelActivity extends Activity {
 				Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE,
 				Consts.MEDIA_TYPE_IMAGE,
 				MediaStore.ACTION_IMAGE_CAPTURE);
-		photo.put(photoRequestFile, key);
+		photos.put(photoRequestFile, key);
 	}
 
 	protected void startCameraVideo(String key) {
 		videoRequestFile = startCamera(Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE,
 				Consts.MEDIA_TYPE_VIDEO,
 				MediaStore.ACTION_VIDEO_CAPTURE);
-		video.put(videoRequestFile, key);
+		videos.put(videoRequestFile, key);
 	}
 
 	protected File startCamera(int resultCode, int mediaType, String captureAction) {
@@ -428,17 +422,13 @@ public abstract class ABSNabludatelActivity extends Activity {
 		case Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE: {
 			if (resultCode == 0) {
 				// The user has cancelled image capture
-				if (photo.size() > 0) {
-					photo.remove(photoRequestFile);
-				}
+				photos.remove(photoRequestFile);
 			}
 			break;
 		}
 		case Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE: {
 			if (resultCode == 0) {
-				if (video.size() > 0) {
-					video.remove(videoRequestFile);
-				}
+				videos.remove(videoRequestFile);
 			}
 			break;
 		}
