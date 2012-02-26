@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 public class NabludatelServerClient {
 	public static final String T = NabludatelServerClient.class.getSimpleName();
 
-	private final JsonHttpClient client = new JsonHttpClient();
+	private final JsonHttpClient client = new GZIPJsonHttpClient();
 	private final String serverApiRoot;
 	private final String deviceId;
 

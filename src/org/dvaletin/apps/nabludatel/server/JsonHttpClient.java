@@ -35,8 +35,8 @@ public class JsonHttpClient {
 		try {
 			method.setHeader("Accept", "application/json");
 			method.setHeader("Accept-Encoding", "gzip");
-			method.setHeader("Content-Type", "application/x-www-form-urlencoded");
-			method.setEntity(new StringEntity(request));
+			method.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+			method.setEntity(getEntity(request, method));
 
 			long t = System.currentTimeMillis();
 			HttpResponse response = httpClient.execute(method);
@@ -46,8 +46,10 @@ public class JsonHttpClient {
 			Log.i(T, "\"" + requestLine.getMethod() + " " + requestLine.getUri() +
 					" " + requestLine.getProtocolVersion() + "\" " + statusLine.getStatusCode() +
 					" " + timeMs + " ms");
+			Log.d(T, "Request: " + request + ", " + method.getEntity().getContentLength() + " bytes");
 
 			String responseBody = readResponse(response);
+			Log.d(T, "Response: " + responseBody);
 			if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 				// Get hold of the response entity (-> the data):
 				// Return empty object
@@ -63,6 +65,10 @@ public class JsonHttpClient {
 				Log.e(T, "Can't shutdown connection in http client", e);
 			}
 		}
+	}
+
+	protected HttpEntity getEntity(String request, HttpEntityEnclosingRequestBase method) throws IOException {
+		return new StringEntity(request);
 	}
 
 	private static String readResponse(HttpResponse response) throws IOException {
