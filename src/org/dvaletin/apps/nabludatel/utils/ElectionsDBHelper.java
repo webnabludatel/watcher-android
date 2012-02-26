@@ -206,15 +206,23 @@ public class ElectionsDBHelper {
 				null, null, null, null);
 	}
 
+	public Cursor getViolationsByPollingPlaceId(long pollingPlaceId) {
+		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
+				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_VIOLATION_KEY},
+				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
+						+ CHECKLISTITEM_VALUE_KEY + " = 'false'",
+				null, null, null, null);
+	}
+
 	public Cursor getAllCheckListItemsByElectionsDistrictIdAndScreenId(
-			long electionsDistrictId, int screen_id) {
+			long pollingPlaceId, int screen_id) {
 		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
 				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY,
 				CHECKLISTITEM_SERVER_ID_KEY, CHECKLISTITEM_SCREEN_ID_KEY},
-				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + electionsDistrictId + " AND " 
+				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
 				+ CHECKLISTITEM_SCREEN_ID_KEY + " = " + screen_id, // where
 				null, null, null, null);
 	}
