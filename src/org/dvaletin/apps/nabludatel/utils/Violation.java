@@ -1,128 +1,115 @@
 package org.dvaletin.apps.nabludatel.utils;
 
 public class Violation {
-	double lat, lng;
-	String key;
-	String value;
-	long district_id;
-	String violation;
-	long timestamp;
+	private long id;
+	private double lat, lng;
+	private String key;
+	private String value;
+	private long pollingPlaceId;
+	private String violation;
+	private long timestamp;
+	private boolean changed;
 	
-	public Violation(double lat, double lng, String key,
+	public Violation(long id, double lat, double lng, String key,
 			long currentTimeMillis, String value,
-			long mCurrentElectionsDistrict, String violation) {
+			long pollingPlaceId, String violation) {
+		this.id = id;
 		this.lat = lat;
 		this.lng = lng;
 		this.key = key;
 		this.timestamp = currentTimeMillis;
 		this.value = value;
-		this.district_id = mCurrentElectionsDistrict;
+		this.pollingPlaceId = pollingPlaceId;
 		this.violation = violation;
+		this.changed = false;
 	}
 
-	/**
-	 * @param value the value to set
-	 */
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		updateChanged(id, this.id);
+		this.id = id;
+	}
+
+	public long getPollingPlaceId() {
+		return pollingPlaceId;
+	}
+
+	public void setPollingPlaceId(long pollingPlaceId) {
+		updateChanged(pollingPlaceId, this.pollingPlaceId);
+		this.pollingPlaceId = pollingPlaceId;
+	}
+
 	public void setValue(String value) {
+		updateChanged(value, this.value);
 		this.value = value;
 	}
 
-	/**
-	 * @return the value
-	 */
 	public String getValue() {
 		return value;
 	}
 
-	public void setCoordinates(double lat2, double lng2) {
-		this.lat = lat2;
-		this.lng = lng2;
-		
-	}
-
-	public void setTimeStamp(long currentTimeMillis) {
-		this.timestamp = currentTimeMillis;
-		
+	public void setCoordinates(double lat, double lng) {
+		setLat(lat);
+		setLng(lng);
 	}
 
 	public double getLat() {
 		return lat;
 	}
 
-	/**
-	 * @return the lng
-	 */
 	public double getLng() {
 		return lng;
 	}
 
-	/**
-	 * @param lng the lng to set
-	 */
+	public void setLat(double lat) {
+		updateChanged(lat, this.lat);
+		this.lat = lat;
+	}
+
 	public void setLng(double lng) {
+		updateChanged(lng, this.lng);
 		this.lng = lng;
 	}
 
-	/**
-	 * @return the key
-	 */
 	public String getKey() {
 		return key;
 	}
 
-	/**
-	 * @param key the key to set
-	 */
 	public void setKey(String key) {
+		updateChanged(key, this.key);
 		this.key = key;
 	}
 
-	/**
-	 * @return the district
-	 */
-	public long getDistrict() {
-		return district_id;
-	}
-
-	/**
-	 * @param district the district to set
-	 */
-	public void setDistrict(long district) {
-		this.district_id = district;
-	}
-
-	/**
-	 * @return the violation
-	 */
 	public String getViolation() {
 		return violation;
 	}
 
-	/**
-	 * @param violation the violation to set
-	 */
 	public void setViolation(String violation) {
+		updateChanged(violation, this.violation);
 		this.violation = violation;
 	}
 
-	/**
-	 * @return the timestamp
-	 */
 	public long getTimestamp() {
 		return timestamp;
 	}
 
-	/**
-	 * @param timestamp the timestamp to set
-	 */
 	public void setTimestamp(long timestamp) {
+		updateChanged(timestamp, this.timestamp);
 		this.timestamp = timestamp;
 	}
 
-	/**
-	 * @param lat the lat to set
-	 */
-	public void setLat(double lat) {
-		this.lat = lat;
+	private void updateChanged(Object newValue, Object oldValue) {
+		this.changed |= oldValue != null && !oldValue.equals(newValue) || oldValue == null && newValue != null;
+	}
+
+	public boolean isChanged() {
+		return changed;
+	}
+
+	public void setChanged(boolean changed) {
+		this.changed = changed;
 	}
 }
