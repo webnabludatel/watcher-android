@@ -162,25 +162,24 @@ public class ElectionsDBHelper {
 				value.getKey(), 
 				value.getTimestamp(),
 				value.getValue(), 
-				value.getDistrict(),
+				value.getPollingPlaceId(),
 				value.getViolation(),
 				screen_id
 		);
 		
 	}
 	
-	public long updateCheckListItem(long rowIndex, Float lat, Float lng,
-			String name, Integer timestamp, String value, long pollingplace, String violation) {
-		String where = CHECKLISTITEM_ROW_ID + " = " + rowIndex;
+	public long updateCheckListItem(Violation value) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(CHECKLISTITEM_LAT_KEY, lat);
-		contentValues.put(CHECKLISTITEM_LNG_KEY, lng);
-		contentValues.put(CHECKLISTITEM_NAME_KEY, name);
-		contentValues.put(CHECKLISTITEM_TIMESTAMP_KEY, timestamp);
-		contentValues.put(CHECKLISTITEM_VALUE_KEY, value);
-		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, pollingplace);
-		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, violation);
-		return mDb.update(CHECKLISTITEM_TABLE, contentValues, where, null);
+		contentValues.put(CHECKLISTITEM_LAT_KEY, value.getLat());
+		contentValues.put(CHECKLISTITEM_LNG_KEY, value.getLng());
+		contentValues.put(CHECKLISTITEM_NAME_KEY, value.getKey());
+		contentValues.put(CHECKLISTITEM_TIMESTAMP_KEY, value.getTimestamp());
+		contentValues.put(CHECKLISTITEM_VALUE_KEY, value.getValue());
+		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, value.getPollingPlaceId());
+		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, value.getViolation());
+		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, 0L);
+		return mDb.update(CHECKLISTITEM_TABLE, contentValues, CHECKLISTITEM_ROW_ID + " = " + value.getId(), null);
 
 	}
 

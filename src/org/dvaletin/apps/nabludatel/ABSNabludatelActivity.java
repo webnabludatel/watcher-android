@@ -37,7 +37,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	protected HashMap<File, String> video;
 	File photoRequestFile;
 	File videoRequestFile;
-	long mCurrentElectionsDistrict = -1;
+	long mCurrentPollingPlaceId = -1;
 	ElectionsDBHelper mElectionsDB;
 	HashMap<String, Violation> myState;
 	HashMap<String, View> activeViews;
@@ -51,7 +51,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
-		mCurrentElectionsDistrict = intent.getLongExtra(
+		mCurrentPollingPlaceId = intent.getLongExtra(
 				Consts.PREFS_ELECTIONS_DISRICT, -1);
 		screenId = intent.getIntExtra(Consts.PREFS_LAYOUT_ID, -1);
 		lat = intent.getDoubleExtra(Consts.PREFS_LATITUDE, 0.0d);
@@ -131,25 +131,36 @@ public abstract class ABSNabludatelActivity extends Activity {
 	}
 
 	public void save() {
-		for(Entry<String, View> entry : activeViews.entrySet()){
+		for (Entry<String, View> entry : activeViews.entrySet()){
 			if(entry.getValue() instanceof EditText){
 				EditText ed = (EditText)entry.getValue();
 
-				if(!ed.getText().toString().equals("")){
-					myState.put(entry.getKey(), new Violation(
-							lat, 
-							lng, 
-							ed.getTag().toString(), 
+				String newValue = ed.getText().toString();
+				if(!newValue.equals("")){
+					String key = entry.getKey();
+					Violation v = myState.get(key);
+					if (v == null) {
+						v = new Violation(0L, lat, lng,
+							ed.getTag().toString(),
 							System.currentTimeMillis(),
-							ed.getText().toString(),
-							mCurrentElectionsDistrict,
-							""
-					));
+							newValue, mCurrentPollingPlaceId, "");
+						myState.put(key, v);
+					} else {
+						v.setValue(newValue);
+					}
 				}
 			}
 		}
 		for (Entry<String, Violation> entry : myState.entrySet()) {
-			mElectionsDB.addCheckListItem(entry.getValue(), screenId);
+			Violation value = entry.getValue();
+			if (value.isChanged() || value.getId() <= 0) {
+				if (value.getId() <= 0) {
+					value.setId(mElectionsDB.addCheckListItem(value, screenId));
+				} else {
+					mElectionsDB.updateCheckListItem(value);
+				}
+				value.setChanged(false);
+			}
 		}
 	}
 
@@ -170,7 +181,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 						checkListItemKey,
 						System.currentTimeMillis(),
 						String.valueOf(entry.getValue()),
-						mCurrentElectionsDistrict,
+						mCurrentPollingPlaceId,
 						"",
 						screenId
 				);
@@ -182,7 +193,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 								"",
 								System.currentTimeMillis(),
 								violationId,
-								mCurrentElectionsDistrict
+								mCurrentPollingPlaceId
 						);
 					}
 				}
@@ -219,10 +230,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 		myState = new HashMap<String, Violation>();
 		activeViews = new HashMap<String, View>();
 		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
-		if (mCurrentElectionsDistrict == -1)
-			return;
+		if (mCurrentPollingPlaceId == -1L) return;
 		Cursor c = mElectionsDB
-				.getAllCheckListItemsByElectionsDistrictIdAndScreenId(this.mCurrentElectionsDistrict, screenId);
+				.getAllCheckListItemsByElectionsDistrictIdAndScreenId(this.mCurrentPollingPlaceId, screenId);
 		c.moveToFirst();
 
 		for (int i = 0; i < c.getCount(); i++) {
@@ -231,7 +241,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 			if(activeViews.keySet().contains(key)){
 				myState.put(
 					key,
-					new Violation(
+					new Violation(c.getLong(0),
 							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
 							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
 							c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
@@ -291,7 +301,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 							int progress, boolean fromUser) {
 						if (fromUser) {
 							mIsProgressChanged = true;
-
 						}
 						if (((Tumbler) seekBar).getTumblerValue()
 								.equals("true")) {
@@ -322,36 +331,21 @@ public abstract class ABSNabludatelActivity extends Activity {
 						int progress = seekBar.getProgress();
 						if (mIsProgressChanged && progress != mInitialProgress) {
 							String key = seekBar.getTag().toString();
-							Violation v = ABSNabludatelActivity.this.myState
-									.get(key);
+							Violation v = ABSNabludatelActivity.this.myState.get(key);
+							Tumbler tumbler = (Tumbler) seekBar;
 							if (v == null) {
-								ABSNabludatelActivity.this.myState.put(
-										key,
-										new Violation(lat, lng, seekBar
-												.getTag().toString(), System
-												.currentTimeMillis(),
-												((Tumbler) seekBar)
-														.getTumblerValue(),
-												mCurrentElectionsDistrict,
-												((Tumbler) seekBar)
-														.getViolation()));
+								v = new Violation(0L, lat, lng,
+										seekBar.getTag().toString(),
+										System.currentTimeMillis(),
+										tumbler.getTumblerValue(),
+										mCurrentPollingPlaceId,
+										tumbler.getViolation());
+								ABSNabludatelActivity.this.myState.put(key, v);
 							} else {
-								v.setValue(((Tumbler) seekBar)
-										.getTumblerValue());
+								v.setValue(tumbler.getTumblerValue());
 								v.setCoordinates(lat, lng);
-								v.setTimeStamp(System.currentTimeMillis());
+								v.setTimestamp(System.currentTimeMillis());
 							}
-							// ABSNabludatelActivity.this.mElectionsDB
-							// .addCheckListItem(
-							// lat,
-							// lng,
-							// seekBar.getTag().toString(),
-							// System.currentTimeMillis(),
-							// ((Tumbler) seekBar).getTumblerValue(),
-							// mCurrentElectionsDistrict,
-							// ((Tumbler) seekBar).getViolation()
-							// );
-
 						}
 					}
 
