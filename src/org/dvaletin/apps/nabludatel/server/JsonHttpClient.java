@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.zip.GZIPInputStream;
 
 /**
  * JSON HTTP Client.
@@ -31,29 +32,37 @@ public class JsonHttpClient {
 	 */
 	public JSONObject request(String request, HttpEntityEnclosingRequestBase method) throws JSONException, IOException {
 		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			method.setHeader("Accept", "application/json");
+			method.setHeader("Accept-Encoding", "gzip");
+			method.setHeader("Content-Type", "application/x-www-form-urlencoded");
+			method.setEntity(new StringEntity(request));
 
-		method.setHeader("Accept", "application/json");
-		method.setHeader("Content-type", "application/x-www-form-urlencoded");
-		method.setEntity(new StringEntity(request));
+			long t = System.currentTimeMillis();
+			HttpResponse response = httpClient.execute(method);
+			long timeMs = System.currentTimeMillis() - t;
+			StatusLine statusLine = response.getStatusLine();
+			RequestLine requestLine = method.getRequestLine();
+			Log.i(T, "\"" + requestLine.getMethod() + " " + requestLine.getUri() +
+					" " + requestLine.getProtocolVersion() + "\" " + statusLine.getStatusCode() +
+					" " + timeMs + " ms");
 
-		long t = System.currentTimeMillis();
-		HttpResponse response = httpClient.execute(method);
-		long timeMs = System.currentTimeMillis() - t;
-		StatusLine statusLine = response.getStatusLine();
-		RequestLine requestLine = method.getRequestLine();
-		Log.i(T, "\"" + requestLine.getMethod() + " " + requestLine.getUri() +
-				" " + requestLine.getProtocolVersion() + "\" " + statusLine.getStatusCode() +
-				" " + timeMs + " ms");
-
-		String responseBody = readResponse(response);
-		if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
-			// Get hold of the response entity (-> the data):
-			// Return empty object
-			return responseBody != null ? new JSONObject(responseBody) : new JSONObject();
+			String responseBody = readResponse(response);
+			if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
+				// Get hold of the response entity (-> the data):
+				// Return empty object
+				return responseBody != null ? new JSONObject(responseBody) : new JSONObject();
+			}
+			throw new HttpResponseException(statusLine.getStatusCode(),
+					responseBody != null && responseBody.startsWith("{") && responseBody.endsWith("}") ?
+							new JSONObject(responseBody).toString() : statusLine.getReasonPhrase());
+		} finally {
+			try {
+				httpClient.getConnectionManager().shutdown();
+			} catch (Exception e) {
+				Log.e(T, "Can't shutdown connection in http client", e);
+			}
 		}
-		throw new HttpResponseException(statusLine.getStatusCode(),
-				responseBody != null && responseBody.startsWith("{") && responseBody.endsWith("}") ?
-						new JSONObject(responseBody).toString() : statusLine.getReasonPhrase());
 	}
 
 	private static String readResponse(HttpResponse response) throws IOException {
@@ -61,6 +70,10 @@ public class JsonHttpClient {
 		if (entity != null) {
 			// Read the content stream
 			InputStream inputStream = entity.getContent();
+			Header contentEncoding = response.getFirstHeader("Content-Encoding");
+			if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+				inputStream = new GZIPInputStream(inputStream);
+			}
 			try {
 				// convert content stream to a String
 				return readLines(inputStream);
