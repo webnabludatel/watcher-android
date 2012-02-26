@@ -146,8 +146,7 @@ public class ElectionsDBHelper {
 		contentValues.put(CHECKLISTITEM_NAME_KEY, name);
 		contentValues.put(CHECKLISTITEM_TIMESTAMP_KEY, l);
 		contentValues.put(CHECKLISTITEM_VALUE_KEY, value);
-		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY,
-				mCurrentElectionsDistrictId);
+		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, mCurrentElectionsDistrictId);
 		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, violation);
 		contentValues.put(CHECKLISTITEM_SCREEN_ID_KEY, screen_id );
 		contentValues.put(CHECKLISTITEM_SERVER_ID_KEY, (long)-1);

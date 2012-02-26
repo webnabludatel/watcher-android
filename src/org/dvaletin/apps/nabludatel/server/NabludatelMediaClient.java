@@ -53,7 +53,7 @@ public class NabludatelMediaClient {
 					.withCannedAcl(CannedAccessControlList.PublicRead);
 			PutObjectResult result = s3Client.putObject(putObjectRequest);
 			time = System.currentTimeMillis() - time;
-			Log.i(T, "Uploaded " + file.getName() + " to " + toUrl(null, file) +
+			Log.i(T, "Uploaded " + file.getName() + " to " + toUrl(folderName, file) +
 					", etag (md5) " + result.getETag() + " " + time + " ms");
 			return toUrl(null, file);
 		} catch (Exception e) {

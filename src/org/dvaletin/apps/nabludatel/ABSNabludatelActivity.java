@@ -2,22 +2,12 @@ package org.dvaletin.apps.nabludatel;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
-import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.Violation;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,11 +21,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -49,7 +37,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 	protected HashMap<File, String> video;
 	File photoRequestFile;
 	File videoRequestFile;
-	JSONObject json = new JSONObject();
 	long mCurrentElectionsDistrict = -1;
 	ElectionsDBHelper mElectionsDB;
 	HashMap<String, Violation> myState;
@@ -135,12 +122,12 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 	public void onMakePhotoClick(View v) {
 		if(v.getTag() != null)
-			startNarusheniyePhoto(v.getTag().toString());
+			startCameraPhoto(v.getTag().toString());
 	}
 
 	public void onMakeVideoClick(View v) {
 		if(v.getTag() != null)
-			startNarusheniyeVideo(v.getTag().toString());
+			startCameraVideo(v.getTag().toString());
 	}
 
 	public void save() {
@@ -166,110 +153,49 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 
-	public void savePhotos(){
-
-		int numOfPhotos = photo.size();
-		if(numOfPhotos > 0){
-			HashMap<String, Integer> photoItemsCache = new HashMap<String, Integer>();
-			Iterator i = photo.entrySet().iterator();
-			while(i.hasNext()){
-				Map.Entry entry = (Map.Entry) i.next();
-				String key = (String)entry.getValue();
-				int items = 0;
-				try{
-					items = photoItemsCache.get(key);
-				}catch (Exception e){
-					e.printStackTrace();
-				}
-				items++;
-				photoItemsCache.put((String)entry.getValue(), items);
+	private void addMediaItems(String mediaType, HashMap<File, String> files) {
+		if (files.size() > 0){
+			HashMap<String, Integer> itemsCache = new HashMap<String, Integer>();
+			for (Entry<File, String> entry : files.entrySet()) {
+				String key = entry.getValue();
+				Integer items = itemsCache.get(key);
+				itemsCache.put(entry.getValue(), (items != null ? items : 0) + 1);
 			}
-			
-			i = photoItemsCache.entrySet().iterator();
-			while(i.hasNext()){
-				Map.Entry entry = (Map.Entry) i.next();
-				String key = (String)entry.getKey();
+
+			for (Entry<String,Integer> entry : itemsCache.entrySet()){
+				String checkListItemKey = entry.getKey();
 				long violationId = mElectionsDB.addCheckListItem(
 						lat,
 						lng,
-						(String)entry.getKey(),
+						checkListItemKey,
 						System.currentTimeMillis(),
-						String.valueOf((Integer)entry.getValue()),
+						String.valueOf(entry.getValue()),
 						mCurrentElectionsDistrict,
 						"",
 						screenId
-						);
-				Iterator j = photo.entrySet().iterator();
-				while(j.hasNext()){
-					Map.Entry photoEntry = (Map.Entry)j.next();
-					String checklist_item = (String) photoEntry.getValue();
-					if(checklist_item.equals(key)){
-						File photoFile = (File) photoEntry.getKey();
+				);
+				for (Entry<File, String> fe : files.entrySet()) {
+					if (checkListItemKey.equals(fe.getValue())) {
 						mElectionsDB.addMediaItem(
-								photoFile.getAbsolutePath(),
-								"photo",
+								fe.getKey().getAbsolutePath(),
+								mediaType,
 								"",
 								System.currentTimeMillis(),
 								violationId,
 								mCurrentElectionsDistrict
-								);
+						);
 					}
 				}
 			}
 		}
 	}
-	
-	public void saveVideos(){
 
-		int numOfvideos = video.size();
-		if(numOfvideos > 0){
-			HashMap<String, Integer> videoItemsCache = new HashMap<String, Integer>();
-			Iterator i = video.entrySet().iterator();
-			while(i.hasNext()){
-				Map.Entry entry = (Map.Entry) i.next();
-				String key = (String)entry.getValue();
-				int items = 0;
-				try{
-					items = videoItemsCache.get(key);
-				}catch (Exception e){
-					e.printStackTrace();
-				}
-				items++;
-				videoItemsCache.put((String)entry.getValue(), items);
-			}
-			
-			i = videoItemsCache.entrySet().iterator();
-			while(i.hasNext()){
-				Map.Entry entry = (Map.Entry) i.next();
-				String key = (String)entry.getKey();
-				long violationId = mElectionsDB.addCheckListItem(
-						lat,
-						lng,
-						(String)entry.getKey(),
-						System.currentTimeMillis(),
-						String.valueOf((Integer)entry.getValue()),
-						mCurrentElectionsDistrict,
-						"",
-						screenId
-						);
-				Iterator j = video.entrySet().iterator();
-				while(j.hasNext()){
-					Map.Entry videoEntry = (Map.Entry)j.next();
-					String checklist_item = (String) videoEntry.getValue();
-					if(checklist_item.equals(key)){
-						File videoFile = (File) videoEntry.getKey();
-						mElectionsDB.addMediaItem(
-								videoFile.getAbsolutePath(),
-								"video",
-								"",
-								System.currentTimeMillis(),
-								violationId,
-								mCurrentElectionsDistrict
-								);
-					}
-				}
-			}
-		}
+	public void savePhotos(){
+		addMediaItems("photo", photo);
+	}
+
+	public void saveVideos(){
+		addMediaItems("video", video);
 	}
 	
 	public void fillActiveViews(ViewGroup v){
@@ -316,14 +242,12 @@ public abstract class ABSNabludatelActivity extends Activity {
 			}
 			c.moveToNext();
 		}
-		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
-				myState, activeViews);
+		restore(myState, activeViews);
 	}
 
-	public void restore(ViewGroup v, HashMap<String, Violation> from, HashMap<String, View> to) {
-		Iterator i =   to.entrySet().iterator();
-		while(i.hasNext()){
-			Map.Entry entry = (Map.Entry)i.next();
+	public void restore(HashMap<String, Violation> from, HashMap<String, View> to) {
+		for (Entry<String, View> stringViewEntry : to.entrySet()) {
+			Entry entry = (Entry) stringViewEntry;
 			if (entry.getValue() instanceof Tumbler) {
 				try {
 					Violation data = from.get(entry.getKey().toString());
@@ -335,14 +259,14 @@ public abstract class ABSNabludatelActivity extends Activity {
 					e.printStackTrace();
 				}
 			}
-			if(entry.getValue() instanceof EditText){
+			if (entry.getValue() instanceof EditText) {
 				try {
 					Violation data = from.get(entry.getKey().toString());
-					if(data != null) {
+					if (data != null) {
 						EditText ed = (EditText) entry.getValue();
 						ed.setText(data.getValue());
 					}
-				}catch (Exception e){
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -436,61 +360,28 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 
-	protected void startNarusheniyePhoto(String key) {
-
-		// File pictureFile = takePicture(R.layout.post_narushenije);
-		photoRequestFile = startCameraPhoto();
-		
+	protected void startCameraPhoto(String key) {
+		photoRequestFile = startCamera(
+				Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE,
+				Consts.MEDIA_TYPE_IMAGE,
+				MediaStore.ACTION_IMAGE_CAPTURE);
 		photo.put(photoRequestFile, key);
 	}
 
-	protected void startNarusheniyeVideo(String key) {
-		videoRequestFile = startCameraVideo();
+	protected void startCameraVideo(String key) {
+		videoRequestFile = startCamera(Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE,
+				Consts.MEDIA_TYPE_VIDEO,
+				MediaStore.ACTION_VIDEO_CAPTURE);
 		video.put(videoRequestFile, key);
 	}
 
-	protected File startCameraPhoto() {
-		// create Intent to take a picture and return control to the calling
-		// application
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		Uri toAdd = getOutputMediaFileUri(Consts.MEDIA_TYPE_IMAGE);
-		pictureFileUri.add(toAdd); // create
-									// a
-									// file
-									// to
-									// save
-									// the
-									// image
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, toAdd); // set the
-															// image
-															// file name
+	protected File startCamera(int resultCode, int mediaType, String captureAction) {
+		Intent intent = new Intent(captureAction);
+		Uri media = getOutputMediaFileUri(mediaType);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, media);
 
-		// start the image capture Intent
-		startActivityForResult(intent,
-				Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-		return new File(pictureFileUri.get(pictureFileUri.size() - 1).getPath());
-	}
-
-	protected File startCameraVideo() {
-		// create Intent to take a picture and return control to the calling
-		// application
-		Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-		Uri toAdd = getOutputMediaFileUri(Consts.MEDIA_TYPE_VIDEO);
-		videoFileUri.add(toAdd); // create
-									// a
-									// file
-									// to
-									// save
-									// the
-									// image
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, toAdd); // set the
-															// image
-															// file name
-
-		// start the image capture Intent
-		startActivityForResult(intent,
-				Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
-		return new File(videoFileUri.get(videoFileUri.size() - 1).getPath());
+		startActivityForResult(intent, resultCode);
+		return new File(media.getPath());
 	}
 
 	/** Create a file Uri for saving an image or video */
@@ -504,8 +395,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		// using Environment.getExternalStorageState() before doing this.
 
 		File mediaStorageDir = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
 				"Nabludatel");
 		// This location works best if you want the created images to be shared
 		// between applications and persist after your app has been uninstalled.
@@ -544,7 +434,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 			if (resultCode == 0) {
 				// The user has cancelled image capture
 				if (photo.size() > 0) {
-					photo.remove(photo.size() - 1);
+					photo.remove(photoRequestFile);
 				}
 			}
 			break;
@@ -552,7 +442,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		case Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE: {
 			if (resultCode == 0) {
 				if (video.size() > 0) {
-					video.remove(video.size() - 1);
+					video.remove(videoRequestFile);
 				}
 			}
 			break;

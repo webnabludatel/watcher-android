@@ -46,44 +46,9 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		
 	}
 
-	@Override
-	public void onMakePhotoClick(View v) {
-		if(v.getTag() != null)
-			startNarusheniyePhoto(v.getTag().toString());
-	}
-	
-	public void onManualSetipClick(View v){
+	public void onManualSetupClick(View v){
 		Intent intent = new Intent(this, NabludatelProfileActivity.class);
 		intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, 0l);
 		startActivityForResult(intent, NABLUDATEL_MANUAL_SETUP);
 	}
-	
-	public void onActivityResult(int requestCode, int resultCode, Intent data){
-		switch(requestCode){
-		case Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE: {
-			if (resultCode == 0) {
-				// The user has cancelled image capture
-				if (photo.size() > 0) {
-					photo.remove(photo.size() - 1);
-				}
-				
-			}else{
-				this.mElectionsDB.open();
-				savePhotos();
-				photo = new HashMap<File, String>();
-			}
-			break;
-		}
-		case NABLUDATEL_MANUAL_SETUP:{
-			break;
-		}
-		case NABLUDATEL_TWITTER_SETUP:{
-			break;
-		}
-		case NABLUDATEL_FACEBOOK_SETUP:{
-			break;
-		}
-		}
-	}
-	
 }

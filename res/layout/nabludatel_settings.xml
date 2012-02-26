@@ -58,7 +58,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical|left"
-                            android:onClick="onManualSetipClick"
+                            android:onClick="onManualSetupClick"
                             android:tag="manual"
                             android:text="@string/nabludatel_settings_manual" />
                     </LinearLayout>
