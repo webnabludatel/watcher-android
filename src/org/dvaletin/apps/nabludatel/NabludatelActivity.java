@@ -69,7 +69,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	    	adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 	    	district.setAdapter(adapter);
 	    	district.setVisibility(View.VISIBLE);
-	    	prefs = this.getPreferences(MODE_PRIVATE);
+	    	getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
 	    	Long position_id = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1);
 	    	if(position_id != -1) 
 	    		district.setSelection((int)(position_id-1));

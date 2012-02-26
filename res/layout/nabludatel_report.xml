@@ -5,66 +5,105 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <FrameLayout
+        android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content" >
 
-            <FrameLayout
-                android:id="@+id/frameLayout1"
-                style="@style/main_pane_style"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@+id/frameLayout1"
+                    style="@style/main_pane_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:foregroundGravity="center" >
+
+                    <org.dvaletin.apps.nabludatel.utils.ReportImageView
+                        android:id="@+id/report_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/report_graph_bg" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/frameLayout2"
+                    style="@style/main_pane_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right" >
+
+                            <Button
+                                android:id="@+id/button1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onClick="onReportOnsiteButtonClick()"
+                                android:text="@string/report_onsite_title" />
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|right" >
+
+                                <ImageView
+                                    android:id="@+id/imageView1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/button_facebook" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/report_violation_list_title"
+                    style="@style/PanelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/report_violations_title" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout1"
+                    android:id="@+id/report_frame"
+                    style="@style/main_pane_style"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical" >
-
-                    <Spinner
-                        android:id="@+id/elections_district_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/elections_district" />
-
                 </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
 
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frameLayout2"
-                style="@style/main_pane_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frameLayout3"
-                style="@style/main_pane_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-
-                <ListView
-                    android:id="@+id/main_selector"
-                    style="@style/listview_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                </ListView>
-
-            </FrameLayout>
-        </LinearLayout>
-
-    </ScrollView>
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/PanelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/report_whatnext" />
 
 </LinearLayout>

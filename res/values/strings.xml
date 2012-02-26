@@ -234,5 +234,8 @@
 				<string name="first_name_hint">Имя</string>
 				<string name="middle_name_hint">Отчество</string>
 				<string name="email_hint">E-Mail</string>
-				<string name="phone_hint">Телефон</string>	
+				<string name="phone_hint">Телефон</string>
+				<string name="report_onsite_title">Ваш отчет на сайте</string>
+				<string name="report_violations_title">Нарушения на участке</string>
+				<string name="report_whatnext">Чтобы подать жалобу по нарушениям:\n1. Заполните жалобу.\n2. Передайте её председателю.\n3. Оставьте один экземпляр у себя.</string>	
 </resources>

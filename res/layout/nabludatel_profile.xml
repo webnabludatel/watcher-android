@@ -52,7 +52,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/last_name_hint"
-                            android:tag="last_name" >
+                            android:tag="last_name" android:inputType="textCapWords|textPersonName">
 
                         </EditText>
 
@@ -61,14 +61,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/first_name_hint"
-                            android:tag="first_name" />
+                            android:tag="first_name" android:inputType="textCapWords|textPersonName"/>
 
                         <EditText
                             android:id="@+id/middle_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/middle_name_hint"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapWords|textPersonName"
                             android:tag="middle_name" />
 
                         <TextView
@@ -98,7 +98,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/phone_hint"
-                            android:tag="phone" />
+                            android:tag="phone" android:inputType="phone"/>
 
                     </LinearLayout>
 

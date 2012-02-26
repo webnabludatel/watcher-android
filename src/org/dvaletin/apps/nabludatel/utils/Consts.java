@@ -106,6 +106,7 @@ public class Consts {
 	public static final String PREFS_VIOLATIONS = "violations_count";
 	public static final String PREFS_LATITUDE = "lat";
 	public static final String PREFS_LONGITUDE = "lng";
+	public static final String PREFS_FILENAME = "org.dvaletin.apps.global.prefs";
 	
 
 	public static String getViolationDescription(int id) {

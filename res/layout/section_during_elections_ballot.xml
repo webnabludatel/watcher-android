@@ -57,7 +57,7 @@
                         android:tag="ballot_box_watch_allowed"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp"
-                        nabludatel:violationText="Помещение неудобно для наблюдения, урны, кабинки и выдача бюллетеней одновременно не находятся в поле зрения" />
+                        nabludatel:violationText="Помещение неудобно для наблюдения: урны, кабинки и выдача бюллетеней одновременно не находятся в поле зрения" />
 
                     <TextView
                         android:id="@+id/TextView2"

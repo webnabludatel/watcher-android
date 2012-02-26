@@ -81,7 +81,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/uik_district_chairman_hint"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapWords|textPersonName"
                             android:tag="uik_district_chairman" />
 
                         <TextView
@@ -97,7 +97,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/uik_district_chairman_hint"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapWords|textPersonName"
                             android:tag="uik_district_secretary" />
 
                         <TextView
@@ -131,19 +131,22 @@
 
                             <Button
                                 android:id="@+id/Button01"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:onClick="onSelectPhotoFromGalleryClick"
                                 android:tag="uik_district_banner_photo"
                                 android:text="@string/uik_district_banner_photo_from_gallery" />
 
                             <Button
                                 android:id="@+id/uik_district_banner_photo"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:onClick="onMakePhotoClick"
                                 android:tag="uik_district_banner_photo"
                                 android:text="@string/uik_district_banner_photo_make" />
+
                         </LinearLayout>
                     </LinearLayout>
 
