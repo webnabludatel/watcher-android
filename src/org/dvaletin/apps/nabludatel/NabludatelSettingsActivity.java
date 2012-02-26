@@ -75,19 +75,6 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 			break;
 		}
 		case NABLUDATEL_MANUAL_SETUP:{
-			String last_name = data.getStringExtra("last_name");
-			long res;
-			if(cloudHelper.isAuthenticated()){
-				res = cloudHelper.postNewMessage("last_name", last_name, lat, lng, System.currentTimeMillis(), 0, 0);
-				String first_name = data.getStringExtra("first_name");
-				res = cloudHelper.postNewMessage("first_name", first_name, lat, lng, System.currentTimeMillis(), 0, 0);
-				String middle_name = data.getStringExtra("middle_name");
-				res = cloudHelper.postNewMessage("middle_name", middle_name, lat, lng, System.currentTimeMillis(), 0, 0);
-				String email = data.getStringExtra("email");
-				res = cloudHelper.postNewMessage("email", email, lat, lng, System.currentTimeMillis(), 0, 0);
-				String phone = data.getStringExtra("phone");
-				res = cloudHelper.postNewMessage("phone", phone, lat, lng, System.currentTimeMillis(), 0, 0);
-			}
 			break;
 		}
 		case NABLUDATEL_TWITTER_SETUP:{
