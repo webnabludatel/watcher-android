@@ -86,7 +86,6 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 			public void run() {
 				// TODO Auto-generated method stub
 				violationSyncHandler.post(violationSync);
-				Log.d("ViolationSyncTask:", "started");
 			}
 			
 		};
@@ -104,7 +103,6 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 			public void run() {
 				// TODO Auto-generated method stub
 				mediaSyncHandler.post(mediaSync);
-				Log.d("MediaSyncTask:", "started");
 			}
 			
 		};

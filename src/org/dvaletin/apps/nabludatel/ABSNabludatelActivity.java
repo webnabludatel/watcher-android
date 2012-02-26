@@ -219,6 +219,59 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 	
+	public void saveVideos(){
+
+		int numOfvideos = video.size();
+		if(numOfvideos > 0){
+			HashMap<String, Integer> videoItemsCache = new HashMap<String, Integer>();
+			Iterator i = video.entrySet().iterator();
+			while(i.hasNext()){
+				Map.Entry entry = (Map.Entry) i.next();
+				String key = (String)entry.getValue();
+				int items = 0;
+				try{
+					items = videoItemsCache.get(key);
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+				items++;
+				videoItemsCache.put((String)entry.getValue(), items);
+			}
+			
+			i = videoItemsCache.entrySet().iterator();
+			while(i.hasNext()){
+				Map.Entry entry = (Map.Entry) i.next();
+				String key = (String)entry.getKey();
+				long violationId = mElectionsDB.addCheckListItem(
+						lat,
+						lng,
+						(String)entry.getKey(),
+						System.currentTimeMillis(),
+						String.valueOf((Integer)entry.getValue()),
+						mCurrentElectionsDistrict,
+						"",
+						screenId
+						);
+				Iterator j = video.entrySet().iterator();
+				while(j.hasNext()){
+					Map.Entry videoEntry = (Map.Entry)j.next();
+					String checklist_item = (String) videoEntry.getValue();
+					if(checklist_item.equals(key)){
+						File videoFile = (File) videoEntry.getKey();
+						mElectionsDB.addMediaItem(
+								videoFile.getAbsolutePath(),
+								"video",
+								"",
+								System.currentTimeMillis(),
+								violationId,
+								mCurrentElectionsDistrict
+								);
+					}
+				}
+			}
+		}
+	}
+	
 	public void fillActiveViews(ViewGroup v){
 		for (int i = 0; i < v.getChildCount(); i++) {
 			if (v.getChildAt(i) instanceof ViewGroup) {
@@ -437,7 +490,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		// start the image capture Intent
 		startActivityForResult(intent,
 				Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
-		return new File(pictureFileUri.get(pictureFileUri.size() - 1).getPath());
+		return new File(videoFileUri.get(videoFileUri.size() - 1).getPath());
 	}
 
 	/** Create a file Uri for saving an image or video */
@@ -494,6 +547,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 					photo.remove(photo.size() - 1);
 				}
 			}
+			break;
 		}
 		case Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE: {
 			if (resultCode == 0) {
@@ -514,6 +568,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	public void onBackPressed() {
 		save();
 		savePhotos();
+		saveVideos();
 		toReturn.putExtra(Consts.PREFS_VIOLATIONS, myState.entrySet().size());
 		setResult(RESULT_OK, toReturn);
 		super.onBackPressed();

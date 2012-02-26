@@ -52,6 +52,7 @@ public class ViolationSyncThread implements Runnable {
 	
 	@Override
 	public void run() {
+		Log.d(TAG, "started");
 		callback.onViolationSyncStart();
 		try{
 			
@@ -82,7 +83,9 @@ public class ViolationSyncThread implements Runnable {
 					long server_status = c.getLong(ElectionsDBHelper.CHECKLISTITEM_SERVER_STATUS_COLUMN);
 	//				Cursor pollingPlaceNameCursor = mElectionsDB.getPollingPlaceByNumber(pollingPlace);
 					if(server_status == -1){
+						
 						long serverId = cloudHelper.postNewMessage(name, violation, lat, lng, timestamp);
+						Log.d(TAG, "violation sent "+violation);
 						if(serverId != -1){
 							mElectionsDB.updateCheckListItemServerSync(rowId, serverId);
 						}
@@ -98,6 +101,7 @@ public class ViolationSyncThread implements Runnable {
 			e.printStackTrace();
 		}
 		callback.onViolationSyncFinish();
+		Log.d(TAG, "finished");
 	}
 	public interface IViolationSyncCallCallback{
 		public void onViolationSyncStart();

@@ -56,6 +56,7 @@ public class MediaSyncThread implements Runnable {
 
 	@Override
 	public void run() {
+		Log.d(TAG, "started");
 		callback.onMediaSyncStart();
 		try {
 			
@@ -84,10 +85,19 @@ public class MediaSyncThread implements Runnable {
 					long mediaServerStatus = c.getLong(mElectionsDB.MEDIAITEM_SERVER_STATUS_COLUMN);
 					
 					long serverMessageId = mElectionsDB.getCheckListItemServerId(mediaChecklistId);
+					String violationName = mElectionsDB.getCheckListItemViolationName(mediaChecklistId);
 //					long serverPollingPlaceId = mElectionsDB.getPollingPlaceServerIdByNumber(mediaPollingPlace);
 					if(serverMessageId != -1L && mediaServerStatus == -1L){
-						long mediaServerId = cloudHelper.uploadMediaToMessage(serverMessageId, new File(filePath), mediaType);
-						mElectionsDB.updateMediaItemServerStatus(mediaRowId, mediaServerId);
+						File toSend = new File(filePath);
+						if(toSend.exists()){
+							long mediaServerId = cloudHelper.uploadMediaToMessage(serverMessageId, toSend, mediaType);
+//							long mediaServervId = cloudHelper.uploadMediaToMessage(serverMessageId, toSend, mediaType, violationName);
+							Log.d(TAG, "Item sent:" + toSend.getCanonicalPath());
+							mElectionsDB.updateMediaItemServerStatus(mediaRowId, mediaServerId);
+						}else{
+							Log.d(TAG, "File "+toSend.getCanonicalPath()+" does not exists, deleting record MediaItem:"+mediaRowId);
+							mElectionsDB.removeMediaItem(mediaRowId);
+						}
 					}
 					c.moveToNext();
 				}
@@ -101,6 +111,7 @@ public class MediaSyncThread implements Runnable {
 //			callback.onMediaSyncError(TAG+" "+e.getMessage());
 		}
 		callback.onMediaSyncFinish();
+		Log.d(TAG, "finished");
 	}
 	public interface IMediaSyncCallCallback{
 		public void onMediaSyncStart();

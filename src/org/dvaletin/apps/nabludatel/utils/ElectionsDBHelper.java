@@ -233,6 +233,17 @@ public class ElectionsDBHelper {
 		return res;
 	}
 	
+	public String getCheckListItemViolationName(long rowIndex) {
+		Cursor res = mDb.query(CHECKLISTITEM_TABLE, new String[] {
+				CHECKLISTITEM_NAME_KEY	
+		}, CHECKLISTITEM_ROW_ID + " = " + rowIndex, null, null, null, null);
+		if (res != null && res.getCount() > 0){
+			res.moveToFirst();
+			return res.getString(res.getColumnIndex(CHECKLISTITEM_NAME_KEY));
+		}
+		return null;
+	}
+	
 	public Cursor getAllCheckListItemsNotInSync(){
 		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,

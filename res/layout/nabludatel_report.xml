@@ -23,6 +23,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" >
 
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <Spinner
+                        android:id="@+id/elections_district_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/elections_district" />
+
+                </LinearLayout>
+
             </FrameLayout>
 
             <FrameLayout
@@ -40,6 +54,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" >
+
+                <ListView
+                    android:id="@+id/main_selector"
+                    style="@style/listview_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </ListView>
 
             </FrameLayout>
         </LinearLayout>
