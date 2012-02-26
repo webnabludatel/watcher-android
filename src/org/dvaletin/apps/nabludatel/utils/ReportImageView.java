@@ -35,7 +35,7 @@ public class ReportImageView extends View {
 		}
 		if ( this.goodCount == 0 && this.badCount == 0 ) {
 			Path arcPath = new Path();
-	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2, Path.Direction.CW);
+	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2*0.8f, Path.Direction.CW);
 	        arcPath.setFillType(Path.FillType.EVEN_ODD);
 	        Paint p = new Paint();
 	        p.setColor(Color.rgb(180, 180, 180));
@@ -43,7 +43,7 @@ public class ReportImageView extends View {
 	    } else if ( this.goodCount == 0 && this.badCount > 0) {
 	        // #df2a00
 			Path arcPath = new Path();
-	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2, Path.Direction.CW);
+	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2*0.8f, Path.Direction.CW);
 	        arcPath.setFillType(Path.FillType.EVEN_ODD);
 	        Paint p = new Paint();
 	        p.setColor(Color.rgb(0xdf, 0x2a, 0));
@@ -52,7 +52,7 @@ public class ReportImageView extends View {
 	    } else if ( this.goodCount > 0 && this.badCount == 0 ) {
 	        // #0077cb
 	    	Path arcPath = new Path();
-	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2, Path.Direction.CW);
+	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2*0.8f, Path.Direction.CW);
 	        arcPath.setFillType(Path.FillType.EVEN_ODD);
 	        Paint p = new Paint();
 	        p.setColor(Color.rgb(0, 0x77, 0xcb));
@@ -62,15 +62,22 @@ public class ReportImageView extends View {
 	        float n = (float) Math.sqrt((double)this.goodCount);
 	        float m = (float) Math.sqrt((double)this.badCount);
 	        float x = (n+m)/2.0f;
-//	        
-//	        if ( n > m ) {
-//	            CGContextScaleCTM(ctx, rect.getWidth()/(2*n+2*m+x), rect.getHeight()/(2*n));
-//	            CGContextTranslateCTM(ctx, n, n);
-//	        } else {
-//	            CGContextScaleCTM(ctx, rect.getWidth()/(2*n+2*m+x), rect.getHeight()/(2*m));
-//	            CGContextTranslateCTM(ctx, n, m);
-//	        }
-//	        
+	        float deltaX;
+	        float deltaY;
+	        float scaleX;
+	        float scaleY;
+	        if ( n > m ) {
+	            scaleX = getWidth()/(2*n+2*m+x);
+	        	scaleY = getHeight()/(2*n);
+	            deltaX = n*scaleX;
+	            deltaY = n*scaleY;
+	        } else {
+	            scaleX = getWidth()/(2*n+2*m+x);
+	        	scaleY = getHeight()/(2*m);
+	           	deltaX = n*scaleX;
+	           	deltaY = m*scaleY;
+	        }
+	        
 	        CGPoint p1 = new CGPoint(-n, 0);
 	        CGPoint p2 = new CGPoint(0, n);
 	        CGPoint p3 = new CGPoint(n+x*n/(n+m), 0);
@@ -80,13 +87,14 @@ public class ReportImageView extends View {
 	        CGPoint p6 = new CGPoint(n+m+x, m);
 	        CGPoint p7 = new CGPoint(n+2*m+x, 0);
 	        CGPoint p8 = new CGPoint(n+m+x, -m);
-//	        
+	        
 	        Path path1 = new Path();
-	        path1.moveTo(p1.x, p1.y);
-	        path1.cubicTo(p1.x, p1.y+n*11/20, p2.x-n*11/20, p2.y, p2.x, p2.y);
-	        path1.cubicTo(p2.x+n*11/20, p2.y, p3.x, p3.y, p3.x, p3.y);
-	        path1.cubicTo(p3.x, p3.y, p4.x+n*11/20, p4.y, p4.x, p4.y);
-	        path1.cubicTo(p4.x-n*11/20, p4.y, p1.x, p1.y-n*11/20, p1.x, p1.y);
+	        path1.moveTo(p1.x*scaleX+deltaX, p1.y*scaleY+deltaY);
+	        
+	        path1.cubicTo(p1.x*scaleX+deltaX, (p1.y+n*11/20)*scaleY+deltaY, (p2.x-n*11/20)*scaleX+deltaX, p2.y*scaleY+deltaY, p2.x*scaleX+deltaX, p2.y*scaleY+deltaY);
+	        path1.cubicTo((p2.x+n*11/20)*scaleX+deltaX, p2.y*scaleY+deltaY, p3.x*scaleX+deltaX, p3.y*scaleY+deltaY, p3.x*scaleX+deltaX, p3.y*scaleY+deltaY);
+	        path1.cubicTo(p3.x*scaleX+deltaX, p3.y*scaleY+deltaY, (p4.x+n*11/20)*scaleX+deltaX, p4.y*scaleY+deltaY, p4.x*scaleX+deltaX, p4.y*scaleY+deltaY);
+	        path1.cubicTo((p4.x-n*11/20)*scaleX+deltaX, p4.y*scaleY+deltaY, p1.x*scaleX+deltaX, (p1.y-n*11/20)*scaleY+deltaY, p1.x*scaleX+deltaX, p1.y*scaleY+deltaY);
 	        path1.close();
 	        path1.setFillType(Path.FillType.EVEN_ODD);
 	        
@@ -94,26 +102,29 @@ public class ReportImageView extends View {
 	        paint1.setColor(Color.rgb(0, 0x77, 0xcb));
 	        
 	        canvas.drawPath(path1, paint1);
-//	        CGContextAddPath(ctx, path1);
-//	        CGContextFillPath(ctx);
-//	        
-//	        CGMutablePathRef path2 = CGPathCreateMutable();
-//	        CGPathMoveToPoint(path2, nil, p5.x, p5.y);
-//	        CGPathAddCurveToPoint(path2, NULL, p5.x, p5.y, p6.x-m*11/20, p6.y, p6.x, p6.y);
-//	        CGPathAddCurveToPoint(path2, NULL, p6.x+m*11/20, p6.y, p7.x, p7.y+m*11/20, p7.x, p7.y);
-//	        CGPathAddCurveToPoint(path2, NULL, p7.x, p7.y-m*11/20, p8.x+m*11/20, p8.y, p8.x, p8.y);
-//	        CGPathAddCurveToPoint(path2, NULL, p8.x-m*11/20, p8.y, p5.x, p5.y, p5.x, p5.y);
-//	        CGPathCloseSubpath(path2);
-//	        CGContextSetRGBFillColor(ctx, 0xdf/255.0f, 0x2a/255.0f, 0, 1);
-//	        CGContextAddPath(ctx, path2);
-//	        CGContextFillPath(ctx);
+
+	        Path path2 = new Path();
+	        
+	        path2.moveTo(p5.x*scaleX+deltaX, p5.y*scaleY+deltaY);
+	        path2.cubicTo(p5.x*scaleX+deltaX, p5.y*scaleY+deltaY, (p6.x-m*11/20)*scaleX+deltaX, p6.y*scaleY+deltaY, p6.x*scaleX+deltaX, p6.y*scaleY+deltaY);
+	        path2.cubicTo((p6.x+m*11/20)*scaleX+deltaX, p6.y*scaleY+deltaY, p7.x*scaleX+deltaX, (p7.y+m*11/20)*scaleY+deltaY, p7.x*scaleX+deltaX, p7.y*scaleY+deltaY);
+	        path2.cubicTo(p7.x*scaleX+deltaX, (p7.y-m*11/20)*scaleY+deltaY, (p8.x+m*11/20)*scaleX+deltaX, p8.y*scaleY+deltaY, p8.x*scaleX+deltaX, p8.y*scaleY+deltaY);
+	        path2.cubicTo((p8.x-m*11/20)*scaleX+deltaX, p8.y*scaleY+deltaY, p5.x*scaleX+deltaX, p5.y*scaleY+deltaY, p5.x*scaleX+deltaX, p5.y*scaleY+deltaY);
+	        
+	        path2.close();
+	        path2.setFillType(Path.FillType.EVEN_ODD);
+	        
+	        Paint paint2 = new Paint();
+	        paint2.setColor(Color.rgb(0xdf, 0x2a, 0));
+
+	        canvas.drawPath(path2, paint2);
 //	        
 //	        CGPathRelease(path1);
 //	        CGPathRelease(path2);
 	    }
 	}
 
-	private class CGPoint{
+	class CGPoint{
 		public float x, y;
 		public CGPoint(float X, float Y){
 			x = X;
