@@ -203,6 +203,10 @@ public class NabludatelCloud {
 		return null;
 	}
 
+	public boolean tryAuthenticate() {
+		return authentication() != null;
+	}
+
 	public boolean isAuthenticated() {
 		return authentication != null;
 	}
