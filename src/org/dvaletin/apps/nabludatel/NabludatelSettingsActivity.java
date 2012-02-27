@@ -19,8 +19,9 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 	private static final int NABLUDATEL_MANUAL_SETUP = 1001;
 	private static final int NABLUDATEL_TWITTER_SETUP = 1002;
 	private static final int NABLUDATEL_FACEBOOK_SETUP = 1003;
-	
-	NabludatelCloud cloudHelper;
+
+	private NabludatelCloud cloudHelper;
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,8 +40,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 					@Override
 					public void run() {
 						auth_wheel.setVisibility(View.VISIBLE);
-						cloudHelper.authentication();
-						if(cloudHelper.isAuthenticated()){
+						if(cloudHelper.tryAuthenticate()){
 							((TextView) findViewById(R.id.nabludatel_registration_status))
 							.setText("Зарегистрирован " + cloudHelper.getAuthenticatedUserId());
 						}else{

@@ -207,10 +207,6 @@ public class NabludatelCloud {
 		return authentication() != null;
 	}
 
-	public boolean isAuthenticated() {
-		return authentication != null;
-	}
-
 	public long getAuthenticatedUserId() {
 		try {
 			return authentication != null ? authentication.getLong("user_id") : -1L;

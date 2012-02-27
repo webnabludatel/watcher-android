@@ -19,7 +19,7 @@ public class NabludatelCloudTest extends TestCase {
 		JSONObject authentication = cloud.authentication();
 		assertNotNull(authentication);
 
-		assertTrue(cloud.isAuthenticated());
+		assertTrue(cloud.tryAuthenticate());
 		assertTrue(cloud.getAuthenticatedUserId() != -1L);
 	}
 
