@@ -193,6 +193,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 				for (int i = 0; i < c.getCount(); i++) {
 					long mediaRowId = c.getLong(0);
 					String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
 					long timestamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
 
 					boolean found = false;
@@ -216,8 +217,14 @@ public abstract class ABSNabludatelActivity extends Activity {
 						}
 					}
 					if (!found) {
-						// Remove file
-						mElectionsDB.removeMediaItem(mediaRowId);
+						// Remove file (record found in DB, but file does not exists)
+						if (mediaItemServerId > 0L) {
+							// Only mark record in DB (not really delete it)
+							mElectionsDB.resetMediaItemServerStatus(mediaRowId);
+						} else {
+							// No server records, delete from DB
+							mElectionsDB.removeMediaItem(mediaRowId);
+						}
 					}
 
 					c.moveToNext();
@@ -278,20 +285,49 @@ public abstract class ABSNabludatelActivity extends Activity {
 			String key = c
 					.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN);
 			if(activeViews.keySet().contains(key)){
-				myState.put(
-					key,
-					new Violation(c.getLong(0),
-							c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN), c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
-							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
-							c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
-							c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN),
-							c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN),
-							c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN)));
+				Violation violation = new Violation(c.getLong(0),
+						c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN), c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
+						c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
+						c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
+						c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN),
+						c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN),
+						c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN));
+				myState.put(key, violation);
+
+				restoreMediaItems(violation, photos, Consts.PHOTO_FILE);
+				restoreMediaItems(violation, videos, Consts.VIDEO_FILE);
 			}
 			c.moveToNext();
 		}
+
 		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
 				myState, activeViews);
+	}
+
+	private void restoreMediaItems(Violation violation, Map<File, String> medias, String mediaType) {
+		Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(violation.getId(), mediaType);
+		c.moveToFirst();
+		for (int i = 0; i < c.getCount(); i++) {
+			long mediaRowId = c.getLong(0);
+			String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+			long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
+
+			File file = new File(filePath);
+			if (file.exists()) {
+				medias.put(file, violation.getKey());
+			} else {
+				// Remove file (record found in DB, but file does not exists)
+				if (mediaItemServerId > 0L) {
+					// Only mark record in DB (not really delete it)
+					mElectionsDB.resetMediaItemServerStatus(mediaRowId);
+				} else {
+					// No server records, delete from DB
+					mElectionsDB.removeMediaItem(mediaRowId);
+				}
+			}
+
+			c.moveToNext();
+		}
 	}
 
 	public void restore(ViewGroup v, HashMap<String, Violation> from, HashMap<String, View> to) {

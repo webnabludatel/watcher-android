@@ -403,7 +403,14 @@ public class ElectionsDBHelper {
 		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, 1L);
 		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
 	}
-	
+
+	public long resetMediaItemServerStatus(long rowIndex) {
+		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, 0L);
+		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
+	}
+
 	public long updateMediaItemUrl(long rowIndex, String serverurl){
 		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
