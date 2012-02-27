@@ -19,7 +19,7 @@ public class NabludatelCloudTest extends TestCase {
 		JSONObject authentication = cloud.authentication();
 		assertNotNull(authentication);
 
-		assertTrue(cloud.isAuthenticated());
+		assertTrue(cloud.tryAuthenticate());
 		assertTrue(cloud.getAuthenticatedUserId() != -1L);
 	}
 
@@ -45,7 +45,7 @@ public class NabludatelCloudTest extends TestCase {
 	public void testSetDeletedMediaForMessage() throws Exception {
 		long id = cloud.postNewMessage("test_key", "test_value", 0.0, 0.1, System.currentTimeMillis(), 1L, 1L);
 		long mediaId = uploadTestFile(id);
-		long deletedMediaId = cloud.setMediaDeletedForMessage(id, mediaId, System.currentTimeMillis(), 1L, 1L);
+		long deletedMediaId = cloud.setMediaDeletedForMessage(id, mediaId, System.currentTimeMillis(), 1L);
 		assertTrue(mediaId == deletedMediaId);
 	}
 
