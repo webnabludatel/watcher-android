@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
+
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.Tumbler;
@@ -45,6 +47,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 	LocationListener mLocationListener;
 	int screenId;
 	Intent toReturn;
+	private String lastPhotoKey;
+	protected boolean durtyResumeHack = true;
 
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 		photos = new HashMap<File, String>();
 		videos = new HashMap<File, String>();
 		toReturn = new Intent();
-		
+		myState = new HashMap<String, Violation>();
+		activeViews = new HashMap<String, View>();
 		
 	}
 
@@ -81,7 +86,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 		mElectionsDB.open();
 		setCallbacks((ViewGroup) (findViewById(android.R.id.content)
 				.getRootView()));
-		restore();
+		if(durtyResumeHack)
+			restore();
 		LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 
@@ -123,6 +129,30 @@ public abstract class ABSNabludatelActivity extends Activity {
 		if(v.getTag() != null)
 			startCameraPhoto(v.getTag().toString());
 	}
+	
+	public void onGalleryPhotoClick(View v){
+		if(v.getTag() != null)
+			startGalleryPhoto(v.getTag().toString());
+	}
+
+	private void startGalleryPhoto(String key) {
+		this.lastPhotoKey = key;
+		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("image/*");
+		startActivityForResult(photoPickerIntent, Consts.GALLERY_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+	public void onGalleryVideoClick(View v){
+		if(v.getTag() != null)
+			startGalleryVideo(v.getTag().toString());
+	}
+	
+	private void startGalleryVideo(String key) {
+		this.lastPhotoKey = key;
+		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("video/*");
+		startActivityForResult(photoPickerIntent, Consts.GALLERY_VIDEO_ACTIVITY_REQUEST_CODE);
+	}
 
 	public void onMakeVideoClick(View v) {
 		if(v.getTag() != null)
@@ -130,6 +160,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	}
 
 	public void save() {
+		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
 		for (Entry<String, View> entry : activeViews.entrySet()){
 			if(entry.getValue() instanceof EditText){
 				EditText ed = (EditText)entry.getValue();
@@ -272,8 +303,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	}
 
 	public void restore() {
-		myState = new HashMap<String, Violation>();
-		activeViews = new HashMap<String, View>();
+		
 		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
 
 		Cursor c = mElectionsDB.getCheckListItemsByPollingPlaceIdAndScreenId(this.mCurrentPollingPlaceId, screenId);
@@ -488,14 +518,58 @@ public abstract class ABSNabludatelActivity extends Activity {
 			if (resultCode == 0) {
 				// The user has cancelled image capture
 				photos.remove(photoRequestFile);
+			}else{
+				TextView t = (TextView)findViewById(R.id.photos_count);
+				if( t!= null ){
+					t.setText("("+photos.size()+")");
+				}
 			}
 			break;
 		}
 		case Consts.CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE: {
 			if (resultCode == 0) {
 				videos.remove(videoRequestFile);
+			}else{
+				TextView t = (TextView)findViewById(R.id.videos_count);
+				if( t!= null ){
+					t.setText("("+videos.size()+")");
+				}
 			}
 			break;
+		}
+		case Consts.GALLERY_IMAGE_ACTIVITY_REQUEST_CODE: {
+			if(resultCode != 0){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = {MediaStore.Images.Media.DATA};
+				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+	            cursor.moveToFirst();
+	            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+	            String path = cursor.getString(columnIndex);
+//				String path = selectedImage.getEncodedPath();
+				photos.put(new File(path), lastPhotoKey);
+				TextView t = (TextView)findViewById(R.id.photos_count);
+				if( t!= null ){
+					t.setText("("+photos.size()+")");
+				}
+			}
+			lastPhotoKey = null;
+			break;
+		}
+		case Consts.GALLERY_VIDEO_ACTIVITY_REQUEST_CODE: {
+			if(requestCode != 0){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = {MediaStore.Video.Media.DATA};
+				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+	            cursor.moveToFirst();
+	            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+	            String path = cursor.getString(columnIndex);
+//				String path = selectedImage.getEncodedPath();
+				videos.put(new File(path), lastPhotoKey);
+				TextView t = (TextView)findViewById(R.id.videos_count);
+				if( t!= null ){
+					t.setText("("+videos.size()+")");
+				}
+			}
 		}
 		}
 	}

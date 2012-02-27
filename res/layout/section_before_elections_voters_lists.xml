@@ -126,12 +126,27 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_devider" />
 
-                <TextView
-                    android:id="@+id/TextView01"
-                    style="@style/TextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/voters_lists_violations_photo" />
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/voters_lists_violations_photo" />
+
+                    <TextView
+                        android:id="@+id/photos_count"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
@@ -143,6 +158,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="onGalleryPhotoClick"
                         android:tag="voters_lists_violations_photo"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 

@@ -69,6 +69,10 @@ public class ReportActivity extends ABSNabludatelActivity {
 		}
 		ReportImageView report_image = (ReportImageView) findViewById(R.id.report_image);
 		report_image.setNewValues(good, bad);
+		TextView good_text = (TextView) findViewById(R.id.good_text);
+		TextView bad_text = (TextView) findViewById(R.id.bad_text);
+		good_text.setText(Consts.getGoodText(good));
+		bad_text.setText(Consts.getBadText(bad));
 //		report_image_frame.removeAllViews();
 //		report_image_frame.addView(new ReportImageView(this, 0, 0));
 	}

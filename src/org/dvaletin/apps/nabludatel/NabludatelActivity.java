@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
@@ -70,6 +71,30 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	    	Long position_id = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1);
 	    	if(position_id != -1) 
 	    		district.setSelection((int)(position_id-1));
+	    	district.setOnLongClickListener(new View.OnLongClickListener() {
+				
+				@Override
+				public boolean onLongClick(View v) {
+					long id = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1L);
+					if(id != -1L){
+						Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
+						intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);
+						startActivityForResult(intent, Consts.ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT);
+					}
+					return true;
+				}
+			});
+	    	district.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+				@Override
+				public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+					Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
+					intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);
+					startActivityForResult(intent, Consts.ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT);
+					return true;
+				}
+	    		
+	    	});
 	    	district.setOnItemSelectedListener(new OnItemSelectedListener(){
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View arg1,

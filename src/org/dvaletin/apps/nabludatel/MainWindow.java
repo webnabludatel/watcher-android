@@ -6,6 +6,7 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,10 +45,9 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 		host.addTab(host.newTabSpec("three")
 				.setIndicator("Отчет")
 				.setContent(new Intent(this, ReportActivity.class)));
-		
 
 
-		String url = "file:///android_asset/spravochnik/golos_index.html";
+		String url = "file:///android_asset/spravochnik/index.html";
 		Intent intent = new Intent(this, SpravochnikActivity.class);
 		intent.putExtra(Consts.ACTIVITY_URL_DATA, url);
 
@@ -103,6 +103,7 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 	}
 
 	private void setupUI() {
+		final SharedPreferences prefs = getPreferences(MODE_PRIVATE);
 		RadioButton rbFirst = (RadioButton) findViewById(R.id.first);
 		RadioButton rbSecond = (RadioButton) findViewById(R.id.second);
 		RadioButton rbThird = (RadioButton) findViewById(R.id.third);
@@ -138,10 +139,12 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 		RadioGroup rg = (RadioGroup) findViewById(R.id.states);
 		rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			public void onCheckedChanged(RadioGroup group, final int checkedId) {
+				prefs.edit().putInt(Consts.PREFS_LAST_TAB, checkedId).commit();
 				switch (checkedId) {
-				case R.id.first:
+				case R.id.first:{
 					getTabHost().setCurrentTab(0);
 					break;
+				}
 				case R.id.second:
 					getTabHost().setCurrentTab(1);
 					break;
@@ -151,9 +154,13 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 				case R.id.fourth:
 					getTabHost().setCurrentTab(3);
 					break;
+				case R.id.fifth:
+					getTabHost().setCurrentTab(4);
+					break;
 				}
 			}
 		});
+		rg.check(prefs.getInt(Consts.PREFS_LAST_TAB, 0));
 	}
 
 	@Override

@@ -237,5 +237,12 @@
 				<string name="phone_hint">Телефон</string>
 				<string name="report_onsite_title">Ваш отчет на сайте</string>
 				<string name="report_violations_title">Нарушения на участке</string>
-				<string name="report_whatnext">Чтобы подать жалобу по нарушениям:\n1. Заполните жалобу.\n2. Передайте её председателю.\n3. Оставьте один экземпляр у себя.</string>	
+				<string name="report_whatnext">Чтобы подать жалобу по нарушениям:\n1. Заполните жалобу.\n2. Передайте её председателю.\n3. Оставьте один экземпляр у себя.</string>
+				<string name="good_report_text">Выполнено 5 требований</string>
+				<string name="sos_report_title">Меня удаляют. Что делать?</string>
+				<string name="sos_report_hint">Сообщите нам об удалении</string>
+				<string name="sos_report_photo">Сделайте фото</string>
+				<string name="sos_report_video">Снимите видео</string>
+				<string name="sos_report_tellus">Сообщите нам</string>
+				<string name="i">i</string>	
 </resources>

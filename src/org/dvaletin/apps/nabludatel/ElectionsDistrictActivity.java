@@ -12,7 +12,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 	private static final int DIALOG_FIO_ERROR = 1;
 	private static final int DIALOG_NUMBER_ERROR = 2;
 
-	long district_id = -1;
+	long district_id = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,9 +24,10 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		EditText uik_district_secretary = (EditText) findViewById(R.id.uik_district_secretary);
 		EditText uik_district_watchers_count = (EditText) findViewById(R.id.uik_district_watchers_count);
 		Intent intent = this.getIntent();
-		district_id = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, -1);
-		if(district_id != -1){
-			Cursor c = mElectionsDB.getPollingPlaceByNumber(district_id);
+		district_id = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, 0);
+		durtyResumeHack = false;
+		if(district_id != 0){
+			Cursor c = mElectionsDB.open().getPollingPlaceByNumber(district_id);
 			if(c.getCount() > 0){
 				uik_district_number.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_NAME_COLUMN));
 				uik_district_chairman.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_CHAIRMAN_COLUMN));

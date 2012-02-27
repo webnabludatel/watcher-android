@@ -34,12 +34,11 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 
 			@Override
 			public void run() {
+				auth_wheel.setVisibility(View.VISIBLE);
+				cloudHelper.authentication();
 				NabludatelSettingsActivity.this.runOnUiThread(new Runnable(){
-
 					@Override
 					public void run() {
-						auth_wheel.setVisibility(View.VISIBLE);
-						cloudHelper.authentication();
 						if(cloudHelper.isAuthenticated()){
 							((TextView) findViewById(R.id.nabludatel_registration_status))
 							.setText("Зарегистрирован " + cloudHelper.getAuthenticatedUserId());

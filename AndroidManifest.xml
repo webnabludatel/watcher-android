@@ -47,7 +47,7 @@
         <activity android:windowSoftInputMode="stateAlwaysHidden" android:label="@string/nabludatel_report_title" android:name="NabludatelReportActivity"></activity>
         <activity android:name="ElectionsDistrictActivity" android:label="@string/elections_district_title"></activity>
         <activity android:name="ViolationCheckListActivity" android:windowSoftInputMode="stateAlwaysHidden"></activity>
-        <activity android:name="MainWindow"><intent-filter>
+        <activity android:name="MainWindow" android:windowSoftInputMode="stateAlwaysHidden"><intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -55,6 +55,7 @@
         <activity android:name="NabludatelSettingsActivity" android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:name="ReportActivity"></activity>
         <activity android:name="SosActivity"></activity>
+        <activity android:name=".utils.AndroidCustomGalleryActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,8 @@ public class Consts {
 	public static final int MEDIA_TYPE_VIDEO = 1;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	public static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 101;
+	public static final int GALLERY_IMAGE_ACTIVITY_REQUEST_CODE = 102;
+	public static final int GALLERY_VIDEO_ACTIVITY_REQUEST_CODE = 103;
 	public static final String section_elections_district_prefs = "section_elections_district";
 
 	// Activity result codes
@@ -107,6 +109,8 @@ public class Consts {
 	public static final String PREFS_LATITUDE = "lat";
 	public static final String PREFS_LONGITUDE = "lng";
 	public static final String PREFS_FILENAME = "org.dvaletin.apps.global.prefs";
+	public static final String PREFS_LAST_TAB = "last_bar";
+	
 	
 
 	public static String getViolationDescription(int id) {
@@ -117,5 +121,37 @@ public class Consts {
 		if (id > 1 && id < 5)
 			return "Отмечено " + id + " пункта";
 		return "Отмечено " + id + " пунктов";
+	}
+	
+	public static String getGoodText(int id){
+		if(id == 0)
+			return "Нет отметок";
+		if(id == 1)
+			return "Выполнено "+id+" требование";
+		if(id > 1 && id < 5)
+			return "Выполнено " +id+ "требования";
+		if(id >= 5 && id < 21 )
+			return "Выполнено " +id+ "требований";
+		if(id % 10 == 1)
+			return "Выполнено " +id+ "требование";
+		if(id % 10 > 1 && id % 10 < 5){
+			return "Выполнено " +id+ "требования";
+		} else return "Выполнено " +id+ "требований"; 
+	}
+	
+	public static String getBadText(int id){
+		if(id == 0)
+			return "Нет нарушений";
+		if(id == 1)
+			return ""+id+" нарушение";
+		if(id > 1 && id < 5)
+			return "" +id+ " нарушения";
+		if(id >= 5 && id < 21 )
+			return "" +id+ " нарушений";
+		if(id % 10 == 1)
+			return "" +id+ " нарушение";
+		if(id % 10 > 1 && id % 10 < 5){
+			return "" +id+ " нарушения";
+		}else return ""+id+" нарушений";
 	}
 }
