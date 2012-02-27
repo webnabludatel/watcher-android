@@ -213,7 +213,7 @@ public class ElectionsDBHelper {
 				null, null, null, null);
 	}
 
-	public Cursor getAllCheckListItemsByElectionsDistrictIdAndScreenId(
+	public Cursor getCheckListItemsByPollingPlaceIdAndScreenId(
 			long pollingPlaceId, int screen_id) {
 		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,

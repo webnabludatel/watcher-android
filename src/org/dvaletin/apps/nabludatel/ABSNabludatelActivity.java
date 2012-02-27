@@ -276,9 +276,8 @@ public abstract class ABSNabludatelActivity extends Activity {
 		myState = new HashMap<String, Violation>();
 		activeViews = new HashMap<String, View>();
 		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
-		if (mCurrentPollingPlaceId == -1L) return;
-		Cursor c = mElectionsDB
-				.getAllCheckListItemsByElectionsDistrictIdAndScreenId(this.mCurrentPollingPlaceId, screenId);
+
+		Cursor c = mElectionsDB.getCheckListItemsByPollingPlaceIdAndScreenId(this.mCurrentPollingPlaceId, screenId);
 		c.moveToFirst();
 
 		for (int i = 0; i < c.getCount(); i++) {
