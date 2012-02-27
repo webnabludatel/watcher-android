@@ -140,7 +140,6 @@
 
                     <Button
                         android:id="@+id/ballot_box_violations_photo_gallery"
-                        style="@style/Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -149,7 +148,6 @@
 
                     <Button
                         android:id="@+id/ballot_box_violations_photo_camera"
-                        style="@style/Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
