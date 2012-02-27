@@ -41,16 +41,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_process_pressure_on_voters"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:loValue="true"
-                        nabludatel:hiValue="false"
+                        nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -64,7 +64,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -92,16 +92,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_process_ballot_photo"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:loValue="true"
-                        nabludatel:hiValue="false"
+                        nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -115,7 +115,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView

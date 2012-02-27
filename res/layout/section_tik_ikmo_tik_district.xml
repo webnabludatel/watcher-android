@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
+
     <FrameLayout
         android:id="@+id/frameLayout1"
         style="@style/main_pane_style"
@@ -21,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
-
+
+
                 <TextView
                     android:id="@+id/textView1"
                     style="@style/TextStyle"
@@ -40,10 +42,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
                     <SeekBar
                         android:id="@+id/tik_located_in_administration_building"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -60,7 +64,9 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/TextStyle"
@@ -79,10 +85,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
                     <SeekBar
                         android:id="@+id/tik_building_addmittance_cleared"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -99,7 +107,9 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/TextStyle"
@@ -118,10 +128,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_watching_of_the_entire_procedure_allowed"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -138,7 +152,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
                 <TextView
                     android:id="@+id/TextView01"
                     style="@style/TextStyle"
@@ -157,10 +172,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
                     <SeekBar
                         android:id="@+id/tik_other_watchers_allowed_to_watch_entire_procedure"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -177,7 +194,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
                 <TextView
                     android:id="@+id/textView4"
                     style="@style/TextStyle"
@@ -196,10 +214,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
                     <SeekBar
                         android:id="@+id/tik_protocols_are_received_in_a_single_room"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -216,7 +236,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
                 <TextView
                     android:id="@+id/textView5"
                     style="@style/TextStyle"
@@ -235,10 +256,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
                     <SeekBar
                         android:id="@+id/tik_extended_table_in_the_same_room"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -255,7 +278,9 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
                 <TextView
                     android:id="@+id/textView7"
                     style="@style/TextStyle"
@@ -274,10 +299,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
                     <SeekBar
                         android:id="@+id/tik_administation_personnel_participate_in_protocol_processing"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -294,7 +321,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
@@ -312,10 +340,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
                     <SeekBar
                         android:id="@+id/tik_watching_of_the_entire_procedure_is_allowed"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -344,14 +374,19 @@
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
+
+
+
+
                     <Button
                         android:id="@+id/suspicious_voters_violations_photo_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:tag="tik_building_violations_photo"
                         android:text="@string/violations_photo_gallery" />
-
+
+
+
                     <Button
                         android:id="@+id/tik_building_violations_photo"
                         android:layout_width="wrap_content"

@@ -41,16 +41,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/koib_electricity_problem"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -64,7 +64,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -91,16 +91,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/koib_nonelectricity_problem"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -114,7 +114,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -142,16 +142,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/koib_recalculations_performed"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -165,7 +165,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
                 <ImageView

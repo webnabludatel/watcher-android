@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
+
     <FrameLayout
         android:id="@+id/frameLayout1"
         style="@style/main_pane_style"
@@ -21,7 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
-
+
+
+
                 <TextView
                     android:id="@+id/textView1"
                     style="@style/TextStyle"
@@ -40,10 +43,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_accepted_uik_protocol"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -60,7 +67,10 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
+
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/TextStyle"
@@ -79,10 +89,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_made_corrections_to_uik_protocol"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -99,7 +113,10 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
+
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/TextStyle"
@@ -118,10 +135,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_entered_data_to_extended_table_immediately"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -138,7 +161,9 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
                 <TextView
                     android:id="@+id/TextView01"
                     style="@style/TextStyle"
@@ -157,10 +182,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_entered_data_to_extended_table_properly"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -177,14 +206,17 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
                 <TextView
                     android:id="@+id/textView8"
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tik_time_of_agreement_signing" />
-
+
+
                 <EditText
                     android:id="@+id/editText1"
                     android:layout_width="match_parent"
@@ -194,7 +226,9 @@
 
                     <requestFocus />
                 </EditText>
-
+
+
+
                 <TextView
                     android:id="@+id/textView4"
                     style="@style/TextStyle"
@@ -213,10 +247,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_entered_data_put_to_gas_vybody_immediately"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -233,7 +270,10 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
+
                 <TextView
                     android:id="@+id/textView5"
                     style="@style/TextStyle"
@@ -252,10 +292,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_announced_decline_of_uik_protocol"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -272,7 +318,10 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_12" />
                 </LinearLayout>
-
+
+
+
+
                 <TextView
                     android:id="@+id/textView7"
                     style="@style/TextStyle"
@@ -291,10 +340,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/for_frontend_06" />
-
+
+
+
+
+
                     <SeekBar
                         android:id="@+id/tik_held_first_copy_of_protocol"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -323,14 +376,23 @@
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
+
+
+
+
+
+
                     <Button
                         android:id="@+id/tik_protocol_processing_violations_photo_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:tag="tik_protocol_processing_violations_photo"
                         android:text="@string/violations_photo_gallery" />
-
+
+
+
+
+
                     <Button
                         android:id="@+id/tik_protocol_processing_violations_photo"
                         android:layout_width="wrap_content"

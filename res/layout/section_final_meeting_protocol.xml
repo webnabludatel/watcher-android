@@ -115,16 +115,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/protocol_finished_before_sending_to_tik"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -138,7 +138,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
                 <ImageView
@@ -166,16 +166,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/protocol_is_properly_formatted"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -189,7 +189,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -217,16 +217,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/protocol_with_observers"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:loValue="true"
-                        nabludatel:hiValue="false"
+                        nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -240,7 +240,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
                 <ImageView

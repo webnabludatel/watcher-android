@@ -41,16 +41,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_box_watch_allowed"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -64,7 +64,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
                 <ImageView
@@ -92,16 +92,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_process_watch_allowed"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -115,7 +115,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -143,16 +143,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/photo_video_allowed"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -166,7 +166,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -194,16 +194,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/portable_ballot_box_watch_allowed"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -217,7 +217,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
                 <ImageView
@@ -245,16 +245,16 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/Tumbler01"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
@@ -268,7 +268,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView

@@ -85,11 +85,11 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/absentee_ballot_box_opening_number_of_applications_announced"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -99,8 +99,8 @@
                         android:tag="absentee_ballot_box_opening_number_of_applications_announced"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         nabludatel:violationText="Число заявлений не объявлено перед вскрытием каждого ящика"/>
 
                     <TextView
@@ -108,7 +108,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
 
                 <ImageView
@@ -136,11 +136,11 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/absentee_ballot_voters_recorded_in_protocol_immediately"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -150,8 +150,8 @@
                         android:tag="absentee_ballot_voters_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>
 
                     <TextView
@@ -159,7 +159,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
             </LinearLayout>
 

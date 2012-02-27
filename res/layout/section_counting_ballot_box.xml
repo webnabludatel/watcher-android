@@ -78,11 +78,11 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_box_mix_up_ballots"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -92,8 +92,8 @@
                         android:tag="ballot_box_mix_up_ballots"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         nabludatel:violationText="Ящики перед вскрытием встряхивали и переворачивали"/>
 
                     <TextView
@@ -101,7 +101,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -129,11 +129,11 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_box_opening_ballot_bundles"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -143,8 +143,8 @@
                         android:tag="ballot_box_opening_ballot_bundles"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:hiValue="false"
-                        nabludatel:loValue="true"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
                         nabludatel:violationText="В стационарных урнах замечены сложенные пачки бюллетеней"/>
 
                     <TextView
@@ -152,7 +152,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
                 </LinearLayout>
 
                 <ImageView
@@ -180,11 +180,11 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/yes" />
+                        android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/ballot_voters_recorded_in_protocol_immediately"
-                        android:layout_width="120dp"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
@@ -194,8 +194,8 @@
                         android:tag="ballot_voters_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp" 
-                        nabludatel:loValue="true"
-                        nabludatel:hiValue="false"
+                        nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
                         nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>
 
                     <TextView
@@ -203,7 +203,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
                 </LinearLayout>
             </LinearLayout>
 
