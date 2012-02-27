@@ -41,31 +41,34 @@ public class ReportActivity extends ABSNabludatelActivity {
 		report_violation_list_title.setText(violations_title + " " + pollingPlaceName);
 		LinearLayout report_frame = (LinearLayout)findViewById(R.id.report_frame);
 		report_frame.removeAllViews();
-		Cursor c = mElectionsDB.getViolationsByPollingPlaceId(pollingPlaceId);
-		c.moveToFirst();
+		Cursor badCursor = mElectionsDB.getViolationsByPollingPlaceId(pollingPlaceId);
+		Cursor goodCursor = mElectionsDB.getNoneViolationsByPollingPlaceId(pollingPlaceId);
+		int bad = badCursor.getCount();
+		int good = goodCursor.getCount();
+		badCursor.moveToFirst();
 		ImageView list_divider = null;
-		if(c.getCount() <= 0){
+		if(badCursor.getCount() <= 0){
 			TextView report_item = new TextView(this);
 			report_item.setTextAppearance(this, R.style.TextStyle);
 			report_item.setText("Нарушений не зафиксировано");
 			report_frame.addView(report_item);
 		}
-		for(int i = 0; i < c.getCount(); i++){
+		for(int i = 0; i < badCursor.getCount(); i++){
 			TextView report_item = new TextView(this);
 			report_item.setTextAppearance(this, R.style.TextStyle);
-			report_item.setText(c.getString(c.getColumnIndex(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_KEY)));
+			report_item.setText(badCursor.getString(badCursor.getColumnIndex(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_KEY)));
 			report_frame.addView(report_item);
 			list_divider = new ImageView(this, null, R.style.list_divider_style);
 			list_divider.setImageResource(R.drawable.list_devider);
 			list_divider.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 			report_frame.addView(list_divider);
-			c.moveToNext();
+			badCursor.moveToNext();
 		}
 		if(list_divider != null){
 			report_frame.removeView(list_divider);
 		}
 		ReportImageView report_image = (ReportImageView) findViewById(R.id.report_image);
-		report_image.setNewValues(3, 3);
+		report_image.setNewValues(good, bad);
 //		report_image_frame.removeAllViews();
 //		report_image_frame.addView(new ReportImageView(this, 0, 0));
 	}

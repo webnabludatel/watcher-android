@@ -1,10 +1,14 @@
 package org.dvaletin.apps.nabludatel;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
@@ -25,12 +29,31 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		String deviceId = tm.getDeviceId();
 		
 		cloudHelper = new NabludatelCloud(deviceId);
-		
-		cloudHelper.authentication();
-		if(cloudHelper.isAuthenticated()){
-			((TextView) findViewById(R.id.nabludatel_registration_status))
-			.setText("Зарегистрирован " + cloudHelper.getAuthenticatedUserId());
-		}
+		final ProgressBar auth_wheel = (ProgressBar)findViewById(R.id.auth_wheel);
+		TimerTask authTask = new TimerTask(){
+
+			@Override
+			public void run() {
+				NabludatelSettingsActivity.this.runOnUiThread(new Runnable(){
+
+					@Override
+					public void run() {
+						auth_wheel.setVisibility(View.VISIBLE);
+						cloudHelper.authentication();
+						if(cloudHelper.isAuthenticated()){
+							((TextView) findViewById(R.id.nabludatel_registration_status))
+							.setText("Зарегистрирован " + cloudHelper.getAuthenticatedUserId());
+						}else{
+							((TextView) findViewById(R.id.nabludatel_registration_status))
+							.setText("Нет связи с сервером.");
+						}
+						auth_wheel.setVisibility(View.INVISIBLE);
+					}});
+				
+				
+			}};
+		Timer authTimer = new Timer();
+		authTimer.schedule(authTask, 5000);
 	}
 	
 	

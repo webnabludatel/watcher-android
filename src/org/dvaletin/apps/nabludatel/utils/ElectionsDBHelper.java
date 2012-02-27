@@ -213,6 +213,14 @@ public class ElectionsDBHelper {
 				null, null, null, null);
 	}
 
+	public Cursor getNoneViolationsByPollingPlaceId(long pollingPlaceId) {
+		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
+				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_VIOLATION_KEY},
+				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
+						+ CHECKLISTITEM_VALUE_KEY + " = 'true'",
+				null, null, null, null);
+	}
+	
 	public Cursor getCheckListItemsByPollingPlaceIdAndScreenId(
 			long pollingPlaceId, int screen_id) {
 		return mDb.query(CHECKLISTITEM_TABLE, new String[] {

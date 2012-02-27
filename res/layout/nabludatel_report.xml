@@ -27,13 +27,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/report_graph_bg"
                     android:foregroundGravity="center|center_horizontal|center_vertical">
 
                     <org.dvaletin.apps.nabludatel.utils.ReportImageView
                         android:id="@+id/report_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/report_graph_bg"
                         android:padding="20dp" />
 
                 </FrameLayout>

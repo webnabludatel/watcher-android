@@ -75,14 +75,31 @@
                     android:id="@+id/frameLayout2"
                     style="@style/main_pane_style"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:foregroundGravity="center_vertical" >
 
-                    <TextView
-                        android:id="@+id/nabludatel_registration_status"
-                        style="@style/TextStyle"
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/registration_status_unregistered" />
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical" >
+
+                        <TextView
+                            android:id="@+id/nabludatel_registration_status"
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/registration_status_unregistered" />
+
+                        <ProgressBar
+                            android:id="@+id/auth_wheel"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
                 </FrameLayout>
 
                 <TextView

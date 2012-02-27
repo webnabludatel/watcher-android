@@ -1,29 +1,40 @@
 package org.dvaletin.apps.nabludatel;
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.*;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
-import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
-import org.dvaletin.apps.nabludatel.utils.*;
+import java.util.ArrayList;
+
+import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
+import org.dvaletin.apps.nabludatel.utils.ListViewActivityItem;
+import org.dvaletin.apps.nabludatel.utils.NabludatelChecklistListViewAdapter;
+import org.dvaletin.apps.nabludatel.utils.SectionBeforeElections;
+import org.dvaletin.apps.nabludatel.utils.SectionCounting;
+import org.dvaletin.apps.nabludatel.utils.SectionDuringElections;
+import org.dvaletin.apps.nabludatel.utils.SectionFinalMeeting;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
-	NabludatelCloud mNabludatelCloud;
-	String deviceId;
+
 	JSONObject mainJSON;
 	protected static final String TAG_CAMERA = "Camera";
 	
@@ -37,9 +48,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TelephonyManager t = (TelephonyManager) getSystemService(Context. TELEPHONY_SERVICE);
-        deviceId = t.getDeviceId();
-    	mNabludatelCloud = new NabludatelCloud(t.getDeviceId());
+
     	setContentView(R.layout.main);	
     	activateRootMenu();
     }
