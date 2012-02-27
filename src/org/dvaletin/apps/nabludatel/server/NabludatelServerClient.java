@@ -55,10 +55,9 @@ public class NabludatelServerClient {
 		return post(request, url).getLong("media_item_id");
 	}
 
-	// todo: This method will throw 404, it not implemented on server.
-	public long deleteMediaFromMessage(long messageId, long mediaItemId, String secret, JSONObject payload) throws NabludatelServerException, JSONException {
+	public long deleteMediaFromMessage(long mediaItemId, String secret, JSONObject payload) throws NabludatelServerException, JSONException {
 		String request = toRequest(payload);
-		String url = toDigestUrl("/messages/" + messageId + "/media_items/" + mediaItemId + ".json", payload, secret);
+		String url = toDigestUrl("/media_items/" + mediaItemId + ".json", payload, secret);
 		return put(request, url).getLong("media_item_id");
 	}
 

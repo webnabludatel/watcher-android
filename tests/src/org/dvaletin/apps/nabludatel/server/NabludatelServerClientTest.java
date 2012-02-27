@@ -54,8 +54,8 @@ public class NabludatelServerClientTest extends TestCase {
 		long messageId = client.postNewMessage(secret, payload);
 		long mediaItemId = client.attachMediaToMessage(messageId, secret, payload);
 		assertTrue(mediaItemId != -1L);
-		payload.put("delete", true);
-		long deletedMediaItemId = client.deleteMediaFromMessage(messageId, mediaItemId, secret, payload);
+		payload.put("deleted", true);
+		long deletedMediaItemId = client.deleteMediaFromMessage(mediaItemId, secret, payload);
 		assertTrue(mediaItemId == deletedMediaItemId);
 	}
 }

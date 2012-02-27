@@ -72,14 +72,11 @@ public class NabludatelCloud {
 		return payload;
 	}
 
-	private static JSONObject toDeleteMediaItemPayload(long timestamp, long internalId, long checkListItemId) throws JSONException {
+	private static JSONObject toDeleteMediaItemPayload(long timestamp, long internalId) throws JSONException {
 		JSONObject payload = new JSONObject();
-		payload.put("delete", true);
+		payload.put("deleted", true);
 		if (internalId > 0L) {
 			payload.put("internal_id", internalId);
-		}
-		if (checkListItemId > 0L) {
-			payload.put("checklist_item_internal_id", checkListItemId);
 		}
 		if (timestamp > 0L) {
 			payload.put("timestamp", timestamp);
@@ -159,10 +156,10 @@ public class NabludatelCloud {
 		return -1L;
 	}
 
-	public long setMediaDeletedForMessage(long messageId, long mediaItemId, long timestamp, long internalId, long checkItemInternalId) {
+	public long setMediaDeletedForMessage(long messageId, long mediaItemId, long timestamp, long internalId) {
 		try {
-			JSONObject payload = toDeleteMediaItemPayload(timestamp, internalId, checkItemInternalId);
-			return serverClient.deleteMediaFromMessage(messageId, mediaItemId, authenticationSecret(), payload);
+			JSONObject payload = toDeleteMediaItemPayload(timestamp, internalId);
+			return serverClient.deleteMediaFromMessage(mediaItemId, authenticationSecret(), payload);
 		} catch (NabludatelServerException e) {
 			Log.w("Can't set media deleted for message " + messageId, e);
 			if (e.isUnauthorized()) {

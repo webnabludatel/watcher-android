@@ -92,7 +92,7 @@ public class MediaSyncThread implements Runnable {
 							Log.d(TAG, "File "+toSend.getCanonicalPath()+" does not exists, deleting record MediaItem:"+mediaRowId);
 							mElectionsDB.removeMediaItem(mediaRowId);
 							if(mediaItemServerId != -1){
-								cloudHelper.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId, mediaChecklistId);
+								cloudHelper.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId);
 							}
 						}
 					}
