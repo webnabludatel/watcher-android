@@ -45,9 +45,9 @@ public class GZIPRequestJsonHttpClient extends JsonHttpClient {
 			return super.getEntity(request, method);
 		} else {
 			method.setHeader("Content-Encoding", "gzip");
-			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			ByteArrayOutputStream os = new ByteArrayOutputStream(BUFFER_SIZE);
 			try {
-				GZIPOutputStream gzipOutputStream = new GZIPOutputStream(os);
+				GZIPOutputStream gzipOutputStream = new GZIPOutputStream(os, BUFFER_SIZE);
 				gzipOutputStream.write(request.getBytes("UTF-8"));
 				gzipOutputStream.finish();
 				return new ByteArrayEntity(os.toByteArray());

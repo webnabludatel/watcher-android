@@ -23,6 +23,7 @@ import java.util.zip.GZIPInputStream;
  */
 public class JsonHttpClient {
 	private static final String T = JsonHttpClient.class.getSimpleName();
+	public static final int BUFFER_SIZE = 512;
 
 	/**
 	 * Will create new {@link DefaultHttpClient} and perform request.
@@ -81,7 +82,7 @@ public class JsonHttpClient {
 			InputStream inputStream = entity.getContent();
 			Header contentEncoding = response.getFirstHeader("Content-Encoding");
 			if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
-				inputStream = new GZIPInputStream(inputStream);
+				inputStream = new GZIPInputStream(inputStream, BUFFER_SIZE);
 			}
 			try {
 				// convert content stream to a String
@@ -98,7 +99,7 @@ public class JsonHttpClient {
 	}
 
 	private static String readLines(InputStream is) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), BUFFER_SIZE);
 		StringBuilder builder = new StringBuilder();
 
 		String line;
