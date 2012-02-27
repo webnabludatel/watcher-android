@@ -1,9 +1,5 @@
 package org.dvaletin.apps.nabludatel;
 
-import java.lang.reflect.Method;
-
-import org.dvaletin.apps.nabludatel.utils.Consts;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,6 +8,9 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import org.dvaletin.apps.nabludatel.utils.Consts;
+
+import java.lang.reflect.Method;
 
 public class SpravochnikActivity extends ABSNabludatelActivity {
 	

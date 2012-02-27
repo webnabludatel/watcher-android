@@ -1,14 +1,11 @@
 package org.dvaletin.apps.nabludatel.utils;
 
 
-
-import org.dvaletin.apps.nabludatel.R;
-
 import android.content.Context;
-
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
+import org.dvaletin.apps.nabludatel.R;
 
 public class Tumbler extends SeekBar {
 	public static final String TUMBLER_UNDEFINED="undef";

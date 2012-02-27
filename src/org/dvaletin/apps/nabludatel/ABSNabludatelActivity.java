@@ -1,14 +1,5 @@
 package org.dvaletin.apps.nabludatel;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.Map.Entry;
-
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-import org.dvaletin.apps.nabludatel.utils.Violation;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +18,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.Tumbler;
+import org.dvaletin.apps.nabludatel.utils.Violation;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Map.Entry;
 
 public abstract class ABSNabludatelActivity extends Activity {
 	protected SharedPreferences prefs;

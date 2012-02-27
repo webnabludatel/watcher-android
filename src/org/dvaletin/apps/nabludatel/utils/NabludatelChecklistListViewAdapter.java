@@ -1,17 +1,11 @@
 package org.dvaletin.apps.nabludatel.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.dvaletin.apps.nabludatel.R;
-import org.dvaletin.apps.nabludatel.NabludatelActivity.NabludatelCustomListViewAdapter.ViewHolder;
-
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import org.dvaletin.apps.nabludatel.R;
 
 public class NabludatelChecklistListViewAdapter extends android.widget.BaseAdapter {
 	SectionList items;

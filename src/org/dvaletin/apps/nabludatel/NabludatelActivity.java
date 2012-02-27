@@ -1,20 +1,6 @@
 package org.dvaletin.apps.nabludatel;
 
 
-import java.util.ArrayList;
-
-//<<<<<<< HEAD
-
-import org.dvaletin.apps.nabludatel.utils.*;
-
-import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-import org.dvaletin.apps.nabludatel.utils.NabludatelChecklistListViewAdapter;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,14 +10,16 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
+import org.dvaletin.apps.nabludatel.utils.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
 	NabludatelCloud mNabludatelCloud;

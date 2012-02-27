@@ -1,18 +1,7 @@
 package org.dvaletin.apps.nabludatel;
 
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-import org.dvaletin.apps.nabludatel.utils.MediaSyncThread;
-import org.dvaletin.apps.nabludatel.utils.MediaSyncThread.IMediaSyncCallCallback;
-import org.dvaletin.apps.nabludatel.utils.ViolationSyncThread;
-import org.dvaletin.apps.nabludatel.utils.ViolationSyncThread.IViolationSyncCallCallback;
-
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,13 +10,17 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
+import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.MediaSyncThread;
+import org.dvaletin.apps.nabludatel.utils.MediaSyncThread.IMediaSyncCallCallback;
+import org.dvaletin.apps.nabludatel.utils.ViolationSyncThread;
+import org.dvaletin.apps.nabludatel.utils.ViolationSyncThread.IViolationSyncCallCallback;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainWindow extends TabActivity implements IViolationSyncCallCallback, IMediaSyncCallCallback{
 	private static final int DIALOG_SYNC_ERROR = 1000;

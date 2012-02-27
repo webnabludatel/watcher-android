@@ -1,10 +1,9 @@
 package org.dvaletin.apps.nabludatel.utils;
 
-import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 
 public class ViolationSyncThread implements Runnable {
 	

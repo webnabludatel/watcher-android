@@ -1,13 +1,12 @@
 package org.dvaletin.apps.nabludatel.utils;
 
-import java.io.File;
-
-import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
-import org.dvaletin.apps.nabludatel.server.NabludatelCloudRequestTimeTooSkewedException;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
+import org.dvaletin.apps.nabludatel.server.NabludatelCloudRequestTimeTooSkewedException;
+
+import java.io.File;
 
 public class MediaSyncThread implements Runnable {
 	private static final String TAG = "MediaSyncThread";

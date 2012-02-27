@@ -1,17 +1,13 @@
 package org.dvaletin.apps.nabludatel;
 
-import java.io.File;
-import java.util.HashMap;
-
-import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
-import org.dvaletin.apps.nabludatel.utils.Consts;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
+import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
+import org.dvaletin.apps.nabludatel.utils.Consts;
 
 
 

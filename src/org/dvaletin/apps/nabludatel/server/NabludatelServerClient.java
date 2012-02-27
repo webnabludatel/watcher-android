@@ -8,7 +8,7 @@ import org.dvaletin.apps.nabludatel.utils.Encodings;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 /**

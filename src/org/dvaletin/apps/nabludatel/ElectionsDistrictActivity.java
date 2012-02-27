@@ -1,17 +1,12 @@
 package org.dvaletin.apps.nabludatel;
 
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.Spinner;
+import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 
 public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 	private static final int DIALOG_FIO_ERROR = 1;
