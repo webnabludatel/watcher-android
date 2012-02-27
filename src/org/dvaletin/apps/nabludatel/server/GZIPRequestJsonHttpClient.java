@@ -18,8 +18,8 @@ import java.util.zip.GZIPOutputStream;
  *
  * @author Alexey Efimov
  */
-public class GZIPJsonHttpClient extends JsonHttpClient {
-	public static final String T = GZIPJsonHttpClient.class.getSimpleName();
+public class GZIPRequestJsonHttpClient extends JsonHttpClient {
+	public static final String T = GZIPRequestJsonHttpClient.class.getSimpleName();
 
 	private boolean enabled = true;
 
