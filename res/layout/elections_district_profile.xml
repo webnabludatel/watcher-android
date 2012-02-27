@@ -134,9 +134,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:onClick="onSelectPhotoFromGalleryClick"
+                                android:onClick="onGalleryPhotoClick"
                                 android:tag="uik_district_banner_photo"
-                                android:text="@string/uik_district_banner_photo_from_gallery" />
+                                android:text="@string/ballot_box_violations_photo_gallery" />
 
                             <Button
                                 android:id="@+id/uik_district_banner_photo"
