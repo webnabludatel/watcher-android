@@ -110,6 +110,10 @@ public class Consts {
 	public static final String PREFS_LONGITUDE = "lng";
 	public static final String PREFS_FILENAME = "org.dvaletin.apps.global.prefs";
 	public static final String PREFS_LAST_TAB = "last_bar";
+	public static final String PREFS_FACEBOOK_ACCESS_TOKEN = "facebook_access_token";
+	public static final String PREFS_FACEBOOK_ACCESS_EXPIRES = "facebook_access_expires";
+	public static final String PREFS_TWITTER_SECRET = "twitter_secret";
+	public static final String PREFS_TWITTER_TOKEN = "twitter_token";
 	
 	
 
