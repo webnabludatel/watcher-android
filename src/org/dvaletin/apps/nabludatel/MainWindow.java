@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.widget.RadioButton;
@@ -61,33 +62,21 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 
 	private void setupUpdateThreads() {
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		String deviceId = tm.getDeviceId();
 
-		final NabludatelCloud cloud = new NabludatelCloud(deviceId);
-		final ElectionsDBHelper db = new ElectionsDBHelper(this);
-		db.open();
+		final NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
 
-		timer.schedule(new TimerTask() {
-			public void run() {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						new ViolationSyncTask(cloud, MainWindow.this).execute(db);
-					}
-				});
+		timer.schedule(new AsyncTimerTask(new ElectionsDBHelper(MainWindow.this)) {
+			protected AsyncTask<ElectionsDBHelper, String, String> createTask() {
+				return new ViolationSyncTask(cloud, MainWindow.this);
 			}
-		}, 1000, 1000);
+		}, 1000, 5000);
 
 
-		timer.schedule(new TimerTask() {
-			public void run() {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						new MediaSyncTask(cloud, MainWindow.this).execute(db);
-					}
-				});
+		timer.schedule(new AsyncTimerTask(new ElectionsDBHelper(MainWindow.this)) {
+			protected AsyncTask<ElectionsDBHelper, String, String> createTask() {
+				return new MediaSyncTask(cloud, MainWindow.this);
 			}
-
-		}, 3000, 30000);
+		}, 3000, 60000);
 	}
 
 	private void setupUI() {
@@ -184,5 +173,30 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 				alert.show();
 			}
 		});
+	}
+
+	private abstract class AsyncTimerTask extends TimerTask {
+		private final ElectionsDBHelper db;
+
+		public AsyncTimerTask(ElectionsDBHelper db) {
+			this.db = db;
+			this.db.open();
+		}
+
+		protected abstract AsyncTask<ElectionsDBHelper, String, String> createTask();
+
+		public void run() {
+			runOnUiThread(new Runnable() {
+				public void run() {
+					createTask().execute(db);
+				}
+			});
+		}
+
+		@Override
+		public boolean cancel() {
+			this.db.close();
+			return super.cancel();
+		}
 	}
 }
