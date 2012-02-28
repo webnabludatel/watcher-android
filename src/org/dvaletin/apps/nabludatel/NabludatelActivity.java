@@ -88,16 +88,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 					return true;
 				}
 			});
-	    	district.setOnItemLongClickListener(new OnItemLongClickListener(){
-				@Override
-				public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-					Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
-					intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);
-					startActivityForResult(intent, Consts.ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT);
-					return true;
-				}
-	    		
-	    	});
+	    	
 	    	district.setOnItemSelectedListener(new OnItemSelectedListener(){
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -177,6 +168,19 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     
     
     protected void activateSectionBeforeElections() {
+    	Button back_button_old = (Button)findViewById(R.id.back_button_old);
+    	if(back_button_old!=null){
+    		back_button_old.setVisibility(View.VISIBLE);
+    		back_button_old.setOnClickListener(new View.OnClickListener(){
+
+				@Override
+				public void onClick(View arg0) {
+					NabludatelActivity.this.onBackPressed();
+					
+				}
+    			
+    		});
+    	}
     	FrameLayout elections_district_select_frame = (FrameLayout)findViewById(R.id.elections_district_select_frame);
 		elections_district_select_frame.setVisibility(View.GONE);
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
@@ -205,6 +209,21 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
     public void activateSectionDuringElections(){
+    	Button back_button_old = (Button)findViewById(R.id.back_button_old);
+    	if(back_button_old!=null){
+    		back_button_old.setVisibility(View.VISIBLE);
+    		back_button_old.setOnClickListener(new View.OnClickListener(){
+
+				@Override
+				public void onClick(View arg0) {
+					NabludatelActivity.this.onBackPressed();
+					
+				}
+    			
+    		});
+    	}
+    	FrameLayout elections_district_select_frame = (FrameLayout)findViewById(R.id.elections_district_select_frame);
+		elections_district_select_frame.setVisibility(View.GONE);
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
     	if(mDuringElectionsAdapter == null){
@@ -232,6 +251,21 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     }
 
     public void activateSectionCounting(){
+    	Button back_button_old = (Button)findViewById(R.id.back_button_old);
+    	if(back_button_old!=null){
+    		back_button_old.setVisibility(View.VISIBLE);
+    		back_button_old.setOnClickListener(new View.OnClickListener(){
+
+				@Override
+				public void onClick(View arg0) {
+					NabludatelActivity.this.onBackPressed();
+					
+				}
+    			
+    		});
+    	}
+    	FrameLayout elections_district_select_frame = (FrameLayout)findViewById(R.id.elections_district_select_frame);
+		elections_district_select_frame.setVisibility(View.GONE);
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
     	if(mCountingAdapter == null){
@@ -258,6 +292,21 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     }
     
 	public void activateSectionFinalMeeting() {
+		Button back_button_old = (Button)findViewById(R.id.back_button_old);
+    	if(back_button_old!=null){
+    		back_button_old.setVisibility(View.VISIBLE);
+    		back_button_old.setOnClickListener(new View.OnClickListener(){
+
+				@Override
+				public void onClick(View arg0) {
+					NabludatelActivity.this.onBackPressed();
+					
+				}
+    			
+    		});
+    	}
+    	FrameLayout elections_district_select_frame = (FrameLayout)findViewById(R.id.elections_district_select_frame);
+		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		if (mFinalMeetingAdapter == null) {
@@ -353,21 +402,17 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	public void onBackPressed() {
     	
-    	if(keyCode != KeyEvent.KEYCODE_BACK){
-    		return false;
-    	}
     	
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
     	
     	if(mMainSelector.getAdapter() != mRootListViewAdapter){
     		activateRootMenu();
-    		return true;
+    		return;
     	}else{
-    		this.finish();
+    		super.onBackPressed();
     	}
-    	return false;
     }
 	
 	

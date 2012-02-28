@@ -113,14 +113,14 @@
             <string name="ballot_box_open_title">Вскрытие стационарных урн</string>
             <string name="control_calculations_title">Контрольные соотношения</string>
             <string name="counting_ballots_title">Сортировка и подсчет</string>
-            <string name="tik_located_in_administration_building">ТИК в здании местной администрации?</string>
-            <string name="tik_building_addmittance_cleared">Вы допущены в здание?</string>
-            <string name="tik_other_watchers_admittance_cleared">Другие наблюдатели допущены в здание?</string>
+            <string name="tik_located_in_administration_building">ТИК в здании местной администрации</string>
+            <string name="tik_building_addmittance_cleared">На сдачу протокола допущены все лица, имеющие на это право</string>
+            <string name="tik_other_watchers_admittance_cleared">Вы можете свободно перемещаться по зданию, сопровождать представителей УИК</string>
             <string name="tik_watching_of_the_entire_procedure_allowed">Вы можете наблюдать за всей процедурой приема?</string>
             <string name="tik_other_watchers_allowed_to_watch_entire_procedure">Другие наблюдатели могут наблюдать за всей процедурой приема?</string>
-            <string name="tik_protocols_are_received_in_a_single_room">Прием протоколов в едином помещении?</string>
+            <string name="tik_protocols_are_received_in_a_single_room">Прием протоколов в едином помещении с УФСТ</string>
             <string name="tik_extended_table_in_the_same_room">Увеличенная форма таблицы в том же помещении?</string>
-            <string name="tik_administation_personnel_participate_in_protocol_processing">Сотрудники администрации участвуют в приеме протоколов?</string>
+            <string name="tik_administation_personnel_participate_in_protocol_processing">Сотрудники администрации участвуют в приеме протоколов</string>
             <string name="tik_watching_of_the_entire_procedure_is_allowed">Вы можете наблюдать за всей процедурой приема?</string>
             <string name="tik_number_of_complains">Количество письменных жалоб</string>
             <string name="tik_all_complains_are_checked">Все ли письменные жалобы рассмотрены?</string>
@@ -128,8 +128,8 @@
 			<string name="section_tik_ikmo_tik_processing_title">Прием протокола и занесение данных в УФСТ</string>
 			<string name="tik_accepted_uik_protocol">ТИК принял протокол УИК</string>
 			<string name="tik_made_corrections_to_uik_protocol">В протоколы УИК внесены правки</string>
-			<string name="tik_entered_data_to_extended_table_immediately">Данные занесены в увеличенную форму сразу по прибытии</string>
-			<string name="tik_entered_data_to_extended_table_properly">Данные занесены правильно</string>
+			<string name="tik_entered_data_to_extended_table_immediately">Данные занесены сразу по прибытии</string>
+			<string name="tik_entered_data_to_extended_table_properly">Данные занесены в УФТС</string>
 			<string name="tik_entered_data_put_to_gas_vybody_immediately">Данные из УФСТ сразу переносятся в ГАС &quot;Выборы&quot;</string>
 			<string name="tik_time_of_agreement_signing">Время подписания договора</string>
 			<string name="tik_announced_decline_of_uik_protocol">ТИК объявил об отказе в приеме протокола</string>
@@ -244,5 +244,6 @@
 				<string name="sos_report_photo">Сделайте фото</string>
 				<string name="sos_report_video">Снимите видео</string>
 				<string name="sos_report_tellus">Сообщите нам</string>
-				<string name="i">i</string>	
+				<string name="i">i</string>
+				<string name="tik_intantly_to_UFST">Представители УИК сразу по прибытии проходят в помещени с УФСТ</string>	
 </resources>

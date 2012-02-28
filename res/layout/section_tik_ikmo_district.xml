@@ -29,7 +29,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tik_intantly_to_UFST" />
+                    android:text="@string/tik_located_in_administration_building" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout01"
@@ -45,7 +45,7 @@
                         android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
-                        android:id="@+id/tik_intantly_to_UFST"
+                        android:id="@+id/tik_located_in_administration_building"
                         android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -55,10 +55,10 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="tik_intantly_to_UFST"
+                        android:tag="tik_located_in_administration_building"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0dp"
-                        nabludatel:violationText="Представители УИК не сразу проходят в помещени с УФСТ" />
+                        nabludatel:violationText="ТИК расположен не в здании местной администрации" />
 
                     <TextView
                         android:id="@+id/TextView1"
@@ -80,7 +80,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tik_entered_data_to_extended_table_properly" />
+                    android:text="@string/tik_building_addmittance_cleared" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout04"
@@ -96,7 +96,7 @@
                         android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
-                        android:id="@+id/tik_entered_data_to_extended_table_properly"
+                        android:id="@+id/tik_building_addmittance_cleared"
                         android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -106,10 +106,10 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="tik_entered_data_to_extended_table_properly"
+                        android:tag="tik_building_addmittance_cleared"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0px"
-                        nabludatel:violationText="Данные вообще не занесены в УФСТ" />
+                        nabludatel:violationText="Допуск в здание осуществляется с нарушением правил" />
 
                     <TextView
                         android:id="@+id/TextView1"
@@ -131,7 +131,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tik_entered_data_to_extended_table_immediately" />
+                    android:text="@string/tik_other_watchers_admittance_cleared" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout02"
@@ -147,7 +147,7 @@
                         android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
-                        android:id="@+id/tik_entered_data_to_extended_table_immediately"
+                        android:id="@+id/tik_other_watchers_admittance_cleared"
                         android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
@@ -157,10 +157,10 @@
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="tik_entered_data_to_extended_table_immediately"
+                        android:tag="tik_other_watchers_admittance_cleared"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0px"
-                        nabludatel:violationText="Данные не занесены в УФСТ сразу по прибытии" />
+                        nabludatel:violationText="Допуск в здание осуществляется с нарушением правил" />
 
                     <TextView
                         android:id="@+id/TextView03"
@@ -170,7 +170,107 @@
                         android:text="@string/yes" />
                 </LinearLayout>
 
+                 <ImageView
+                    android:id="@+id/ImageView02"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tik_protocols_are_received_in_a_single_room" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/tik_protocols_are_received_in_a_single_room"
+                        android:layout_width="154dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="tik_protocols_are_received_in_a_single_room"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0px"
+                        nabludatel:violationText="Приём протоколов проходит в нескольких помещениях" />
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+                </LinearLayout>
                 
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    style="@style/list_divider_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_devider" />
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tik_administation_personnel_participate_in_protocol_processing" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/tik_administation_personnel_participate_in_protocol_processing"
+                        android:layout_width="154dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:hiValue="true"
+                        nabludatel:loValue="false"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="tik_administation_personnel_participate_in_protocol_processing"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0px"
+                        nabludatel:violationText="Сотрудники администрации не участвуют в приеме протоколов" />
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes" />
+                </LinearLayout>
                 
                 
                 <ImageView
