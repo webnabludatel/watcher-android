@@ -10,34 +10,17 @@
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:gravity="left" >
+            android:gravity="left|center_vertical" >
 
             <Button
                 android:id="@+id/back_button_old"
-                style="@style/Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onBackButtonPress"
                 android:text="@string/back"
-                android:visibility="invisible" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="right" >
-
-            <Button
-                android:id="@+id/report_button"
-                style="@style/Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty" />
+                android:visibility="visible" />
 
         </LinearLayout>
 

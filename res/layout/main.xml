@@ -20,6 +20,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:orientation="vertical" >
+
+            <include
+                android:id="@+id/include1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                layout="@layout/footer_layout" />
 
             <FrameLayout
                 android:id="@+id/elections_district_select_frame"
@@ -88,6 +95,7 @@
                     android:layout_gravity="top" >
                 </ListView>
             </FrameLayout>
+
         </LinearLayout>
 
     </FrameLayout>

@@ -47,7 +47,7 @@
                 android:progressDrawable="@drawable/patch"
                 android:tag="ballots_is_given_with_signage"
                 android:thumb="@drawable/for_frontend_03"
-                android:thumbOffset="0dp"
+                android:thumbOffset="0px"
                 nabludatel:violationText="Не пустили на участок до 8:00" />
 
             <TextView

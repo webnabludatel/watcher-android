@@ -30,7 +30,7 @@
         <string name="ballot_box_title">Урны</string>
         <string name="admitted_before_eight_title">Допуск на участок до 8:00</string>
             <string name="sos">S.O.S</string>
-            <string name="back">&lt; Назад</string>
+            <string name="back">Назад</string>
             <string name="counter_set_on_zero">Счетчик на нуле</string>
             <string name="conter_test_failures">Есть ли сбои при тестировании</string>
             <string name="appearance_candidates_info">Правильно оформленные сведения о кандидатах</string>

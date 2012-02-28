@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_window"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_fill"
+    android:gravity="center_horizontal|fill"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/main_window_frame"
+        style="@style/main_window"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/include1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                layout="@layout/footer_layout" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/PanelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/watching" />
+
+            <FrameLayout
+                android:id="@+id/main_layout"
+                style="@style/main_pane_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50" >
+
+                <ListView
+                    android:id="@+id/main_selector"
+                    style="@style/listview_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top" >
+                </ListView>
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

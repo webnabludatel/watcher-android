@@ -53,11 +53,11 @@
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         android:max="2"
-                        android:progress="1"
+                        android:progress="0"
                         android:progressDrawable="@drawable/patch"
                         android:tag="ballot_box_check_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
+                        android:thumbOffset="0dp"
                         nabludatel:violationText="Пустые урны не предъявлены" />
 
                     <TextView
@@ -108,7 +108,7 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="ballot_box_sealed_in_your_presence"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
+                        android:thumbOffset="0px"
                         nabludatel:violationText="Пустые ящики не предъявлены" />
 
                     <TextView

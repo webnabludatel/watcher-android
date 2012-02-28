@@ -28,6 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -49,12 +50,16 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     	setContentView(R.layout.main);	
     	activateRootMenu();
     }
     
     public void activateRootMenu(){
+    	setContentView(R.layout.main);
+    	Button back_button_old = (Button)findViewById(R.id.back_button_old);
+    	if(back_button_old!=null){
+    		back_button_old.setVisibility(View.INVISIBLE);
+    	}
     	Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
     	String from [] = new String[]{ElectionsDBHelper.POLLINGPLACE_NAME_KEY};
     	int[] to = new int[]{android.R.id.text1};
@@ -66,7 +71,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	    				  from, to );
 	    	adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 	    	district.setAdapter(adapter);
-	    	district.setVisibility(View.VISIBLE);
 	    	getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
 	    	Long position_id = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1);
 	    	if(position_id != -1) 
@@ -85,7 +89,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 				}
 			});
 	    	district.setOnItemLongClickListener(new OnItemLongClickListener(){
-
 				@Override
 				public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 					Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
@@ -174,6 +177,8 @@ public class NabludatelActivity extends ABSNabludatelActivity {
     
     
     protected void activateSectionBeforeElections() {
+    	FrameLayout elections_district_select_frame = (FrameLayout)findViewById(R.id.elections_district_select_frame);
+		elections_district_select_frame.setVisibility(View.GONE);
     	ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
     	if(mBeforeElectionsAdapter == null){
