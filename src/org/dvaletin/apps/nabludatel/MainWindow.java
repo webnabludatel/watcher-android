@@ -15,7 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.TabHost;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.MediaSyncTask;
 import org.dvaletin.apps.nabludatel.utils.MediaSyncTask.IMediaSyncCallCallback;
 import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask;
@@ -65,15 +64,15 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 
 		final NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
 
-		timer.schedule(new AsyncTimerTask(new ElectionsDBHelper(MainWindow.this)) {
-			protected AsyncTask<ElectionsDBHelper, String, String> createTask() {
+		timer.schedule(new AsyncTimerTask() {
+			protected AsyncTask<Context, String, String> createTask() {
 				return new ViolationSyncTask(cloud, MainWindow.this);
 			}
 		}, 1000, 5000);
 
 
-		timer.schedule(new AsyncTimerTask(new ElectionsDBHelper(MainWindow.this)) {
-			protected AsyncTask<ElectionsDBHelper, String, String> createTask() {
+		timer.schedule(new AsyncTimerTask() {
+			protected AsyncTask<Context, String, String> createTask() {
 				return new MediaSyncTask(cloud, MainWindow.this);
 			}
 		}, 3000, 60000);
@@ -176,27 +175,14 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 	}
 
 	private abstract class AsyncTimerTask extends TimerTask {
-		private final ElectionsDBHelper db;
-
-		public AsyncTimerTask(ElectionsDBHelper db) {
-			this.db = db;
-			this.db.open();
-		}
-
-		protected abstract AsyncTask<ElectionsDBHelper, String, String> createTask();
+		protected abstract AsyncTask<Context, String, String> createTask();
 
 		public void run() {
 			runOnUiThread(new Runnable() {
 				public void run() {
-					createTask().execute(db);
+					createTask().execute(MainWindow.this);
 				}
 			});
-		}
-
-		@Override
-		public boolean cancel() {
-			this.db.close();
-			return super.cancel();
 		}
 	}
 }
