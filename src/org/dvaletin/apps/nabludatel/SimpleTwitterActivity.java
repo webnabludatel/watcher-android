@@ -28,6 +28,19 @@ public class SimpleTwitterActivity extends Activity implements OAuthDialogListen
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		TwitterAuth tauth = getTwitterSecret();
+		WebView webView = new WebView(SimpleTwitterActivity.this);
+		SimpleTwitterActivity.this.setContentView(webView);
+        
+        WebViewOAuthDialogWrapper pageWrapper =
+        	new WebViewOAuthDialogWrapper(webView);
+        //
+		pageWrapper.setConsumerKey(tauth.tw_key);
+		pageWrapper.setConsumerSecret(tauth.tw_secret);
+		pageWrapper.setCallbackUrl(tauth.tw_callback);
+		pageWrapper.setOAuthListener(SimpleTwitterActivity.this);
+		//
+		pageWrapper.login();
 	}
 	
 	TwitterAuth getTwitterSecret(){

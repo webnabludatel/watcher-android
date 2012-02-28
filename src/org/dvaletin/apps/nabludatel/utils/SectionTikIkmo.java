@@ -16,6 +16,26 @@ public class SectionTikIkmo extends SectionList {
 						ViolationCheckListActivity.class,
 						R.layout.section_tik_ikmo_tik_processing
 				),
+				new ListViewActivityItem(
+						"Отказ в приёме протокола", 
+						ViolationCheckListActivity.class,
+						R.layout.section_tik_ikmo_tik_decline
+				),
+				new ListViewActivityItem(
+						"ГАС \"Выборы\"", 
+						ViolationCheckListActivity.class,
+						R.layout.section_tik_ikmo_tik_gas_vybory
+				),
+				new ListViewActivityItem(
+						"Жалобы", 
+						ViolationCheckListActivity.class,
+						R.layout.section_tik_ikmo_complains
+				),
+				new ListViewActivityItem(
+						"Наблюдатели в комиссии", 
+						ViolationCheckListActivity.class,
+						R.layout.section_tik_ikmo_observers
+				),
 		};
 	}
 

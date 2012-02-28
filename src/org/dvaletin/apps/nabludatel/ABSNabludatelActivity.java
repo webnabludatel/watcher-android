@@ -39,6 +39,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	File photoRequestFile;
 	File videoRequestFile;
 	long mCurrentPollingPlaceId = -1;
+	String mCurrentPollingPlaceType;
 	ElectionsDBHelper mElectionsDB;
 	HashMap<String, Violation> myState;
 	HashMap<String, View> activeViews;
@@ -53,9 +54,20 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mElectionsDB = new ElectionsDBHelper(this);
+
+		pictureFileUri = new ArrayList<Uri>();
+		videoFileUri = new ArrayList<Uri>();
+
+		photos = new HashMap<File, String>();
+		videos = new HashMap<File, String>();
+		toReturn = new Intent();
+		myState = new HashMap<String, Violation>();
+		activeViews = new HashMap<String, View>();
 		Intent intent = getIntent();
 		mCurrentPollingPlaceId = intent.getLongExtra(
 				Consts.PREFS_ELECTIONS_DISRICT, -1);
+		
 		screenId = intent.getIntExtra(Consts.PREFS_LAYOUT_ID, -1);
 		lat = intent.getDoubleExtra(Consts.PREFS_LATITUDE, 0.0d);
 		lng = intent.getDoubleExtra(Consts.PREFS_LONGITUDE, 0.0d);
@@ -67,16 +79,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 			this.setContentView(screenId);
 		}
 		prefs = this.getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
-		mElectionsDB = new ElectionsDBHelper(this);
 
-		pictureFileUri = new ArrayList<Uri>();
-		videoFileUri = new ArrayList<Uri>();
-
-		photos = new HashMap<File, String>();
-		videos = new HashMap<File, String>();
-		toReturn = new Intent();
-		myState = new HashMap<String, Violation>();
-		activeViews = new HashMap<String, View>();
 		
 	}
 
@@ -84,6 +87,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 		mElectionsDB.open();
+		if(mCurrentPollingPlaceId > 0){
+			mCurrentPollingPlaceType = mElectionsDB.getPollingPlaceType(mCurrentPollingPlaceId);
+		}
 		setCallbacks((ViewGroup) (findViewById(android.R.id.content)
 				.getRootView()));
 		if(durtyResumeHack)
@@ -404,22 +410,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 						if (fromUser) {
 							mIsProgressChanged = true;
 						}
-						if (((Tumbler) seekBar).getTumblerValue()
-								.equals("true")) {
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this
-									.getResources().getDrawable(
-											R.drawable.for_frontend_15));
-						} else if (((Tumbler) seekBar).getTumblerValue()
-								.equals("false")) {
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this
-									.getResources().getDrawable(
-											R.drawable.for_frontend_11));
-						} else {
-							seekBar.setBackgroundDrawable(ABSNabludatelActivity.this
-									.getResources().getDrawable(
-											R.drawable.for_frontend_04));
-						}
-
 					}
 
 					@Override

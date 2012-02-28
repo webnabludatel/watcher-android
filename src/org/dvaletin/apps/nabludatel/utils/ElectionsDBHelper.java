@@ -346,6 +346,14 @@ public class ElectionsDBHelper {
 		}
 		return res;
 	}
+	
+	public String getPollingPlaceType(long rowIndex){
+		Cursor c = getPollingPlace(rowIndex);
+		if(c==null && c.getCount() < 1){
+			return null;
+		}
+		return c.getString(c.getColumnIndex(POLLINGPLACE_TYPE_KEY));
+	}
 
 	public Cursor getPollingPlaceByNumber(long district_id) {
 		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
@@ -362,7 +370,7 @@ public class ElectionsDBHelper {
 		return res;
 	}
 
-	public Cursor getPollingPlaceNumbers() {
+	public Cursor getPollingPlaceNames() {
 		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY, }, null, null,
 				null, null, null);

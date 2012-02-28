@@ -25,11 +25,11 @@ public class Consts {
 
 
 	public static final String[] ROOT_MENU_ITEMS = {"Открытие участка",
-			"Голосование", "Подсчет", "Заседание и протокол"};
+			"Голосование", "Подсчет", "Заседание и протокол", "ТИК/ИКМО"};
 
 
 	public static final String[] ROOT_MENU_DESCRIPTIONS = {
-			"Отметок нет",  "Отметок нет", "Отметок нет", "Отметок нет"};
+			"Отметок нет",  "Отметок нет", "Отметок нет", "Отметок нет", "Отметок нет",};
 
 	public static final String[] SECTION_ELECTIONS_DISTRICT = { "Избирательный участок" };
 
@@ -114,6 +114,12 @@ public class Consts {
 	public static final String PREFS_FACEBOOK_ACCESS_EXPIRES = "facebook_access_expires";
 	public static final String PREFS_TWITTER_SECRET = "twitter_secret";
 	public static final String PREFS_TWITTER_TOKEN = "twitter_token";
+	public static final String[] TIK_IKMO_MENU_ITEMS = {
+		"ТИК/ИКМО"
+	};
+	public static final String[] TIK_IKMO_MENU_DESCRIPTIONS = {
+		"Отметок нет",
+	};
 	
 	
 

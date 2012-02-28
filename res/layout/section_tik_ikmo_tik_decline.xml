@@ -29,7 +29,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ballot_box_check_allowed" />
+                    android:text="@string/tik_announced_decline_of_uik_protocol" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout01"
@@ -45,21 +45,20 @@
                         android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
-                        android:id="@+id/ballot_box_check_allowed"
+                        android:id="@+id/tik_announced_decline_of_uik_protocol"
                         android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="true"
                         nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
                         android:max="2"
-                        android:thumbOffset="0px"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="ballot_box_check_allowed"
+                        android:tag="tik_announced_decline_of_uik_protocol"
                         android:thumb="@drawable/for_frontend_03"
-                        
-                        nabludatel:violationText="Пустые урны не предъявлены" />
+                        android:thumbOffset="0dp"
+                        nabludatel:violationText="ТИК объявил об отказе в приеме протокола" />
 
                     <TextView
                         android:id="@+id/TextView1"
@@ -81,7 +80,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ballot_box_sealed_in_your_presence" />
+                    android:text="@string/tik_held_first_copy_of_protocol" />
 
                 <LinearLayout
                     android:id="@+id/LinearLayout04"
@@ -97,20 +96,20 @@
                         android:text="@string/no" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
-                        android:id="@+id/ballot_box_sealed_in_your_presence"
+                        android:id="@+id/tik_held_first_copy_of_protocol"
                         android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:background="@drawable/for_frontend_04"
-                        nabludatel:hiValue="true"
                         nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
                         android:max="2"
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
-                        android:tag="ballot_box_sealed_in_your_presence"
+                        android:tag="tik_held_first_copy_of_protocol"
                         android:thumb="@drawable/for_frontend_03"
                         android:thumbOffset="0px"
-                        nabludatel:violationText="Пустые ящики не предъявлены" />
+                        nabludatel:violationText="Первый экземпляр протокола остался в ТИК" />
 
                     <TextView
                         android:id="@+id/TextView1"
@@ -121,54 +120,54 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/ImageView02"
                     style="@style/list_divider_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_devider" />
 
+                <TextView
+                    android:id="@+id/TextView02"
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tik_rewrite_uik_protocol_" />
+
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical" >
 
                     <TextView
-                        android:id="@+id/TextView01"
+                        android:id="@+id/TextView03"
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/ballot_box_empty_photo" />
+                        android:text="@string/exists" />
+
+                    <org.dvaletin.apps.nabludatel.utils.Tumbler
+                        android:id="@+id/tik_rewrite_uik_protocol_"
+                        android:layout_width="154dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:background="@drawable/for_frontend_04"
+                        nabludatel:loValue="false"
+                        nabludatel:hiValue="true"
+                        android:max="2"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/patch"
+                        android:tag="tik_rewrite_uik_protocol_"
+                        android:thumb="@drawable/for_frontend_03"
+                        android:thumbOffset="0px"
+                        nabludatel:violationText="Случаи переписывания протокола" />
 
                     <TextView
-                        android:id="@+id/photos_count"
+                        android:id="@+id/TextView03"
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/ballot_box_violations_photo_gallery"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="ballot_box_empty_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
-
-                    <Button
-                        android:id="@+id/ballot_box_violations_photo_camera"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onMakePhotoClick"
-                        android:tag="ballot_box_empty_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/no" />
                 </LinearLayout>
             </LinearLayout>
 
