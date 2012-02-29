@@ -57,7 +57,11 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		DistrictRegionAdapter adapter = new DistrictRegionAdapter(this, DistrictRegion.RU_REGIONS);
 		
 		district_region.setAdapter(adapter);
-		
+		try{
+			district_region.setSelection(Integer.valueOf(fake_district_region.getText().toString()));
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		district_region.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
