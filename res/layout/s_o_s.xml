@@ -25,12 +25,13 @@
             android:layout_height="match_parent"
             android:gravity="right" >
 
-            <TextView
-                android:id="@+id/textView1"
+            <ImageView
+                android:id="@+id/i"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="i"
-                android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginRight="20dip" android:textStyle="italic"/>
+                android:layout_marginRight="20dp"
+                android:onClick="onInformationClick"
+                android:src="@drawable/i" />
 
         </LinearLayout>
 

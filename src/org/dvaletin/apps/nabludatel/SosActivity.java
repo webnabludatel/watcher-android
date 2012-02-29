@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SosActivity extends ABSNabludatelActivity {
 	
@@ -88,5 +89,18 @@ public class SosActivity extends ABSNabludatelActivity {
 		default:
 	        return null;
 	    }
+	}
+	
+	public void onInformationClick(View v){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Инструкции");
+		builder.setMessage(getString(R.string.sos_hint)).setCancelable(false)
+		.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }

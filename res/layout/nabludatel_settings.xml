@@ -44,16 +44,6 @@
                             android:text="@string/nabludatel_settings_facebook" />
 
                         <Button
-                            android:id="@+id/twitter"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/button_twitter"
-                            android:gravity="center_vertical|left"
-                            android:onClick="onTwitterSetupClick"
-                            android:tag="twitter"
-                            android:text="@string/nabludatel_settings_twitter" />
-
-                        <Button
                             android:id="@+id/manual"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -79,25 +69,40 @@
                     android:foregroundGravity="center_vertical" >
 
                     <LinearLayout
-                        android:id="@+id/linearLayout3"
+                        android:id="@+id/linearLayout5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical" >
+                        android:orientation="vertical" >
 
-                        <TextView
-                            android:id="@+id/nabludatel_registration_status"
-                            style="@style/TextStyle"
-                            android:layout_width="wrap_content"
+                        <Spinner
+                            android:id="@+id/observer_status"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/registration_status_unregistered" />
+                            android:entries="@array/observer_status" >
+                            <!-- Preview: listitem=@android:layout/simple_spinner_item -->
+                        </Spinner>
 
-                        <ProgressBar
-                            android:id="@+id/auth_wheel"
-                            style="?android:attr/progressBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical" >
 
+                            <TextView
+                                android:id="@+id/nabludatel_registration_status"
+                                style="@style/TextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/registration_status_unregistered" />
+
+                            <ProgressBar
+                                android:id="@+id/auth_wheel"
+                                style="?android:attr/progressBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
                     </LinearLayout>
 
                 </FrameLayout>

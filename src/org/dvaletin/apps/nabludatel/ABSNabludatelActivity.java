@@ -181,7 +181,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 
-	private Violation updateViolationState(String key, String newValue, String violation) {
+	protected Violation updateViolationState(String key, String newValue, String violation) {
 		Violation v = myState.get(key);
 		if (v == null) {
 			v = new Violation(0L, System.currentTimeMillis(), lat, lng,
@@ -197,7 +197,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		return v;
 	}
 
-	private Violation saveViolation(Violation v) {
+	protected Violation saveViolation(Violation v) {
 		if (v.isChanged() || v.getId() <= 0) {
 			if (v.getId() <= 0) {
 				v.setId(mElectionsDB.addCheckListItem(v, screenId));

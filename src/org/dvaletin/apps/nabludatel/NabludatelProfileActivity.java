@@ -10,6 +10,7 @@ public class NabludatelProfileActivity extends ABSNabludatelActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mCurrentPollingPlaceId = 0;
 		setContentView(R.layout.nabludatel_profile);
 	}
 	

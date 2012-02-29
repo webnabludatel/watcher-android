@@ -34,11 +34,29 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:id="@+id/TextView02"
-                            style="@style/TextTitleLarge"
+                            android:id="@+id/textView2"
+                            style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/section_elections_district_title" />
+                            android:text="@string/district_region" />
+
+                        <Spinner
+                            android:id="@+id/district_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/district_type" />
+
+                        <Spinner
+                            android:id="@+id/district_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/district_types" />
 
                         <TextView
                             android:id="@+id/TextView01"
@@ -53,20 +71,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/uik_district_number_hint"
-                            android:tag="uik_district_number" />
+                            android:tag="uik_district_number" >
 
-                        <TextView
-                            android:id="@+id/textView1"
-                            style="@style/TextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/district_type" />
-
-                        <Spinner
-                            android:id="@+id/district_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:entries="@array/district_types" />
+                            <requestFocus />
+                        </EditText>
 
                         <TextView
                             android:id="@+id/TextView04"
@@ -146,7 +154,6 @@
                                 android:onClick="onMakePhotoClick"
                                 android:tag="uik_district_banner_photo"
                                 android:text="@string/uik_district_banner_photo_make" />
-
                         </LinearLayout>
                     </LinearLayout>
 

@@ -229,7 +229,7 @@
     <string name="nabludatel_settings_twitter">Twitter</string>
     <string name="nabludatel_settings_manual">ФИО+E-Mail</string>
     <string name="nabludatel_settings_status">Статус участника</string>
-    <string name="official_observer_title">Официальный наблюдатель</string>
+    <string name="official_observer_title">Официальные полномочия</string>
     <string name="official_observer_hint">Загрузите фото удостоверения</string>
     <string name="registration_status">Статус наблюдателя</string>
     <string name="registration_status_unregistered">Неизвестно</string>
@@ -240,7 +240,7 @@
     <string name="phone_hint">Телефон</string>
     <string name="report_onsite_title">Ваш отчет на сайте</string>
     <string name="report_violations_title">Нарушения на участке</string>
-    <string name="report_whatnext">Чтобы подать жалобу по нарушениям:\n1. Заполните жалобу.\n2. Передайте её председателю.\n3. Оставьте один экземпляр у себя.</string>
+    <string name="report_whatnext">1. Заполните жалобу в двух экземплярах\n2. Передайте один экземпляр  председателю\n3. На втором экземпляре попросите поставить запись &quot;Копия верна&quot;, расписаться, проставить время и дату принятия жалобы. Этот экземпляр оставьте у себя или передайте в штаб.\n4. Если жалобу не принимают, звоните в штаб и переправляйте ее в вышестоящую комиссию с припиской об отказе в принятии жалобы.\nЕсли отказывают заверить копию, пишите на ней:&quot;Председатель комиссии заверить копию отказался&quot;</string>
     <string name="good_report_text">Выполнено 5 требований</string>
     <string name="sos_report_title">Меня удаляют. Что делать?</string>
     <string name="sos_report_hint">Сообщите нам об удалении</string>
@@ -254,5 +254,16 @@
     <string name="candidate_representatives_observe_gas_vybody">Представители кандидатов присутствуют при вводе данных</string>
     <string name="upload_violation_notification">Отправляю данные на сервер</string>
     <string name="upload_media_notification">Отправляю фото и видео на сервер</string>
+    <string-array name="observer_status">
+        <item >Участник голосования</item>
+        <item >Наблюдатель</item>
+        <item >Член УИК с ПСГ</item>
+        <item >Член УИК с ПРГ</item>
+        <item >Член ТИК с ПСГ</item>
+        <item >Член ТИК с ПРГ</item>
+        <item >Представитель прессы</item>
+    </string-array>
+    <string name="sos_hint">Если Вас удаляют с участка:\n1. Попросите объяснить, чем конкретно Вы препятствуете работе комиссии\n2. Получите письменное решение комиссии со ссылкой на пункт закона о выборах и печатью комиссии\n3. Добейтесь составления акта об административном правонарушении\n4. Помните, если вы член комиссии, вас не имеют право удалить, только отстранить от работы\n5. Если вас удалили, сообщите об этом нам.</string>
+    <string name="district_region">Субъект федерации</string>
 
 </resources>

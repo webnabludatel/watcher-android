@@ -123,6 +123,8 @@ public class Consts {
 
 	public static final int VIOLATION_NOTIFICATION_ID = 1;
 	public static final int MEDIA_NOTIFICATION_ID = 2;
+	public static final String PREFS_FACEBOOK_EMAIL = "facebook_email";
+	public static final String PREFS_USER_ID = "user_id";
 
 	public static String getViolationDescription(int id) {
 		if (id == 0)
@@ -152,7 +154,7 @@ public class Consts {
 	
 	public static String getBadText(int id){
 		if(id == 0)
-			return "Нет нарушений";
+			return "нет нарушений";
 		if(id == 1)
 			return ""+id+" нарушение";
 		if(id > 1 && id < 5)
