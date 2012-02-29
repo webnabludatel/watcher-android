@@ -9,23 +9,21 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-import org.dvaletin.apps.nabludatel.utils.MediaSyncTask;
-import org.dvaletin.apps.nabludatel.utils.MediaSyncTask.IMediaSyncCallCallback;
-import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask;
-import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask.IViolationSyncCallCallback;
+import org.dvaletin.apps.nabludatel.utils.*;
 
-import java.util.concurrent.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class MainWindow extends TabActivity implements IViolationSyncCallCallback, IMediaSyncCallCallback {
-
-	private final ScheduledExecutorService syncronizer = Executors.newScheduledThreadPool(2);
-	private final ElectionsDBHelper db = new ElectionsDBHelper(this);
+public class MainWindow extends TabActivity {
+	private final Set<ExecuterWithNotification> syncronizers = new HashSet<ExecuterWithNotification>();
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,10 +61,20 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 	private void setupUpdateThreads() {
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
-		final NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
+		for (ExecuterWithNotification syncronizer : syncronizers) {
+			syncronizer.dispose();
+		}
+		syncronizers.clear();
 
-		syncronizer.scheduleWithFixedDelay(new ViolationSyncTask(db, cloud, this), 1L, 5L, TimeUnit.SECONDS);
-		syncronizer.scheduleWithFixedDelay(new MediaSyncTask(db, cloud, this), 2L, 40L, TimeUnit.SECONDS);
+		NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
+
+		SyncTask violationSyncTask = new ViolationSyncTask(cloud, this,
+				new SyncNotification(1, this, "Отправка данных на сервер"));
+		syncronizers.add(new ExecuterWithNotification(violationSyncTask, 5L));
+
+		SyncTask mediaSyncTask = new MediaSyncTask(this, cloud,
+				new SyncNotification(2, this, "Загрузка фото и видео на сервер"));
+		syncronizers.add(new ExecuterWithNotification(mediaSyncTask, 30L));
 	}
 
 	private void setupUI() {
@@ -92,63 +100,29 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 			public void onCheckedChanged(RadioGroup group, final int checkedId) {
 				prefs.edit().putInt(Consts.PREFS_LAST_TAB, checkedId).commit();
 				switch (checkedId) {
-				case R.id.first:{
-					getTabHost().setCurrentTab(0);
-					break;
-				}
-				case R.id.second:
-					getTabHost().setCurrentTab(1);
-					break;
-				case R.id.third:
-					getTabHost().setCurrentTab(2);
-					break;
-				case R.id.fourth:
-					getTabHost().setCurrentTab(3);
-					break;
-				case R.id.fifth:
-					getTabHost().setCurrentTab(4);
-					break;
+					case R.id.first: {
+						getTabHost().setCurrentTab(0);
+						break;
+					}
+					case R.id.second:
+						getTabHost().setCurrentTab(1);
+						break;
+					case R.id.third:
+						getTabHost().setCurrentTab(2);
+						break;
+					case R.id.fourth:
+						getTabHost().setCurrentTab(3);
+						break;
+					case R.id.fifth:
+						getTabHost().setCurrentTab(4);
+						break;
 				}
 			}
 		});
 		rg.check(prefs.getInt(Consts.PREFS_LAST_TAB, 0));
 	}
 
-	@Override
-	public void onViolationSyncStart() {
-	}
-
-	@Override
-	public void onViolationSyncFinish() {
-	}
-
-	@Override
-	public void onViolationSyncError(String msg) {
-		showErrorMessage(msg);
-	}
-
-	@Override
-	public void onViolationSyncProgressUpdate(int progress) {
-	}
-
-	@Override
-	public void onMediaSyncStart() {
-	}
-
-	@Override
-	public void onMediaSyncFinish() {
-	}
-
-	@Override
-	public void onMediaSyncProgressUpdate(int progress) {
-	}
-
-	@Override
-	public void onMediaSyncError(String msg) {
-		showErrorMessage(msg);
-	}
-
-	private void showErrorMessage(final String msg) {
+	public void showErrorMessage(final String msg) {
 		runOnUiThread(new Runnable() {
 			public void run() {
 				AlertDialog.Builder builder = new AlertDialog.Builder(MainWindow.this);
@@ -163,5 +137,26 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 				alert.show();
 			}
 		});
+	}
+
+	private final class ExecuterWithNotification {
+		private final ScheduledExecutorService executer;
+		private final SyncTask task;
+
+		private ExecuterWithNotification(SyncTask task, long fixedDelaySeconds) {
+			this.task = task;
+			this.executer = Executors.newSingleThreadScheduledExecutor();
+			this.executer.scheduleWithFixedDelay(task, 1L, fixedDelaySeconds, TimeUnit.SECONDS);
+		}
+
+		public void dispose() {
+			try {
+				executer.shutdownNow();
+			} catch (Exception e) {
+				Log.e(ExecuterWithNotification.class.getSimpleName(), "Can't dispose executer", e);
+			} finally {
+				task.dispose();
+			}
+		}
 	}
 }
