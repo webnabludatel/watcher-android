@@ -1,8 +1,6 @@
 package org.dvaletin.apps.nabludatel.utils;
 
-import android.content.Context;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.util.Log;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloudRequestTimeTooSkewedException;
@@ -10,29 +8,25 @@ import org.dvaletin.apps.nabludatel.server.NabludatelCloudRequestTimeTooSkewedEx
 import java.io.File;
 import java.io.IOException;
 
-public class MediaSyncTask extends AsyncTask<Context, String, String> {
+public class MediaSyncTask implements Runnable {
 	private static final String T = MediaSyncTask.class.getSimpleName();
 
 	private final NabludatelCloud cloud;
 	private final IMediaSyncCallCallback callback;
+	private final ElectionsDBHelper db;
 
-	public MediaSyncTask(NabludatelCloud cloud, IMediaSyncCallCallback callback) {
+	public MediaSyncTask(ElectionsDBHelper db, NabludatelCloud cloud, IMediaSyncCallCallback callback) {
+		this.db = db;
 		this.cloud = cloud;
 		this.callback = callback;
 	}
 
 	@Override
-	protected String doInBackground(Context... contexts) {
-		if (contexts == null || contexts.length == 0) {
-			Log.w(T, "No context available");
-			return null;
-		}
+	public void run() {
 		if (callback != null) callback.onMediaSyncStart();
 		try {
 			if (cloud.tryAuthenticate()) {
-				for (Context context : contexts) {
-					performSync(context);
-				}
+				performSync(db);
 			}
 		} catch (NabludatelCloudRequestTimeTooSkewedException e) {
 			Log.w(T, "Time too skewed on client, this deny S3 uploading");
@@ -43,48 +37,41 @@ public class MediaSyncTask extends AsyncTask<Context, String, String> {
 			Log.w(T, "Media synchronization error", e);
 		}
 		if (callback != null) callback.onMediaSyncFinish();
-		return null;
 	}
 
-	private void performSync(Context context) throws NabludatelCloudRequestTimeTooSkewedException, IOException {
-		ElectionsDBHelper db = new ElectionsDBHelper(context);
-		db.open();
+	private void performSync(ElectionsDBHelper db) throws NabludatelCloudRequestTimeTooSkewedException, IOException {
+		Cursor c = db.getAllMediaItemsNotSynchronizedWithServer();
 		try {
-			Cursor c = db.getAllMediaItemsNotSynchronizedWithServer();
-			try {
-				c.moveToFirst();
-				for (int i = 0; i < c.getCount(); i++) {
-					if (callback != null) callback.onMediaSyncProgresUpdate((i / c.getCount()) * 100);
-					long mediaRowId = c.getLong(0);
-					String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
-					String mediaType = c.getString(ElectionsDBHelper.MEDIAITEM_MEDIATYPE_COLUMN);
-					long mediaTimeStamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
-					long mediaChecklistId = c.getLong(ElectionsDBHelper.MEDIAITEM_CHECKLISTITEM_COLUMN);
-					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
+			c.moveToFirst();
+			for (int i = 0; i < c.getCount(); i++) {
+				if (callback != null) callback.onMediaSyncProgressUpdate((i / c.getCount()) * 100);
+				long mediaRowId = c.getLong(0);
+				String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+				String mediaType = c.getString(ElectionsDBHelper.MEDIAITEM_MEDIATYPE_COLUMN);
+				long mediaTimeStamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
+				long mediaChecklistId = c.getLong(ElectionsDBHelper.MEDIAITEM_CHECKLISTITEM_COLUMN);
+				long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
 
-					long serverMessageId = db.getCheckListItemServerId(mediaChecklistId);
-					String violationName = db.getCheckListItemViolationName(mediaChecklistId);
-					if (serverMessageId != -1L) {
-						File toSend = new File(filePath);
-						if (toSend.exists()) {
-							mediaItemServerId = cloud.uploadMediaToMessage(serverMessageId, mediaTimeStamp, violationName, toSend, mediaType, mediaRowId, mediaChecklistId);
-							Log.d(T, "Item sent:" + toSend.getCanonicalPath());
-							db.updateMediaItemServerId(mediaRowId, mediaItemServerId);
-						} else {
-							Log.d(T, "File " + toSend.getCanonicalPath() + " does not exists, deleting record MediaItem:" + mediaRowId);
-							db.removeMediaItem(mediaRowId);
-							if (mediaItemServerId != -1) {
-								cloud.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId);
-							}
+				long serverMessageId = db.getCheckListItemServerId(mediaChecklistId);
+				String violationName = db.getCheckListItemViolationName(mediaChecklistId);
+				if (serverMessageId != -1L) {
+					File toSend = new File(filePath);
+					if (toSend.exists()) {
+						mediaItemServerId = cloud.uploadMediaToMessage(serverMessageId, mediaTimeStamp, violationName, toSend, mediaType, mediaRowId, mediaChecklistId);
+						Log.d(T, "Item sent:" + toSend.getCanonicalPath());
+						db.updateMediaItemServerId(mediaRowId, mediaItemServerId);
+					} else {
+						Log.d(T, "File " + toSend.getCanonicalPath() + " does not exists, deleting record MediaItem:" + mediaRowId);
+						db.removeMediaItem(mediaRowId);
+						if (mediaItemServerId != -1) {
+							cloud.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId);
 						}
 					}
-					c.moveToNext();
 				}
-			} finally {
-				c.close();
+				c.moveToNext();
 			}
 		} finally {
-			db.close();
+			c.close();
 		}
 	}
 
@@ -93,7 +80,7 @@ public class MediaSyncTask extends AsyncTask<Context, String, String> {
 
 		public void onMediaSyncFinish();
 
-		public void onMediaSyncProgresUpdate(int progress);
+		public void onMediaSyncProgressUpdate(int progress);
 
 		public void onMediaSyncError(String msg);
 	}

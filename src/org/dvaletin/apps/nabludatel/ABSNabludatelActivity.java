@@ -31,6 +31,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public abstract class ABSNabludatelActivity extends Activity {
+	protected final ElectionsDBHelper mElectionsDB = new ElectionsDBHelper(this);
+
 	protected SharedPreferences prefs;
 	protected ArrayList<Uri> pictureFileUri;
 	protected ArrayList<Uri> videoFileUri;
@@ -40,7 +42,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 	File videoRequestFile;
 	long mCurrentPollingPlaceId = -1;
 	String mCurrentPollingPlaceType;
-	ElectionsDBHelper mElectionsDB;
 	HashMap<String, Violation> myState;
 	HashMap<String, View> activeViews;
 	double lat;
@@ -54,7 +55,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mElectionsDB = new ElectionsDBHelper(this);
 
 		pictureFileUri = new ArrayList<Uri>();
 		videoFileUri = new ArrayList<Uri>();
@@ -86,7 +86,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		mElectionsDB.open();
 		if(mCurrentPollingPlaceId > 0){
 			mCurrentPollingPlaceType = mElectionsDB.getPollingPlaceType(mCurrentPollingPlaceId);
 		}

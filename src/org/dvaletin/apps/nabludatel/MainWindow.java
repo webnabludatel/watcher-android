@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.widget.RadioButton;
@@ -15,16 +14,18 @@ import android.widget.RadioGroup;
 import android.widget.TabHost;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.MediaSyncTask;
 import org.dvaletin.apps.nabludatel.utils.MediaSyncTask.IMediaSyncCallCallback;
 import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask;
 import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask.IViolationSyncCallCallback;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.*;
 
 public class MainWindow extends TabActivity implements IViolationSyncCallCallback, IMediaSyncCallCallback {
-	private final Timer timer = new Timer();
+
+	private final ScheduledExecutorService syncronizer = Executors.newScheduledThreadPool(2);
+	private final ElectionsDBHelper db = new ElectionsDBHelper(this);
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,18 +65,8 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 
 		final NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
 
-		timer.schedule(new AsyncTimerTask() {
-			protected AsyncTask<Context, String, String> createTask() {
-				return new ViolationSyncTask(cloud, MainWindow.this);
-			}
-		}, 1000, 5000);
-
-
-		timer.schedule(new AsyncTimerTask() {
-			protected AsyncTask<Context, String, String> createTask() {
-				return new MediaSyncTask(cloud, MainWindow.this);
-			}
-		}, 3000, 60000);
+		syncronizer.scheduleWithFixedDelay(new ViolationSyncTask(db, cloud, this), 1L, 5L, TimeUnit.SECONDS);
+		syncronizer.scheduleWithFixedDelay(new MediaSyncTask(db, cloud, this), 2L, 40L, TimeUnit.SECONDS);
 	}
 
 	private void setupUI() {
@@ -149,7 +140,7 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 	}
 
 	@Override
-	public void onMediaSyncProgresUpdate(int progress) {
+	public void onMediaSyncProgressUpdate(int progress) {
 	}
 
 	@Override
@@ -172,17 +163,5 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 				alert.show();
 			}
 		});
-	}
-
-	private abstract class AsyncTimerTask extends TimerTask {
-		protected abstract AsyncTask<Context, String, String> createTask();
-
-		public void run() {
-			runOnUiThread(new Runnable() {
-				public void run() {
-					createTask().execute(MainWindow.this);
-				}
-			});
-		}
 	}
 }
