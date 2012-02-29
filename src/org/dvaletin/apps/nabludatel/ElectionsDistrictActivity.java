@@ -113,11 +113,17 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 				.getSelectedItemPosition();
 		String district_type = Consts.DISTRICT_TYPE[position];
 		long time = System.currentTimeMillis();
-		long id = mElectionsDB.addPollingPlace(uik_district_chairman, lat, lng,
+		if(district_id > 0){
+			mElectionsDB.updatePollingPlace(district_id, uik_district_chairman, lat, lng,
+					uik_district_number, -1, uik_district_secretary, time,
+					uik_watchers, district_type);
+		}else{
+			long id = mElectionsDB.addPollingPlace(uik_district_chairman, lat, lng,
 				uik_district_number, -1, uik_district_secretary, time,
 				uik_watchers, district_type);
 		
-		getReturnIntent().putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);
+			getReturnIntent().putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);
+		}
 	}
 
 }

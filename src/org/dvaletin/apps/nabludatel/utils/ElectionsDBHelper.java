@@ -290,8 +290,8 @@ public class ElectionsDBHelper {
 
 	}
 
-	public long updatePollingPlace(long rowIndex, String chairman, Float lat,
-			Float lng, String name, Integer number, String secretary,
+	public long updatePollingPlace(long rowIndex, String chairman, double lat,
+			double lng, String name, Integer number, String secretary,
 			long timestamp, Integer totalobservers, String type) {
 		String where = POLLINGPLACE_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
