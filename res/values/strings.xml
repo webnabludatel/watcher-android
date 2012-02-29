@@ -252,5 +252,7 @@
     <string name="tik_rewrite_uik_protocol_">Случаи переписывания протокола</string>
     <string name="gas_vybory_is_in_separate_room">Компьютер с системой находится в отдельном помещении</string>
     <string name="candidate_representatives_observe_gas_vybody">Представители кандидатов присутствуют при вводе данных</string>
+    <string name="upload_violation_notification">Отправляю данные на сервер</string>
+    <string name="upload_media_notification">Отправляю фото и видео на сервер</string>
 
 </resources>
