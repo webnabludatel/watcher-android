@@ -23,6 +23,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 	protected static final String T = ElectionsDistrictActivity.class.getSimpleName();
 
 	long district_id = 0;
+	int district_type_selection_id = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,14 +37,14 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		Intent intent = this.getIntent();
 		district_id = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, 0);
 		durtyResumeHack = false;
-		int selection = 0;
+		
 		if(district_id != 0){
 			Cursor c = mElectionsDB.getPollingPlaceByNumber(district_id);
 			if(c.getCount() > 0){
 				uik_district_number.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_NAME_COLUMN));
 				uik_district_chairman.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_CHAIRMAN_COLUMN));
 				uik_district_secretary.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_SECRETARY_COLUMN));
-				selection = c.getInt(ElectionsDBHelper.POLLINGPLACE_SELECTION_COLUMN);
+				district_type_selection_id = c.getInt(ElectionsDBHelper.POLLINGPLACE_SELECTION_COLUMN);
 				String district_type_string = c.getString(ElectionsDBHelper.POLLINGPLACE_TYPE_COLUMN);
 				for(int i=0; i < Consts.DISTRICT_TYPE.length; i++){
 					if(Consts.DISTRICT_TYPE[i].equals(district_type_string))
@@ -58,7 +59,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		
 		district_region.setAdapter(adapter);
 		try{
-			district_region.setSelection(selection);
+			district_region.setSelection(district_type_selection_id);
 		} catch (Exception e){
 			e.printStackTrace();
 		}
@@ -110,11 +111,11 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		if(district_id > 0){
 			mElectionsDB.updatePollingPlace(district_id, uik_district_chairman, lat, lng,
 					uik_district_number, -1, uik_district_secretary, time,
-					0, district_type);
+					district_type_selection_id, district_type);
 		}else{
 			long id = mElectionsDB.addPollingPlace(uik_district_chairman, lat, lng,
 				uik_district_number, -1, uik_district_secretary, time,
-				0, district_type);
+				district_type_selection_id, district_type);
 		
 			getReturnIntent().putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);
 		}
