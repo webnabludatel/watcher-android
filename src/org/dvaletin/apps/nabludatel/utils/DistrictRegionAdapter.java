@@ -45,11 +45,11 @@ public class DistrictRegionAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		ViewHolder holder;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.list_view_item_layout,
+			convertView = mInflater.inflate(R.layout.district_view_item_layout,
 					null);
 			holder = new ViewHolder();
 			holder.txtTitle = (TextView) convertView
-					.findViewById(R.id.list_view_item_title);
+					.findViewById(R.id.list_view_item);
 
 			convertView.setTag(holder);
 		} else {

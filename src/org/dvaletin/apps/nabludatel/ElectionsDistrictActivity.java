@@ -53,17 +53,17 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 			}
 		}
 		Spinner district_region = (Spinner) findViewById(R.id.district_region);
-
+		
 		DistrictRegionAdapter adapter = new DistrictRegionAdapter(this, DistrictRegion.RU_REGIONS);
+		
 		district_region.setAdapter(adapter);
+		
 		district_region.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				if( view instanceof TextView){
-					Log.d(T, ((TextView)view).getText().toString());
-				}
-				
+					EditText fake_district_region = (EditText) findViewById(R.id.fake_district_region);
+					fake_district_region.setText(String.valueOf(id));		
 			}
 
 			@Override
@@ -71,6 +71,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 				// TODO Auto-generated method stub
 				
 			}} );
+		
 	}
 
 	@Override
