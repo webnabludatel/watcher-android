@@ -168,7 +168,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 				return secretKey;
 			}
 		} catch (IOException e) {
-			Log.w(T, "Error reading aws.properties", e);
+			Log.w(T, "Error reading facebook.properties", e);
 		}
 		throw new IllegalStateException("Can't get Facebook access keys");
 	}

@@ -38,19 +38,30 @@
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/district_region" />
+                            android:text="@string/district_region" android:textAppearance="?android:attr/textAppearanceMedium" 
+                            />
 
                         <Spinner
                             android:id="@+id/district_region"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
+                        <EditText
+                            android:id="@+id/fake_district_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:enabled="false"
+                            android:tag="district_region"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/textView1"
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/district_type" />
+                            android:text="@string/district_type" 
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <Spinner
                             android:id="@+id/district_type"
@@ -72,8 +83,6 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/uik_district_number_hint"
                             android:tag="uik_district_number" >
-
-                            <requestFocus />
                         </EditText>
 
                         <TextView

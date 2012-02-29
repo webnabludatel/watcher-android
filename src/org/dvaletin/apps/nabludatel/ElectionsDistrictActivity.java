@@ -3,14 +3,23 @@ package org.dvaletin.apps.nabludatel;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.DistrictRegionAdapter;
+import org.dvaletin.apps.nabludatel.utils.DistrictRegionsArrayList;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 
 public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 	private static final int DIALOG_FIO_ERROR = 1;
 	private static final int DIALOG_NUMBER_ERROR = 2;
+	protected static final String T = ElectionsDistrictActivity.class.getSimpleName();
 
 	long district_id = 0;
 
@@ -23,6 +32,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		EditText uik_district_chairman = (EditText) findViewById(R.id.uik_district_chairman);
 		EditText uik_district_secretary = (EditText) findViewById(R.id.uik_district_secretary);
 		EditText uik_district_watchers_count = (EditText) findViewById(R.id.uik_district_watchers_count);
+		EditText fake_district_region = (EditText) findViewById(R.id.fake_district_region);
 		Intent intent = this.getIntent();
 		district_id = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, 0);
 		durtyResumeHack = false;
@@ -41,6 +51,25 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 				
 			}
 		}
+		Spinner district_region = (Spinner) findViewById(R.id.district_region);
+		DistrictRegionsArrayList regions = new DistrictRegionsArrayList();
+		DistrictRegionAdapter adapter = new DistrictRegionAdapter(this, regions.getRegions());
+		district_region.setAdapter(adapter);
+		district_region.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if( view instanceof TextView){
+					Log.d(T, ((TextView)view).getText().toString());
+				}
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}} );
 	}
 
 	@Override
