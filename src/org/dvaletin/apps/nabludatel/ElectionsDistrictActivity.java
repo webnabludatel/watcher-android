@@ -12,8 +12,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.DistrictRegion;
 import org.dvaletin.apps.nabludatel.utils.DistrictRegionAdapter;
-import org.dvaletin.apps.nabludatel.utils.DistrictRegionsArrayList;
+
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 
 public class ElectionsDistrictActivity extends ABSNabludatelActivity {
@@ -52,8 +53,8 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 			}
 		}
 		Spinner district_region = (Spinner) findViewById(R.id.district_region);
-		DistrictRegionsArrayList regions = new DistrictRegionsArrayList();
-		DistrictRegionAdapter adapter = new DistrictRegionAdapter(this, regions.getRegions());
+
+		DistrictRegionAdapter adapter = new DistrictRegionAdapter(this, DistrictRegion.RU_REGIONS);
 		district_region.setAdapter(adapter);
 		district_region.setOnItemSelectedListener(new OnItemSelectedListener() {
 

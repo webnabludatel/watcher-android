@@ -1,6 +1,5 @@
 package org.dvaletin.apps.nabludatel.utils;
 
-import java.util.ArrayList;
 
 import org.dvaletin.apps.nabludatel.R;
 
@@ -13,33 +12,36 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class DistrictRegionAdapter extends BaseAdapter {
-	private ArrayList<DistrictRegion> regions;
+	private DistrictRegion[] regions;
 	private LayoutInflater mInflater;
 	
-	public DistrictRegionAdapter(Context context, ArrayList<DistrictRegion> items){
-		setRegions(items);
-		mInflater = LayoutInflater.from(context);
+
+	public DistrictRegionAdapter(Context context, DistrictRegion... regions){
+		this.regions = regions;
+		this.mInflater = LayoutInflater.from(context);
 	}
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return regions.size();
+		return regions.length;
 	}
 
 	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return regions.get(position);
+
+	public String getItem(int position) {
+		return regions[position].getTitle();
+
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return position;
+
+
+		return regions[position].getId();
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+
 		// TODO Auto-generated method stub
 		ViewHolder holder;
 		if (convertView == null) {
@@ -54,17 +56,12 @@ public class DistrictRegionAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.txtTitle.setText(regions.get(position).getTitle());
+		holder.txtTitle.setText(regions[position].getTitle());
 
 
 		return convertView;
 	}
-	public ArrayList<DistrictRegion> getRegions() {
-		return regions;
-	}
-	public void setRegions(ArrayList<DistrictRegion> regions) {
-		this.regions = regions;
-	}
+	
 	public class ViewHolder {
 		TextView txtTitle;
 	}
