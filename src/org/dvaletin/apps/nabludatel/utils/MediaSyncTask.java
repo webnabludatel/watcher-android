@@ -44,7 +44,7 @@ public class MediaSyncTask implements Runnable {
 		try {
 			c.moveToFirst();
 			for (int i = 0; i < c.getCount(); i++) {
-				if (callback != null) callback.onMediaSyncProgresUpdate((i / c.getCount()) * 100);
+				if (callback != null) callback.onMediaSyncProgressUpdate((i / c.getCount()) * 100);
 				long mediaRowId = c.getLong(0);
 				String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
 				String mediaType = c.getString(ElectionsDBHelper.MEDIAITEM_MEDIATYPE_COLUMN);
@@ -80,7 +80,7 @@ public class MediaSyncTask implements Runnable {
 
 		public void onMediaSyncFinish();
 
-		public void onMediaSyncProgresUpdate(int progress);
+		public void onMediaSyncProgressUpdate(int progress);
 
 		public void onMediaSyncError(String msg);
 	}

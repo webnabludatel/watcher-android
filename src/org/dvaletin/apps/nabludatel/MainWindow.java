@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.widget.RadioButton;
@@ -21,8 +20,6 @@ import org.dvaletin.apps.nabludatel.utils.MediaSyncTask.IMediaSyncCallCallback;
 import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask;
 import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask.IViolationSyncCallCallback;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.*;
 
 public class MainWindow extends TabActivity implements IViolationSyncCallCallback, IMediaSyncCallCallback {
@@ -143,7 +140,7 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 	}
 
 	@Override
-	public void onMediaSyncProgresUpdate(int progress) {
+	public void onMediaSyncProgressUpdate(int progress) {
 	}
 
 	@Override
