@@ -23,11 +23,12 @@ import org.dvaletin.apps.nabludatel.utils.ViolationSyncTask.IViolationSyncCallCa
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.*;
 
 public class MainWindow extends TabActivity implements IViolationSyncCallCallback, IMediaSyncCallCallback {
 
-	private Timer timer;
-	private ElectionsDBHelper db;
+	private final ScheduledExecutorService syncronizer = Executors.newScheduledThreadPool(2);
+	private final ElectionsDBHelper db = new ElectionsDBHelper(this);
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,47 +63,13 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 		setupUpdateThreads();
 	}
 
-	@Override
-	protected void onDestroy() {
-		releaseTimerAndDb();
-		super.onDestroy();
-	}
-
-	private void releaseTimerAndDb() {
-		try {
-			if (timer != null) {
-				timer.cancel();
-			}
-		} finally {
-			if (db != null) {
-				db.close();
-			}
-		}
-	}
-
 	private void setupUpdateThreads() {
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
 		final NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
 
-		releaseTimerAndDb();
-
-		db = new ElectionsDBHelper(this);
-		db.open();
-
-		timer = new Timer();
-		timer.schedule(new AsyncTimerTask() {
-			protected AsyncTask<ElectionsDBHelper, String, String> createTask() {
-				return new ViolationSyncTask(cloud, MainWindow.this);
-			}
-		}, 1000, 5000);
-
-
-		timer.schedule(new AsyncTimerTask() {
-			protected AsyncTask<ElectionsDBHelper, String, String> createTask() {
-				return new MediaSyncTask(cloud, MainWindow.this);
-			}
-		}, 3000, 60000);
+		syncronizer.scheduleWithFixedDelay(new ViolationSyncTask(db, cloud, this), 1L, 5L, TimeUnit.SECONDS);
+		syncronizer.scheduleWithFixedDelay(new MediaSyncTask(db, cloud, this), 2L, 40L, TimeUnit.SECONDS);
 	}
 
 	private void setupUI() {
@@ -199,17 +166,5 @@ public class MainWindow extends TabActivity implements IViolationSyncCallCallbac
 				alert.show();
 			}
 		});
-	}
-
-	private abstract class AsyncTimerTask extends TimerTask {
-		protected abstract AsyncTask<ElectionsDBHelper, String, String> createTask();
-
-		public void run() {
-			runOnUiThread(new Runnable() {
-				public void run() {
-					createTask().execute(db);
-				}
-			});
-		}
 	}
 }

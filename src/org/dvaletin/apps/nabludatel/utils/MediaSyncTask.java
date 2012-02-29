@@ -1,59 +1,42 @@
 package org.dvaletin.apps.nabludatel.utils;
 
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.util.Log;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloudRequestTimeTooSkewedException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.locks.ReentrantLock;
 
-public class MediaSyncTask extends AsyncTask<ElectionsDBHelper, String, String> {
+public class MediaSyncTask implements Runnable {
 	private static final String T = MediaSyncTask.class.getSimpleName();
-
-	private static final ReentrantLock lock = new ReentrantLock();
 
 	private final NabludatelCloud cloud;
 	private final IMediaSyncCallCallback callback;
+	private final ElectionsDBHelper db;
 
-	public MediaSyncTask(NabludatelCloud cloud, IMediaSyncCallCallback callback) {
+	public MediaSyncTask(ElectionsDBHelper db, NabludatelCloud cloud, IMediaSyncCallCallback callback) {
+		this.db = db;
 		this.cloud = cloud;
 		this.callback = callback;
 	}
 
 	@Override
-	protected String doInBackground(ElectionsDBHelper... dbs) {
-		if (lock.tryLock()) {
-			try {
-				if (dbs == null || dbs.length == 0) {
-					Log.w(T, "No db available");
-					return null;
-				}
-				if (callback != null) callback.onMediaSyncStart();
-				try {
-					if (cloud.tryAuthenticate()) {
-						for (ElectionsDBHelper db : dbs) {
-							performSync(db);
-						}
-					}
-				} catch (NabludatelCloudRequestTimeTooSkewedException e) {
-					Log.w(T, "Time too skewed on client, this deny S3 uploading");
-					if (callback != null) callback.onMediaSyncError("На вашем телефоне неверно установлено время. " +
-							"Зайдите в настройки и включите автоматическую синхронизацию часов, даже если часовой " +
-							"пояс настроен неверно.");
-				} catch (Exception e) {
-					Log.w(T, "Media synchronization error", e);
-				}
-				if (callback != null) callback.onMediaSyncFinish();
-			} finally {
-				lock.unlock();
+	public void run() {
+		if (callback != null) callback.onMediaSyncStart();
+		try {
+			if (cloud.tryAuthenticate()) {
+				performSync(db);
 			}
-		} else {
-			Log.d(T, "Task already performed in other thread. Ignore");
+		} catch (NabludatelCloudRequestTimeTooSkewedException e) {
+			Log.w(T, "Time too skewed on client, this deny S3 uploading");
+			if (callback != null) callback.onMediaSyncError("На вашем телефоне неверно установлено время. " +
+					"Зайдите в настройки и включите автоматическую синхронизацию часов, даже если часовой " +
+					"пояс настроен неверно.");
+		} catch (Exception e) {
+			Log.w(T, "Media synchronization error", e);
 		}
-		return null;
+		if (callback != null) callback.onMediaSyncFinish();
 	}
 
 	private void performSync(ElectionsDBHelper db) throws NabludatelCloudRequestTimeTooSkewedException, IOException {

@@ -91,7 +91,6 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode != 0) {
-			this.mElectionsDB.open();
 			savePhotos();
 		}
 	}

@@ -3,7 +3,6 @@ package org.dvaletin.apps.nabludatel.utils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,25 +11,20 @@ import android.util.Log;
 public class ElectionsDBHelper {
 
 	private static final String TAG = "Elections.DB";
-	protected static final String DATABASE_NAME = "Elections.DB";
-	protected static final int DATABASE_VERSION = 7;
-	protected SQLiteDatabase mDb;
-	protected final Context mContext;
-	protected MyDbHelper mDbHelper;
+	private static final String DATABASE_NAME = "Elections.DB";
+	private static final int DATABASE_VERSION = 7;
+	private final MyDbHelper mDbHelper;
 
 	public ElectionsDBHelper(Context context) {
-		mContext = context;
-		mDbHelper = new MyDbHelper(mContext, DATABASE_NAME, null,
-				DATABASE_VERSION);
-	}
-
-	public ElectionsDBHelper open() throws SQLException {
-		mDb = mDbHelper.getWritableDatabase();
-		return this;
+		mDbHelper = new MyDbHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	public void close() {
-		mDb.close();
+		mDbHelper.close();
+	}
+
+	private SQLiteDatabase db() {
+		return mDbHelper.getWritableDatabase();
 	}
 
 	public static final String CHECKLISTITEM_TABLE = "CheckListItem";
@@ -151,7 +145,7 @@ public class ElectionsDBHelper {
 		contentValues.put(CHECKLISTITEM_SCREEN_ID_KEY, screen_id );
 		contentValues.put(CHECKLISTITEM_SERVER_ID_KEY, -1L);
 		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, -1L);
-		return mDb.insert(CHECKLISTITEM_TABLE, null, contentValues);
+		return db().insert(CHECKLISTITEM_TABLE, null, contentValues);
 
 	}
 
@@ -179,21 +173,21 @@ public class ElectionsDBHelper {
 		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, value.getPollingPlaceId());
 		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, value.getViolation());
 		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, 0L);
-		return mDb.update(CHECKLISTITEM_TABLE, contentValues, CHECKLISTITEM_ROW_ID + " = " + value.getId(), null);
+		return db().update(CHECKLISTITEM_TABLE, contentValues, CHECKLISTITEM_ROW_ID + " = " + value.getId(), null);
 
 	}
 
 	public boolean removeCheckListItem(long rowIndex) {
-		return mDb.delete(CHECKLISTITEM_TABLE, CHECKLISTITEM_ROW_ID + " = "
+		return db().delete(CHECKLISTITEM_TABLE, CHECKLISTITEM_ROW_ID + " = "
 				+ rowIndex, null) > 0;
 	}
 
 	public boolean removeAllCheckListItems() {
-		return mDb.delete(CHECKLISTITEM_TABLE, null, null) > 0;
+		return db().delete(CHECKLISTITEM_TABLE, null, null) > 0;
 	}
 
 	public Cursor getAllCheckListItemsNotSynchronizedWithServer() {
-		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
+		return db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
@@ -201,12 +195,12 @@ public class ElectionsDBHelper {
 				CHECKLISTITEM_SCREEN_ID_KEY,
 				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SERVER_ID_KEY},
 				CHECKLISTITEM_SERVER_STATUS_KEY + " <> 1 OR "
-				+ CHECKLISTITEM_SERVER_ID_KEY + " = -1",
+						+ CHECKLISTITEM_SERVER_ID_KEY + " = -1",
 				null, null, null, null);
 	}
 
 	public Cursor getViolationsByPollingPlaceId(long pollingPlaceId) {
-		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
+		return db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_VIOLATION_KEY},
 				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
 						+ CHECKLISTITEM_VALUE_KEY + " = 'false'",
@@ -214,7 +208,7 @@ public class ElectionsDBHelper {
 	}
 
 	public Cursor getNoneViolationsByPollingPlaceId(long pollingPlaceId) {
-		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
+		return db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_VIOLATION_KEY},
 				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
 						+ CHECKLISTITEM_VALUE_KEY + " = 'true'",
@@ -223,19 +217,19 @@ public class ElectionsDBHelper {
 	
 	public Cursor getCheckListItemsByPollingPlaceIdAndScreenId(
 			long pollingPlaceId, int screen_id) {
-		return mDb.query(CHECKLISTITEM_TABLE, new String[] {
+		return db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
 				CHECKLISTITEM_POLLINGPLACE_KEY, CHECKLISTITEM_VIOLATION_KEY,
 				CHECKLISTITEM_SERVER_ID_KEY, CHECKLISTITEM_SCREEN_ID_KEY},
 				CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
-				+ CHECKLISTITEM_SCREEN_ID_KEY + " = " + screen_id, // where
+						+ CHECKLISTITEM_SCREEN_ID_KEY + " = " + screen_id, // where
 				null, null, null, null);
 	}
 
 	public Cursor getCheckListItem(long rowIndex) {
-		Cursor res = mDb.query(CHECKLISTITEM_TABLE, new String[] {
+		Cursor res = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
@@ -243,26 +237,26 @@ public class ElectionsDBHelper {
 				CHECKLISTITEM_SCREEN_ID_KEY,
 				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SERVER_ID_KEY},
 				CHECKLISTITEM_ROW_ID + " = "
-				+ rowIndex, null, null, null, null);
+						+ rowIndex, null, null, null, null);
 		if (res != null) {
 			res.moveToFirst();
 		}
 		return res;
 	}
-	
+
 	public Cursor getCheckListItemViolation(long rowIndex) {
-		Cursor res = mDb.query(CHECKLISTITEM_TABLE, new String[] {
-				CHECKLISTITEM_VIOLATION_KEY	
+		Cursor res = db().query(CHECKLISTITEM_TABLE, new String[]{
+				CHECKLISTITEM_VIOLATION_KEY
 		}, CHECKLISTITEM_ROW_ID + " = " + rowIndex, null, null, null, null);
 		if (res != null){
 			res.moveToFirst();
 		}
 		return res;
 	}
-	
+
 	public String getCheckListItemViolationName(long rowIndex) {
-		Cursor res = mDb.query(CHECKLISTITEM_TABLE, new String[] {
-				CHECKLISTITEM_NAME_KEY	
+		Cursor res = db().query(CHECKLISTITEM_TABLE, new String[]{
+				CHECKLISTITEM_NAME_KEY
 		}, CHECKLISTITEM_ROW_ID + " = " + rowIndex, null, null, null, null);
 		if (res != null && res.getCount() > 0){
 			res.moveToFirst();
@@ -276,7 +270,7 @@ public class ElectionsDBHelper {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(CHECKLISTITEM_SERVER_ID_KEY, serverId);
 		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, 1);
-		return mDb.update(CHECKLISTITEM_TABLE, contentValues, where, null);
+		return db().update(CHECKLISTITEM_TABLE, contentValues, where, null);
 	}
 
 	public long addPollingPlace(String chairman, double lat, double lng,
@@ -292,7 +286,7 @@ public class ElectionsDBHelper {
 		contentValues.put(POLLINGPLACE_TIMESTAMP_KEY, time);
 		contentValues.put(POLLINGPLACE_TOTALOBSERVERS_KEY, totalobservers);
 		contentValues.put(POLLINGPLACE_TYPE_KEY, type);
-		return mDb.insert(POLLINGPLACE_TABLE, null, contentValues);
+		return db().insert(POLLINGPLACE_TABLE, null, contentValues);
 
 	}
 
@@ -310,36 +304,36 @@ public class ElectionsDBHelper {
 		contentValues.put(POLLINGPLACE_TIMESTAMP_KEY, timestamp);
 		contentValues.put(POLLINGPLACE_TOTALOBSERVERS_KEY, totalobservers);
 		contentValues.put(POLLINGPLACE_TYPE_KEY, type);
-		return mDb.update(POLLINGPLACE_TABLE, contentValues, where, null);
+		return db().update(POLLINGPLACE_TABLE, contentValues, where, null);
 
 	}
 
 	public boolean removePollingPlace(long rowIndex) {
-		return mDb.delete(POLLINGPLACE_TABLE, POLLINGPLACE_ROW_ID + " = "
+		return db().delete(POLLINGPLACE_TABLE, POLLINGPLACE_ROW_ID + " = "
 				+ rowIndex, null) > 0;
 	}
 
 	public boolean removeAllPollingPlace() {
-		return mDb.delete(POLLINGPLACE_TABLE, null, null) > 0;
+		return db().delete(POLLINGPLACE_TABLE, null, null) > 0;
 	}
 
 	public Cursor getAllPollingPlaces() {
-		return mDb.query(POLLINGPLACE_TABLE, new String[] {
+		return db().query(POLLINGPLACE_TABLE, new String[]{
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
 				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
 				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
 				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
-				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY }, null,
+				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY}, null,
 				null, null, null, null);
 	}
 
 	public Cursor getPollingPlace(long rowIndex) {
-		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
+		Cursor res = db().query(POLLINGPLACE_TABLE, new String[]{
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
 				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
 				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
 				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
-				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY },
+				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY},
 				POLLINGPLACE_ROW_ID + " = " + rowIndex, null, null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -356,12 +350,12 @@ public class ElectionsDBHelper {
 	}
 
 	public Cursor getPollingPlaceByNumber(long district_id) {
-		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
+		Cursor res = db().query(POLLINGPLACE_TABLE, new String[]{
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
 				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
 				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
 				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
-				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY },
+				POLLINGPLACE_TOTALOBSERVERS_KEY, POLLINGPLACE_TYPE_KEY},
 				POLLINGPLACE_ROW_ID + " = " + district_id, null,
 				null, null, null);
 		if (res != null) {
@@ -371,8 +365,8 @@ public class ElectionsDBHelper {
 	}
 
 	public Cursor getPollingPlaceNames() {
-		Cursor res = mDb.query(POLLINGPLACE_TABLE, new String[] {
-				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY, }, null, null,
+		Cursor res = db().query(POLLINGPLACE_TABLE, new String[]{
+				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY,}, null, null,
 				null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -392,7 +386,7 @@ public class ElectionsDBHelper {
 		contentValues.put(MEDIAITEM_POLLINGPLACE_KEY, pollingplace);
 		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, -1L);
 		contentValues.put(MEDIAITEM_SERVER_ID_KEY, -1L);
-		return mDb.insert(MEDIAITEM_TABLE, null, contentValues);
+		return db().insert(MEDIAITEM_TABLE, null, contentValues);
 
 	}
 
@@ -408,7 +402,7 @@ public class ElectionsDBHelper {
 		contentValues.put(MEDIAITEM_CHECKLISTITEM_KEY, checklistitem);
 		contentValues.put(MEDIAITEM_POLLINGPLACE_KEY, pollingplace);
 		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, 0L);
-		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
+		return db().update(MEDIAITEM_TABLE, contentValues, where, null);
 
 	}
 	
@@ -417,56 +411,56 @@ public class ElectionsDBHelper {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(MEDIAITEM_SERVER_ID_KEY, mediaServerId);
 		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, 1L);
-		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
+		return db().update(MEDIAITEM_TABLE, contentValues, where, null);
 	}
 
 	public long resetMediaItemServerStatus(long rowIndex) {
 		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(MEDIAITEM_SERVER_STATUS_KEY, 0L);
-		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
+		return db().update(MEDIAITEM_TABLE, contentValues, where, null);
 	}
 
-	public long updateMediaItemUrl(long rowIndex, String serverurl){
+	public long updateMediaItemUrl(long rowIndex, String serverurl) {
 		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(MEDIAITEM_SERVERURL_KEY, serverurl);
-		return mDb.update(MEDIAITEM_TABLE, contentValues, where, null);
+		return db().update(MEDIAITEM_TABLE, contentValues, where, null);
 	}
 
 	public boolean removeMediaItem(long rowIndex) {
-		return mDb.delete(MEDIAITEM_TABLE, MEDIAITEM_ROW_ID + " = " + rowIndex,
+		return db().delete(MEDIAITEM_TABLE, MEDIAITEM_ROW_ID + " = " + rowIndex,
 				null) > 0;
 	}
 
 	public boolean removeAllMediaItem() {
-		return mDb.delete(MEDIAITEM_TABLE, null, null) > 0;
+		return db().delete(MEDIAITEM_TABLE, null, null) > 0;
 	}
 
 	public Cursor getAllMediaItemsNotSynchronizedWithServer() {
-		return mDb.query(MEDIAITEM_TABLE, new String[] { MEDIAITEM_ROW_ID,
+		return db().query(MEDIAITEM_TABLE, new String[]{MEDIAITEM_ROW_ID,
 				MEDIAITEM_FILEPATH_KEY, MEDIAITEM_MEDIATYPE_KEY,
 				MEDIAITEM_SERVERURL_KEY, MEDIAITEM_TIMESTAMP_KEY,
 				MEDIAITEM_CHECKLISTITEM_KEY, MEDIAITEM_POLLINGPLACE_KEY,
 				MEDIAITEM_SERVER_STATUS_KEY, MEDIAITEM_SERVER_ID_KEY},
 				MEDIAITEM_SERVER_STATUS_KEY + " <> 1 OR "
-				+ MEDIAITEM_SERVER_ID_KEY + " = -1",
+						+ MEDIAITEM_SERVER_ID_KEY + " = -1",
 				null, null, null, null);
 	}
 
 	public Cursor getMediaItemsByCheckListItemIdAndMediaType(long checkListItemId, String mediaType) {
-		return mDb.query(MEDIAITEM_TABLE, new String[] { MEDIAITEM_ROW_ID,
+		return db().query(MEDIAITEM_TABLE, new String[]{MEDIAITEM_ROW_ID,
 				MEDIAITEM_FILEPATH_KEY, MEDIAITEM_MEDIATYPE_KEY,
 				MEDIAITEM_SERVERURL_KEY, MEDIAITEM_TIMESTAMP_KEY,
 				MEDIAITEM_CHECKLISTITEM_KEY, MEDIAITEM_POLLINGPLACE_KEY,
 				MEDIAITEM_SERVER_STATUS_KEY, MEDIAITEM_SERVER_ID_KEY},
 				MEDIAITEM_CHECKLISTITEM_KEY + " = " + checkListItemId + " AND "
-				+ MEDIAITEM_MEDIATYPE_KEY + " = '" + mediaType + "'",
+						+ MEDIAITEM_MEDIATYPE_KEY + " = '" + mediaType + "'",
 				null, null, null, null);
 	}
 
 	public Cursor getMediaItem(long rowIndex) {
-		Cursor res = mDb.query(MEDIAITEM_TABLE, new String[] {
+		Cursor res = db().query(MEDIAITEM_TABLE, new String[]{
 				MEDIAITEM_ROW_ID, MEDIAITEM_FILEPATH_KEY,
 				MEDIAITEM_MEDIATYPE_KEY, MEDIAITEM_SERVERURL_KEY,
 				MEDIAITEM_TIMESTAMP_KEY, MEDIAITEM_CHECKLISTITEM_KEY,

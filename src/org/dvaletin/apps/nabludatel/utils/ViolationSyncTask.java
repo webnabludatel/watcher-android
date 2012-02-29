@@ -1,51 +1,33 @@
 package org.dvaletin.apps.nabludatel.utils;
 
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.util.Log;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-public class ViolationSyncTask extends AsyncTask<ElectionsDBHelper, String, String> {
+public class ViolationSyncTask implements Runnable {
 	private static final String T = ViolationSyncTask.class.getSimpleName();
 
-	private static final ReentrantLock lock = new ReentrantLock();
-
+	private final ElectionsDBHelper db;
 	private final NabludatelCloud cloud;
 	private final IViolationSyncCallCallback callback;
 
-	public ViolationSyncTask(NabludatelCloud cloud, IViolationSyncCallCallback callback) {
+	public ViolationSyncTask(ElectionsDBHelper db, NabludatelCloud cloud, IViolationSyncCallCallback callback) {
+		this.db = db;
 		this.cloud = cloud;
 		this.callback = callback;
 	}
 
 	@Override
-	protected String doInBackground(ElectionsDBHelper... dbs) {
-		if (lock.tryLock()) {
-			try {
-				if (dbs == null || dbs.length == 0) {
-					Log.w(T, "No db available");
-					return null;
-				}
-				if (callback != null) callback.onViolationSyncStart();
-				try {
-					if (cloud.tryAuthenticate()) {
-						for (ElectionsDBHelper db : dbs) {
-							performSync(db);
-						}
-					}
-				} catch (Exception e) {
-					Log.w(T, "Synchronization error", e);
-				}
-				if (callback != null) callback.onViolationSyncFinish();
-			} finally {
-				lock.unlock();
+	public void run() {
+		if (callback != null) callback.onViolationSyncStart();
+		try {
+			if (cloud.tryAuthenticate()) {
+				performSync(db);
 			}
-		} else {
-			Log.d(T, "Task already performed in other thread. Ignore");
+		} catch (Exception e) {
+			Log.w(T, "Synchronization error", e);
 		}
-		return null;
+		if (callback != null) callback.onViolationSyncFinish();
 	}
 
 	private void performSync(ElectionsDBHelper db) {

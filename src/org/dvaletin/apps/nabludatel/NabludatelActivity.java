@@ -66,7 +66,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
 		String from[] = new String[] { ElectionsDBHelper.POLLINGPLACE_NAME_KEY };
 		int[] to = new int[] { android.R.id.text1 };
-		Cursor c = mElectionsDB.open().getPollingPlaceNames();
+		Cursor c = mElectionsDB.getPollingPlaceNames();
 		if (c.getCount() > 0) {
 			SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
 					android.R.layout.simple_spinner_item, c, from, to);

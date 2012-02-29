@@ -27,7 +27,7 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		district_id = intent.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, 0);
 		durtyResumeHack = false;
 		if(district_id != 0){
-			Cursor c = mElectionsDB.open().getPollingPlaceByNumber(district_id);
+			Cursor c = mElectionsDB.getPollingPlaceByNumber(district_id);
 			if(c.getCount() > 0){
 				uik_district_number.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_NAME_COLUMN));
 				uik_district_chairman.setText(c.getString(ElectionsDBHelper.POLLINGPLACE_CHAIRMAN_COLUMN));
