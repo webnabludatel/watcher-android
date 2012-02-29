@@ -67,8 +67,8 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				if(district_id > 0)
-					mElectionsDB.updatePollingPlaceSelection(district_id, position);
+
+				district_type_selection_id = position;
 				EditText fake_district_region = (EditText) findViewById(R.id.fake_district_region);
 				fake_district_region.setText(String.valueOf(id));		
 			}
