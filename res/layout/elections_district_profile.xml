@@ -118,22 +118,6 @@
                             android:tag="uik_district_secretary" />
 
                         <TextView
-                            android:id="@+id/textView5"
-                            style="@style/TextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/uik_district_watchers_count"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <EditText
-                            android:id="@+id/uik_district_watchers_count"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/uik_district_watchers_count_hint"
-                            android:inputType="number"
-                            android:tag="uik_district_watchers_count" />
-
-                        <TextView
                             android:id="@+id/textView6"
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
