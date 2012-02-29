@@ -120,8 +120,9 @@ public class Consts {
 	public static final String[] TIK_IKMO_MENU_DESCRIPTIONS = {
 		"Отметок нет",
 	};
-	
-	
+
+	public static final int VIOLATION_NOTIFICATION_ID = 1;
+	public static final int MEDIA_NOTIFICATION_ID = 2;
 
 	public static String getViolationDescription(int id) {
 		if (id == 0)
