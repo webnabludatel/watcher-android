@@ -51,33 +51,37 @@ public class MediaSyncTask extends AsyncTask<Context, String, String> {
 		db.open();
 		try {
 			Cursor c = db.getAllMediaItemsNotSynchronizedWithServer();
-			c.moveToFirst();
-			for (int i = 0; i < c.getCount(); i++) {
-				if (callback != null) callback.onMediaSyncProgresUpdate((i / c.getCount()) * 100);
-				long mediaRowId = c.getLong(0);
-				String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
-				String mediaType = c.getString(ElectionsDBHelper.MEDIAITEM_MEDIATYPE_COLUMN);
-				long mediaTimeStamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
-				long mediaChecklistId = c.getLong(ElectionsDBHelper.MEDIAITEM_CHECKLISTITEM_COLUMN);
-				long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
+			try {
+				c.moveToFirst();
+				for (int i = 0; i < c.getCount(); i++) {
+					if (callback != null) callback.onMediaSyncProgresUpdate((i / c.getCount()) * 100);
+					long mediaRowId = c.getLong(0);
+					String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+					String mediaType = c.getString(ElectionsDBHelper.MEDIAITEM_MEDIATYPE_COLUMN);
+					long mediaTimeStamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
+					long mediaChecklistId = c.getLong(ElectionsDBHelper.MEDIAITEM_CHECKLISTITEM_COLUMN);
+					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
 
-				long serverMessageId = db.getCheckListItemServerId(mediaChecklistId);
-				String violationName = db.getCheckListItemViolationName(mediaChecklistId);
-				if (serverMessageId != -1L) {
-					File toSend = new File(filePath);
-					if (toSend.exists()) {
-						mediaItemServerId = cloud.uploadMediaToMessage(serverMessageId, mediaTimeStamp, violationName, toSend, mediaType, mediaRowId, mediaChecklistId);
-						Log.d(T, "Item sent:" + toSend.getCanonicalPath());
-						db.updateMediaItemServerId(mediaRowId, mediaItemServerId);
-					} else {
-						Log.d(T, "File " + toSend.getCanonicalPath() + " does not exists, deleting record MediaItem:" + mediaRowId);
-						db.removeMediaItem(mediaRowId);
-						if (mediaItemServerId != -1) {
-							cloud.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId);
+					long serverMessageId = db.getCheckListItemServerId(mediaChecklistId);
+					String violationName = db.getCheckListItemViolationName(mediaChecklistId);
+					if (serverMessageId != -1L) {
+						File toSend = new File(filePath);
+						if (toSend.exists()) {
+							mediaItemServerId = cloud.uploadMediaToMessage(serverMessageId, mediaTimeStamp, violationName, toSend, mediaType, mediaRowId, mediaChecklistId);
+							Log.d(T, "Item sent:" + toSend.getCanonicalPath());
+							db.updateMediaItemServerId(mediaRowId, mediaItemServerId);
+						} else {
+							Log.d(T, "File " + toSend.getCanonicalPath() + " does not exists, deleting record MediaItem:" + mediaRowId);
+							db.removeMediaItem(mediaRowId);
+							if (mediaItemServerId != -1) {
+								cloud.setMediaDeletedForMessage(serverMessageId, mediaItemServerId, System.currentTimeMillis(), mediaRowId);
+							}
 						}
 					}
+					c.moveToNext();
 				}
-				c.moveToNext();
+			} finally {
+				c.close();
 			}
 		} finally {
 			db.close();
