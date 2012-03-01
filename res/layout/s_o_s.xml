@@ -9,21 +9,26 @@
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical" >
+        android:layout_height="34dp"
+        android:onClick="onInformationClick"
+        android:gravity="center_vertical"
+        >
 
         <TextView
             android:id="@+id/textView4"
-            style="@style/PanelText"
+            style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sos_report_title" />
+            android:text="@string/sos_report_title"
+            />
 
         <LinearLayout
             android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right" >
+            android:gravity="right"
+            android:onClick="onInformationClick"
+            android:paddingTop="8dp">
 
             <ImageView
                 android:id="@+id/i"

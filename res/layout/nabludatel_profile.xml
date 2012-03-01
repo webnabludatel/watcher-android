@@ -35,7 +35,7 @@
 
                         <TextView
                             android:id="@+id/textView7"
-                            style="@style/TextTitleLarge"
+                            style="@style/TitleText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/nabludatel_title" />
