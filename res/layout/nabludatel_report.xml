@@ -82,7 +82,8 @@
 
                 <FrameLayout
                     android:id="@+id/frameLayout2"
-                    style="@style/main_pane_style"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" >
