@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
 
-	NabludatelCustomListViewAdapter mRootListViewAdapter;
+	NabludatelCustomListViewAdapter mUikListViewAdapter;
 	NabludatelCheckListItemViewAdapter mBeforeElectionsAdapter;
 	NabludatelCheckListItemViewAdapter mDuringElectionsAdapter;
 	NabludatelCheckListItemViewAdapter mFinalMeetingAdapter;
@@ -95,17 +95,13 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 				@Override
 				public void onNothingSelected(AdapterView<?> arg0) {
-					// TODO Auto-generated method stub
-
 				}
 
 			});
-		} else {
-			// district.setVisibility(View.INVISIBLE);
 		}
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mRootListViewAdapter == null && c.getCount() > 0) {
+		if (mUikListViewAdapter == null && c.getCount() > 0) {
 			ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
 
 			for (int i = 0; i < Consts.ROOT_MENU_ITEMS.length; i++) {
@@ -113,7 +109,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 						Consts.ROOT_MENU_ITEMS[i],
 						Consts.ROOT_MENU_DESCRIPTIONS[i]));
 			}
-			mRootListViewAdapter = new NabludatelCustomListViewAdapter(this,
+			mUikListViewAdapter = new NabludatelCustomListViewAdapter(this,
 					mListViewItems);
 		}
 
@@ -131,7 +127,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		if (mCurrentPollingPlaceType == null) {
 			
 		} else if (mCurrentPollingPlaceType.equals(Consts.POLLING_PLACE_TYPE[0])) {
-			mMainSelector.setAdapter(mRootListViewAdapter);
+			mMainSelector.setAdapter(mUikListViewAdapter);
 		} else {
 			mMainSelector.setAdapter(mTikIkmoViewAdapter);
 		}
@@ -449,7 +445,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mMainSelector.getAdapter() != mRootListViewAdapter) {
+		if (mMainSelector.getAdapter() != mUikListViewAdapter) {
 			activateRootMenu();
 		} else {
 			super.onBackPressed();
@@ -524,16 +520,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			TextView txtTitle;
 			TextView txtDescription;
 		}
-	}
-
-	public void onReportButtonClick(View v) {
-		Intent intent = new Intent(this, NabludatelReportActivity.class);
-		startActivity(intent);
-	}
-
-	public void onProfileButtonClick(View v) {
-		Intent intent = new Intent(this, NabludatelProfileActivity.class);
-		startActivity(intent);
 	}
 
 	public void onPollingPlaceAddClick(View v) {
