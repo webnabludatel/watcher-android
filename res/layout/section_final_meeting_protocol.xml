@@ -34,13 +34,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/protocol_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -92,6 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:tag="protocol_copy_photo"
+                        android:onClick="onGalleryPhotoClick"
                         android:text="@string/ballot_box_violations_gallery" />
 
                     <Button

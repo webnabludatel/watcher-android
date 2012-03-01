@@ -204,6 +204,18 @@ public class ElectionsDBHelper {
 						+ CHECKLISTITEM_VALUE_KEY + " = 'false'",
 				null, null, null, null);
 	}
+	
+	public int getCheckListItemsCountByScreenId(int screenId) {
+		Cursor c = db().query(CHECKLISTITEM_TABLE, new String[]{
+				CHECKLISTITEM_ROW_ID}, 
+				CHECKLISTITEM_VIOLATION_KEY + " <> '' AND "
+				+CHECKLISTITEM_SCREEN_ID_KEY + " = "
+				+ screenId, null, null, null, null 
+				);
+		if(c == null)
+			return 0;
+		return c.getCount();
+	}
 
 	public Cursor getNoneViolationsByPollingPlaceId(long pollingPlaceId) {
 		return db().query(CHECKLISTITEM_TABLE, new String[]{

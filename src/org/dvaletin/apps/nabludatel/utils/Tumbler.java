@@ -22,6 +22,9 @@ public class Tumbler extends SeekBar {
 		loValue = a.getString(R.styleable.Tumbler_loValue);
 		hiValue = a.getString(R.styleable.Tumbler_hiValue);
 		violationText = a.getString(R.styleable.Tumbler_violationText);
+		/* Samsung bug fix */
+		this.setPadding(15, 0, 15, 0);
+		this.setThumbOffset(15);
 	}
 
 	public Tumbler(Context context, AttributeSet attrs) {

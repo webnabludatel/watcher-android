@@ -108,6 +108,23 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 			});
 			fillCheckListItems();
+			ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
+			if(mBeforeElectionsAdapter != null)
+				mUikListViewAdapter.getListViewItem(0).setDescription(this.mBeforeElectionsAdapter.getTotalVioltionsCount());
+			
+			if(this.mCountingAdapter != null)
+				mUikListViewAdapter.getListViewItem(2).setDescription(mCountingAdapter.getTotalVioltionsCount());
+			
+			if(this.mDuringElectionsAdapter != null)
+				mUikListViewAdapter.getListViewItem(1).setDescription(mDuringElectionsAdapter.getTotalVioltionsCount());
+			
+			if(this.mFinalMeetingAdapter != null)
+				mUikListViewAdapter.getListViewItem(3).setDescription(mFinalMeetingAdapter.getTotalVioltionsCount());
+			
+			if(this.mTikIkmoAdapter != null)
+				this.mTikIkmoViewAdapter.getListViewItem(0).setDescription(mTikIkmoAdapter.getTotalVioltionsCount());
+			
+			mMainSelector.invalidateViews();
 
 		} else {
 			findViewById(R.id.main_layout).setVisibility(View.INVISIBLE);
@@ -128,6 +145,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			}
 			mUikListViewAdapter = new NabludatelCustomListViewAdapter(this,
 					mListViewItems);
+			
 		}
 
 		if (mTikIkmoViewAdapter == null) {
@@ -213,6 +231,38 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		} else {
 			mMainSelector.setOnItemClickListener(mTIKClickListener);
 		}
+		
+		if (mBeforeElectionsAdapter == null) {
+
+			mBeforeElectionsAdapter = new NabludatelCheckListItemViewAdapter(
+					this, new SectionBeforeElections());
+			mBeforeElectionsAdapter.updateViolationCount(mElectionsDB);
+		}
+		
+		if (mDuringElectionsAdapter == null) {
+
+			mDuringElectionsAdapter = new NabludatelCheckListItemViewAdapter(
+					this, new SectionDuringElections());
+			mDuringElectionsAdapter.updateViolationCount(mElectionsDB);
+		}
+		
+		if (mCountingAdapter == null) {
+			mCountingAdapter = new NabludatelCheckListItemViewAdapter(this,
+					new SectionCounting());
+			mCountingAdapter.updateViolationCount(mElectionsDB);
+		}
+		
+		if (mFinalMeetingAdapter == null) {
+			mFinalMeetingAdapter = new NabludatelCheckListItemViewAdapter(this,
+					new SectionFinalMeeting());
+			mFinalMeetingAdapter.updateViolationCount(mElectionsDB);
+		}
+		
+		if (mTikIkmoAdapter == null) {
+			mTikIkmoAdapter = new NabludatelCheckListItemViewAdapter(this,
+					new SectionTikIkmo());
+			mTikIkmoAdapter.updateViolationCount(mElectionsDB);
+		}
 	}
 
 	protected void activateSectionBeforeElections() {
@@ -220,11 +270,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mBeforeElectionsAdapter == null) {
-
-			mBeforeElectionsAdapter = new NabludatelCheckListItemViewAdapter(
-					this, new SectionBeforeElections());
-		}
+		
 
 		mMainSelector.setAdapter(mBeforeElectionsAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
@@ -247,11 +293,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mDuringElectionsAdapter == null) {
-
-			mDuringElectionsAdapter = new NabludatelCheckListItemViewAdapter(
-					this, new SectionDuringElections());
-		}
+		
 
 		mMainSelector.setAdapter(mDuringElectionsAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
@@ -277,10 +319,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mCountingAdapter == null) {
-			mCountingAdapter = new NabludatelCheckListItemViewAdapter(this,
-					new SectionCounting());
-		}
+		
 
 		mMainSelector.setAdapter(mCountingAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
@@ -306,10 +345,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mFinalMeetingAdapter == null) {
-			mFinalMeetingAdapter = new NabludatelCheckListItemViewAdapter(this,
-					new SectionFinalMeeting());
-		}
+		
 
 		mMainSelector.setAdapter(mFinalMeetingAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
@@ -335,10 +371,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mTikIkmoAdapter == null) {
-			mTikIkmoAdapter = new NabludatelCheckListItemViewAdapter(this,
-					new SectionTikIkmo());
-		}
+		
 
 		mMainSelector.setAdapter(mTikIkmoAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
@@ -359,22 +392,22 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 	}
 
+	
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 		int violations = -1;
+		
+		
 		if (data != null)
 			violations = data.getIntExtra(Consts.PREFS_VIOLATIONS, -1);
-		if (violations >= 0 && mBeforeElectionsAdapter != null) {
-			for (int i = 0; i < mBeforeElectionsAdapter.getCount(); i++) {
-				if (((ListViewActivityItem) mBeforeElectionsAdapter.getItem(i))
-						.getLayout() == requestCode) {
-					mBeforeElectionsAdapter.updateViolations(i, violations);
-					mMainSelector.setAdapter(mBeforeElectionsAdapter);
-					break;
-				}
-			}
+		
+		if(mMainSelector.getAdapter() instanceof NabludatelCheckListItemViewAdapter){
+			((NabludatelCheckListItemViewAdapter)mMainSelector.getAdapter()).updateViolationCount(this.mElectionsDB);
+			mMainSelector.invalidateViews();
 		}
+		
 		switch (requestCode) {
 		case Consts.DISTRICT_ACTIVITY_REQUEST_CODE: {
 			if (data != null) {
@@ -419,6 +452,14 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		public String getDescription() {
 			return mDescription;
 		}
+		
+		public void setDescription(String desc){
+			mDescription = desc;
+		}
+		
+		public void setDescription(int iDesc){
+			setDescription(Consts.getViolationDescription(iDesc));
+		}
 	}
 
 	public class NabludatelCustomListViewAdapter extends BaseAdapter {
@@ -437,6 +478,10 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		}
 
 		public Object getItem(int position) {
+			return mItemsArrayList.get(position);
+		}
+		
+		public NabludatelListViewItem getListViewItem(int position){
 			return mItemsArrayList.get(position);
 		}
 

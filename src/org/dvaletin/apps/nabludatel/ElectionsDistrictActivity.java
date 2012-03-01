@@ -1,5 +1,8 @@
 package org.dvaletin.apps.nabludatel;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +15,7 @@ import org.dvaletin.apps.nabludatel.utils.*;
 import java.util.Arrays;
 
 public class ElectionsDistrictActivity extends ABSNabludatelActivity {
+	long mSelectedRegionId=-1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,7 +26,10 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		regionS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				updateCheckListItem(parent.getTag().toString(), String.valueOf(id), "");
+				if( id > 0){
+					updateCheckListItem(parent.getTag().toString(), String.valueOf(id), "");
+					mSelectedRegionId = id;
+				}
 			}
 
 			@Override
@@ -53,6 +60,8 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 				String type = c.getString(ElectionsDBHelper.POLLINGPLACE_TYPE_COLUMN);
 				typeS.setSelection(Arrays.asList(Consts.POLLING_PLACE_TYPE).indexOf(type));
 			}
+		}else{
+			regionS.setSelection(0);
 		}
 	}
 
@@ -60,11 +69,11 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 	protected void restoreView(View view, CheckListItem data) {
 		super.restoreView(view, data);
 		if (view instanceof Spinner) {
-			resporeSpinner(data, (Spinner) view);
+			restoreSpinner(data, (Spinner) view);
 		}
 	}
 
-	private void resporeSpinner(CheckListItem data, Spinner spinner) {
+	private void restoreSpinner(CheckListItem data, Spinner spinner) {
 		try {
 			Spinner regionS = (Spinner) findViewById(R.id.district_region);
 
@@ -83,18 +92,25 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+	}
 
 	@Override
 	public void onBackPressed() {
-		savePlace();
-		
-		super.onBackPressed();
+		if(savePlace())
+			super.onBackPressed();
 	}
 
-	public void savePlace() {
-
+	public boolean savePlace() {
+		// TODO добавить проверки!!!
 		String name = ((EditText) findViewById(R.id.district_number)).getText().toString();
-		if (name.equals("")) return;
+		if (name.equals("") || this.mSelectedRegionId == -1) {
+			this.showDialog(0);
+			return false;
+		}
 
 		String chairman = ((EditText) findViewById(R.id.district_chairman)).getText().toString();
 		String secretary = ((EditText) findViewById(R.id.district_secretary)).getText().toString();
@@ -117,6 +133,30 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 					secretary, regionId, districtType, -1);
 		}
 		getReturnIntent().putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, mCurrentPollingPlaceId);
+		
+		return true;
 	}
+	
+	@Override
+	protected
+	Dialog onCreateDialog(int id){
+		AlertDialog.Builder b = new AlertDialog.Builder(this);
+		b.setTitle("Ошибка").setMessage("Не заполнены обязательные поля (*)").setPositiveButton("Изменить", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				
+			}}).setNegativeButton("Выйти", new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					ElectionsDistrictActivity.this.finish();
+					
+				}});
+		return b.create();
+		
+	}
+	
 
 }

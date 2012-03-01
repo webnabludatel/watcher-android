@@ -21,6 +21,7 @@ public class Consts {
 			"Отметок нет",  "Отметок нет", "Отметок нет", "Отметок нет", "Отметок нет",};
 
 	public final static DistrictRegion[] REGIONS = {
+			new DistrictRegion(-1, "Выберите регион"),
 			new DistrictRegion(77, "Город Москва"),
 			new DistrictRegion(78, "Город Санкт-Петербург"),
 			new DistrictRegion(1, "Республика Адыгея"),

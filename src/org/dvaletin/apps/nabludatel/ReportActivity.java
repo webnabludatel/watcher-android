@@ -99,9 +99,9 @@ public class ReportActivity extends ABSNabludatelActivity {
 			TextView bad_text = (TextView) findViewById(R.id.bad_text);
 			good_text.setText(Consts.getGoodText(good));
 			bad_text.setText(Consts.getBadText(bad));
-			reportMessage = "На участке "
+			reportMessage = "Отчет наблюдения по участку "
 					+pollingPlaceName
-					+" "
+					+": "
 					+Consts.getGoodText(good)
 					+" и ";
 			if(bad == 0){
