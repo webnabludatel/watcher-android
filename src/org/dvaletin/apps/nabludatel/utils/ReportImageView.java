@@ -37,7 +37,7 @@ public class ReportImageView extends View {
 			Path arcPath = new Path();
 	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2*0.8f, Path.Direction.CW);
 	        arcPath.setFillType(Path.FillType.EVEN_ODD);
-	        Paint p = new Paint();
+	        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 	        p.setColor(Color.rgb(180, 180, 180));
 	        canvas.drawPath(arcPath, p);
 	    } else if ( this.goodCount == 0 && this.badCount > 0) {
@@ -45,7 +45,7 @@ public class ReportImageView extends View {
 			Path arcPath = new Path();
 	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2*0.8f, Path.Direction.CW);
 	        arcPath.setFillType(Path.FillType.EVEN_ODD);
-	        Paint p = new Paint();
+	        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 	        p.setColor(Color.rgb(0xdf, 0x2a, 0));
 	        canvas.drawPath(arcPath, p);
 
@@ -54,7 +54,7 @@ public class ReportImageView extends View {
 	    	Path arcPath = new Path();
 	        arcPath.addCircle(this.getWidth()/2, this.getHeight()/2, this.getHeight()/2*0.8f, Path.Direction.CW);
 	        arcPath.setFillType(Path.FillType.EVEN_ODD);
-	        Paint p = new Paint();
+	        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 	        p.setColor(Color.rgb(0, 0x77, 0xcb));
 	        canvas.drawPath(arcPath, p);
 	    	
@@ -98,7 +98,7 @@ public class ReportImageView extends View {
 	        path1.close();
 	        path1.setFillType(Path.FillType.EVEN_ODD);
 	        
-	        Paint paint1 = new Paint();
+	        Paint paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
 	        paint1.setColor(Color.rgb(0, 0x77, 0xcb));
 	        
 	        canvas.drawPath(path1, paint1);
@@ -114,7 +114,7 @@ public class ReportImageView extends View {
 	        path2.close();
 	        path2.setFillType(Path.FillType.EVEN_ODD);
 	        
-	        Paint paint2 = new Paint();
+	        Paint paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
 	        paint2.setColor(Color.rgb(0xdf, 0x2a, 0));
 
 	        canvas.drawPath(path2, paint2);
