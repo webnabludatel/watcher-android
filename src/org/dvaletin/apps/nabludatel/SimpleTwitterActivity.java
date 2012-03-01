@@ -21,14 +21,12 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
+import org.dvaletin.apps.nabludatel.utils.LocalProperties;
 
 public class SimpleTwitterActivity extends Activity implements OAuthDialogListener{
-	
-	private static final String T = SimpleTwitterActivity.class.getSimpleName();
-	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TwitterAuth tauth = getTwitterSecret();
+		TwitterAuth tauth = auth();
 		WebView webView = new WebView(SimpleTwitterActivity.this);
 		SimpleTwitterActivity.this.setContentView(webView);
         
@@ -43,29 +41,12 @@ public class SimpleTwitterActivity extends Activity implements OAuthDialogListen
 		pageWrapper.login();
 	}
 	
-	TwitterAuth getTwitterSecret(){
-		try {
-			Properties properties = new Properties();
-			InputStream twitterProperties = SimpleTwitterActivity.class.getResourceAsStream("twitter.properties");
-			if (twitterProperties != null) {
-				properties.load(twitterProperties);
-				String key = properties.getProperty("tw.key");
-				String secret = properties.getProperty("tw.secret");
-				String callback = properties.getProperty("tw.callback");
-				return new TwitterAuth(key, secret, callback);
-			}
-		} catch (IOException e) {
-			Log.w(T, "Error reading aws.properties", e);
-		}
-		throw new IllegalStateException("Can't get Twitter access keys");
-	}
-	
 	public void onTwitterSetupClick(View v){
 		this.runOnUiThread(new Runnable() {
 
 			@Override
 			public void run() {
-				TwitterAuth tauth = getTwitterSecret();
+				TwitterAuth tauth = auth();
 				WebView webView = new WebView(SimpleTwitterActivity.this);
 				SimpleTwitterActivity.this.setContentView(webView);
 		        
@@ -82,6 +63,15 @@ public class SimpleTwitterActivity extends Activity implements OAuthDialogListen
 			
 		});
 	}
+
+	private TwitterAuth auth() {
+		return new TwitterAuth(
+							LocalProperties.getTwitterKey(),
+							LocalProperties.getTwitterSecret(),
+							LocalProperties.getTwitterCallback()
+					);
+	}
+
 	/**
 	 * @see com.twitterapime.xauth.ui.OAuthDialogListener#onAuthorize(com.twitterapime.xauth.Token)
 	 */

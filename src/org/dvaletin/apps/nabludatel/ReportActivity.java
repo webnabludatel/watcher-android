@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
+import org.dvaletin.apps.nabludatel.utils.LocalProperties;
 import org.dvaletin.apps.nabludatel.utils.ReportImageView;
 
 import com.facebook.android.DialogError;
@@ -109,25 +110,10 @@ public class ReportActivity extends ABSNabludatelActivity {
 		
 	}
 
-	private String getFacebookSecret(){
-		try {
-			Properties properties = new Properties();
-			InputStream facebookProperties = NabludatelSettingsActivity.class.getResourceAsStream("facebook.properties");
-			if (facebookProperties != null) {
-				properties.load(facebookProperties);
-				return properties.getProperty("facebook.secret.key");
-			}
-		} catch (IOException e) {
-			Log.w(T, "Error reading facebook.properties", e);
-		}
-		throw new IllegalStateException("Can't get Facebook access keys");
-	}
-	
-	
 	private void loginToFaceBook() {
 		
 		
-		mFacebook = new Facebook(getFacebookSecret());
+		mFacebook = new Facebook(LocalProperties.getFacebookSecret());
 		prefs = getPreferences(MODE_PRIVATE);
 		String access_token = prefs.getString(Consts.PREFS_FACEBOOK_ACCESS_TOKEN, null);
 		long expires = prefs.getLong(Consts.PREFS_FACEBOOK_ACCESS_EXPIRES, 0);

@@ -1,14 +1,13 @@
 package org.dvaletin.apps.nabludatel;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
+import org.dvaletin.apps.nabludatel.utils.LocalProperties;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,7 +17,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -36,8 +34,6 @@ import com.facebook.android.FacebookError;
 
 
 public class NabludatelSettingsActivity extends ABSNabludatelActivity {
-	private static final String T = NabludatelSettingsActivity.class.getSimpleName();
-	
 	private static final int NABLUDATEL_MANUAL_SETUP = 1001;
 
 	private NabludatelCloud cloudHelper;
@@ -137,23 +133,10 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		}
 	}
 	
-	private String getFacebookSecret(){
-		try {
-			Properties properties = new Properties();
-			InputStream facebookProperties = NabludatelSettingsActivity.class.getResourceAsStream("facebook.properties");
-			if (facebookProperties != null) {
-				properties.load(facebookProperties);
-				return properties.getProperty("facebook.secret.key");
-			}
-		} catch (IOException e) {
-			Log.w(T, "Error reading facebook.properties", e);
-		}
-		throw new IllegalStateException("Can't get Facebook access keys");
-	}
 	private void loginToFaceBook() {
 		
 		
-		mFacebook = new Facebook(getFacebookSecret());
+		mFacebook = new Facebook(LocalProperties.getFacebookSecret());
 		prefs = getPreferences(MODE_PRIVATE);
 		String access_token = prefs.getString(Consts.PREFS_FACEBOOK_ACCESS_TOKEN, null);
 		long expires = prefs.getLong(Consts.PREFS_FACEBOOK_ACCESS_EXPIRES, 0);

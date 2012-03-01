@@ -3,13 +3,11 @@ package org.dvaletin.apps.nabludatel.server;
 import android.util.Log;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import org.dvaletin.apps.nabludatel.utils.LocalProperties;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 /**
  * Cloud for interaction with server. It wrap all communication errors and write it to log silently.
@@ -235,19 +233,7 @@ public class NabludatelCloud {
 			Log.w(T, "Parse JSON error", e);
 		}
 
-		try {
-			Properties properties = new Properties();
-			InputStream awsProperties = NabludatelCloud.class.getResourceAsStream("aws.properties");
-			if (awsProperties != null) {
-				properties.load(awsProperties);
-				String accessKey = properties.getProperty("android.access.key");
-				String secretKey = properties.getProperty("android.secret.key");
-				return new BasicAWSCredentials(accessKey, secretKey);
-			}
-		} catch (IOException e) {
-			Log.w(T, "Error reading aws.properties", e);
-		}
-		throw new IllegalStateException("Can't get S3 access keys");
+		return new BasicAWSCredentials(LocalProperties.getS3AccessKey(), LocalProperties.getS3SecretKey());
 	}
 
 	/**
