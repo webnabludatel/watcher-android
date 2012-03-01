@@ -395,6 +395,7 @@
                         android:id="@+id/suspicious_voters_violations_video_gallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="onGalleryVideoClick"
                         android:tag="suspicious_voters_violations_video"
                         android:text="@string/ballot_box_violations_photo_gallery" />
 
