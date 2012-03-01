@@ -111,6 +111,10 @@ public class ReportActivity extends ABSNabludatelActivity {
 			howToComplainPane.setVisibility(View.INVISIBLE);
 		}
 	}
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
 	
 	public void onReportOnSiteButtonClick(View v){
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -127,7 +131,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 		
 		
 		mFacebook = new Facebook(LocalProperties.getFacebookSecret());
-		prefs = getPreferences(MODE_PRIVATE);
+//		prefs = getPreferences(MODE_PRIVATE);
 		String access_token = prefs.getString(Consts.PREFS_FACEBOOK_ACCESS_TOKEN, null);
 		long expires = prefs.getLong(Consts.PREFS_FACEBOOK_ACCESS_EXPIRES, 0);
 		
@@ -201,7 +205,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 						String response = "";
 						Bundle parameters = new Bundle();
 						parameters.putString("message", reportMessage);
-//						response = mFacebook.request("me/feed", parameters, "POST");
+						response = mFacebook.request("me/feed", parameters, "POST");
 						Log.d(T, "got response: " + response);
 						if (response == null || response.equals("") || 
 								response.equals("false")) {

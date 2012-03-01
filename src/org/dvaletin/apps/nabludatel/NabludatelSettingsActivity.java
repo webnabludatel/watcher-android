@@ -154,7 +154,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		
 		
 		mFacebook = new Facebook(LocalProperties.getFacebookSecret());
-		prefs = getPreferences(MODE_PRIVATE);
+//		prefs = getPreferences(MODE_PRIVATE);
 		String access_token = prefs.getString(Consts.PREFS_FACEBOOK_ACCESS_TOKEN, null);
 		long expires = prefs.getLong(Consts.PREFS_FACEBOOK_ACCESS_EXPIRES, 0);
 		
