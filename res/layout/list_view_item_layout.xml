@@ -9,19 +9,21 @@
         android:id="@+id/list_view_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingLeft="1dp"
+        android:paddingTop="7dp"
         android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/black" android:typeface="sans"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
 
 	<TextView
 	    android:id="@+id/list_view_item_description"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:padding="10dp"
+	    android:paddingLeft="1dp"
+	    android:paddingBottom="7dp"
 	    android:text="@string/app_name"
 	    android:textAppearance="?android:attr/textAppearanceSmall"
-	    android:textColor="@color/darkgrey"
-	    android:typeface="sans" />
+	    android:textColor="@color/grey" />
 
 </LinearLayout>
