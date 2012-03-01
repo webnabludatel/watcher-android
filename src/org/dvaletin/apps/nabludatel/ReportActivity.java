@@ -111,11 +111,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 			howToComplainPane.setVisibility(View.INVISIBLE);
 		}
 	}
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
-	
+
 	public void onReportOnSiteButtonClick(View v){
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceId = tm.getDeviceId();
