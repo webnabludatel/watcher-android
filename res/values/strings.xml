@@ -28,7 +28,7 @@
     <string name="ballot_box_violations_photo_camera">Камера</string>
     <string name="ballot_box_title">Урны</string>
     <string name="admitted_before_eight_title">Допуск на участок до 8:00</string>
-    <string name="sos">S.O.S</string>
+    <string name="sos">S.O.S.</string>
     <string name="back">Назад</string>
     <string name="counter_set_on_zero">Счетчик на нуле</string>
     <string name="conter_test_failures">Есть ли сбои при тестировании</string>
@@ -81,7 +81,7 @@
     <string name="tab_watcher">Я</string>
     <string name="tab_checklist">Наблюдение</string>
     <string name="tab_spravochnik">Справочник</string>
-    <string name="tab_sos">S.O.S</string>
+    <string name="tab_sos">S.O.S.</string>
     <string name="spravochnik_title">Справочник</string>
     <string name="webview_back">Назад</string>
     <string name="webview_forward">Вперед</string>
@@ -107,7 +107,7 @@
     <string name="control_calculations_conducted">Контрольные соотношения выполнены</string>
     <string name="control_calculations_performed">При невыполнении произведен пересчёт</string>
     <string name="confirmed_voters_title">Списки проголосовавших</string>
-    <string name="report_button_label">Отчет</string>
+    <string name="report_button_label">Отчёт</string>
     <string name="counting_absentee_ballot_title">Вскрытие переносных ящиков</string>
     <string name="ballot_box_open_title">Вскрытие стационарных урн</string>
     <string name="control_calculations_title">Контрольные соотношения</string>
@@ -143,7 +143,7 @@
     <string name="nabludatel_save_elections_district">Сохранить</string>
     <string name="nabludatel_change_elections_district">Сменить участок</string>
     <string name="nabludatel_profile_title">Профиль наблюдателя</string>
-    <string name="nabludatel_report_title">Отчет о наблюдении</string>
+    <string name="nabludatel_report_title">Отчёт о наблюдении</string>
     <string name="add_elections_district">Добавить участок</string>
 
     <string-array name="elections_district">
@@ -223,7 +223,7 @@
     <string name="protocol_copy_is_marked_as_genuine">Надпись \"верно\"</string>
     <string name="protocol_copy_is_marked_with_date">Дата заверения</string>
     <string name="protocol_copy_is_marked_with_time">Время заверения (отличное от времени составления протокола)</string>
-    <string name="tab_report">Отчет</string>
+    <string name="tab_report">Отчёт</string>
     <string name="nabludatel_telephone">Телефон</string>
     <string name="nabludatel_settings_facebook">Facebook</string>
     <string name="nabludatel_settings_twitter">Twitter</string>
@@ -238,7 +238,7 @@
     <string name="middle_name_hint">Отчество</string>
     <string name="email_hint">E-Mail</string>
     <string name="phone_hint">Телефон</string>
-    <string name="report_onsite_title">Ваш отчет на сайте</string>
+    <string name="report_onsite_title">Ваш отчёт на сайте</string>
     <string name="report_violations_title">Нарушения на участке</string>
     <string name="report_whatnext">1. Заполните жалобу в двух экземплярах\n2. Передайте один экземпляр  председателю\n3. На втором экземпляре попросите поставить запись &quot;Копия верна&quot;, расписаться, проставить время и дату принятия жалобы. Этот экземпляр оставьте у себя или передайте в штаб.\n4. Если жалобу не принимают, звоните в штаб и переправляйте ее в вышестоящую комиссию с припиской об отказе в принятии жалобы.\nЕсли отказывают заверить копию, пишите на ней: &quot;Председатель комиссии заверить копию отказался&quot;</string>
     <string name="report_whatnext_title">Как подать жалобу?</string>

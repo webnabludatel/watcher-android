@@ -47,7 +47,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 		super.onResume();
 		long pollingPlaceId = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
 		String pollingPlaceName = mElectionsDB.getPollingPlaceNameByNumber(pollingPlaceId);
-		this.setTitle("Отчет по участку " + pollingPlaceName);
+		this.setTitle("Отчёт по участку " + pollingPlaceName);
 		String violations_title = getString(R.string.report_violations_title);
 		TextView report_violation_list_title = (TextView) findViewById(R.id.report_violation_list_title);
 		report_violation_list_title.setText(violations_title + " " + pollingPlaceName);

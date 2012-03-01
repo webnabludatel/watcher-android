@@ -38,7 +38,7 @@ public class MainWindow extends TabActivity {
 				.setContent(new Intent(this, NabludatelActivity.class)));
 
 		host.addTab(host.newTabSpec("three")
-				.setIndicator("Отчет")
+				.setIndicator("Отчёт")
 				.setContent(new Intent(this, ReportActivity.class)));
 
 		String url = "file:///android_asset/spravochnik/index.html";
@@ -50,7 +50,7 @@ public class MainWindow extends TabActivity {
 				.setContent(intent));
 
 		host.addTab(host.newTabSpec("five")
-				.setIndicator("S.O.S")
+				.setIndicator("S.O.S.")
 				.setContent(new Intent(this, SosActivity.class)));
 
 		setupUI();
