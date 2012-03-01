@@ -227,7 +227,7 @@
     <string name="nabludatel_telephone">Телефон</string>
     <string name="nabludatel_settings_facebook">Facebook</string>
     <string name="nabludatel_settings_twitter">Twitter</string>
-    <string name="nabludatel_settings_manual">ФИО+E-Mail</string>
+    <string name="nabludatel_settings_manual">ФИО + E-Mail</string>
     <string name="nabludatel_settings_status">Статус участника</string>
     <string name="official_observer_title">Официальные полномочия</string>
     <string name="official_observer_hint">Загрузите фото удостоверения</string>
