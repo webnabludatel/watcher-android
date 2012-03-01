@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -43,10 +42,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 	public void activateRootMenu() {
 		setContentView(R.layout.main);
-		Button back_button_old = (Button) findViewById(R.id.back_button_old);
-		if (back_button_old != null) {
-			back_button_old.setVisibility(View.INVISIBLE);
-		}
 		Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
 		String from[] = new String[] { ElectionsDBHelper.POLLINGPLACE_NAME_KEY };
 		int[] to = new int[] { android.R.id.text1 };
@@ -200,19 +195,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
 	protected void activateSectionBeforeElections() {
-		Button back_button_old = (Button) findViewById(R.id.back_button_old);
-		if (back_button_old != null) {
-			back_button_old.setVisibility(View.VISIBLE);
-			back_button_old.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					NabludatelActivity.this.onBackPressed();
-
-				}
-
-			});
-		}
 		FrameLayout elections_district_select_frame = (FrameLayout) findViewById(R.id.elections_district_select_frame);
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
@@ -240,19 +222,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
 	public void activateSectionDuringElections() {
-		Button back_button_old = (Button) findViewById(R.id.back_button_old);
-		if (back_button_old != null) {
-			back_button_old.setVisibility(View.VISIBLE);
-			back_button_old.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					NabludatelActivity.this.onBackPressed();
-
-				}
-
-			});
-		}
 		FrameLayout elections_district_select_frame = (FrameLayout) findViewById(R.id.elections_district_select_frame);
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
@@ -283,19 +252,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
 	public void activateSectionCounting() {
-		Button back_button_old = (Button) findViewById(R.id.back_button_old);
-		if (back_button_old != null) {
-			back_button_old.setVisibility(View.VISIBLE);
-			back_button_old.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					NabludatelActivity.this.onBackPressed();
-
-				}
-
-			});
-		}
 		FrameLayout elections_district_select_frame = (FrameLayout) findViewById(R.id.elections_district_select_frame);
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
@@ -325,19 +281,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
 	public void activateSectionFinalMeeting() {
-		Button back_button_old = (Button) findViewById(R.id.back_button_old);
-		if (back_button_old != null) {
-			back_button_old.setVisibility(View.VISIBLE);
-			back_button_old.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					NabludatelActivity.this.onBackPressed();
-
-				}
-
-			});
-		}
 		FrameLayout elections_district_select_frame = (FrameLayout) findViewById(R.id.elections_district_select_frame);
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
@@ -367,19 +310,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
 	public void activateSectionTikIkmo() {
-		Button back_button_old = (Button) findViewById(R.id.back_button_old);
-		if (back_button_old != null) {
-			back_button_old.setVisibility(View.VISIBLE);
-			back_button_old.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					NabludatelActivity.this.onBackPressed();
-
-				}
-
-			});
-		}
 		FrameLayout elections_district_select_frame = (FrameLayout) findViewById(R.id.elections_district_select_frame);
 		elections_district_select_frame.setVisibility(View.GONE);
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);

@@ -27,8 +27,7 @@ public class MainWindow extends TabActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		int buttonResource = getResources().getIdentifier("drawable/button", null, getPackageName());
-		Drawable button = getResources().getDrawable(buttonResource);
+		Drawable button = getResources().getDrawable(R.drawable.button);
 		setContentView(R.layout.main_tabs);
 		TabHost host = getTabHost();
 		host.addTab(host.newTabSpec("one")
