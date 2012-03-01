@@ -230,10 +230,11 @@
     <string name="nabludatel_settings_facebook">Facebook</string>
     <string name="nabludatel_settings_twitter">Twitter</string>
     <string name="nabludatel_settings_manual">ФИО + E-Mail</string>
-    <string name="nabludatel_settings_status">Статус участника</string>
     <string name="official_observer_title">Официальные полномочия</string>
-    <string name="official_observer_hint">Загрузите фото удостоверения</string>
-    <string name="registration_status">Статус наблюдателя</string>
+    <string name="official_observer_title_label">Загрузите фото удостоверения</string>
+    <string name="official_observer_title_hint">Для того, чтобы мы могли подтвердить ваши официальные полномочия в системе, загрузите фотографию вашего удостоверения.</string>
+    <string name="registration_status">Статус пользователя</string>
+    <string name="registration_status_hint">Вы можете изменить свой статус после того, как программа зарегистрирует устройство на сервере. Если вы — официальный наблюдатель или член избирательной комиссии, укажите это.</string>
     <string name="registration_status_unregistered">Неизвестно</string>
     <string name="last_name_hint">Фамилия</string>
     <string name="first_name_hint">Имя</string>

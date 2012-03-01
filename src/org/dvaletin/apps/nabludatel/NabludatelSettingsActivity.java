@@ -39,8 +39,16 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 	private NabludatelCloud cloudHelper;
 	private Facebook mFacebook;
 
+	public void onRegistrationStatusTitleInfoClick(View v) {
+		showInfoDialog(R.string.registration_status_hint);
+	}
+
+	public void onOfficialObserverTitleInfoClick(View v) {
+		showInfoDialog(R.string.official_observer_title_hint);
+	}
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mCurrentPollingPlaceId = 0;
 		setContentView(R.layout.nabludatel_settings);

@@ -55,12 +55,40 @@
                     </LinearLayout>
                 </FrameLayout>
 
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/PanelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/registration_status" />
+                <LinearLayout
+                        android:id="@+id/registartionStatusTitlePane"
+                        android:layout_width="fill_parent"
+                        android:layout_height="34dp"
+                        android:onClick="onRegistrationStatusTitleInfoClick"
+                        android:gravity="center_vertical"
+                        >
+
+                    <TextView
+                            android:id="@+id/textView2"
+                            style="@style/TitleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/registration_status" />
+
+                    <LinearLayout
+                            android:id="@+id/registartionStatusTitleInfoPane"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:onClick="onRegistrationStatusTitleInfoClick"
+                            android:paddingTop="8dp">
+
+                        <ImageView
+                                android:id="@+id/registartionStatusTitleInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:onClick="onRegistrationStatusTitleInfoClick"
+                                android:src="@drawable/i" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/frameLayout2"
@@ -110,12 +138,40 @@
 
                 </FrameLayout>
 
-                <TextView
-                    android:id="@+id/textView1"
-                    style="@style/PanelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/official_observer_title" />
+                <LinearLayout
+                        android:id="@+id/officialObserverTitlePane"
+                        android:layout_width="fill_parent"
+                        android:layout_height="34dp"
+                        android:onClick="onOfficialObserverTitleInfoClick"
+                        android:gravity="center_vertical"
+                        >
+
+                    <TextView
+                            android:id="@+id/textView1"
+                            style="@style/TitleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/official_observer_title" />
+
+                    <LinearLayout
+                            android:id="@+id/officialObserverTitleInfoPane"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:onClick="onOfficialObserverTitleInfoClick"
+                            android:paddingTop="8dp">
+
+                        <ImageView
+                                android:id="@+id/officialObserverTitleInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:onClick="onOfficialObserverTitleInfoClick"
+                                android:src="@drawable/i" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/frameLayout4"
@@ -134,7 +190,7 @@
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/official_observer_hint" />
+                            android:text="@string/official_observer_title_label" />
 
                         <Button
                             android:id="@+id/button1"
