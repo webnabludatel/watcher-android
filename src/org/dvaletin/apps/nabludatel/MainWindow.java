@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -27,11 +26,10 @@ public class MainWindow extends TabActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Drawable button = getResources().getDrawable(R.drawable.button);
 		setContentView(R.layout.main_tabs);
 		TabHost host = getTabHost();
 		host.addTab(host.newTabSpec("one")
-				.setIndicator("Я", button)
+				.setIndicator("Я")
 				.setContent(new Intent(this, NabludatelSettingsActivity.class)));
 		host.addTab(host.newTabSpec("two")
 				.setIndicator("Наблюдение")

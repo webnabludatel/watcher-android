@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_4"
+    android:background="@color/milk"
     android:orientation="vertical" >
 
     <TextView
@@ -21,7 +21,7 @@
 	    android:padding="10dp"
 	    android:text="@string/app_name"
 	    android:textAppearance="?android:attr/textAppearanceSmall"
-	    android:textColor="@color/grey01"
+	    android:textColor="@color/darkgrey"
 	    android:typeface="sans" />
 
 </LinearLayout>

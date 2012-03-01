@@ -1,36 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="red">#ff0000</color>
-    <color name="grey">#f0f0f0</color>
-    <color name="green">#00ff00</color>
-    <color name="opaque_red">#f00</color>
-    <color name="translucent_red">#80ff0000</color>
-    <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="background_color">#FFFFFF</color>
-    <color name="blue">#0000AA</color>
-    <color name="main_1">#CACACA</color>
-    <color name="main_2">#B5B5B5</color>
-    <color name="main_3">#87ACA5</color>
-    <color name="main_4">#F7F7F7</color>
-    <color name="main_5">#E7E7E7</color>
-    <color name="grey05">#D2D2D2</color>
-    <color name="grey01">#0A0A0A</color>
-    <color name="second_1">#4A4A4A</color>
-    <color name="second_2">#414141</color>
-    <color name="second_3">#303E3B</color>
-    <color name="second_4">#E3E3E3</color>
-    <color name="second_5">#E3E3E3</color>
-    <color name="red_1">#FF0000</color>
-    <color name="red_2">#BF3030</color>
-    <color name="red_3">#A60000</color>
-    <color name="red_4">#FF4040</color>
-    <color name="red_5">#FF7373</color>
-    <color name="main_s_1">#083660</color>
-    <color name="main_s_2">#173048</color>
-    <color name="main_s_3">#03223E</color>
-    <color name="main_s_4">#3776AF</color>
-    <color name="main_s_5">#5786AF</color>
-
+    <color name="milk">#F7F7F7</color>
+    <color name="grey">#949494</color>
+    <color name="darkgrey">#0A0A0A</color>
+    <color name="black">#000000</color>
 </resources>
