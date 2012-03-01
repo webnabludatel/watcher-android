@@ -20,7 +20,14 @@ public class ElectionsDBHelper {
 	}
 
 	public void close() {
-		mDbHelper.close();
+		try {
+			while (db().isDbLockedByOtherThreads()) {
+				Thread.yield();
+			}
+			mDbHelper.close();
+		} catch (Exception e) {
+			Log.e(TAG, "Can't close database", e);
+		}
 	}
 
 	private SQLiteDatabase db() {
