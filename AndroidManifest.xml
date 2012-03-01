@@ -44,7 +44,6 @@
         <activity android:name="SectionCountingControlCalculations" android:label="@string/control_calculations_title" android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:name="SectionCountingCountingBullots" android:label="@string/counting_ballots_title" android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:label="@string/nabludatel_profile_title" android:name="NabludatelProfileActivity" android:windowSoftInputMode="stateAlwaysHidden"></activity>
-        <activity android:windowSoftInputMode="stateAlwaysHidden" android:label="@string/nabludatel_report_title" android:name="NabludatelReportActivity"></activity>
         <activity android:name="ElectionsDistrictActivity" android:label="@string/elections_district_title" android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:name="ViolationCheckListActivity" android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:name="MainWindow" android:windowSoftInputMode="stateAlwaysHidden"><intent-filter>

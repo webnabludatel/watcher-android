@@ -103,7 +103,7 @@
                                 android:id="@+id/button1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:onClick="onReportOnsiteButtonClick"
+                                android:onClick="onReportOnSiteButtonClick"
                                 android:text="@string/report_onsite_title" />
 
                             <LinearLayout
@@ -126,7 +126,7 @@
 
                 <TextView
                     android:id="@+id/report_violation_list_title"
-                    style="@style/PanelText"
+                    style="@style/TitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -141,13 +141,42 @@
                     android:orientation="vertical" >
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView1"
-                    style="@style/PanelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/report_whatnext" />
+                <LinearLayout
+                        android:id="@+id/howComplaintPane"
+                        android:layout_width="match_parent"
+                        android:layout_height="34dp"
+                        android:onClick="onHowToComplainInfoClick"
+                        android:gravity="center_vertical"
+                        >
+
+                    <TextView
+                            android:id="@+id/howComplaintPaneTitle"
+                            style="@style/TitleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_whatnext_title"
+                            />
+
+                    <LinearLayout
+                            android:id="@+id/linearLayout6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:onClick="onHowToComplainInfoClick"
+                            android:paddingTop="8dp">
+
+                        <ImageView
+                                android:id="@+id/i"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:onClick="onHowToComplainInfoClick"
+                                android:src="@drawable/i" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
             </LinearLayout>
         </ScrollView>

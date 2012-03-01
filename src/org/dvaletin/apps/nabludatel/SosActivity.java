@@ -92,7 +92,7 @@ public class SosActivity extends ABSNabludatelActivity {
 	    }
 	}
 	
-	public void onInformationClick(View v){
+	public void onSosInfoClick(View v){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Инструкции");
 		builder.setMessage(getString(R.string.sos_hint)).setCancelable(false)

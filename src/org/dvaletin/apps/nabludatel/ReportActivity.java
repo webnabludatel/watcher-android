@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
@@ -24,7 +26,6 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -97,7 +98,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 //		report_image_frame.addView(new ReportImageView(this, 0, 0));
 	}
 	
-	public void onReportOnsiteButtonClick(View v){
+	public void onReportOnSiteButtonClick(View v){
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceId = tm.getDeviceId();
 		NabludatelCloud cloud = new NabludatelCloud(deviceId);
@@ -199,5 +200,18 @@ public class ReportActivity extends ABSNabludatelActivity {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void onHowToComplainInfoClick(View v){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Инструкции");
+		builder.setMessage(getString(R.string.report_whatnext)).setCancelable(false)
+				.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }
