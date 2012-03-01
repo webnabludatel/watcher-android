@@ -14,7 +14,7 @@ public class Consts {
 	public static final String ACTIVITY_URL_DATA = "url";
 
 	public static final String[] ROOT_MENU_ITEMS = {"Открытие участка",
-			"Голосование", "Подсчет", "Заседание и протокол", "ТИК/ИКМО"};
+			"Голосование", "Подсчёт", "Заседание и протокол"};
 
 
 	public static final String[] ROOT_MENU_DESCRIPTIONS = {

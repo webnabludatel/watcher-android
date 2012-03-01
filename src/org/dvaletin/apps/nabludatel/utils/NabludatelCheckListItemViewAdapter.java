@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import org.dvaletin.apps.nabludatel.R;
 
-public class NabludatelChecklistListViewAdapter extends android.widget.BaseAdapter {
+public class NabludatelCheckListItemViewAdapter extends android.widget.BaseAdapter {
 	SectionList items;
 	private LayoutInflater mInflater;
 	private int [] violations;
-	public NabludatelChecklistListViewAdapter(Context context, SectionList pItems){
+	public NabludatelCheckListItemViewAdapter(Context context, SectionList pItems){
 		items = pItems;
 		mInflater = LayoutInflater.from(context);
 		violations = new int [items.listItems.length];

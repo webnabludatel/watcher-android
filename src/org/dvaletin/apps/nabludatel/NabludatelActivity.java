@@ -2,15 +2,8 @@ package org.dvaletin.apps.nabludatel;
 
 import java.util.ArrayList;
 
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-import org.dvaletin.apps.nabludatel.utils.ListViewActivityItem;
-import org.dvaletin.apps.nabludatel.utils.NabludatelChecklistListViewAdapter;
-import org.dvaletin.apps.nabludatel.utils.SectionBeforeElections;
-import org.dvaletin.apps.nabludatel.utils.SectionCounting;
-import org.dvaletin.apps.nabludatel.utils.SectionDuringElections;
-import org.dvaletin.apps.nabludatel.utils.SectionFinalMeeting;
-import org.dvaletin.apps.nabludatel.utils.SectionTikIkmo;
+import org.dvaletin.apps.nabludatel.utils.*;
+import org.dvaletin.apps.nabludatel.utils.NabludatelCheckListItemViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,11 +26,11 @@ import android.widget.TextView;
 public class NabludatelActivity extends ABSNabludatelActivity {
 
 	NabludatelCustomListViewAdapter mRootListViewAdapter;
-	NabludatelChecklistListViewAdapter mBeforeElectionsAdapter;
-	NabludatelChecklistListViewAdapter mDuringElectionsAdapter;
-	NabludatelChecklistListViewAdapter mFinalMeetingAdapter;
-	NabludatelChecklistListViewAdapter mCountingAdapter;
-	private NabludatelChecklistListViewAdapter mTikIkmoAdapter;
+	NabludatelCheckListItemViewAdapter mBeforeElectionsAdapter;
+	NabludatelCheckListItemViewAdapter mDuringElectionsAdapter;
+	NabludatelCheckListItemViewAdapter mFinalMeetingAdapter;
+	NabludatelCheckListItemViewAdapter mCountingAdapter;
+	private NabludatelCheckListItemViewAdapter mTikIkmoAdapter;
 	private NabludatelCustomListViewAdapter mTikIkmoViewAdapter;
 
 	/** Called when the activity is first created. */
@@ -230,7 +223,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 		if (mBeforeElectionsAdapter == null) {
 
-			mBeforeElectionsAdapter = new NabludatelChecklistListViewAdapter(
+			mBeforeElectionsAdapter = new NabludatelCheckListItemViewAdapter(
 					this, new SectionBeforeElections());
 		}
 
@@ -270,7 +263,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 		if (mDuringElectionsAdapter == null) {
 
-			mDuringElectionsAdapter = new NabludatelChecklistListViewAdapter(
+			mDuringElectionsAdapter = new NabludatelCheckListItemViewAdapter(
 					this, new SectionDuringElections());
 		}
 
@@ -312,7 +305,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		if (mCountingAdapter == null) {
-			mCountingAdapter = new NabludatelChecklistListViewAdapter(this,
+			mCountingAdapter = new NabludatelCheckListItemViewAdapter(this,
 					new SectionCounting());
 		}
 
@@ -354,7 +347,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		if (mFinalMeetingAdapter == null) {
-			mFinalMeetingAdapter = new NabludatelChecklistListViewAdapter(this,
+			mFinalMeetingAdapter = new NabludatelCheckListItemViewAdapter(this,
 					new SectionFinalMeeting());
 		}
 
@@ -396,7 +389,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		if (mTikIkmoAdapter == null) {
-			mTikIkmoAdapter = new NabludatelChecklistListViewAdapter(this,
+			mTikIkmoAdapter = new NabludatelCheckListItemViewAdapter(this,
 					new SectionTikIkmo());
 		}
 
