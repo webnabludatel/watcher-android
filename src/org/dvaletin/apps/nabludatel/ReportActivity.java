@@ -103,8 +103,12 @@ public class ReportActivity extends ABSNabludatelActivity {
 					+pollingPlaceName
 					+" "
 					+Consts.getGoodText(good)
-					+" и "
-					+Consts.getBadText(bad);
+					+" и ";
+			if(bad == 0){
+				reportMessage += Consts.getBadText(bad);
+			}else {
+				reportMessage += "зафиксировано " + Consts.getBadText(bad);
+			}
 		} else {
 			reportViolationsTitle.setText(getString(R.string.report_no_polling_place_title));
 			reportFrame.setVisibility(View.INVISIBLE);

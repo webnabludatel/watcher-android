@@ -1,5 +1,7 @@
 package org.dvaletin.apps.nabludatel;
 
+import org.dvaletin.apps.nabludatel.utils.Consts;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -26,6 +28,9 @@ public class NabludatelProfileActivity extends ABSNabludatelActivity {
 		intent.putExtra("first_name", first_name.getText().toString());
 		intent.putExtra("middle_name", middle_name.getText().toString());
 		intent.putExtra("email", email.getText().toString());
+		if(!email.getText().toString().equals("")){
+			prefs.edit().putString(Consts.PREFS_USER_EMAIL, email.getText().toString()).commit();
+		}
 		intent.putExtra("phone", phone.getText().toString());
 		super.onBackPressed();
 	}

@@ -142,6 +142,7 @@ public class Consts {
 	public static final int MEDIA_NOTIFICATION_ID = 2;
 	public static final String PREFS_FACEBOOK_EMAIL = "facebook_email";
 	public static final String PREFS_USER_ID = "user_id";
+	public static final String PREFS_USER_EMAIL = "user_email";
 
 	public static String getViolationDescription(int id) {
 		if (id == 0)

@@ -328,7 +328,15 @@ public abstract class ABSNabludatelActivity extends Activity {
 				mCheckList.put(key, checkListItem);
 
 				restoreMediaItems(checkListItem, photos, Consts.PHOTO_FILE);
+				TextView tp = (TextView)findViewById(R.id.photos_count);
+				if( tp!= null ){
+					tp.setText("("+photos.size()+")");
+				}
 				restoreMediaItems(checkListItem, videos, Consts.VIDEO_FILE);
+				TextView tv = (TextView)findViewById(R.id.videos_count);
+				if( tv!= null ){
+					tv.setText("("+videos.size()+")");
+				}
 			}
 			c.moveToNext();
 		}

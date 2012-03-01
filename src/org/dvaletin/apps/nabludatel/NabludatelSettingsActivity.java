@@ -84,6 +84,9 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		});
 		Button facebookButton = (Button) NabludatelSettingsActivity.this.findViewById(R.id.facebook);
 		facebookButton.setText(" "+prefs.getString(Consts.PREFS_FACEBOOK_EMAIL, getString(R.string.nabludatel_settings_facebook)));
+		String email = prefs.getString("email", getString(R.string.nabludatel_settings_manual));
+		Button manual = (Button) findViewById(R.id.manual);
+		manual.setText(" "+email);
 	}
 	
 	public void tryAuthenticate(int delay){
@@ -147,6 +150,14 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 
 		if (requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode != 0) {
 			savePhotos();
+		}
+		
+		if(requestCode == NABLUDATEL_MANUAL_SETUP){
+			if(data!=null){
+				String email = data.getStringExtra("email");
+				Button manual = (Button) findViewById(R.id.manual);
+				manual.setText(" "+email);
+			}
 		}
 	}
 	
