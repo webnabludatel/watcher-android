@@ -5,4 +5,7 @@
     <color name="grey">#949494</color>
     <color name="darkgrey">#0A0A0A</color>
     <color name="black">#000000</color>
+
+    <color name="indigo">#0077cb</color>
+    <color name="purple">#df2a00</color>
 </resources>
