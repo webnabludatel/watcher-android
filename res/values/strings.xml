@@ -239,7 +239,9 @@
     <string name="email_hint">E-Mail</string>
     <string name="phone_hint">Телефон</string>
     <string name="report_onsite_title">Ваш отчёт на сайте</string>
-    <string name="report_violations_title">Нарушения на участке</string>
+    <string name="report_violations_title">Нарушения на участке %s</string>
+    <string name="report_no_violations_title">Нарушений на участке %s не зафиксировано</string>
+    <string name="report_no_polling_place_title">Заполните раздел «Наблюдение»</string>
     <string name="report_whatnext">1. Заполните жалобу в двух экземплярах\n2. Передайте один экземпляр  председателю\n3. На втором экземпляре попросите поставить запись &quot;Копия верна&quot;, расписаться, проставить время и дату принятия жалобы. Этот экземпляр оставьте у себя или передайте в штаб.\n4. Если жалобу не принимают, звоните в штаб и переправляйте ее в вышестоящую комиссию с припиской об отказе в принятии жалобы.\nЕсли отказывают заверить копию, пишите на ней: &quot;Председатель комиссии заверить копию отказался&quot;</string>
     <string name="report_whatnext_title">Как подать жалобу?</string>
     <string name="good_report_text">Выполнено 5 требований</string>
