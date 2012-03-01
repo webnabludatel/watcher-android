@@ -92,10 +92,10 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 
 			@Override
 			public void run() {
-				auth_wheel.setVisibility(View.VISIBLE);
 				NabludatelSettingsActivity.this.runOnUiThread(new Runnable(){
 					@Override
 					public void run() {
+						auth_wheel.setVisibility(View.VISIBLE);
 						((TextView) findViewById(R.id.nabludatel_registration_status))
 						.setText("Получаю статус...");
 					}
