@@ -167,7 +167,9 @@
     <string name="ballot_box_sealed_in_your_presence">Ящики опечатали при вас</string>
     <string name="ballot_box_empty_photo">Фото пустых ящиков</string>
     <string name="watching">Наблюдение</string>
+    <string name="watching_hint">Вы можете отмечать пункты переключателями, вводить текстовую информацию, снимать или загружать из альбома на телефоне фото и видео. Вся введенная в приложение информация синхронизируется с сервером в фоновом режиме.\n\nВ случае возникновения ошибок передача данных производится повторно до тех пор, пока все данные не будут переданы.</string>
     <string name="elections_districts">Избирательные участки</string>
+    <string name="elections_districts_hint">Вы можете добавлять, выбирать и редактировать (длинное нажатие) избирательные участки.\n\nДля того, чтобы вести наблюдение, необходимо добавить хотя бы один избирательный участок.</string>
     <string name="voters_lists_violations_photo">Фото книг без персональных данных</string>
     <string name="exists">есть</string>
     <string name="known_voters_number">Вы смогли узнать число избирателей</string>

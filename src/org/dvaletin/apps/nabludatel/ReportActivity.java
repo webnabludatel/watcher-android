@@ -196,15 +196,6 @@ public class ReportActivity extends ABSNabludatelActivity {
 	}
 
 	public void onHowToComplainInfoClick(View v){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Инструкции");
-		builder.setMessage(getString(R.string.report_whatnext)).setCancelable(false)
-				.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-		AlertDialog alert = builder.create();
-		alert.show();
+		showInfoDialog(R.string.report_whatnext);
 	}
 }

@@ -1,7 +1,9 @@
 package org.dvaletin.apps.nabludatel;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -583,4 +585,16 @@ public abstract class ABSNabludatelActivity extends Activity {
 		super.onBackPressed();
 	}
 
+	public void showInfoDialog(int id) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Инструкции");
+		builder.setMessage(getString(id)).setCancelable(false)
+				.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
 }

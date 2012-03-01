@@ -2,6 +2,8 @@ package org.dvaletin.apps.nabludatel;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import org.dvaletin.apps.nabludatel.utils.*;
 import org.dvaletin.apps.nabludatel.utils.NabludatelCheckListItemViewAdapter;
 
@@ -40,6 +42,14 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		activateRootMenu();
 	}
 
+	public void onElectionDistrictsTitleInfoClick(View v) {
+		showInfoDialog(R.string.elections_districts_hint);
+	}
+
+	public void onWatchingTitleInfoClick(View v) {
+		showInfoDialog(R.string.watching_hint);
+	}
+
 	public void activateRootMenu() {
 		setContentView(R.layout.main);
 		Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
@@ -59,6 +69,12 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 				district.setSelection((int) mCurrentPollingPlaceId-1);
 				mCurrentPollingPlaceType = mElectionsDB
 						.getPollingPlaceType(mCurrentPollingPlaceId);
+
+				findViewById(R.id.main_layout).setVisibility(View.VISIBLE);
+				findViewById(R.id.watchingTitlePane).setVisibility(View.VISIBLE);
+			} else {
+				findViewById(R.id.main_layout).setVisibility(View.INVISIBLE);
+				findViewById(R.id.watchingTitlePane).setVisibility(View.INVISIBLE);
 			}
 			district.setOnLongClickListener(new View.OnLongClickListener() {
 
