@@ -118,7 +118,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:onClick="onPostToFaceBook"
-                                    android:src="@drawable/button_facebook" />
+                                    android:src="@drawable/button_facebook_large" />
 
                             </LinearLayout>
                         </LinearLayout>
