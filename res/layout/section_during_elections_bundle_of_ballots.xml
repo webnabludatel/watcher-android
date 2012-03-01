@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onGalleryPhotoClick"
                         android:tag="bundle_of_ballots_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/bundle_of_ballots_photo"
@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onMakePhotoClick"
                         android:tag="bundle_of_ballots_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
 
                 <ImageView
@@ -158,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onGalleryVideoClick"
                         android:tag="bundle_of_ballots_video"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/bundle_of_ballots_video"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onMakeVideoClick"
                         android:tag="bundle_of_ballots_video"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
             </LinearLayout>
 

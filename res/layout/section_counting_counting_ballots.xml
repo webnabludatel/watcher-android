@@ -347,7 +347,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:tag="counting_ballots_violations_video"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/counting_ballots_violations_video"
@@ -356,7 +356,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakeVideoClick"
                         android:tag="counting_ballots_violations_video"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
             </LinearLayout>
 

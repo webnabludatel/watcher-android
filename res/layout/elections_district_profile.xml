@@ -130,7 +130,7 @@
                                 android:layout_weight="1"
                                 android:onClick="onGalleryPhotoClick"
                                 android:tag="district_banner_photo"
-                                android:text="@string/ballot_box_violations_photo_gallery" />
+                                android:text="@string/ballot_box_violations_gallery" />
 
                             <Button
                                 android:id="@+id/district_banner_photo"

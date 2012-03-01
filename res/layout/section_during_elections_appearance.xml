@@ -373,7 +373,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onGalleryPhotoClick"
                         android:tag="appearance_violation_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/appearance_violation_photo_camera"
@@ -381,7 +381,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onMakePhotoClick"
                         android:tag="counter_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
             </LinearLayout>
 

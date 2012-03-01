@@ -158,7 +158,7 @@
                         android:layout_weight="1"
                         android:onClick="onGalleryPhotoClick"
                         android:tag="gas_vibory_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/ballot_box_violations_photo_camera"
@@ -167,7 +167,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="gas_vibory_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:onClick="onMakePhotoClick"
                             android:tag="official_observer"
-                            android:text="@string/ballot_box_violations_photo_camera" />
+                            android:text="@string/take_a_photo" />
 
                     </LinearLayout>
                 </FrameLayout>

@@ -55,7 +55,7 @@
                         android:layout_weight="1"
                         android:onClick="onGalleryPhotoClick"
                         android:tag="protocol_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/protocol_photo"
@@ -64,7 +64,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="protocol_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
 
                 <ImageView
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:tag="protocol_copy_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/Button01"
@@ -101,7 +101,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="protocol_copy_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
 
                 <ImageView
@@ -282,7 +282,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:tag="protocol_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/protocol_violations_photo"
@@ -291,7 +291,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="protocol_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
 
             </LinearLayout>

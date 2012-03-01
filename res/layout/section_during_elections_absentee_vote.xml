@@ -368,7 +368,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onMakePhotoClick"
                         android:tag="absentee_vote_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
             </LinearLayout>
 

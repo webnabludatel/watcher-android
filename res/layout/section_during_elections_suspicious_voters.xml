@@ -361,7 +361,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onGalleryPhotoClick"
                         android:tag="suspicious_voters_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/suspicious_voters_violations_photo"
@@ -369,7 +369,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onMakePhotoClick"
                         android:tag="suspicious_voters_violations_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
 
                 <ImageView
@@ -397,7 +397,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onGalleryVideoClick"
                         android:tag="suspicious_voters_violations_video"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/suspicious_voters_violations_video"
@@ -405,7 +405,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onMakeVideoClick"
                         android:tag="suspicious_voters_violations_video"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
                 </LinearLayout>
 
             </LinearLayout>

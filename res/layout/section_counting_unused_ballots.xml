@@ -209,7 +209,7 @@
                         android:layout_weight="1"
                         android:onClick="onGalleryPhotoClick"
                         android:tag="unused_ballots_violation_photo"
-                        android:text="@string/ballot_box_violations_photo_gallery" />
+                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/unused_ballots_violation_photo"
@@ -218,7 +218,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="unused_ballots_violation_photo"
-                        android:text="@string/ballot_box_violations_photo_camera" />
+                        android:text="@string/ballot_box_violations_camera" />
 
                 </LinearLayout>
             </LinearLayout>
