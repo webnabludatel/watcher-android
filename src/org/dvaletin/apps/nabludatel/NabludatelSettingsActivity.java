@@ -98,26 +98,35 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 						auth_wheel.setVisibility(View.VISIBLE);
 						((TextView) findViewById(R.id.nabludatel_registration_status))
 						.setText("Получаю статус...");
+						auth_wheel.setVisibility(View.VISIBLE);
 					}
 				});
 				
-				NabludatelSettingsActivity.this.runOnUiThread(new Runnable(){
-					@Override
-					public void run() {
-						auth_wheel.setVisibility(View.VISIBLE);
-						if(cloudHelper.tryAuthenticate()){
+
+				if(cloudHelper.tryAuthenticate()){
+					NabludatelSettingsActivity.this.runOnUiThread(new Runnable(){
+						@Override
+						public void run() {
 							((TextView) findViewById(R.id.nabludatel_registration_status))
-							.setText("Зарегистрирован");
-						}else{
+								.setText("Зарегистрирован");
+							auth_wheel.setVisibility(View.INVISIBLE);
+						}});
+				}
+				else{
+					NabludatelSettingsActivity.this.runOnUiThread(new Runnable(){
+						@Override
+						public void run() {
 							((TextView) findViewById(R.id.nabludatel_registration_status))
 							.setText("Нет связи с сервером.");
 							NabludatelSettingsActivity.this.tryAuthenticate(300000);
+							auth_wheel.setVisibility(View.INVISIBLE);
 						}
-						auth_wheel.setVisibility(View.INVISIBLE);
-					}});
+					});
+				}
 				
+			}
 				
-			}};
+		};
 		Timer authTimer = new Timer();
 		authTimer.schedule(authTask, delay);
 	}

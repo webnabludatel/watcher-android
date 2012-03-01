@@ -1,22 +1,16 @@
 package org.dvaletin.apps.nabludatel;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.LocalProperties;
 import org.dvaletin.apps.nabludatel.utils.ReportImageView;
 
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook;
-import com.facebook.android.FacebookError;
-import com.facebook.android.Facebook.DialogListener;
-
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,20 +21,32 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.Facebook.DialogListener;
+import com.facebook.android.FacebookError;
+
 public class ReportActivity extends ABSNabludatelActivity {
 	
 	private static final String T = ReportActivity.class.getSimpleName();
+	private static final int DIALOG_PROGRESS_SHOW = 1000;
 	private Facebook mFacebook;
 	private String reportMessage;
+	ProgressDialog mSpinner;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nabludatel_report);
+		mSpinner = new ProgressDialog(this);
+        mSpinner.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mSpinner.setMessage("Отправляю...");
+//        mSpinner.show();
 	}
 	
 	@Override
@@ -163,13 +169,20 @@ public class ReportActivity extends ABSNabludatelActivity {
 	            }
 	        });
         }else{
-        	ReportActivity.this.setFacebookLoginOk();
+        	ReportActivity.this.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					ReportActivity.this.setFacebookLoginOk();
+				}
+        		
+        	});
+        	
         }
 		
 	}
 	
 	protected void setFacebookLoginOk() {
-		// nothing here
 		
 		
 	}
@@ -177,25 +190,56 @@ public class ReportActivity extends ABSNabludatelActivity {
 	public void onPostToFaceBook(View v){
 		loginToFaceBook();
 		if(mFacebook==null) return;
-		try {
-			if(mFacebook.isSessionValid()){
-				String response = mFacebook.request("me");
-				Bundle parameters = new Bundle();
-				parameters.putString("message", reportMessage);
-				parameters.putString("description", "test test test");
-				response = mFacebook.request("me/feed", parameters, "POST");
-				Log.d("Tests", "got response: " + response);
-				if (response == null || response.equals("") || 
-						response.equals("false")) {
-					Log.v("Error", "Blank response");
+		this.runOnUiThread(new Runnable(){
+
+			@Override
+			public void run() {
+				try {
+					if(mFacebook.isSessionValid()){
+
+						mSpinner.show();
+						String response = "";
+						Bundle parameters = new Bundle();
+						parameters.putString("message", reportMessage);
+//						response = mFacebook.request("me/feed", parameters, "POST");
+						Log.d(T, "got response: " + response);
+						if (response == null || response.equals("") || 
+								response.equals("false")) {
+							Log.v("Error", "Blank response");
+						}
+						
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				} finally {
+					TimerTask spinnerTask = new TimerTask(){
+
+						@Override
+						public void run() {
+							mSpinner.dismiss();
+						}
+					};
+					Timer spinerTimer = new Timer();
+					spinerTimer.schedule(spinnerTask, 2000);	
 				}
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+				
+			}});	
 	}
 
 	public void onHowToComplainInfoClick(View v){
 		showInfoDialog(R.string.report_whatnext);
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id)
+	{
+		switch(id){
+		case DIALOG_PROGRESS_SHOW:{
+			return mSpinner;
+		}
+		default:{
+			return null;
+		}
+	}
 	}
 }

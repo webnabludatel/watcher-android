@@ -53,7 +53,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/district_type" 
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium" android:inputType="text"/>
 
                         <Spinner
                             android:id="@+id/district_type"
@@ -68,14 +68,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/district_number"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium" android:inputType="text|number"/>
 
                         <EditText
                             android:id="@+id/district_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/district_number_hint"
+                            android:singleLine="true"
                             android:tag="district_number" >
+
                         </EditText>
 
                         <TextView
