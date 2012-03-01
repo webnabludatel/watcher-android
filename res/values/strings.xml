@@ -25,7 +25,7 @@
     <string name="ballot_box_conform_to_reqs">Урны соответствуют требованиям</string>
     <string name="ballot_box_violations_photo">Фото нарушений</string>
     <string name="ballot_box_violations_photo_gallery">Из галереи</string>
-    <string name="ballot_box_violations_photo_camera">Камера</string>
+    <string name="ballot_box_violations_photo_camera">Сфотографировать</string>
     <string name="ballot_box_title">Урны</string>
     <string name="admitted_before_eight_title">Допуск на участок до 8:00</string>
     <string name="sos">S.O.S.</string>
