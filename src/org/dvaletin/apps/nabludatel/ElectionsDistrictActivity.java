@@ -21,28 +21,26 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 		regionS.setAdapter(new DistrictRegionAdapter(this, Consts.REGIONS));
 		regionS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-				updateCheckListItem(adapterView.getTag().toString(), String.valueOf(id), "");
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				updateCheckListItem(parent.getTag().toString(), String.valueOf(id), "");
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> adapterView) {
-				updateCheckListItem(adapterView.getTag().toString(), "", "");
+			public void onNothingSelected(AdapterView<?> parent) {
 			}
 		});
 
 		final Spinner typeS  = (Spinner) findViewById(R.id.district_type);
 		typeS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-				updateCheckListItem(adapterView.getTag().toString(),
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				updateCheckListItem(parent.getTag().toString(),
 						position >= 0 && position < Consts.POLLING_PLACE_TYPE.length ?
 								Consts.POLLING_PLACE_TYPE[position] : "", "");
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> adapterView) {
-				updateCheckListItem(adapterView.getTag().toString(), "", "");
 			}
 		});
 

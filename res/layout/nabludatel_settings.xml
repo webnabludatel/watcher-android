@@ -78,7 +78,8 @@
                             android:id="@+id/observer_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/observer_status" >
+                            android:entries="@array/observer_status"
+                            android:tag="observer_status">
                             <!-- Preview: listitem=@android:layout/simple_spinner_item -->
                         </Spinner>
 

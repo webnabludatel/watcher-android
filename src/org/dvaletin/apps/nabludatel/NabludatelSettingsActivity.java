@@ -58,27 +58,26 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 			((TextView) findViewById(R.id.nabludatel_registration_status))
 			.setText("Зарегистрирован");
 		}
-		Spinner observer_status = (Spinner) findViewById(R.id.observer_status);
+		Spinner observerStatusS = (Spinner) findViewById(R.id.observer_status);
 		Resources res = getResources();
-		String [] observer_status_items = res.getStringArray(R.array.observer_status);
+		String [] observerStatusItems = res.getStringArray(R.array.observer_status);
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, observer_status_items);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, observerStatusItems);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		observer_status.setAdapter(adapter);
-		observer_status.setSelection(prefs.getInt("observer_status", 1));
-		observer_status.setOnItemSelectedListener(new OnItemSelectedListener(){
-
+		observerStatusS.setAdapter(adapter);
+		observerStatusS.setSelection(prefs.getInt(observerStatusS.getTag().toString(), 1));
+		observerStatusS.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				NabludatelSettingsActivity.this.setObserverStatus(position);
-				
+				String key = parent.getTag().toString();
+				prefs.edit().putInt(key, position).commit();
+				saveCheckListItem(updateCheckListItem(key, String.valueOf(position), ""));
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}});
+			public void onNothingSelected(AdapterView<?> adapterView) {
+			}
+		});
 		Button facebookButton = (Button) NabludatelSettingsActivity.this.findViewById(R.id.facebook);
 		facebookButton.setText(" "+prefs.getString(Consts.PREFS_FACEBOOK_EMAIL, getString(R.string.nabludatel_settings_facebook)));
 	}
@@ -119,15 +118,6 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		authTimer.schedule(authTask, delay);
 	}
 	
-	
-	protected void setObserverStatus(int position) {
-		prefs.edit().putInt("observer_status", position).commit();
-		Resources res = getResources();
-		String [] observer_status_items = res.getStringArray(R.array.observer_status);
-		saveCheckListItem(updateCheckListItem("observer_status", observer_status_items[position], ""));
-		
-	}
-
 	public void onFacebookSetupClick(View v){
 		loginToFaceBook();
 	}
