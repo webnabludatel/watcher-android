@@ -2,8 +2,6 @@ package org.dvaletin.apps.nabludatel;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import org.dvaletin.apps.nabludatel.utils.*;
 import org.dvaletin.apps.nabludatel.utils.NabludatelCheckListItemViewAdapter;
 
@@ -109,10 +107,18 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 				}
 
 			});
+			fillCheckListItems();
+
+		} else {
+			findViewById(R.id.main_layout).setVisibility(View.INVISIBLE);
+			findViewById(R.id.watchingTitlePane).setVisibility(View.INVISIBLE);
 		}
+	}
+
+	private void fillCheckListItems() {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
-		if (mUikListViewAdapter == null && c.getCount() > 0) {
+		if (mUikListViewAdapter == null) {
 			ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
 
 			for (int i = 0; i < Consts.ROOT_MENU_ITEMS.length; i++) {
@@ -124,7 +130,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 					mListViewItems);
 		}
 
-		if (mTikIkmoViewAdapter == null && c.getCount() > 0) {
+		if (mTikIkmoViewAdapter == null) {
 			ArrayList<NabludatelListViewItem> mListViewItems = new ArrayList<NabludatelListViewItem>();
 			for (int i = 0; i < Consts.TIK_IKMO_MENU_ITEMS.length; i++) {
 				mListViewItems.add(new NabludatelListViewItem(
@@ -136,7 +142,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		}
 
 		if (mCurrentPollingPlaceType == null) {
-			
+
 		} else if (mCurrentPollingPlaceType.equals(Consts.POLLING_PLACE_TYPE[0])) {
 			mMainSelector.setAdapter(mUikListViewAdapter);
 		} else {
@@ -207,7 +213,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		} else {
 			mMainSelector.setOnItemClickListener(mTIKClickListener);
 		}
-
 	}
 
 	protected void activateSectionBeforeElections() {
