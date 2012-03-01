@@ -98,10 +98,11 @@
 
                             <ProgressBar
                                 android:id="@+id/auth_wheel"
-                                style="?android:attr/progressBarStyleSmall"
+                                style="?android:attr/progressBarStyleSmallInverse"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="0" />
                         </LinearLayout>
                     </LinearLayout>
 
