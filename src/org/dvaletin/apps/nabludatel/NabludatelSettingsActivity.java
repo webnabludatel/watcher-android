@@ -69,7 +69,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, observerStatusItems);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		observerStatusS.setAdapter(adapter);
-		observerStatusS.setSelection(prefs.getInt(observerStatusS.getTag().toString(), 1));
+		observerStatusS.setSelection(prefs.getInt(observerStatusS.getTag().toString(), 0));
 		observerStatusS.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
