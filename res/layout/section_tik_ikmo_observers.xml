@@ -35,7 +35,7 @@
                     android:id="@+id/editText1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/uik_district_watchers_count_hint"
+                    android:hint="@string/district_watchers_count_hint"
                     android:inputType="number"
                     android:tag="observers_1" >
 
@@ -60,7 +60,7 @@
                     android:id="@+id/editText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/uik_district_watchers_count_hint"
+                    android:hint="@string/district_watchers_count_hint"
                     android:inputType="number"
                     android:tag="observers_2" />
 
@@ -82,7 +82,7 @@
                     android:id="@+id/EditText01"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/uik_district_watchers_count_hint"
+                    android:hint="@string/district_watchers_count_hint"
                     android:inputType="number"
                     android:tag="observers_3" />
 
@@ -104,7 +104,7 @@
                     android:id="@+id/EditText02"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/uik_district_watchers_count_hint"
+                    android:hint="@string/district_watchers_count_hint"
                     android:inputType="number"
                     android:tag="observers_4" />
 
@@ -126,7 +126,7 @@
                     android:id="@+id/editText3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/uik_district_watchers_count_hint"
+                    android:hint="@string/district_watchers_count_hint"
                     android:inputType="number"
                     android:tag="observers_5" />
 

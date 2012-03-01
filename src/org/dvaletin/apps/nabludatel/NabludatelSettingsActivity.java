@@ -3,14 +3,12 @@ package org.dvaletin.apps.nabludatel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.util.HashMap;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.Violation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,7 +39,6 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 	private static final String T = NabludatelSettingsActivity.class.getSimpleName();
 	
 	private static final int NABLUDATEL_MANUAL_SETUP = 1001;
-	private static final int NABLUDATEL_TWITTER_SETUP = 1002;
 
 	private NabludatelCloud cloudHelper;
 	private Facebook mFacebook;
@@ -65,7 +62,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		Resources res = getResources();
 		String [] observer_status_items = res.getStringArray(R.array.observer_status);
 		
-		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, observer_status_items);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, observer_status_items);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		observer_status.setAdapter(adapter);
 		observer_status.setSelection(prefs.getInt("observer_status", 1));
@@ -111,7 +108,6 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 						}else{
 							((TextView) findViewById(R.id.nabludatel_registration_status))
 							.setText("Нет связи с сервером.");
-							Timer authTimer = new Timer();
 							NabludatelSettingsActivity.this.tryAuthenticate(300000);
 						}
 						auth_wheel.setVisibility(View.INVISIBLE);
@@ -128,24 +124,17 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		prefs.edit().putInt("observer_status", position).commit();
 		Resources res = getResources();
 		String [] observer_status_items = res.getStringArray(R.array.observer_status);
-		saveViolation(updateViolationState("observer_status", observer_status_items[position], ""));
+		saveCheckListItem(updateCheckListItem("observer_status", observer_status_items[position], ""));
 		
 	}
 
-
-
-	public void onTwitterSetupClick(View v){
-		Intent intent = new Intent(this, SimpleTwitterActivity.class);
-		startActivity(intent);
-	}
-	
 	public void onFacebookSetupClick(View v){
 		loginToFaceBook();
 	}
 
 	public void onManualSetupClick(View v){
 		Intent intent = new Intent(this, NabludatelProfileActivity.class);
-		intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, 0l);
+		intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, 0l);
 		startActivityForResult(intent, NABLUDATEL_MANUAL_SETUP);
 	}
 
@@ -164,8 +153,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 			InputStream facebookProperties = NabludatelSettingsActivity.class.getResourceAsStream("facebook.properties");
 			if (facebookProperties != null) {
 				properties.load(facebookProperties);
-				String secretKey = properties.getProperty("facebook.secret.key");
-				return secretKey;
+				return properties.getProperty("facebook.secret.key");
 			}
 		} catch (IOException e) {
 			Log.w(T, "Error reading facebook.properties", e);
@@ -264,9 +252,9 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		Button facebookButton = (Button) NabludatelSettingsActivity.this.findViewById(R.id.facebook);
 		facebookButton.setText(" "+email);
 		prefs.edit().putString(Consts.PREFS_FACEBOOK_EMAIL, email).commit();
-		saveViolation(updateViolationState("last_name", last, ""));
-		saveViolation(updateViolationState("first_name", first, ""));
-		saveViolation(updateViolationState("email", email, ""));
+		saveCheckListItem(updateCheckListItem("last_name", last, ""));
+		saveCheckListItem(updateCheckListItem("first_name", first, ""));
+		saveCheckListItem(updateCheckListItem("email", email, ""));
 	}
 	
 	

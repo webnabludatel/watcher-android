@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class SosActivity extends ABSNabludatelActivity {
 	
@@ -20,15 +19,19 @@ public class SosActivity extends ABSNabludatelActivity {
 	private static final int DIALOG_SEND_SOS_ERROR = 1002;
 	
 	public void onCreate(Bundle savedInstanceState) {
-		super.durtyResumeHack = false;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.s_o_s);
 	}
 
 	@Override
+	public void restore() {
+		// Do nothing to restore
+	}
+
+	@Override
 	public void onResume(){
 		super.onResume();
-		long pollingPlace = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1L);
+		long pollingPlace = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
 		if(pollingPlace == -1L){
 			((EditText)findViewById(R.id.sos_report_text)).setEnabled(false);
 			((EditText)findViewById(R.id.sos_report_text)).setFocusable(false);
@@ -49,7 +52,7 @@ public class SosActivity extends ABSNabludatelActivity {
 			String sos_report_text = ((EditText)findViewById(R.id.sos_report_text)).getText().toString();
 			String sos_report_key = findViewById(R.id.sos_report_text).getTag().toString();
 			long timestamp = System.currentTimeMillis();
-			long pollingPlace = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1L);
+			long pollingPlace = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
 			long serverResponce;
 			if(!sos_report_text.equals("") && pollingPlace != -1L ){
 				showDialog(DIALOG_SEND_SOS_BEGIN);
@@ -69,9 +72,8 @@ public class SosActivity extends ABSNabludatelActivity {
 	protected Dialog onCreateDialog(int id) {
 	    switch(id) {
 	    case DIALOG_SEND_SOS_BEGIN:{
-	    	ProgressDialog dialog = ProgressDialog.show(SosActivity.this, "", 
-                    "Отправляю...", true);
-	        return dialog;
+			return ProgressDialog.show(this, "",
+					"Отправляю...", true);
 	    }
 	    case DIALOG_SEND_SOS_ERROR:{
 	    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -82,8 +84,7 @@ public class SosActivity extends ABSNabludatelActivity {
 	    	        	   dialog.cancel();
 	    	           }
 	    	       });
-	    	AlertDialog dialog = builder.create();
-	    	return dialog;
+			return builder.create();
 	    }
 	    	
 		default:

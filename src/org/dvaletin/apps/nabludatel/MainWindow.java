@@ -68,9 +68,9 @@ public class MainWindow extends TabActivity {
 
 		NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
 
-		SyncTask violationSyncTask = new ViolationSyncTask(cloud, this,
-				new SyncNotification(Consts.VIOLATION_NOTIFICATION_ID, this, getString(R.string.upload_violation_notification)));
-		syncronizers.add(new ExecuterWithNotification(violationSyncTask, 5L));
+		SyncTask checkListSyncTask = new CheckListSyncTask(cloud, this,
+				new SyncNotification(Consts.DATA_NOTIFICATION_ID, this, getString(R.string.upload_data_notification)));
+		syncronizers.add(new ExecuterWithNotification(checkListSyncTask, 5L));
 
 		SyncTask mediaSyncTask = new MediaSyncTask(this, cloud,
 				new SyncNotification(Consts.MEDIA_NOTIFICATION_ID, this, getString(R.string.upload_media_notification)));

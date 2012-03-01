@@ -1,6 +1,6 @@
 package org.dvaletin.apps.nabludatel.utils;
 
-public class Violation {
+public class CheckListItem {
 	private long id;
 	private double lat, lng;
 	private String key;
@@ -10,9 +10,9 @@ public class Violation {
 	private long timestamp;
 	private boolean changed;
 	
-	public Violation(long id, long currentTimeMillis, double lat, double lng, String key,
-					 String value,
-					 long pollingPlaceId, String violation) {
+	public CheckListItem(long id, long currentTimeMillis, double lat, double lng, String key,
+						 String value,
+						 long pollingPlaceId, String violation) {
 		this.id = id;
 		this.lat = lat;
 		this.lng = lng;

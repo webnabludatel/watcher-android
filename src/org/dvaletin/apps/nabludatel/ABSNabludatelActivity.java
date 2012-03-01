@@ -23,7 +23,7 @@ import android.widget.TextView;
 import org.dvaletin.apps.nabludatel.utils.Consts;
 import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
 import org.dvaletin.apps.nabludatel.utils.Tumbler;
-import org.dvaletin.apps.nabludatel.utils.Violation;
+import org.dvaletin.apps.nabludatel.utils.CheckListItem;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -42,7 +42,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	File videoRequestFile;
 	long mCurrentPollingPlaceId = -1;
 	String mCurrentPollingPlaceType;
-	HashMap<String, Violation> myState;
+	HashMap<String, CheckListItem> mCheckList;
 	HashMap<String, View> activeViews;
 	double lat;
 	double lng;
@@ -50,8 +50,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 	int screenId;
 	Intent toReturn;
 	private String lastPhotoKey;
-	protected boolean durtyResumeHack = true;
-
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,11 +60,10 @@ public abstract class ABSNabludatelActivity extends Activity {
 		photos = new HashMap<File, String>();
 		videos = new HashMap<File, String>();
 		toReturn = new Intent();
-		myState = new HashMap<String, Violation>();
+		mCheckList = new HashMap<String, CheckListItem>();
 		activeViews = new HashMap<String, View>();
 		Intent intent = getIntent();
-		mCurrentPollingPlaceId = intent.getLongExtra(
-				Consts.PREFS_ELECTIONS_DISRICT, -1);
+		mCurrentPollingPlaceId = intent.getLongExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
 		
 		screenId = intent.getIntExtra(Consts.PREFS_LAYOUT_ID, -1);
 		lat = intent.getDoubleExtra(Consts.PREFS_LATITUDE, 0.0d);
@@ -91,8 +88,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 		setCallbacks((ViewGroup) (findViewById(android.R.id.content)
 				.getRootView()));
-		if(durtyResumeHack)
-			restore();
+
+		restore();
+
 		LocationManager locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 
@@ -169,24 +167,23 @@ public abstract class ABSNabludatelActivity extends Activity {
 		for (Entry<String, View> entry : activeViews.entrySet()){
 			if(entry.getValue() instanceof EditText){
 				EditText ed = (EditText)entry.getValue();
-
 				String newValue = ed.getText().toString();
 				if (!newValue.equals("")) {
-					updateViolationState(entry.getKey(), newValue, "");
+					updateCheckListItem(entry.getKey(), newValue, "");
 				}
 			}
 		}
-		for (Entry<String, Violation> entry : myState.entrySet()) {
-			saveViolation(entry.getValue());
+		for (Entry<String, CheckListItem> entry : mCheckList.entrySet()) {
+			saveCheckListItem(entry.getValue());
 		}
 	}
 
-	protected Violation updateViolationState(String key, String newValue, String violation) {
-		Violation v = myState.get(key);
+	protected CheckListItem updateCheckListItem(String key, String newValue, String violation) {
+		CheckListItem v = mCheckList.get(key);
 		if (v == null) {
-			v = new Violation(0L, System.currentTimeMillis(), lat, lng,
+			v = new CheckListItem(0L, System.currentTimeMillis(), lat, lng,
 					key, newValue, mCurrentPollingPlaceId, violation);
-			myState.put(key, v);
+			mCheckList.put(key, v);
 		} else {
 			v.setValue(newValue);
 			if (v.isChanged()) {
@@ -197,7 +194,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		return v;
 	}
 
-	protected Violation saveViolation(Violation v) {
+	protected CheckListItem saveCheckListItem(CheckListItem v) {
 		if (v.isChanged() || v.getId() <= 0) {
 			if (v.getId() <= 0) {
 				v.setId(mElectionsDB.addCheckListItem(v, screenId));
@@ -221,9 +218,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 			for (Entry<String,Integer> entry : itemsCache.entrySet()){
 				String checkListItemKey = entry.getKey();
 				String value = String.valueOf(entry.getValue());
-				Violation violation = saveViolation(updateViolationState(checkListItemKey, value, ""));
+				CheckListItem checkListItem = saveCheckListItem(updateCheckListItem(checkListItemKey, value, ""));
 				Set<File> processedFiles = new HashSet<File>();
-				Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(violation.getId(), mediaType);
+				Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(checkListItem.getId(), mediaType);
 				c.moveToFirst();
 				for (int i = 0; i < c.getCount(); i++) {
 					long mediaRowId = c.getLong(0);
@@ -243,7 +240,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 										file.getAbsolutePath(),
 										mediaType, "",
 										file.lastModified(),
-										violation.getId(),
+										checkListItem.getId(),
 										mCurrentPollingPlaceId
 								);
 							}
@@ -273,7 +270,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 								file.getAbsolutePath(),
 								mediaType, "",
 								file.lastModified(),
-								violation.getId(),
+								checkListItem.getId(),
 								mCurrentPollingPlaceId
 						);
 					}
@@ -318,27 +315,28 @@ public abstract class ABSNabludatelActivity extends Activity {
 			String key = c
 					.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN);
 			if(activeViews.keySet().contains(key)){
-				Violation violation = new Violation(c.getLong(0),
-						c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN), c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
+				CheckListItem checkListItem = new CheckListItem(c.getLong(0),
+						c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN),
+						c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
 						c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
 						c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
 						c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN),
 						c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN),
 						c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN));
-				myState.put(key, violation);
+				mCheckList.put(key, checkListItem);
 
-				restoreMediaItems(violation, photos, Consts.PHOTO_FILE);
-				restoreMediaItems(violation, videos, Consts.VIDEO_FILE);
+				restoreMediaItems(checkListItem, photos, Consts.PHOTO_FILE);
+				restoreMediaItems(checkListItem, videos, Consts.VIDEO_FILE);
 			}
 			c.moveToNext();
 		}
 
 		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
-				myState, activeViews);
+				mCheckList, activeViews);
 	}
 
-	private void restoreMediaItems(Violation violation, Map<File, String> medias, String mediaType) {
-		Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(violation.getId(), mediaType);
+	private void restoreMediaItems(CheckListItem checkListItem, Map<File, String> medias, String mediaType) {
+		Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(checkListItem.getId(), mediaType);
 		c.moveToFirst();
 		for (int i = 0; i < c.getCount(); i++) {
 			long mediaRowId = c.getLong(0);
@@ -347,7 +345,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 			File file = new File(filePath);
 			if (file.exists()) {
-				medias.put(file, violation.getKey());
+				medias.put(file, checkListItem.getKey());
 			} else {
 				// Remove file (record found in DB, but file does not exists)
 				if (mediaItemServerId > 0L) {
@@ -363,31 +361,41 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 	}
 
-	public void restore(ViewGroup v, HashMap<String, Violation> from, HashMap<String, View> to) {
-		for (Entry<String, View> stringViewEntry : to.entrySet()) {
-			Entry entry = (Entry) stringViewEntry;
-			if (entry.getValue() instanceof Tumbler) {
-				try {
-					Violation data = from.get(entry.getKey().toString());
-					if (data != null) {
-						Tumbler bar = (Tumbler) entry.getValue();
-						bar.setTumbler(data.getValue());
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	protected void restore(ViewGroup v, HashMap<String, CheckListItem> from, HashMap<String, View> to) {
+		for (Entry<String, View> entry : to.entrySet()) {
+			View view = entry.getValue();
+			String key = entry.getKey();
+			CheckListItem data = from.get(key);
+			restoreView(view, data);
+		}
+	}
+
+	protected void restoreView(View view, CheckListItem data) {
+		if (view instanceof Tumbler) {
+			restoreTumbler((Tumbler) view, data);
+		}
+		if (view instanceof EditText) {
+			restoreEditText((EditText) view, data);
+		}
+	}
+
+	protected void restoreEditText(EditText editText, CheckListItem data) {
+		try {
+			if (data != null) {
+				editText.setText(data.getValue());
 			}
-			if (entry.getValue() instanceof EditText) {
-				try {
-					Violation data = from.get(entry.getKey().toString());
-					if (data != null) {
-						EditText ed = (EditText) entry.getValue();
-						ed.setText(data.getValue());
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void restoreTumbler(Tumbler tumbler, CheckListItem data) {
+		try {
+			if (data != null) {
+				tumbler.setTumbler(data.getValue());
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -421,7 +429,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						int progress = seekBar.getProgress();
 						if (mIsProgressChanged && progress != mInitialProgress) {
-							updateViolationState(seekBar.getTag().toString(),
+							updateCheckListItem(seekBar.getTag().toString(),
 									((Tumbler) seekBar).getTumblerValue(),
 									((Tumbler) seekBar).getViolation());
 						}
@@ -531,10 +539,9 @@ public abstract class ABSNabludatelActivity extends Activity {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = {MediaStore.Images.Media.DATA};
 				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-	            cursor.moveToFirst();
-	            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-	            String path = cursor.getString(columnIndex);
-//				String path = selectedImage.getEncodedPath();
+				cursor.moveToFirst();
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String path = cursor.getString(columnIndex);
 				photos.put(new File(path), lastPhotoKey);
 				TextView t = (TextView)findViewById(R.id.photos_count);
 				if( t!= null ){
@@ -545,14 +552,13 @@ public abstract class ABSNabludatelActivity extends Activity {
 			break;
 		}
 		case Consts.GALLERY_VIDEO_ACTIVITY_REQUEST_CODE: {
-			if(requestCode != 0){
+			if (resultCode != 0){
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = {MediaStore.Video.Media.DATA};
 				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-	            cursor.moveToFirst();
-	            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-	            String path = cursor.getString(columnIndex);
-//				String path = selectedImage.getEncodedPath();
+				cursor.moveToFirst();
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String path = cursor.getString(columnIndex);
 				videos.put(new File(path), lastPhotoKey);
 				TextView t = (TextView)findViewById(R.id.videos_count);
 				if( t!= null ){
@@ -572,7 +578,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		save();
 		savePhotos();
 		saveVideos();
-		toReturn.putExtra(Consts.PREFS_VIOLATIONS, myState.entrySet().size());
+		toReturn.putExtra(Consts.PREFS_VIOLATIONS, mCheckList.entrySet().size());
 		setResult(RESULT_OK, toReturn);
 		super.onBackPressed();
 	}

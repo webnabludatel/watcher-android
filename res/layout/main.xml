@@ -6,14 +6,20 @@
     android:background="@drawable/background_fill"
     android:gravity="center_horizontal|fill"
     android:orientation="vertical" >
-
+
+
+
+
+
+
     <FrameLayout
         android:id="@+id/main_window_frame"
         style="@style/main_window"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50" >
-
+
+
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
@@ -59,7 +65,7 @@
                             android:id="@+id/elections_district_add"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:onClick="onElectionsDictrictAddClick"
+                            android:onClick="onPollingPlaceAddClick"
                             android:text="@string/add_elections_district" />
                     </LinearLayout>
                 </LinearLayout>

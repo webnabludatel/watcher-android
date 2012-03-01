@@ -44,16 +44,8 @@
                         <Spinner
                             android:id="@+id/district_region"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <EditText
-                            android:id="@+id/fake_district_region"
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:enabled="false"
-                            android:tag="district_region"
-                            android:visibility="gone" />
+                            android:tag="district_region" />
 
                         <TextView
                             android:id="@+id/textView1"
@@ -67,22 +59,23 @@
                             android:id="@+id/district_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/district_types" />
+                            android:entries="@array/district_types"
+                            android:tag="district_type"/>
 
                         <TextView
                             android:id="@+id/TextView01"
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/uik_district_number"
+                            android:text="@string/district_number"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <EditText
-                            android:id="@+id/uik_district_number"
+                            android:id="@+id/district_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/uik_district_number_hint"
-                            android:tag="uik_district_number" >
+                            android:hint="@string/district_number_hint"
+                            android:tag="district_number" >
                         </EditText>
 
                         <TextView
@@ -90,39 +83,39 @@
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/uik_district_chairman"
+                            android:text="@string/district_chairman"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <EditText
-                            android:id="@+id/uik_district_chairman"
+                            android:id="@+id/district_chairman"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/uik_district_chairman_hint"
+                            android:hint="@string/district_chairman_hint"
                             android:inputType="textCapWords|textPersonName"
-                            android:tag="uik_district_chairman" />
+                            android:tag="district_chairman" />
 
                         <TextView
                             android:id="@+id/TextView03"
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/uik_district_secretary"
+                            android:text="@string/district_secretary"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <EditText
-                            android:id="@+id/uik_district_secretary"
+                            android:id="@+id/district_secretary"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/uik_district_chairman_hint"
+                            android:hint="@string/district_chairman_hint"
                             android:inputType="textCapWords|textPersonName"
-                            android:tag="uik_district_secretary" />
+                            android:tag="district_secretary" />
 
                         <TextView
                             android:id="@+id/textView6"
                             style="@style/TextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/uik_district_banner_photo"
+                            android:text="@string/district_banner_photo"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <LinearLayout
@@ -136,17 +129,17 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:onClick="onGalleryPhotoClick"
-                                android:tag="uik_district_banner_photo"
+                                android:tag="district_banner_photo"
                                 android:text="@string/ballot_box_violations_photo_gallery" />
 
                             <Button
-                                android:id="@+id/uik_district_banner_photo"
+                                android:id="@+id/district_banner_photo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:onClick="onMakePhotoClick"
-                                android:tag="uik_district_banner_photo"
-                                android:text="@string/uik_district_banner_photo_make" />
+                                android:tag="district_banner_photo"
+                                android:text="@string/district_banner_photo_make" />
                         </LinearLayout>
                     </LinearLayout>
 

@@ -34,15 +34,11 @@ public class DistrictRegionAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-
-
 		return regions[position].getId();
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
-		// TODO Auto-generated method stub
 		ViewHolder holder;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.district_view_item_layout,

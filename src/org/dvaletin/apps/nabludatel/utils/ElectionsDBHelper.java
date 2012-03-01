@@ -12,7 +12,7 @@ public class ElectionsDBHelper {
 
 	private static final String TAG = "Elections.DB";
 	private static final String DATABASE_NAME = "Elections.DB";
-	private static final int DATABASE_VERSION = 8;
+	private static final int DATABASE_VERSION = 9;
 	private final MyDbHelper mDbHelper;
 
 	public ElectionsDBHelper(Context context) {
@@ -65,24 +65,24 @@ public class ElectionsDBHelper {
 			+ CHECKLISTITEM_SERVER_ID_KEY + " integer "
 			+ ");";
 	public static final String POLLINGPLACE_TABLE = "PollingPlace";
-	public static final String POLLINGPLACE_CHAIRMAN_KEY = "chairman";
-	public static final int POLLINGPLACE_CHAIRMAN_COLUMN = 1;
 	public static final String POLLINGPLACE_LAT_KEY = "lat";
-	public static final int POLLINGPLACE_LAT_COLUMN = 2;
+	public static final int POLLINGPLACE_LAT_COLUMN = 1;
 	public static final String POLLINGPLACE_LNG_KEY = "lng";
-	public static final int POLLINGPLACE_LNG_COLUMN = 3;
+	public static final int POLLINGPLACE_LNG_COLUMN = 2;
 	public static final String POLLINGPLACE_NAME_KEY = "name";
-	public static final int POLLINGPLACE_NAME_COLUMN = 4;
-	public static final String POLLINGPLACE_SERVER_NUMBER_KEY = "number";
-	public static final int POLLINGPLACE_SERVER_NUMBER_COLUMN = 5;
+	public static final int POLLINGPLACE_NAME_COLUMN = 3;
+	public static final String POLLINGPLACE_TIMESTAMP_KEY = "timestamp";
+	public static final int POLLINGPLACE_TIMESTAMP_COLUMN = 4;
+	public static final String POLLINGPLACE_CHAIRMAN_KEY = "chairman";
+	public static final int POLLINGPLACE_CHAIRMAN_COLUMN = 5;
 	public static final String POLLINGPLACE_SECRETARY_KEY = "secretary";
 	public static final int POLLINGPLACE_SECRETARY_COLUMN = 6;
-	public static final String POLLINGPLACE_TIMESTAMP_KEY = "timestamp";
-	public static final int POLLINGPLACE_TIMESTAMP_COLUMN = 7;
-	public static final String POLLINGPLACE_SELECTION_KEY = "selection_id";
-	public static final int POLLINGPLACE_SELECTION_COLUMN = 8;
+	public static final String POLLINGPLACE_REGION_ID_KEY = "region_id";
+	public static final int POLLINGPLACE_REGION_ID_COLUMN = 7;
 	public static final String POLLINGPLACE_TYPE_KEY = "type";
-	public static final int POLLINGPLACE_TYPE_COLUMN = 9;
+	public static final int POLLINGPLACE_TYPE_COLUMN = 8;
+	public static final String POLLINGPLACE_SERVER_ID_KEY = "server_id";
+	public static final int POLLINGPLACE_SERVER_ID_COLUMN = 9;
 	public static final String POLLINGPLACE_ROW_ID = "_id";
 	protected static final String DATABASE_POLLINGPLACE_CREATE = "create table "
 			+ POLLINGPLACE_TABLE
@@ -90,15 +90,15 @@ public class ElectionsDBHelper {
 			+ POLLINGPLACE_ROW_ID
 			+ " integer primary key autoincrement"
 			+ ", "
-			+ POLLINGPLACE_CHAIRMAN_KEY + " text  "	+ ", "
 			+ POLLINGPLACE_LAT_KEY	+ " float  "	+ ", "
 			+ POLLINGPLACE_LNG_KEY	+ " float  "	+ ", "
 			+ POLLINGPLACE_NAME_KEY	+ " text  "		+ ", "
-			+ POLLINGPLACE_SERVER_NUMBER_KEY	+ " integer  "	+ ", "
-			+ POLLINGPLACE_SECRETARY_KEY+ " text  "	+ ", "
 			+ POLLINGPLACE_TIMESTAMP_KEY+ " long  "	+ ", "
-			+ POLLINGPLACE_SELECTION_KEY+ " integer  "	+ ", "
-			+ POLLINGPLACE_TYPE_KEY + " text  " + ");";
+			+ POLLINGPLACE_CHAIRMAN_KEY + " text  "	+ ", "
+			+ POLLINGPLACE_SECRETARY_KEY+ " text  "	+ ", "
+			+ POLLINGPLACE_REGION_ID_KEY + " integer  "	+ ", "
+			+ POLLINGPLACE_TYPE_KEY + " text  " + ", "
+			+ POLLINGPLACE_SERVER_ID_KEY + " integer  "	+ ");";
 	
 	
 	public static final String MEDIAITEM_TABLE = "MediaItem";
@@ -149,7 +149,7 @@ public class ElectionsDBHelper {
 
 	}
 
-	public long addCheckListItem(Violation value, int screen_id) {
+	public long addCheckListItem(CheckListItem value, int screen_id) {
 		return addCheckListItem(
 				value.getLat(), 
 				value.getLng(), 
@@ -163,7 +163,7 @@ public class ElectionsDBHelper {
 		
 	}
 	
-	public long updateCheckListItem(Violation value) {
+	public long updateCheckListItem(CheckListItem value) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(CHECKLISTITEM_LAT_KEY, value.getLat());
 		contentValues.put(CHECKLISTITEM_LNG_KEY, value.getLng());
@@ -175,15 +175,6 @@ public class ElectionsDBHelper {
 		contentValues.put(CHECKLISTITEM_SERVER_STATUS_KEY, 0L);
 		return db().update(CHECKLISTITEM_TABLE, contentValues, CHECKLISTITEM_ROW_ID + " = " + value.getId(), null);
 
-	}
-
-	public boolean removeCheckListItem(long rowIndex) {
-		return db().delete(CHECKLISTITEM_TABLE, CHECKLISTITEM_ROW_ID + " = "
-				+ rowIndex, null) > 0;
-	}
-
-	public boolean removeAllCheckListItems() {
-		return db().delete(CHECKLISTITEM_TABLE, null, null) > 0;
 	}
 
 	public Cursor getAllCheckListItemsNotSynchronizedWithServer() {
@@ -244,17 +235,7 @@ public class ElectionsDBHelper {
 		return res;
 	}
 
-	public Cursor getCheckListItemViolation(long rowIndex) {
-		Cursor res = db().query(CHECKLISTITEM_TABLE, new String[]{
-				CHECKLISTITEM_VIOLATION_KEY
-		}, CHECKLISTITEM_ROW_ID + " = " + rowIndex, null, null, null, null);
-		if (res != null){
-			res.moveToFirst();
-		}
-		return res;
-	}
-
-	public String getCheckListItemViolationName(long rowIndex) {
+	public String getCheckListItemName(long rowIndex) {
 		Cursor res = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_NAME_KEY
 		}, CHECKLISTITEM_ROW_ID + " = " + rowIndex, null, null, null, null);
@@ -273,82 +254,51 @@ public class ElectionsDBHelper {
 		return db().update(CHECKLISTITEM_TABLE, contentValues, where, null);
 	}
 
-	public long addPollingPlace(String chairman, double lat, double lng,
-			String name, long number, String secretary, long time,
-			int selectionKey, String type) {
+	public long addPollingPlace(double lat, double lng, String name, long time, String chairman,
+								String secretary, int regionId, String type, long serverId) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(POLLINGPLACE_CHAIRMAN_KEY, chairman);
 		contentValues.put(POLLINGPLACE_LAT_KEY, lat);
 		contentValues.put(POLLINGPLACE_LNG_KEY, lng);
 		contentValues.put(POLLINGPLACE_NAME_KEY, name);
-		contentValues.put(POLLINGPLACE_SERVER_NUMBER_KEY, number);
-		contentValues.put(POLLINGPLACE_SECRETARY_KEY, secretary);
 		contentValues.put(POLLINGPLACE_TIMESTAMP_KEY, time);
-		contentValues.put(POLLINGPLACE_SELECTION_KEY, selectionKey);
+		contentValues.put(POLLINGPLACE_CHAIRMAN_KEY, chairman);
+		contentValues.put(POLLINGPLACE_SECRETARY_KEY, secretary);
+		contentValues.put(POLLINGPLACE_REGION_ID_KEY, regionId);
 		contentValues.put(POLLINGPLACE_TYPE_KEY, type);
+		contentValues.put(POLLINGPLACE_SERVER_ID_KEY, serverId);
 		return db().insert(POLLINGPLACE_TABLE, null, contentValues);
 
 	}
 
-	public long updatePollingPlace(long rowIndex, String chairman, double lat,
-			double lng, String name, Integer number, String secretary,
-			long timestamp, Integer selectionKey, String type) {
+	public long updatePollingPlace(long rowIndex, double lat, double lng, String name, long timestamp, String chairman,
+								   String secretary, int regionId, String type, int serverId) {
 		String where = POLLINGPLACE_ROW_ID + " = " + rowIndex;
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(POLLINGPLACE_CHAIRMAN_KEY, chairman);
 		contentValues.put(POLLINGPLACE_LAT_KEY, lat);
 		contentValues.put(POLLINGPLACE_LNG_KEY, lng);
 		contentValues.put(POLLINGPLACE_NAME_KEY, name);
-		contentValues.put(POLLINGPLACE_SERVER_NUMBER_KEY, number);
-		contentValues.put(POLLINGPLACE_SECRETARY_KEY, secretary);
 		contentValues.put(POLLINGPLACE_TIMESTAMP_KEY, timestamp);
-		contentValues.put(POLLINGPLACE_SELECTION_KEY, selectionKey);
+		contentValues.put(POLLINGPLACE_CHAIRMAN_KEY, chairman);
+		contentValues.put(POLLINGPLACE_SECRETARY_KEY, secretary);
+		contentValues.put(POLLINGPLACE_REGION_ID_KEY, regionId);
 		contentValues.put(POLLINGPLACE_TYPE_KEY, type);
+		contentValues.put(POLLINGPLACE_SERVER_ID_KEY, serverId);
 		return db().update(POLLINGPLACE_TABLE, contentValues, where, null);
 
-	}
-	
-	public long updatePollingPlaceSelection(long rowIndex, int selectionKey) {
-		String where = POLLINGPLACE_ROW_ID + " = " + rowIndex;
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(POLLINGPLACE_SELECTION_KEY, selectionKey);
-		return db().update(POLLINGPLACE_TABLE, contentValues, where, null);
-
-	}
-	
-	public int getPollingPlaceSelection(long rowIndex){
-		Cursor c = getPollingPlace(rowIndex);
-		if(c.getCount() > 0){
-			return c.getInt(c.getColumnIndex(POLLINGPLACE_SELECTION_KEY));
-		} else return 0;
-	}
-
-	public boolean removePollingPlace(long rowIndex) {
-		return db().delete(POLLINGPLACE_TABLE, POLLINGPLACE_ROW_ID + " = "
-				+ rowIndex, null) > 0;
-	}
-
-	public boolean removeAllPollingPlace() {
-		return db().delete(POLLINGPLACE_TABLE, null, null) > 0;
-	}
-
-	public Cursor getAllPollingPlaces() {
-		return db().query(POLLINGPLACE_TABLE, new String[]{
-				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
-				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
-				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
-				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
-				POLLINGPLACE_SELECTION_KEY, POLLINGPLACE_TYPE_KEY}, null,
-				null, null, null, null);
 	}
 
 	public Cursor getPollingPlace(long rowIndex) {
 		Cursor res = db().query(POLLINGPLACE_TABLE, new String[]{
-				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
-				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
-				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
-				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
-				POLLINGPLACE_SELECTION_KEY, POLLINGPLACE_TYPE_KEY},
+				POLLINGPLACE_ROW_ID,
+				POLLINGPLACE_LAT_KEY,
+				POLLINGPLACE_LNG_KEY,
+				POLLINGPLACE_NAME_KEY,
+				POLLINGPLACE_TIMESTAMP_KEY,
+				POLLINGPLACE_CHAIRMAN_KEY,
+				POLLINGPLACE_SECRETARY_KEY,
+				POLLINGPLACE_REGION_ID_KEY,
+				POLLINGPLACE_TYPE_KEY,
+				POLLINGPLACE_SERVER_ID_KEY},
 				POLLINGPLACE_ROW_ID + " = " + rowIndex, null, null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -358,19 +308,24 @@ public class ElectionsDBHelper {
 	
 	public String getPollingPlaceType(long rowIndex){
 		Cursor c = getPollingPlace(rowIndex);
-		if(c==null && c.getCount() < 1){
+		if (c == null || c.getCount() < 1) {
 			return null;
 		}
 		return c.getString(c.getColumnIndex(POLLINGPLACE_TYPE_KEY));
 	}
 
 	public Cursor getPollingPlaceByNumber(long district_id) {
-		Cursor res = db().query(POLLINGPLACE_TABLE, new String[]{
-				POLLINGPLACE_ROW_ID, POLLINGPLACE_CHAIRMAN_KEY,
-				POLLINGPLACE_LAT_KEY, POLLINGPLACE_LNG_KEY,
-				POLLINGPLACE_NAME_KEY, POLLINGPLACE_SERVER_NUMBER_KEY,
-				POLLINGPLACE_SECRETARY_KEY, POLLINGPLACE_TIMESTAMP_KEY,
-				POLLINGPLACE_SELECTION_KEY, POLLINGPLACE_TYPE_KEY},
+		Cursor res = db().query(POLLINGPLACE_TABLE, new String[] {
+				POLLINGPLACE_ROW_ID,
+				POLLINGPLACE_LAT_KEY,
+				POLLINGPLACE_LNG_KEY,
+				POLLINGPLACE_NAME_KEY,
+				POLLINGPLACE_TIMESTAMP_KEY,
+				POLLINGPLACE_CHAIRMAN_KEY,
+				POLLINGPLACE_SECRETARY_KEY,
+				POLLINGPLACE_REGION_ID_KEY,
+				POLLINGPLACE_TYPE_KEY,
+				POLLINGPLACE_SERVER_ID_KEY},
 				POLLINGPLACE_ROW_ID + " = " + district_id, null,
 				null, null, null);
 		if (res != null) {
@@ -380,8 +335,8 @@ public class ElectionsDBHelper {
 	}
 
 	public Cursor getPollingPlaceNames() {
-		Cursor res = db().query(POLLINGPLACE_TABLE, new String[]{
-				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY,}, null, null,
+		Cursor res = db().query(POLLINGPLACE_TABLE, new String[] {
+				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY}, null, null,
 				null, null, null);
 		if (res != null) {
 			res.moveToFirst();
@@ -436,20 +391,9 @@ public class ElectionsDBHelper {
 		return db().update(MEDIAITEM_TABLE, contentValues, where, null);
 	}
 
-	public long updateMediaItemUrl(long rowIndex, String serverurl) {
-		String where = MEDIAITEM_ROW_ID + " = " + rowIndex;
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(MEDIAITEM_SERVERURL_KEY, serverurl);
-		return db().update(MEDIAITEM_TABLE, contentValues, where, null);
-	}
-
 	public boolean removeMediaItem(long rowIndex) {
 		return db().delete(MEDIAITEM_TABLE, MEDIAITEM_ROW_ID + " = " + rowIndex,
 				null) > 0;
-	}
-
-	public boolean removeAllMediaItem() {
-		return db().delete(MEDIAITEM_TABLE, null, null) > 0;
 	}
 
 	public Cursor getAllMediaItemsNotSynchronizedWithServer() {
@@ -472,21 +416,6 @@ public class ElectionsDBHelper {
 				MEDIAITEM_CHECKLISTITEM_KEY + " = " + checkListItemId + " AND "
 						+ MEDIAITEM_MEDIATYPE_KEY + " = '" + mediaType + "'",
 				null, null, null, null);
-	}
-
-	public Cursor getMediaItem(long rowIndex) {
-		Cursor res = db().query(MEDIAITEM_TABLE, new String[]{
-				MEDIAITEM_ROW_ID, MEDIAITEM_FILEPATH_KEY,
-				MEDIAITEM_MEDIATYPE_KEY, MEDIAITEM_SERVERURL_KEY,
-				MEDIAITEM_TIMESTAMP_KEY, MEDIAITEM_CHECKLISTITEM_KEY,
-				MEDIAITEM_POLLINGPLACE_KEY,
-				MEDIAITEM_SERVER_STATUS_KEY, MEDIAITEM_SERVER_ID_KEY},
-				MEDIAITEM_ROW_ID + " = " + rowIndex,
-				null, null, null, null);
-		if (res != null) {
-			res.moveToFirst();
-		}
-		return res;
 	}
 
 	protected static class MyDbHelper extends SQLiteOpenHelper {
@@ -527,16 +456,6 @@ public class ElectionsDBHelper {
 			// Create a new one.
 			onCreate(db);
 		}
-	}
-
-	public long getPollingPlaceServerIdByNumber(long pollingPlace) {
-		Cursor res = this.getPollingPlaceByNumber(pollingPlace);
-		if(res != null){
-			if(res.getCount() > 0){
-				return res.getLong(POLLINGPLACE_SERVER_NUMBER_COLUMN);
-			}
-		}
-		return -1L;
 	}
 
 	public String getPollingPlaceNameByNumber(long pollingPlace) {

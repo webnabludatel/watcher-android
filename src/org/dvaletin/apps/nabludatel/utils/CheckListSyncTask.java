@@ -4,8 +4,8 @@ import android.database.Cursor;
 import org.dvaletin.apps.nabludatel.MainWindow;
 import org.dvaletin.apps.nabludatel.server.NabludatelCloud;
 
-public class ViolationSyncTask extends SyncTask {
-	public ViolationSyncTask(NabludatelCloud cloud, MainWindow context, SyncNotification notification) {
+public class CheckListSyncTask extends SyncTask {
+	public CheckListSyncTask(NabludatelCloud cloud, MainWindow context, SyncNotification notification) {
 		super(context, cloud, notification);
 	}
 

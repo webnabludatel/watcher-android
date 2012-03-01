@@ -11,21 +11,16 @@ import org.dvaletin.apps.nabludatel.utils.SectionCounting;
 import org.dvaletin.apps.nabludatel.utils.SectionDuringElections;
 import org.dvaletin.apps.nabludatel.utils.SectionFinalMeeting;
 import org.dvaletin.apps.nabludatel.utils.SectionTikIkmo;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -37,13 +32,9 @@ import android.widget.TextView;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
 
-	JSONObject mainJSON;
-	protected static final String TAG_CAMERA = "Camera";
-
 	NabludatelCustomListViewAdapter mRootListViewAdapter;
-	NabludatelChecklistListViewAdapter mBeforeElectionsAdapter,
-			mDuringElectionsAdapter;
-	NabludatelChecklistListViewAdapter mAfterElectionsListViewAdapter;
+	NabludatelChecklistListViewAdapter mBeforeElectionsAdapter;
+	NabludatelChecklistListViewAdapter mDuringElectionsAdapter;
 	NabludatelChecklistListViewAdapter mFinalMeetingAdapter;
 	NabludatelChecklistListViewAdapter mCountingAdapter;
 	private NabludatelChecklistListViewAdapter mTikIkmoAdapter;
@@ -75,7 +66,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			
 			getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
 			mCurrentPollingPlaceId = prefs.getLong(
-					Consts.PREFS_ELECTIONS_DISRICT, -1);
+					Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
 			if (mCurrentPollingPlaceId > 0) {
 				district.setSelection((int) mCurrentPollingPlaceId-1);
 				mCurrentPollingPlaceType = mElectionsDB
@@ -85,14 +76,11 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 				@Override
 				public boolean onLongClick(View v) {
-					long id = prefs
-							.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1L);
+					long id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
 					if (id != -1L) {
-						Intent intent = new Intent(NabludatelActivity.this,
-								ElectionsDistrictActivity.class);
-						intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT, id);
-						startActivityForResult(intent,
-								Consts.ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT);
+						Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
+						intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id);
+						startActivityForResult(intent, Consts.DISTRICT_ACTIVITY_REQUEST_CODE);
 					}
 					return true;
 				}
@@ -102,12 +90,11 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View arg1,
 						int position, long id) {
-					long prev_item_id = prefs.getLong(
-							Consts.PREFS_ELECTIONS_DISRICT, -1);
+					long prev_item_id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
 					if (id != prev_item_id) {
 
 						prefs.edit()
-								.putLong(Consts.PREFS_ELECTIONS_DISRICT, id)
+								.putLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id)
 								.commit();
 						NabludatelActivity.this.activateRootMenu();
 					}
@@ -150,7 +137,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 		if (mCurrentPollingPlaceType == null) {
 			
-		} else if (mCurrentPollingPlaceType.equals(Consts.DISTRICT_TYPE[0])) {
+		} else if (mCurrentPollingPlaceType.equals(Consts.POLLING_PLACE_TYPE[0])) {
 			mMainSelector.setAdapter(mRootListViewAdapter);
 		} else {
 			mMainSelector.setAdapter(mTikIkmoViewAdapter);
@@ -215,7 +202,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		};
 
 		if(mCurrentPollingPlaceType == null){
-		} else if (mCurrentPollingPlaceType.equals(Consts.DISTRICT_TYPE[0])) {
+		} else if (mCurrentPollingPlaceType.equals(Consts.POLLING_PLACE_TYPE[0])) {
 			mMainSelector.setOnItemClickListener(mUIKClickListener);
 		} else {
 			mMainSelector.setOnItemClickListener(mTIKClickListener);
@@ -449,59 +436,19 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			}
 		}
 		switch (requestCode) {
-		case Consts.ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT: {
+		case Consts.DISTRICT_ACTIVITY_REQUEST_CODE: {
 			if (data != null) {
-				long id = data.getLongExtra(Consts.PREFS_ELECTIONS_DISRICT, -1);
+				long id = data.getLongExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
 				if (id != -1) {
-					prefs.edit().putLong(Consts.PREFS_ELECTIONS_DISRICT, id)
-							.commit();
+					prefs.edit().putLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id).commit();
 					activateRootMenu();
 				}
 			}
 
 			break;
 		}
-		case R.layout.elections_district_profile: {
-
-			JSONObject json = null;
-			try {
-				json = new JSONObject(
-						data.getStringExtra(Consts.ACTIVITY_JSON_DATA));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			try {
-				json.put("URL", uploadPhotos((JSONArray) json.get("URL")));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			sendJSON(json);
-
-			((NabludatelListViewItem) this.mRootListViewAdapter.getItem(0))
-					.setDescription(Consts.getViolationDescription(json
-							.length()));
-
-			try {
-				mainJSON.put("section_elections_district", json);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		}
 		}
 
-	}
-
-	public void sendJSON(JSONObject toSend) {
-		// TODO
-	}
-
-	public JSONArray uploadPhotos(JSONArray photos) {
-		return null;
 	}
 
 	@Override
@@ -511,7 +458,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 		if (mMainSelector.getAdapter() != mRootListViewAdapter) {
 			activateRootMenu();
-			return;
 		} else {
 			super.onBackPressed();
 		}
@@ -520,7 +466,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	public class NabludatelListViewItem {
 		String mTitle;
 		String mDescription;
-		JSONObject json;
 
 		public NabludatelListViewItem(String pTitle, String pDescription) {
 			mTitle = pTitle;
@@ -533,22 +478,6 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 		public String getDescription() {
 			return mDescription;
-		}
-
-		public void setDescription(String pDescription) {
-			mDescription = pDescription;
-		}
-
-		public void setTite(String pTitle) {
-			mTitle = pTitle;
-		}
-
-		public void setJSON(JSONObject jsonToSet) {
-			json = jsonToSet;
-		}
-
-		public JSONObject getJSON() {
-			return json;
 		}
 	}
 
@@ -614,31 +543,19 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		startActivity(intent);
 	}
 
-	public void onElectionsDictrictAddClick(View v) {
+	public void onPollingPlaceAddClick(View v) {
 		Intent intent = new Intent(this, ElectionsDistrictActivity.class);
-		startActivityForResult(intent,
-				Consts.ACTIVITY_RESULT_NEW_ELECTIONS_DISTRICT);
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		// activateRootMenu();
+		startActivityForResult(intent, Consts.DISTRICT_ACTIVITY_REQUEST_CODE);
 	}
 
 	public void startNabludatelActivity(String title, int layoutId,
 			Class<? extends ABSNabludatelActivity> c) {
 		long mCurrentElectionsDistrict = prefs.getLong(
-				Consts.PREFS_ELECTIONS_DISRICT, -1);
+				Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
 
 		Intent intent = new Intent(this, c);
 		if (mCurrentElectionsDistrict != -1) {
-			intent.putExtra(Consts.PREFS_ELECTIONS_DISRICT,
+			intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID,
 					mCurrentElectionsDistrict);
 		}
 		intent.putExtra(Consts.PREFS_TITLE, title);

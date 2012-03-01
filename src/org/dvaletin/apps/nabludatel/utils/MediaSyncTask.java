@@ -34,7 +34,7 @@ public class MediaSyncTask extends SyncTask {
 					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
 
 					long serverMessageId = db.getCheckListItemServerId(mediaChecklistId);
-					String violationName = db.getCheckListItemViolationName(mediaChecklistId);
+					String violationName = db.getCheckListItemName(mediaChecklistId);
 					if (serverMessageId != -1L) {
 						File toSend = new File(filePath);
 						if (toSend.exists()) {

@@ -32,7 +32,6 @@ import android.widget.TextView;
 public class ReportActivity extends ABSNabludatelActivity {
 	
 	private static final String T = ReportActivity.class.getSimpleName();
-	FrameLayout report_image_frame;
 	private Facebook mFacebook;
 	private String reportMessage;
 	
@@ -45,7 +44,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 	@Override
 	public void onResume(){
 		super.onResume();
-		long pollingPlaceId = prefs.getLong(Consts.PREFS_ELECTIONS_DISRICT, -1);
+		long pollingPlaceId = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
 		String pollingPlaceName = mElectionsDB.getPollingPlaceNameByNumber(pollingPlaceId);
 		this.setTitle("Отчет по участку " + pollingPlaceName);
 		String violations_title = getString(R.string.report_violations_title);
@@ -115,11 +114,10 @@ public class ReportActivity extends ABSNabludatelActivity {
 			InputStream facebookProperties = NabludatelSettingsActivity.class.getResourceAsStream("facebook.properties");
 			if (facebookProperties != null) {
 				properties.load(facebookProperties);
-				String secretKey = properties.getProperty("facebook.secret.key");
-				return secretKey;
+				return properties.getProperty("facebook.secret.key");
 			}
 		} catch (IOException e) {
-			Log.w(T, "Error reading aws.properties", e);
+			Log.w(T, "Error reading facebook.properties", e);
 		}
 		throw new IllegalStateException("Can't get Facebook access keys");
 	}
