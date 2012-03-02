@@ -192,6 +192,20 @@
                             android:layout_height="wrap_content"
                             android:text="@string/official_observer_title_label" />
 
+                        <LinearLayout
+                            android:id="@+id/linearLayout6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/Button01"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onGalleryPhotoClick"
+                            android:tag="official_observer"
+                            android:text="@string/district_banner_photo_from_gallery" />
+
                         <Button
                             android:id="@+id/button1"
                             android:layout_width="match_parent"
