@@ -49,6 +49,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 	}
 
 	public void activateRootMenu() {
+		setTitle("Наблюдение");
 		setContentView(R.layout.main);
 		Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
 		String from[] = new String[] { ElectionsDBHelper.POLLINGPLACE_NAME_KEY };
@@ -271,7 +272,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		
-
+		setTitle("Открытие участка");
 		mMainSelector.setAdapter(mBeforeElectionsAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -294,7 +295,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		
-
+		setTitle("Голосование");
 		mMainSelector.setAdapter(mDuringElectionsAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
 
@@ -320,7 +321,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		
-
+		setTitle("Подсчет");
 		mMainSelector.setAdapter(mCountingAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
 
@@ -346,7 +347,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		
-
+		setTitle("Заседание и протокол");
 		mMainSelector.setAdapter(mFinalMeetingAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
 
@@ -372,7 +373,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 
 		
-
+		setTitle("ТИК/ИКМО");
 		mMainSelector.setAdapter(mTikIkmoAdapter);
 		mMainSelector.setOnItemClickListener(new OnItemClickListener() {
 

@@ -89,6 +89,12 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		manual.setText(" "+email);
 	}
 	
+	@Override
+	public void onResume(){
+		super.onResume();
+		setTitle("Профиль");
+	}
+	
 	public void tryAuthenticate(int delay){
 		final ProgressBar auth_wheel = (ProgressBar)findViewById(R.id.auth_wheel);
 		TimerTask authTask = new TimerTask(){

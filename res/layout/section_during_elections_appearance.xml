@@ -199,7 +199,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no" />
+                        android:text="@string/yes" />
 
                     <org.dvaletin.apps.nabludatel.utils.Tumbler
                         android:id="@+id/appearance_campaign_materials_closer_than_50m"

@@ -1,5 +1,6 @@
 package org.dvaletin.apps.nabludatel;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
@@ -155,5 +156,9 @@ public class MainWindow extends TabActivity {
 				task.dispose();
 			}
 		}
+	}
+	
+	@Override protected void onChildTitleChanged (Activity childActivity, CharSequence title){
+		this.setTitle(title);
 	}
 }

@@ -48,6 +48,12 @@ public class SpravochnikActivity extends ABSNabludatelActivity {
 		});
 	}
 	
+	@Override
+	public void onResume(){
+		super.onResume();
+		setTitle("Справочник");
+	}
+	
 	public void onSpravochnikSearchClick(View v){
 //		EditText search = (EditText) findViewById(R.id.spravochnik_search_text);
 		spravichnik_vew.findNext(true);
