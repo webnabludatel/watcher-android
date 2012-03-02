@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -618,5 +619,27 @@ public abstract class ABSNabludatelActivity extends Activity {
 				});
 		AlertDialog alert = builder.create();
 		alert.show();
+	}
+	public String getDeviceId(){
+		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		String deviceId;
+		try {
+			deviceId = tm.getDeviceId();
+			return deviceId;
+		}catch (java.lang.RuntimeException e){
+			
+			if(prefs == null){
+				prefs = getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
+				
+			}
+			deviceId = prefs.getString(Consts.PREFS_DEVICE_ID, "");
+			if(deviceId.equals("")){
+				deviceId = "nogsm"+String.valueOf((long)(Math.random()*100000000L));
+				prefs.edit().putString(Consts.PREFS_DEVICE_ID, deviceId).commit();
+				Log.d(T, "generated random device id:"+deviceId);
+			}
+		}
+		
+		return deviceId;
 	}
 }

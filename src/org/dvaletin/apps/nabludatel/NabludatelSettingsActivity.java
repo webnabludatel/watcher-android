@@ -62,8 +62,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		super.onCreate(savedInstanceState);
 		mCurrentPollingPlaceId = 0;
 		setContentView(R.layout.nabludatel_settings);
-		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		String deviceId = tm.getDeviceId();
+		String deviceId = this.getDeviceId();
 
 		cloudHelper = new NabludatelCloud(deviceId);
 		if (prefs.getInt(Consts.PREFS_USER_ID, -1) == -1) {

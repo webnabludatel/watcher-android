@@ -23,6 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class MainWindow extends TabActivity {
+	private static final String T = MainWindow.class.getSimpleName();
 	private final Set<ExecuterWithNotification> syncronizers = new HashSet<ExecuterWithNotification>();
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,14 +58,13 @@ public class MainWindow extends TabActivity {
 	}
 
 	private void setupUpdateThreads() {
-		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
 		for (ExecuterWithNotification syncronizer : syncronizers) {
 			syncronizer.dispose();
 		}
 		syncronizers.clear();
 
-		NabludatelCloud cloud = new NabludatelCloud(tm.getDeviceId());
+		NabludatelCloud cloud = new NabludatelCloud(this.getDeviceId());
 
 		SyncTask checkListSyncTask = new CheckListSyncTask(cloud, this,
 				new SyncNotification(Consts.DATA_NOTIFICATION_ID, this, getString(R.string.upload_data_notification)));
@@ -160,5 +160,25 @@ public class MainWindow extends TabActivity {
 	
 	@Override protected void onChildTitleChanged (Activity childActivity, CharSequence title){
 		this.setTitle(title);
+	}
+	
+	public String getDeviceId(){
+		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		String deviceId;
+		try {
+			deviceId = tm.getDeviceId();
+			return deviceId;
+		}catch (java.lang.RuntimeException e){
+			SharedPreferences prefs = getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
+
+			deviceId = prefs.getString(Consts.PREFS_DEVICE_ID, "");
+			if(deviceId.equals("")){
+				deviceId = "nogsm"+String.valueOf((long)(Math.random()*100000000L));
+				prefs.edit().putString(Consts.PREFS_DEVICE_ID, deviceId).commit();
+				Log.d(T, "generated random device id:"+deviceId);
+			}
+		}
+		
+		return deviceId;
 	}
 }
