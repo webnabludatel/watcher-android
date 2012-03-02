@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="ballot_process_pressure_on_voters"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Оказывалось давление на голосующих" />
 
                     <TextView
@@ -107,7 +106,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="ballot_process_ballot_photo"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Избиратели фотографируют свои бюллетени" />
 
                     <TextView

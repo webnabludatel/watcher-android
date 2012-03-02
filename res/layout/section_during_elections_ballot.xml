@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="ballot_box_watch_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Помещение неудобно для наблюдения: урны, кабинки и выдача бюллетеней одновременно не находятся в поле зрения" />
 
                     <TextView
@@ -107,7 +106,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="ballot_process_watch_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Перемещение наблюдателей ограничено" />
 
                     <TextView
@@ -158,7 +156,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="photo_video_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Незаконное ограничение на фото- и видеосъёмку" />
 
                     <TextView
@@ -209,7 +206,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="portable_ballot_box_watch_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Переносные ящики не всегда находились в поле зрения наблюдателей" />
 
                     <TextView
@@ -260,7 +256,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="observer_removal"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Зарегистрированы случаи удаления наблюдателей или членов УИК" />
 
                     <TextView

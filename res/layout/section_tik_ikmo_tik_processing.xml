@@ -57,7 +57,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_intantly_to_UFST"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Представители УИК не сразу проходят в помещени с УФСТ" />
 
                     <TextView
@@ -108,7 +107,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_entered_data_to_extended_table_properly"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Данные вообще не занесены в УФСТ" />
 
                     <TextView
@@ -159,7 +157,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_entered_data_to_extended_table_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Данные не занесены в УФСТ сразу по прибытии" />
 
                     <TextView

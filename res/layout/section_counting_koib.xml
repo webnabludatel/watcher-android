@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="koib_electricity_problem"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Были сбои электропитания на участках с КОИБами" />
 
                     <TextView
@@ -106,7 +105,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="koib_nonelectricity_problem"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Подсчёт бюллетеней производился с нарушениями" />
 
                     <TextView
@@ -157,7 +155,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="koib_recalculations_performed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Ручной пересчёт по требованию наблюдателей на участке с КОИБ не производился" />
 
                     <TextView

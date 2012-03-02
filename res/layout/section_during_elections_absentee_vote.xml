@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_registry_check_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Наблюдатели не смогли своевременно (до вызеда) ознакомиться с реестром заявок голосования на дому" />
 
                     <TextView
@@ -105,7 +104,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_registry_is_correct"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Реестр для голосования на дому заполнен неправильно"/>
@@ -156,7 +154,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="abstentee_vote_registry_is_valid"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Корректная выписка из реестра заявок голосвания на дому не предъявлена"/>
@@ -207,8 +204,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_ballots_number_mismatch"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
-                        nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Количество бюллетеней превышает число заявок более чем на 5%" />
 
@@ -258,7 +253,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_voters_not_in_registry"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Голосование на дому лиц, не внесённых в реестр"/>
@@ -309,7 +303,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_akt_after_returning"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Акт о голосовании на дому составлен не сразу по возвращении" />

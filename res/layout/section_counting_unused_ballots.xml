@@ -53,7 +53,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="unused_ballots_counted_after_vote_finish"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Подсчёт неиспользованых бюллетеней начался не сразу по окончании голосования"
@@ -105,7 +104,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="unused_ballots_counted_before_other_actions"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Неиспользованые бюллетени не были подсчитаны и погашены до других подсчётов"
@@ -157,7 +155,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="unused_ballots_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>

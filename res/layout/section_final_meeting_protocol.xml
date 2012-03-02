@@ -138,7 +138,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_finished_before_sending_to_tik"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Протокол не оформлен окончательно до отправки в ТИК" />
 
                     <TextView
@@ -189,7 +188,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_is_properly_formatted"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Протокол оформлен неправильно" />
 
                     <TextView
@@ -240,7 +238,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_with_observers"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Наблюдатели не присутствовали при составлении протокола" />
 
                     <TextView

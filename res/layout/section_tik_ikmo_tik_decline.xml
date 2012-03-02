@@ -57,7 +57,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_announced_decline_of_uik_protocol"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="ТИК объявил об отказе в приеме протокола" />
 
                     <TextView
@@ -108,7 +107,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_held_first_copy_of_protocol"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Первый экземпляр протокола остался в ТИК" />
 
                     <TextView
@@ -159,7 +157,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_rewrite_uik_protocol_"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Случаи переписывания протокола" />
 
                     <TextView

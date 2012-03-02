@@ -57,7 +57,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="voters_lists_checked"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Наблюдатели не смогли онакомиться со списками избирателей" />
 
                     <TextView
@@ -108,7 +107,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="voters_lists_are_ok"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="В списках избирателей есть пометки" />
 
                     <TextView

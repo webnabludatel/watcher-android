@@ -92,7 +92,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_ballot_box_opening_number_of_applications_announced"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Число заявлений не объявлено перед вскрытием каждого ящика"/>
@@ -143,7 +142,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_ballot_voters_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>

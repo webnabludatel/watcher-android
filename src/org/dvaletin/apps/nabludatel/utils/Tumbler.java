@@ -9,31 +9,37 @@ import org.dvaletin.apps.nabludatel.R;
 
 public class Tumbler extends SeekBar {
 	public static final String TUMBLER_UNDEFINED = "undef";
-	public static final String TUMBLER_TRUE = "true";
-	public static final String TUMBLER_FALSE = "false";
+
 	private String loValue;
 	private String hiValue;
 	private String violationText;
 
 	public Tumbler(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		Context c = getContext();
-		TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Tumbler);
-		loValue = a.getString(R.styleable.Tumbler_loValue);
-		hiValue = a.getString(R.styleable.Tumbler_hiValue);
-		violationText = a.getString(R.styleable.Tumbler_violationText);
-		/* Samsung bug fix */
-		this.setPadding(15, 0, 15, 0);
-		this.setThumbOffset(15);
+		initThumbler(attrs);
 	}
 
 	public Tumbler(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		initThumbler(attrs);
+	}
+
+	private void initThumbler(AttributeSet attrs) {
 		Context c = getContext();
 		TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Tumbler);
 		loValue = a.getString(R.styleable.Tumbler_loValue);
 		hiValue = a.getString(R.styleable.Tumbler_hiValue);
 		violationText = a.getString(R.styleable.Tumbler_violationText);
+
+		// By default on Samsung phones Thumb offset is 15. Reset it to zero.
+		int paddingLeft = getPaddingLeft();
+		int paddingRight = getPaddingRight();
+		if (paddingLeft == paddingRight) {
+			setThumbOffset(paddingLeft);
+		} else {
+			throw new IllegalArgumentException("Wrong padding settings: left " + paddingLeft +
+					", right " + paddingRight + ". Thiese must be equals.");
+		}
 	}
 
 	@Override
@@ -70,7 +76,6 @@ public class Tumbler extends SeekBar {
 	}
 
 	public String getLoValue() {
-		// TODO Auto-generated method stub
 		return loValue;
 	}
 
@@ -79,7 +84,6 @@ public class Tumbler extends SeekBar {
 	}
 
 	public String getViolation() {
-		// TODO Auto-generated method stub
 		return this.violationText;
 	}
 }

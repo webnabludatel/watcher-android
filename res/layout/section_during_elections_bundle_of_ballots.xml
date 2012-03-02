@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="bundle_of_ballots_vote"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Голосование пачкой бюллетеней (вброс)" />
 
                     <TextView

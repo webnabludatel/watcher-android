@@ -57,7 +57,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="gas_vybory_is_in_separate_room"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Компьютер с ГАС &quot;Выборы&quot; не находится в отдельном помещении" />
 
                     <TextView
@@ -108,7 +107,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_entered_data_to_extended_table_properly"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Представители кандидатов не могут присутствовать при вводе данных в ГАС &quot;Выборы&quot;" />
 
                     <TextView

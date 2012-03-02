@@ -51,8 +51,7 @@
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
                         android:tag="attendance_data_match_on_10"
-                        android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumb="@drawable/for_frontend_03" />
 
                     <ImageView
                         android:id="@+id/ImageView02"
@@ -90,8 +89,7 @@
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
                         android:tag="attendance_data_match_on_12"
-                        android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumb="@drawable/for_frontend_03" />
 
                     <ImageView
                         android:id="@+id/ImageView04"
@@ -129,8 +127,7 @@
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
                         android:tag="attendance_data_match_on_15"
-                        android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumb="@drawable/for_frontend_03" />
 
                     <ImageView
                         android:id="@+id/ImageView06"
@@ -168,8 +165,7 @@
                         android:progress="1"
                         android:progressDrawable="@drawable/patch"
                         android:tag="attendance_data_match_on_18"
-                        android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" />
+                        android:thumb="@drawable/for_frontend_03" />
 
                     <ImageView
                         android:id="@+id/ImageView08"

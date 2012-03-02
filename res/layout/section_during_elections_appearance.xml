@@ -57,7 +57,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="appearance_candidates_info"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На участке отсутсвуют сведения о кандидатах, либо они оформлены неправильно" />
 
                     <TextView
@@ -108,7 +107,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="appearance_ballot_sample_present"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На участке отсутсвует образец заполнения бюллетеня, либо он оформлен неправильно" />
 
                     <TextView
@@ -161,7 +159,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="appearance_ballot_extended_protocol"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На участке отсутсвует увеличенная форма протокола, либо она оформлена неправильно" />
 
                     <TextView
@@ -214,7 +211,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="appearance_campaign_materials_closer_than_50m"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Агитационные материалы располагаются ближе 50 м к участку" />
 
                     <TextView
@@ -265,7 +261,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="appearance_vote_secrecy"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Кабинки не обеспечивают тайны голосования"/>
@@ -318,7 +313,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="books_are_correctly_stitched"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Книги со списками избирателей не сброшюрованы"/>

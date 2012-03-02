@@ -55,7 +55,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="final_meeting_correct_complains"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Некорректный приём жалоб" />
 
                     <TextView
@@ -131,7 +130,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="final_meeting_all_complains_are_checked"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Не все письменные жалобы рассмотрены на итоговом заседании" />
 
                     <TextView
@@ -182,7 +180,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="final_meeting_number_of_complains_is_added_to_protocol"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="В протокол не внесено количество поданных жалоб" />
 
                     <TextView
