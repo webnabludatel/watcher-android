@@ -34,10 +34,15 @@ public class SpravochnikActivity extends ABSNabludatelActivity {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
+				if(event == null){
+					spravichnik_vew.findNext(true);
+					return true;
+				}
 				if(event.getAction() == KeyEvent.KEYCODE_ENTER){
 					spravichnik_vew.findNext(true);
 					return true;
-				}else if(!v.getText().toString().equals("")){
+				}
+				if(!v.getText().toString().equals("")){
 					spravichnik_vew.findAll(v.getText().toString());
 					return true;
 				}

@@ -20,8 +20,6 @@
             android:maxLines="1"
             android:padding="0dp"
             android:singleLine="true" >
-
-            <requestFocus />
         </EditText>
 
         <Button
@@ -46,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="50"
-            android:background="@color/white" />
+            android:background="@color/milk" />
 
     </FrameLayout>
 
