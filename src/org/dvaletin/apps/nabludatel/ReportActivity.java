@@ -52,7 +52,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 	@Override
 	public void onResume(){
 		super.onResume();
-
+		this.setTitle("Отчёт");
 		TextView reportViolationsTitle = (TextView)findViewById(R.id.report_violation_list_title);
 		LinearLayout reportFrame = (LinearLayout)findViewById(R.id.report_frame);
 		LinearLayout howToComplainPane = (LinearLayout)findViewById(R.id.howComplaintPane);

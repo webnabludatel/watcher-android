@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_window"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_fill"
+    android:gravity="center_horizontal|fill"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/main_window_frame"
+        style="@style/main_window"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:id="@+id/elections_district_select_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                            android:id="@+id/electionDistrictsTitlePane"
+                            android:layout_width="fill_parent"
+                            android:layout_height="34dp"
+                            android:onClick="onElectionDistrictsTitleInfoClick"
+                            android:gravity="center_vertical"
+                            >
+
+                        <TextView
+                                android:id="@+id/electionDistrictsTitle"
+                                style="@style/TitleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/elections_districts" />
+
+                        <LinearLayout
+                                android:id="@+id/electionDistrictsTitleInfoPane"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="right"
+                                android:onClick="onElectionDistrictsTitleInfoClick"
+                                android:paddingTop="8dp">
+
+                            <ImageView
+                                    android:id="@+id/electionDistrictsTitleInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
+                                    android:onClick="onElectionDistrictsTitleInfoClick"
+                                    android:src="@drawable/i" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        style="@style/main_pane_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <Spinner
+                                android:id="@+id/elections_district_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:entries="@array/elections_district" />
+
+                            <Button
+                                android:id="@+id/elections_district_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:onClick="onPollingPlaceAddClick"
+                                android:text="@string/add_elections_district" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                    android:id="@+id/watchingTitlePane"
+                    android:layout_width="fill_parent"
+                    android:layout_height="34dp"
+                    android:onClick="onWatchingTitleInfoClick"
+                    android:gravity="center_vertical"
+                    >
+
+                <TextView
+                        android:id="@+id/textView2"
+                        style="@style/TitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/watching" />
+
+                <LinearLayout
+                        android:id="@+id/watchingTitleInfoPane"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:onClick="onWatchingTitleInfoClick"
+                        android:paddingTop="8dp">
+
+                    <ImageView
+                            android:id="@+id/watchingTitleInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:onClick="onWatchingTitleInfoClick"
+                            android:src="@drawable/i" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/main_layout"
+                style="@style/main_pane_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/main_selector"
+                    style="@style/list_view_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top" >
+                </ListView>
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

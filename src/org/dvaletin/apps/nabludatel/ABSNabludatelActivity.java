@@ -33,6 +33,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public abstract class ABSNabludatelActivity extends Activity {
+	private static final String T = ABSNabludatelActivity.class.getSimpleName();
+
 	protected final ElectionsDBHelper mElectionsDB = new ElectionsDBHelper(this);
 
 	protected SharedPreferences prefs;
@@ -114,10 +116,22 @@ public abstract class ABSNabludatelActivity extends Activity {
 				lng = location.getLongitude();
 			}
 		};
-
-		locationManager.requestLocationUpdates(
+		try{
+			locationManager.requestLocationUpdates(
 				LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
-
+		}catch (IllegalArgumentException e){
+			try{
+				locationManager.requestLocationUpdates(
+						LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+			}catch (IllegalArgumentException e1){
+				try{
+					locationManager.requestLocationUpdates(
+						LocationManager.PASSIVE_PROVIDER, 0, 0, mLocationListener);
+				}catch (IllegalArgumentException e2){
+					e2.printStackTrace();
+				}
+			}
+		}
 	}
 
 	@Override

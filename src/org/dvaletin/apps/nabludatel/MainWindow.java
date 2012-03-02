@@ -83,15 +83,15 @@ public class MainWindow extends TabActivity {
 		RadioButton rbFourth = (RadioButton) findViewById(R.id.fourth);
 		RadioButton rbFifth = (RadioButton) findViewById(R.id.fifth);
 
-		rbFirst.setButtonDrawable(R.drawable.button_radio);
-
-		rbSecond.setButtonDrawable(R.drawable.button_radio);
-
-		rbThird.setButtonDrawable(R.drawable.button_radio);
-
-		rbFourth.setButtonDrawable(R.drawable.button_radio);
-
-		rbFifth.setButtonDrawable(R.drawable.button_radio);
+//		rbFirst.setButtonDrawable(R.drawable.button_radio);
+//
+//		rbSecond.setButtonDrawable(R.drawable.button_radio);
+//
+//		rbThird.setButtonDrawable(R.drawable.button_radio);
+//
+//		rbFourth.setButtonDrawable(R.drawable.button_radio);
+//
+//		rbFifth.setButtonDrawable(R.drawable.button_radio);
 
 		RadioGroup rg = (RadioGroup) findViewById(R.id.states);
 		rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

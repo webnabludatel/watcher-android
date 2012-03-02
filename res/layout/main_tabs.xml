@@ -18,73 +18,43 @@
 
         <RadioGroup
             android:id="@+id/states"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/black"
             android:checkedButton="@+id/first"
-            android:gravity="bottom"
             android:orientation="horizontal" >
 
             <RadioButton
                 android:id="@+id/first"
-                style="@style/TabButton"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/button_radio"
-                android:drawableTop="@drawable/tab_icon_1_30"
-                android:gravity="center_horizontal"
-                android:height="70dip"
-                android:text="@string/tab_watcher"
-                android:textSize="10dp"
-                android:width="80dip" />
+                android:button="@drawable/tab_1"
+                android:padding="0dp" />
 
             <RadioButton
                 android:id="@+id/second"
-                style="@style/TabButton"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_radio"
-                android:drawableTop="@drawable/tab_icon_2_30"
-                android:gravity="center_horizontal"
-                android:text="@string/tab_checklist"
-                android:textSize="10dp"
-                android:width="80dip" />
+                android:button="@drawable/tab_2" />
 
             <RadioButton
                 android:id="@+id/third"
-                style="@style/TabButton"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_radio"
-                android:drawableTop="@drawable/tab_icon_5_30"
-                android:gravity="center_horizontal"
-                android:text="@string/tab_report"
-                android:textSize="10dp"
-                android:width="80dip" />
+                android:button="@drawable/tab_3" />
 
             <RadioButton
                 android:id="@+id/fourth"
-                style="@style/TabButton"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_radio"
-                android:drawableTop="@drawable/tab_icon_3_30"
-                android:gravity="center_horizontal"
-                android:text="@string/tab_spravochnik"
-                android:textSize="10dp"
-                android:width="80dip" />
+                android:button="@drawable/tab_4" />
 
             <RadioButton
                 android:id="@+id/fifth"
-                style="@style/TabButton"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_radio"
-                android:drawableTop="@drawable/tab_icon_4_30"
-                android:gravity="center_horizontal"
-                android:text="@string/tab_sos"
-                android:textSize="10dp"
-                android:width="80dip" />
-
+                android:button="@drawable/tab_5" />
         </RadioGroup>
 
         <TabWidget
