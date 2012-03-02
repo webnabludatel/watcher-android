@@ -35,24 +35,28 @@
             <RadioButton
                 android:id="@+id/second"
                 android:layout_width="96dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@drawable/tab_2" />
 
             <RadioButton
                 android:id="@+id/third"
                 android:layout_width="96dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@drawable/tab_3" />
 
             <RadioButton
                 android:id="@+id/fourth"
                 android:layout_width="96dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@drawable/tab_4" />
 
             <RadioButton
                 android:id="@+id/fifth"
                 android:layout_width="96dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@drawable/tab_5" />
         </RadioGroup>
