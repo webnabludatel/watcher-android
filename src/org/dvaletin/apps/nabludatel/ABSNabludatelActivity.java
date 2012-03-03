@@ -314,6 +314,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 	}
 
 	public void restore() {
+		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
 
 		Cursor c = mElectionsDB.getCheckListItemsByPollingPlaceIdAndScreenId(this.mCurrentPollingPlaceId, screenId);
 		try {
