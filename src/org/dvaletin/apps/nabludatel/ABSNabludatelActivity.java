@@ -313,7 +313,14 @@ public abstract class ABSNabludatelActivity extends Activity {
 	public void restore() {
 		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
 
-		Cursor c = mElectionsDB.getCheckListItemsByPollingPlaceIdAndScreenId(this.mCurrentPollingPlaceId, screenId);
+		restoreCheckListItemsFromDb(this.mCurrentPollingPlaceId);
+
+		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
+				mCheckList, activeViews);
+	}
+
+	protected void restoreCheckListItemsFromDb(long pollingPlaceId) {
+		Cursor c = mElectionsDB.getCheckListItemsByPollingPlaceIdAndScreenId(pollingPlaceId, screenId);
 		try {
 			c.moveToFirst();
 
@@ -339,9 +346,6 @@ public abstract class ABSNabludatelActivity extends Activity {
 		} finally {
 			c.close();
 		}
-
-		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
-				mCheckList, activeViews);
 	}
 
 	private void restoreMediaItems(CheckListItem checkListItem, Map<File, String> medias, String mediaType) {

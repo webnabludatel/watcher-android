@@ -64,8 +64,13 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 			} finally {
 				c.close();
 			}
-		}else{
-			regionS.setSelection(0);
+		}
+	}
+
+	@Override
+	protected void restoreCheckListItemsFromDb(long pollingPlaceId) {
+		if (pollingPlaceId != -1) {
+			super.restoreCheckListItemsFromDb(pollingPlaceId);
 		}
 	}
 
