@@ -82,7 +82,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 			reportFrame.removeAllViews();
 			Cursor badCursor = mElectionsDB.getViolationsByPollingPlaceId(pollingPlaceId);
 			try {
-				((Button) findViewById(R.id.report_facebook)).setVisibility(View.VISIBLE);
+				findViewById(R.id.report_facebook).setVisibility(View.VISIBLE);
 				Cursor goodCursor = mElectionsDB.getNoneViolationsByPollingPlaceId(pollingPlaceId);
 				try {
 					int bad = badCursor.getCount();
@@ -140,7 +140,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 			reportViolationsTitle.setText(getString(R.string.report_no_polling_place_title));
 			reportFrame.setVisibility(View.INVISIBLE);
 			howToComplainPane.setVisibility(View.INVISIBLE);
-			((Button) findViewById(R.id.report_facebook)).setVisibility(View.INVISIBLE);
+			findViewById(R.id.report_facebook).setVisibility(View.INVISIBLE);
 		}
 	}
 
