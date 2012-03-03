@@ -228,6 +228,9 @@ public class ReportActivity extends ABSNabludatelActivity {
 	}
 
 	public void onPostToFaceBook(View v){
+		if(reportMessage == null || reportMessage.equals("")){
+			return;
+		}
 		SessionStore.restore(mFacebook, this);
 		if (!mFacebook.isSessionValid()) {
 			mFacebook.authorize(this, new String[] { "publish_stream",
