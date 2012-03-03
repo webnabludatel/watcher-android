@@ -209,6 +209,7 @@ public class ElectionsDBHelper {
 		Cursor c = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID}, 
 				CHECKLISTITEM_VALUE_KEY + " <> " + "'undef' AND "
+					+ CHECKLISTITEM_VIOLATION_KEY + " <> '' AND "
 					+ CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
 					+ CHECKLISTITEM_SCREEN_ID_KEY + " = " + screenId, null, null, null, null
 				);
