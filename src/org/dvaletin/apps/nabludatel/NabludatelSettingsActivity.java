@@ -300,8 +300,9 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
-				&& resultCode != 0) {
+		if (resultCode != 0 && (
+				requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ||
+				requestCode == Consts.GALLERY_IMAGE_ACTIVITY_REQUEST_CODE)) {
 			savePhotos();
 		}
 
