@@ -24,10 +24,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-import org.dvaletin.apps.nabludatel.utils.Consts;
-import org.dvaletin.apps.nabludatel.utils.ElectionsDBHelper;
-import org.dvaletin.apps.nabludatel.utils.Tumbler;
-import org.dvaletin.apps.nabludatel.utils.CheckListItem;
+import org.dvaletin.apps.nabludatel.utils.*;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -84,7 +81,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		}
 		prefs = this.getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
 
-		
+
 	}
 
 	@Override
@@ -696,6 +693,7 @@ public abstract class ABSNabludatelActivity extends Activity {
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
+
 	public String getDeviceId(){
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceId;
