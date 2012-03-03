@@ -92,7 +92,8 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		});
 		Button facebookButton = (Button) NabludatelSettingsActivity.this
 				.findViewById(R.id.facebook);
-		facebookButton.setText(prefs.getString(Consts.PREFS_FACEBOOK_EMAIL,
+		if(mFacebook.isSessionValid())
+			facebookButton.setText(prefs.getString(Consts.PREFS_FACEBOOK_EMAIL,
 						getString(R.string.nabludatel_settings_facebook)));
 		String email = prefs.getString(Consts.PREFS_USER_EMAIL,
 				getString(R.string.nabludatel_settings_manual));
