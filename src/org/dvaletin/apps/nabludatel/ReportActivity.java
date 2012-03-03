@@ -1,5 +1,8 @@
 package org.dvaletin.apps.nabludatel;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,9 +29,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
+import com.facebook.android.SessionEvents;
+import com.facebook.android.SessionStore;
 import com.facebook.android.Facebook.DialogListener;
+import com.facebook.android.SessionEvents.AuthListener;
+import com.facebook.android.SessionEvents.LogoutListener;
 import com.facebook.android.FacebookError;
 
 public class ReportActivity extends ABSNabludatelActivity {
@@ -38,6 +47,8 @@ public class ReportActivity extends ABSNabludatelActivity {
 	private Facebook mFacebook;
 	private String reportMessage;
 	ProgressDialog mSpinner;
+	private AsyncFacebookRunner mAsyncRunner;
+	private SessionListener mSessionListener = new SessionListener();
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +57,12 @@ public class ReportActivity extends ABSNabludatelActivity {
 		mSpinner = new ProgressDialog(this);
         mSpinner.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mSpinner.setMessage("Отправляю...");
+        
+        mFacebook = new Facebook(LocalProperties.getFacebookSecret());
+		SessionStore.restore(mFacebook, this);
+		SessionEvents.addAuthListener(mSessionListener);
+		SessionEvents.addLogoutListener(mSessionListener);
+		mAsyncRunner = new AsyncFacebookRunner(mFacebook);
 //        mSpinner.show();
 	}
 	
@@ -192,44 +209,77 @@ public class ReportActivity extends ABSNabludatelActivity {
 	}
 
 	public void onPostToFaceBook(View v){
-		loginToFaceBook();
-		if(mFacebook==null) return;
+		
+		if (!mFacebook.isSessionValid()) {
+			mFacebook.authorize(this, new String[] { "publish_stream",
+					"publish_checkins", "publish_actions" },
+					new LoginDialogListener());
+		}else{
+			mSpinner.show();
+			Bundle parameters = new Bundle();
+			parameters.putString("message", reportMessage);
+			startSpinner();
+            mAsyncRunner.request("me/feed", parameters, "POST", new PostRequestListener(), null);
+		}
+//		
+//		
+//		loginToFaceBook();
+//		if(mFacebook==null) return;
+//		this.runOnUiThread(new Runnable(){
+//
+//			@Override
+//			public void run() {
+//				try {
+//					if(mFacebook.isSessionValid()){
+//						startSpinner();
+//
+//						String response = "";
+//						Bundle parameters = new Bundle();
+//						parameters.putString("message", reportMessage);
+//						response = mFacebook.request("me/feed", parameters, "POST");
+//						Log.d(T, "got response: " + response);
+//						if (response == null || response.equals("") || 
+//								response.equals("false")) {
+//							Log.v("Error", "Blank response");
+//						}
+//						
+//					}
+//				} catch(Exception e) {
+//					e.printStackTrace();
+//				} finally {
+//					stopSpinner();
+//				}
+//				
+//			}});	
+	}
+
+	
+	void startSpinner(){
 		this.runOnUiThread(new Runnable(){
 
 			@Override
 			public void run() {
-				try {
-					if(mFacebook.isSessionValid()){
-
-						mSpinner.show();
-						String response = "";
-						Bundle parameters = new Bundle();
-						parameters.putString("message", reportMessage);
-						response = mFacebook.request("me/feed", parameters, "POST");
-						Log.d(T, "got response: " + response);
-						if (response == null || response.equals("") || 
-								response.equals("false")) {
-							Log.v("Error", "Blank response");
-						}
-						
-					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				} finally {
-					TimerTask spinnerTask = new TimerTask(){
-
-						@Override
-						public void run() {
-							mSpinner.dismiss();
-						}
-					};
-					Timer spinerTimer = new Timer();
-					spinerTimer.schedule(spinnerTask, 2000);	
-				}
-				
-			}});	
+				mSpinner.show();
+			}});
 	}
+	
+	void stopSpinner(){
+		this.runOnUiThread(new Runnable() {
 
+			@Override
+			public void run() {
+				TimerTask spinnerTask = new TimerTask(){
+
+					@Override
+					public void run() {
+						mSpinner.dismiss();
+					}
+				};
+				Timer spinerTimer = new Timer();
+				spinerTimer.schedule(spinnerTask, 2000);
+				
+			}});
+	}
 	public void onHowToComplainInfoClick(View v){
 		showInfoDialog(R.string.report_whatnext);
 	}
@@ -246,4 +296,84 @@ public class ReportActivity extends ABSNabludatelActivity {
 		}
 	}
 	}
+	
+	
+	private class SessionListener implements AuthListener, LogoutListener {
+
+		public void onAuthSucceed() {
+			SessionStore.save(mFacebook, ReportActivity.this);
+			Bundle parameters = new Bundle();
+			parameters.putString("message", reportMessage);
+			startSpinner();
+            ReportActivity.this.mAsyncRunner.request("me/feed", parameters, "POST", new PostRequestListener(), null);
+		}
+
+		public void onAuthFail(String error) {
+		}
+
+		public void onLogoutBegin() {
+		}
+
+		public void onLogoutFinish() {
+			SessionStore.clear(ReportActivity.this);
+		}
+	}
+	
+	
+	private final class LoginDialogListener implements DialogListener {
+		public void onComplete(Bundle values) {
+			SessionEvents.onLoginSuccess();
+			
+		}
+
+		public void onFacebookError(FacebookError error) {
+			SessionEvents.onLoginError(error.getMessage());
+		}
+
+		public void onError(DialogError error) {
+			SessionEvents.onLoginError(error.getMessage());
+		}
+
+		public void onCancel() {
+			SessionEvents.onLoginError("Action Canceled");
+		}
+	}
+	
+	public final class PostRequestListener implements RequestListener{
+
+		@Override
+		public void onComplete(String response, Object state) {
+			stopSpinner();
+			
+		}
+
+		@Override
+		public void onIOException(IOException e, Object state) {
+			// TODO Auto-generated method stub
+			stopSpinner();
+		}
+
+		@Override
+		public void onFileNotFoundException(FileNotFoundException e,
+				Object state) {
+			// TODO Auto-generated method stub
+			stopSpinner();
+		}
+
+		@Override
+		public void onMalformedURLException(MalformedURLException e,
+				Object state) {
+			// TODO Auto-generated method stub
+			stopSpinner();
+		}
+
+		@Override
+		public void onFacebookError(FacebookError e, Object state) {
+			// TODO Auto-generated method stub
+			stopSpinner();
+		}
+		
+	}
+	
+	
 }
