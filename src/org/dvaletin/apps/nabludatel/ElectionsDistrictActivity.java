@@ -53,12 +53,16 @@ public class ElectionsDistrictActivity extends ABSNabludatelActivity {
 
 		if (mCurrentPollingPlaceId != -1){
 			Cursor c = mElectionsDB.getPollingPlaceByNumber(mCurrentPollingPlaceId);
-			if(c.getCount() > 0){
-				int regionId = c.getInt(ElectionsDBHelper.POLLINGPLACE_REGION_ID_COLUMN);
-				regionS.setSelection(DistrictRegion.indexOfRegionId(regionId, Consts.REGIONS));
+			try {
+				if(c.getCount() > 0){
+					int regionId = c.getInt(ElectionsDBHelper.POLLINGPLACE_REGION_ID_COLUMN);
+					regionS.setSelection(DistrictRegion.indexOfRegionId(regionId, Consts.REGIONS));
 
-				String type = c.getString(ElectionsDBHelper.POLLINGPLACE_TYPE_COLUMN);
-				typeS.setSelection(Arrays.asList(Consts.POLLING_PLACE_TYPE).indexOf(type));
+					String type = c.getString(ElectionsDBHelper.POLLINGPLACE_TYPE_COLUMN);
+					typeS.setSelection(Arrays.asList(Consts.POLLING_PLACE_TYPE).indexOf(type));
+				}
+			} finally {
+				c.close();
 			}
 		}else{
 			regionS.setSelection(0);

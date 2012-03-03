@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="known_voters_number"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         ns:violationText="Наблюдателям не сообщили число избирателей" />
 
                     <TextView

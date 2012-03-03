@@ -54,7 +54,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="suspicious_voters_no_absentee_ballot"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Голосование за других лиц по сговору с членами УИК"/>
@@ -105,7 +104,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="suspicious_voters_already_voted"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Случаи, когда за пришедших избирателей уже проголосовали" />
@@ -156,7 +154,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="suspicious_voters_no_passport"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Голосование без паспорта, регистрации, открепительного, по чужим документам"/>
@@ -207,7 +204,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="suspicious_voters_invalid_absentee_ballot"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Голосование по чужим открепительным, неизъятие талона"/>
@@ -258,7 +254,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="suspicious_mass_absentee_ballot"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Массовое голосование по открепительным талонам"/>
@@ -309,7 +304,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="suspicious_voters_brought_by_transport"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Организованный подвоз групп голосующих" />
@@ -330,46 +324,18 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/violations_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/suspicious_voters_violations_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="suspicious_voters_violations_photo"
-                        android:text="@string/ballot_box_violations_gallery" />
-
-                    <Button
                         android:id="@+id/suspicious_voters_violations_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="suspicious_voters_violations_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_photo" />
                 </LinearLayout>
 
                 <ImageView
@@ -379,33 +345,19 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_devider" />
 
-                <TextView
-                    android:id="@+id/textView13"
-                    style="@style/TextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/violations_video" />
-
                 <LinearLayout
                     android:id="@+id/LinearLayout05"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/suspicious_voters_violations_video_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onGalleryVideoClick"
-                        android:tag="suspicious_voters_violations_video"
-                        android:text="@string/ballot_box_violations_gallery" />
-
-                    <Button
                         android:id="@+id/suspicious_voters_violations_video"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakeVideoClick"
                         android:tag="suspicious_voters_violations_video"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_video" />
                 </LinearLayout>
 
             </LinearLayout>

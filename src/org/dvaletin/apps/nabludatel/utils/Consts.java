@@ -123,7 +123,6 @@ public class Consts {
 	public static final String PREFS_CURRENT_POLLING_PLACE_ID = "current_polling_place_id";
 	public static final String PREFS_TITLE = "window_title";
 	public static final String PREFS_LAYOUT_ID = "layout_id";
-	public static final String PREFS_VIOLATIONS = "violations_count";
 	public static final String PREFS_LATITUDE = "lat";
 	public static final String PREFS_LONGITUDE = "lng";
 	public static final String PREFS_FILENAME = "org.dvaletin.apps.global.prefs";

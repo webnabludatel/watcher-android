@@ -40,24 +40,27 @@ public class AndroidCustomGalleryActivity extends Activity {
 		Cursor imagecursor = managedQuery(
 				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
 				null, orderBy);
-		int image_column_index = imagecursor.getColumnIndex(MediaStore.Images.Media._ID);
-		this.count = imagecursor.getCount();
-		this.thumbnails = new Bitmap[this.count];
-		this.arrPath = new String[this.count];
-		this.thumbnailsselection = new boolean[this.count];
-		for (int i = 0; i < this.count; i++) {
-			imagecursor.moveToPosition(i);
-			int id = imagecursor.getInt(image_column_index);
-			int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
-			thumbnails[i] = MediaStore.Images.Thumbnails.getThumbnail(
-					getApplicationContext().getContentResolver(), id,
-					MediaStore.Images.Thumbnails.MICRO_KIND, null);
-			arrPath[i]= imagecursor.getString(dataColumnIndex);
+		try {
+			int image_column_index = imagecursor.getColumnIndex(MediaStore.Images.Media._ID);
+			this.count = imagecursor.getCount();
+			this.thumbnails = new Bitmap[this.count];
+			this.arrPath = new String[this.count];
+			this.thumbnailsselection = new boolean[this.count];
+			for (int i = 0; i < this.count; i++) {
+				imagecursor.moveToPosition(i);
+				int id = imagecursor.getInt(image_column_index);
+				int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
+				thumbnails[i] = MediaStore.Images.Thumbnails.getThumbnail(
+						getApplicationContext().getContentResolver(), id,
+						MediaStore.Images.Thumbnails.MICRO_KIND, null);
+				arrPath[i]= imagecursor.getString(dataColumnIndex);
+			}
+			GridView imagegrid = (GridView) findViewById(R.id.PhoneImageGrid);
+			imageAdapter = new ImageAdapter();
+			imagegrid.setAdapter(imageAdapter);
+		} finally {
+			imagecursor.close();
 		}
-		GridView imagegrid = (GridView) findViewById(R.id.PhoneImageGrid);
-		imageAdapter = new ImageAdapter();
-		imagegrid.setAdapter(imageAdapter);
-		imagecursor.close();
 
 		final Button selectBtn = (Button) findViewById(R.id.selectBtn);
 		selectBtn.setOnClickListener(new OnClickListener() {

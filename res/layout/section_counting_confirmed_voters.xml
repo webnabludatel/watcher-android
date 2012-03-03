@@ -54,7 +54,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="confirmed_voters_announced"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Оглашение данных производилось некорректно"/>
@@ -105,7 +104,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="confirmed_voters_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>
@@ -126,37 +124,9 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/confirmed_voters_violations_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/confirmed_voters_violations_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="confirmed_voters_violations_photo"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/confirmed_voters_violations_photo"
@@ -165,7 +135,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="confirmed_voters_violations_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/confirmed_voters_violations_photo" />
 
                 </LinearLayout>
             </LinearLayout>

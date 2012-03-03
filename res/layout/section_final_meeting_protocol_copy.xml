@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_is_provided"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Комиссия не предоставила копию протокола" />
 
                     <TextView
@@ -107,7 +106,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_is_provided_before_sumission"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Копия протокола не была выдана до отправки протокола в ТИК" />
 
                     <TextView
@@ -158,7 +156,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_is_signed_by_all_required_personnel"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На копии протокола недостаточно подписей" />
 
                     <TextView
@@ -209,7 +206,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_signatures_commented"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Подписи на копии протокола не расшифрованы" />
 
                     <TextView
@@ -260,7 +256,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_has_stamp"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На копии протокола нет печати комиссии" />
 
                     <TextView
@@ -311,7 +306,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_is_marked_as_genuine"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На копии протокола нет надписи  &quot;верно&quot;" />
 
                     <TextView
@@ -362,7 +356,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_is_marked_with_date"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На копии протокола нет даты заверения" />
 
                     <TextView
@@ -413,7 +406,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="protocol_copy_is_marked_with_time"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="На копии протокола нет времени заверения" />
 
                     <TextView
@@ -432,39 +424,9 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/violations_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/LinearLayout04"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/protocol_violations_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="protocol_copy_violations_photo"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/protocol_violations_photo"
@@ -473,7 +435,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="protocol_copy_violations_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_photo" />
                 </LinearLayout>
             </LinearLayout>
 

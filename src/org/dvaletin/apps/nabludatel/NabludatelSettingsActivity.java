@@ -1,7 +1,5 @@
 package org.dvaletin.apps.nabludatel;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,12 +9,9 @@ import org.dvaletin.apps.nabludatel.utils.LocalProperties;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +28,6 @@ import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.SessionEvents;
 import com.facebook.android.SessionStore;
-import com.facebook.android.Util;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.SessionEvents.AuthListener;
 import com.facebook.android.SessionEvents.LogoutListener;
@@ -98,13 +92,12 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		});
 		Button facebookButton = (Button) NabludatelSettingsActivity.this
 				.findViewById(R.id.facebook);
-		facebookButton.setText(" "
-				+ prefs.getString(Consts.PREFS_FACEBOOK_EMAIL,
+		facebookButton.setText(prefs.getString(Consts.PREFS_FACEBOOK_EMAIL,
 						getString(R.string.nabludatel_settings_facebook)));
-		String email = prefs.getString("email",
+		String email = prefs.getString(Consts.PREFS_USER_EMAIL,
 				getString(R.string.nabludatel_settings_manual));
 		Button manual = (Button) findViewById(R.id.manual);
-		manual.setText(" " + email);
+		manual.setText(email);
 
 		mFacebook = new Facebook(LocalProperties.getFacebookSecret());
 		SessionStore.restore(mFacebook, this);
@@ -178,108 +171,6 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		}
 	}
 
-//	private void loginToFaceBook() {
-//
-//		// prefs = getPreferences(MODE_PRIVATE);
-//		String access_token = prefs.getString(
-//				Consts.PREFS_FACEBOOK_ACCESS_TOKEN, null);
-//		long expires = prefs.getLong(Consts.PREFS_FACEBOOK_ACCESS_EXPIRES, 0);
-//
-//		if (access_token != null) {
-//			mFacebook.setAccessToken(access_token);
-//		}
-//		if (expires != 0) {
-//			mFacebook.setAccessExpires(expires);
-//		}
-//		if (!mFacebook.isSessionValid()) {
-//			mFacebook.authorize(this, new String[] { "publish_stream",
-//					"publish_checkins", "publish_actions" },
-//					new DialogListener() {
-//						@Override
-//						public void onComplete(Bundle values) {
-//							SharedPreferences.Editor editor = prefs.edit();
-//							editor.putString(
-//									Consts.PREFS_FACEBOOK_ACCESS_TOKEN,
-//									mFacebook.getAccessToken());
-//							editor.putLong(
-//									Consts.PREFS_FACEBOOK_ACCESS_EXPIRES,
-//									mFacebook.getAccessExpires());
-//							editor.commit();
-//							NabludatelSettingsActivity.this
-//									.setFacebookLoginOk();
-//						}
-//
-//						@Override
-//						public void onFacebookError(FacebookError error) {
-//						}
-//
-//						@Override
-//						public void onError(DialogError e) {
-//							SharedPreferences.Editor editor = prefs.edit();
-//							editor.putString(
-//									Consts.PREFS_FACEBOOK_ACCESS_TOKEN, null);
-//							editor.putLong(
-//									Consts.PREFS_FACEBOOK_ACCESS_EXPIRES, 0);
-//							editor.commit();
-//						}
-//
-//						@Override
-//						public void onCancel() {
-//							SharedPreferences.Editor editor = prefs.edit();
-//							editor.putString(
-//									Consts.PREFS_FACEBOOK_ACCESS_TOKEN, null);
-//							editor.putLong(
-//									Consts.PREFS_FACEBOOK_ACCESS_EXPIRES, 0);
-//							editor.commit();
-//						}
-//					});
-//		} else {
-//			NabludatelSettingsActivity.this.setFacebookLoginOk();
-//		}
-//
-//	}
-
-//	protected void setFacebookLoginOk() {
-//		TimerTask authTask = new TimerTask() {
-//
-//			@Override
-//			public void run() {
-//				NabludatelSettingsActivity.this.runOnUiThread(new Runnable() {
-//					@Override
-//					public void run() {
-//						try {
-//							mAsyncRunner.request("me",
-//									new SampleRequestListener());
-//							JSONObject me = new JSONObject(mFacebook
-//									.request("/me"));
-//							String first = me.getString("first_name"); // gets
-//																		// first
-//																		// name
-//							String last = me.getString("last_name");
-//							String email = me.getString("email");
-//
-//							NabludatelSettingsActivity.this.saveFaceBook(first,
-//									last, email);
-//						} catch (MalformedURLException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						} catch (IOException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						} catch (JSONException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//					}
-//				});
-//
-//			}
-//		};
-//		Timer authTimer = new Timer();
-//		authTimer.schedule(authTask, 5000);
-//
-//	}
-
 	protected void saveFaceBook(String first, String last, String email) {
 		Button facebookButton = (Button) NabludatelSettingsActivity.this
 				.findViewById(R.id.facebook);
@@ -300,8 +191,9 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
-				&& resultCode != 0) {
+		if (resultCode != 0 && (
+				requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ||
+				requestCode == Consts.GALLERY_IMAGE_ACTIVITY_REQUEST_CODE)) {
 			savePhotos();
 		}
 
@@ -337,7 +229,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		public void onAuthSucceed() {
 			SessionStore.save(mFacebook, NabludatelSettingsActivity.this);
 			mAsyncRunner.request("me", new MeRequestListener());
-			
+
 		}
 
 		public void onAuthFail(String error) {
@@ -350,11 +242,10 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 			SessionStore.clear(NabludatelSettingsActivity.this);
 		}
 	}
-	
-	
+
 	public class MeRequestListener extends BaseRequestListener {
 		public void onComplete(final String response, final Object state) {
-			
+
 			try {
 				JSONObject me = new JSONObject(response);
 				final String first = me.getString("first_name"); // gets first name
@@ -367,13 +258,11 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
                     }
                 });
             } catch (JSONException e) {
-                Log.w(T, "JSON Error in response");
-//            } catch (FacebookError e) {
-//                Log.w(T, "Facebook Error: " + e.getMessage());
+                Log.w(T, "JSON Error in response", e);
             }
         }
     }
-	
+
 	private class LogoutRequestListener extends BaseRequestListener {
         public void onComplete(String response, final Object state) {
         	NabludatelSettingsActivity.this.runOnUiThread(new Runnable() {

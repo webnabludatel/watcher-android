@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_registry_check_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Наблюдатели не смогли своевременно (до вызеда) ознакомиться с реестром заявок голосования на дому" />
 
                     <TextView
@@ -105,7 +104,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_registry_is_correct"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Реестр для голосования на дому заполнен неправильно"/>
@@ -156,7 +154,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="abstentee_vote_registry_is_valid"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Корректная выписка из реестра заявок голосвания на дому не предъявлена"/>
@@ -207,8 +204,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_ballots_number_mismatch"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
-                        nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Количество бюллетеней превышает число заявок более чем на 5%" />
 
@@ -258,7 +253,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_voters_not_in_registry"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Голосование на дому лиц, не внесённых в реестр"/>
@@ -309,7 +303,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="absentee_vote_akt_after_returning"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Акт о голосовании на дому составлен не сразу по возвращении" />
@@ -330,45 +323,18 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/violations_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/absentee_vote_violations_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="absentee_vote_violations_photo"
-                        android:text="@string/violations_photo_gallery" />
-
-                    <Button
                         android:id="@+id/absentee_vote_violations_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="absentee_vote_violations_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_photo" />
                 </LinearLayout>
             </LinearLayout>
 

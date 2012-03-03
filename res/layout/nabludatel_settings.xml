@@ -38,6 +38,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/button_facebook"
+                            android:drawablePadding="4dp"
                             android:gravity="center_vertical|left"
                             android:onClick="onFacebookSetupClick"
                             android:tag="facebook"
@@ -47,6 +48,7 @@
                             android:id="@+id/manual"
                             android:layout_width="match_parent"
                             android:drawableLeft="@drawable/button_manual"
+                            android:drawablePadding="4dp"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical|left"
                             android:onClick="onManualSetupClick"
@@ -197,14 +199,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" >
                         </LinearLayout>
-
-                        <Button
-                            android:id="@+id/Button01"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="onGalleryPhotoClick"
-                            android:tag="official_observer"
-                            android:text="@string/district_banner_photo_from_gallery" />
 
                         <Button
                             android:id="@+id/button1"

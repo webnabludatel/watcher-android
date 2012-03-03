@@ -3,8 +3,6 @@
 
     <string name="app_name">Наблюдатель</string>
     <string name="violations_photo">Фото нарушений</string>
-    <string name="violations_photo_gallery">Из галереи</string>
-    <string name="violations_video_gallery">Из галереи</string>
     <string name="violations_video">Видео нарушений</string>
     <string name="empty"/>
     <string name="section_elections_district_title">Избирательный участок</string>
@@ -14,17 +12,15 @@
     <string name="district_chairman_hint">ФИО</string>
     <string name="district_secretary">Секретарь</string>
     <string name="district_banner_photo">Вывеска на участке</string>
-    <string name="district_banner_photo_from_gallery">Выбрать фото</string>
     <string name="district_banner_photo_make">Камера</string>
-	<string name="district_watchers_count">Всего наблюдателей</string>
-	<string name="district_watchers_count_hint">число</string>
-	<string name="section_before_elections">Подготовка</string>
+    <string name="district_watchers_count">Всего наблюдателей</string>
+    <string name="district_watchers_count_hint">число</string>
+    <string name="section_before_elections">Подготовка</string>
     <string name="admitted_before_eight">Вы допущены на участок до 8:00</string>
     <string name="ballot_box_check_allowed">Предъявлены пустые ящики и пустые КОИБы</string>
     <string name="ballot_box_empty">Урны пусты</string>
     <string name="ballot_box_conform_to_reqs">Урны соответствуют требованиям</string>
     <string name="ballot_box_violations_photo">Фото нарушений</string>
-    <string name="ballot_box_violations_gallery">Из галереи</string>
     <string name="ballot_box_violations_camera">Снять</string>
     <string name="take_a_photo">Сфотографировать</string>
     <string name="ballot_box_title">Урны</string>

@@ -57,7 +57,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_located_in_administration_building"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="ТИК расположен не в здании местной администрации" />
 
                     <TextView
@@ -108,7 +107,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_building_addmittance_cleared"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Допуск в здание осуществляется с нарушением правил" />
 
                     <TextView
@@ -159,7 +157,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_other_watchers_admittance_cleared"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Допуск в здание осуществляется с нарушением правил" />
 
                     <TextView
@@ -210,7 +207,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_protocols_are_received_in_a_single_room"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Приём протоколов проходит в нескольких помещениях" />
 
                     <TextView
@@ -261,7 +257,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="tik_administation_personnel_participate_in_protocol_processing"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0px"
                         nabludatel:violationText="Сотрудники администрации не участвуют в приеме протоколов" />
 
                     <TextView
@@ -281,38 +276,9 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView01"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/violations_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/ballot_box_violations_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="ballot_box_empty_photo"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/ballot_box_violations_photo_camera"
@@ -321,7 +287,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="ballot_box_empty_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_photo" />
                 </LinearLayout>
             </LinearLayout>
 

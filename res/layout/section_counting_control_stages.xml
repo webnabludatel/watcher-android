@@ -56,7 +56,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="control_calculations_conducted"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Не выполнены контрольные соотношения" />
 
                     <TextView
@@ -107,7 +106,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="control_calculations_performed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Пересчёт при невыполнении контрольных соотношений не производился" />
 
                     <TextView

@@ -55,7 +55,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="final_meeting_conducted"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Итоговое заседание не проводилось" />
 
                     <TextView
@@ -106,7 +105,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="final_meeting_administration"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Представители администрации не присутствовали на итоговом заседании" />
 
                     <TextView
@@ -157,7 +155,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="final_meeting_number_of_complains_is_added_to_protocol"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="В протокол не внесено количество поданных жалоб" />
 
                     <TextView

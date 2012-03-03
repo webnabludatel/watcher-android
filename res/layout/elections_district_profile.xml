@@ -112,27 +112,17 @@
                             android:inputType="textCapWords|textPersonName"
                             android:tag="district_secretary" />
 
-                        <TextView
-                            android:id="@+id/textView6"
-                            style="@style/TextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/district_banner_photo"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <ImageView
+                                android:id="@+id/imageView1"
+                                style="@style/list_divider_style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/list_devider" />
 
                         <LinearLayout
                             android:id="@+id/linearLayout2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" >
-
-                            <Button
-                                android:id="@+id/Button01"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:onClick="onGalleryPhotoClick"
-                                android:tag="district_banner_photo"
-                                android:text="@string/ballot_box_violations_gallery" />
 
                             <Button
                                 android:id="@+id/district_banner_photo"
@@ -141,7 +131,7 @@
                                 android:layout_weight="1"
                                 android:onClick="onMakePhotoClick"
                                 android:tag="district_banner_photo"
-                                android:text="@string/district_banner_photo_make" />
+                                android:text="@string/district_banner_photo" />
                         </LinearLayout>
                     </LinearLayout>
 

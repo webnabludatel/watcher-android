@@ -53,7 +53,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="unused_ballots_counted_after_vote_finish"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Подсчёт неиспользованых бюллетеней начался не сразу по окончании голосования"
@@ -105,7 +104,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="unused_ballots_counted_before_other_actions"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Неиспользованые бюллетени не были подсчитаны и погашены до других подсчётов"
@@ -157,7 +155,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="unused_ballots_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Данные не сразу внесены в увеличенную форму протокола"/>
@@ -178,38 +175,9 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/violations_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/unused_ballots_violation_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="unused_ballots_violation_photo"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/unused_ballots_violation_photo"
@@ -218,7 +186,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="unused_ballots_violation_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_photo" />
 
                 </LinearLayout>
             </LinearLayout>

@@ -140,14 +140,14 @@ public class ElectionsDBHelper {
 			+ ");";
 
 	public long addCheckListItem(double lat, double lng, String name, long l,
-			String value, long mCurrentElectionsDistrictId, String violation, int screen_id) {
+			String value, long pollingPlaceId, String violation, int screen_id) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(CHECKLISTITEM_LAT_KEY, lat);
 		contentValues.put(CHECKLISTITEM_LNG_KEY, lng);
 		contentValues.put(CHECKLISTITEM_NAME_KEY, name);
 		contentValues.put(CHECKLISTITEM_TIMESTAMP_KEY, l);
 		contentValues.put(CHECKLISTITEM_VALUE_KEY, value);
-		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, mCurrentElectionsDistrictId);
+		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, pollingPlaceId);
 		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, violation);
 		contentValues.put(CHECKLISTITEM_SCREEN_ID_KEY, screen_id );
 		contentValues.put(CHECKLISTITEM_SERVER_ID_KEY, -1L);
@@ -205,17 +205,18 @@ public class ElectionsDBHelper {
 				null, null, null, null);
 	}
 	
-	public int getCheckListItemsCountByScreenId(int screenId) {
+	public int getCheckListItemsCountByScreenIdAndPollingPlaceId(int screenId, long pollingPlaceId) {
 		Cursor c = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID}, 
-				CHECKLISTITEM_VALUE_KEY + " <> " + "'undef' AND " 
-//				+ CHECKLISTITEM_VIOLATION_KEY + " <> '' AND "
-				+CHECKLISTITEM_SCREEN_ID_KEY + " = " + screenId,
-				null, null, null, null 
+				CHECKLISTITEM_VALUE_KEY + " <> " + "'undef' AND "
+					+ CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
+					+ CHECKLISTITEM_SCREEN_ID_KEY + " = " + screenId, null, null, null, null
 				);
-		if(c == null)
-			return 0;
-		return c.getCount();
+		try {
+			return c.getCount();
+		} finally {
+			c.close();
+		}
 	}
 
 	public Cursor getNoneViolationsByPollingPlaceId(long pollingPlaceId) {
@@ -240,7 +241,7 @@ public class ElectionsDBHelper {
 	}
 
 	public Cursor getCheckListItem(long rowIndex) {
-		Cursor res = db().query(CHECKLISTITEM_TABLE, new String[]{
+		Cursor c = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID, CHECKLISTITEM_LAT_KEY,
 				CHECKLISTITEM_LNG_KEY, CHECKLISTITEM_NAME_KEY,
 				CHECKLISTITEM_TIMESTAMP_KEY, CHECKLISTITEM_VALUE_KEY,
@@ -249,21 +250,23 @@ public class ElectionsDBHelper {
 				CHECKLISTITEM_SERVER_STATUS_KEY, CHECKLISTITEM_SERVER_ID_KEY},
 				CHECKLISTITEM_ROW_ID + " = "
 						+ rowIndex, null, null, null, null);
-		if (res != null) {
-			res.moveToFirst();
-		}
-		return res;
+		c.moveToFirst();
+		return c;
 	}
 
 	public String getCheckListItemName(long rowIndex) {
-		Cursor res = db().query(CHECKLISTITEM_TABLE, new String[]{
+		Cursor c = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_NAME_KEY
 		}, CHECKLISTITEM_ROW_ID + " = " + rowIndex, null, null, null, null);
-		if (res != null && res.getCount() > 0){
-			res.moveToFirst();
-			return res.getString(res.getColumnIndex(CHECKLISTITEM_NAME_KEY));
+		try {
+			if (c.getCount() > 0){
+				c.moveToFirst();
+				return c.getString(c.getColumnIndex(CHECKLISTITEM_NAME_KEY));
+			}
+			return null;
+		} finally {
+			c.close();
 		}
-		return null;
 	}
 
 	public long updateCheckListItemServerId(long rowIndex, long serverId){
@@ -308,7 +311,7 @@ public class ElectionsDBHelper {
 	}
 
 	public Cursor getPollingPlace(long rowIndex) {
-		Cursor res = db().query(POLLINGPLACE_TABLE, new String[]{
+		Cursor c = db().query(POLLINGPLACE_TABLE, new String[]{
 				POLLINGPLACE_ROW_ID,
 				POLLINGPLACE_LAT_KEY,
 				POLLINGPLACE_LNG_KEY,
@@ -320,22 +323,24 @@ public class ElectionsDBHelper {
 				POLLINGPLACE_TYPE_KEY,
 				POLLINGPLACE_SERVER_ID_KEY},
 				POLLINGPLACE_ROW_ID + " = " + rowIndex, null, null, null, null);
-		if (res != null) {
-			res.moveToFirst();
-		}
-		return res;
+		c.moveToFirst();
+		return c;
 	}
 	
 	public String getPollingPlaceType(long rowIndex){
 		Cursor c = getPollingPlace(rowIndex);
-		if (c == null || c.getCount() < 1) {
-			return null;
+		try {
+			if (c.getCount() < 1) {
+				return null;
+			}
+			return c.getString(c.getColumnIndex(POLLINGPLACE_TYPE_KEY));
+		} finally {
+			c.close();
 		}
-		return c.getString(c.getColumnIndex(POLLINGPLACE_TYPE_KEY));
 	}
 
 	public Cursor getPollingPlaceByNumber(long district_id) {
-		Cursor res = db().query(POLLINGPLACE_TABLE, new String[] {
+		Cursor c = db().query(POLLINGPLACE_TABLE, new String[] {
 				POLLINGPLACE_ROW_ID,
 				POLLINGPLACE_LAT_KEY,
 				POLLINGPLACE_LNG_KEY,
@@ -348,20 +353,16 @@ public class ElectionsDBHelper {
 				POLLINGPLACE_SERVER_ID_KEY},
 				POLLINGPLACE_ROW_ID + " = " + district_id, null,
 				null, null, null);
-		if (res != null) {
-			res.moveToFirst();
-		}
-		return res;
+		c.moveToFirst();
+		return c;
 	}
 
 	public Cursor getPollingPlaceNames() {
-		Cursor res = db().query(POLLINGPLACE_TABLE, new String[] {
+		Cursor c = db().query(POLLINGPLACE_TABLE, new String[] {
 				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY}, null, null,
 				null, null, null);
-		if (res != null) {
-			res.moveToFirst();
-		}
-		return res;
+		c.moveToFirst();
+		return c;
 	}
 
 	public long addMediaItem(String filepath, String mediatype,
@@ -479,23 +480,26 @@ public class ElectionsDBHelper {
 	}
 
 	public String getPollingPlaceNameByNumber(long pollingPlace) {
-		Cursor res = this.getPollingPlaceByNumber(pollingPlace);
-		if(res != null){
-			res.moveToFirst();
-			if(res.getCount() > 0){
-				return res.getString(POLLINGPLACE_NAME_COLUMN);
+		Cursor c = this.getPollingPlaceByNumber(pollingPlace);
+		try {
+			c.moveToFirst();
+			if(c.getCount() > 0){
+				return c.getString(POLLINGPLACE_NAME_COLUMN);
 			}
+			return null;
+		} finally {
+			c.close();
 		}
-		return null;
 	}
 
 	public long getCheckListItemServerId(long mediaChecklistId) {
-		Cursor res = this.getCheckListItem(mediaChecklistId);
-		if (res != null) {
-			res.moveToFirst();
-			return res.getLong(CHECKLISTITEM_SERVER_ID_COLUMN);
+		Cursor c = this.getCheckListItem(mediaChecklistId);
+		try {
+			c.moveToFirst();
+			return c.getLong(CHECKLISTITEM_SERVER_ID_COLUMN);
+		} finally {
+			c.close();
 		}
-		return -1L;
 	}
 
 	public long removePollingPlace(long rowIndex) {

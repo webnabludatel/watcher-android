@@ -80,7 +80,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="final_meeting_all_complains_are_checked"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp"
                         nabludatel:violationText="Не все письменные жалобы рассмотрены" />
 
                     <TextView

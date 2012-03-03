@@ -54,7 +54,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_presented_or_announced"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Сортировка производилась с нарушениями"/>
@@ -104,7 +103,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_sorted_in_separate_bundles"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Подсчёт бюллетеней производился с нарушениями"/>
@@ -155,7 +153,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_marks_noticed_in_ballots"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Наблюдатели не могли видеть отметки избирателей в бюллетенях"/>
@@ -206,7 +203,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_suspicious_counting"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:hiValue="true"
                         nabludatel:loValue="false"
                         nabludatel:violationText="Возникли сомнения в правильности подсчёта голосов"/>
@@ -257,7 +253,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_ballot_check_allowed"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         nabludatel:hiValue="true"
                         nabludatel:violationText="Наблюдатели не смогли проверить правильность подсчёта"/>
@@ -308,7 +303,6 @@
                         android:progressDrawable="@drawable/patch"
                         android:tag="counting_ballots_recorded_in_protocol_immediately"
                         android:thumb="@drawable/for_frontend_03"
-                        android:thumbOffset="0dp" 
                         nabludatel:loValue="false"
                         
                         nabludatel:hiValue="true"
@@ -329,26 +323,10 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_devider" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@style/TextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/violations_video" />
-
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/counting_ballots_violations_video_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onGalleryVideoClick"
-                        android:tag="counting_ballots_violations_video"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/counting_ballots_violations_video"
@@ -357,7 +335,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakeVideoClick"
                         android:tag="counting_ballots_violations_video"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_video" />
                 </LinearLayout>
             </LinearLayout>
 
