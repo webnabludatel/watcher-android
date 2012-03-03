@@ -4,18 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 import org.dvaletin.apps.nabludatel.R;
 
-public class NabludatelCheckListItemViewAdapter extends
-		android.widget.BaseAdapter {
-	SectionList items;
-	private LayoutInflater mInflater;
-	private int[] violations;
+public class NabludatelCheckListItemViewAdapter extends BaseAdapter {
+	private final SectionList items;
+	private final long pollingPlaceId;
+	private final LayoutInflater mInflater;
+	private final int[] violations;
 
 	public NabludatelCheckListItemViewAdapter(Context context,
-			SectionList pItems) {
+											  SectionList pItems, long pollingPlaceId) {
 		items = pItems;
+		this.pollingPlaceId = pollingPlaceId;
 		mInflater = LayoutInflater.from(context);
 		violations = new int[items.listItems.length];
 		for (int i = 0; i < violations.length; i++) {
@@ -25,19 +27,16 @@ public class NabludatelCheckListItemViewAdapter extends
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return items.listItems.length;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return items.listItems[position];
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
@@ -75,11 +74,10 @@ public class NabludatelCheckListItemViewAdapter extends
 	}
 
 	public int getViolationsCount(int i) {
-		// TODO Auto-generated method stub
 		return violations[i];
 	}
 
-	public int getTotalVioltionsCount() {
+	public int getTotalViolationsCount() {
 		int sum = 0;
 		for (int i = 0; i < getCount(); i++) {
 			sum += violations[i];
@@ -89,9 +87,8 @@ public class NabludatelCheckListItemViewAdapter extends
 
 	public void updateViolationCount(ElectionsDBHelper mElectionsDB) {
 		for (int i = 0; i < this.getCount(); i++) {
-			this.updateViolations(
-					i,
-					mElectionsDB.getCheckListItemsCountByScreenId(items.listItems[i].LAYOUT)
+			this.updateViolations(i,
+					mElectionsDB.getCheckListItemsCountByScreenIdAndPollingPlaceId(items.listItems[i].LAYOUT, pollingPlaceId)
 			);
 		}
 	}

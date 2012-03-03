@@ -111,19 +111,19 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			fillCheckListItems();
 			ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
 			if(mBeforeElectionsAdapter != null)
-				mUikListViewAdapter.getListViewItem(0).setDescription(this.mBeforeElectionsAdapter.getTotalVioltionsCount());
+				mUikListViewAdapter.getListViewItem(0).setDescription(this.mBeforeElectionsAdapter.getTotalViolationsCount());
 
 			if(this.mCountingAdapter != null)
-				mUikListViewAdapter.getListViewItem(2).setDescription(mCountingAdapter.getTotalVioltionsCount());
+				mUikListViewAdapter.getListViewItem(2).setDescription(mCountingAdapter.getTotalViolationsCount());
 
 			if(this.mDuringElectionsAdapter != null)
-				mUikListViewAdapter.getListViewItem(1).setDescription(mDuringElectionsAdapter.getTotalVioltionsCount());
+				mUikListViewAdapter.getListViewItem(1).setDescription(mDuringElectionsAdapter.getTotalViolationsCount());
 
 			if(this.mFinalMeetingAdapter != null)
-				mUikListViewAdapter.getListViewItem(3).setDescription(mFinalMeetingAdapter.getTotalVioltionsCount());
+				mUikListViewAdapter.getListViewItem(3).setDescription(mFinalMeetingAdapter.getTotalViolationsCount());
 
 			if(this.mTikIkmoAdapter != null)
-				this.mTikIkmoViewAdapter.getListViewItem(0).setDescription(mTikIkmoAdapter.getTotalVioltionsCount());
+				this.mTikIkmoViewAdapter.getListViewItem(0).setDescription(mTikIkmoAdapter.getTotalViolationsCount());
 
 			mMainSelector.invalidateViews();
 
@@ -233,37 +233,25 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			mMainSelector.setOnItemClickListener(mTIKClickListener);
 		}
 		
-		if (mBeforeElectionsAdapter == null) {
+		mBeforeElectionsAdapter = new NabludatelCheckListItemViewAdapter(
+				this, new SectionBeforeElections(), mCurrentPollingPlaceId);
+		mBeforeElectionsAdapter.updateViolationCount(mElectionsDB);
 
-			mBeforeElectionsAdapter = new NabludatelCheckListItemViewAdapter(
-					this, new SectionBeforeElections());
-			mBeforeElectionsAdapter.updateViolationCount(mElectionsDB);
-		}
-		
-		if (mDuringElectionsAdapter == null) {
+		mDuringElectionsAdapter = new NabludatelCheckListItemViewAdapter(
+				this, new SectionDuringElections(), mCurrentPollingPlaceId);
+		mDuringElectionsAdapter.updateViolationCount(mElectionsDB);
 
-			mDuringElectionsAdapter = new NabludatelCheckListItemViewAdapter(
-					this, new SectionDuringElections());
-			mDuringElectionsAdapter.updateViolationCount(mElectionsDB);
-		}
-		
-		if (mCountingAdapter == null) {
-			mCountingAdapter = new NabludatelCheckListItemViewAdapter(this,
-					new SectionCounting());
-			mCountingAdapter.updateViolationCount(mElectionsDB);
-		}
-		
-		if (mFinalMeetingAdapter == null) {
-			mFinalMeetingAdapter = new NabludatelCheckListItemViewAdapter(this,
-					new SectionFinalMeeting());
-			mFinalMeetingAdapter.updateViolationCount(mElectionsDB);
-		}
-		
-		if (mTikIkmoAdapter == null) {
-			mTikIkmoAdapter = new NabludatelCheckListItemViewAdapter(this,
-					new SectionTikIkmo());
-			mTikIkmoAdapter.updateViolationCount(mElectionsDB);
-		}
+		mCountingAdapter = new NabludatelCheckListItemViewAdapter(this,
+				new SectionCounting(), mCurrentPollingPlaceId);
+		mCountingAdapter.updateViolationCount(mElectionsDB);
+
+		mFinalMeetingAdapter = new NabludatelCheckListItemViewAdapter(this,
+				new SectionFinalMeeting(), mCurrentPollingPlaceId);
+		mFinalMeetingAdapter.updateViolationCount(mElectionsDB);
+
+		mTikIkmoAdapter = new NabludatelCheckListItemViewAdapter(this,
+				new SectionTikIkmo(), mCurrentPollingPlaceId);
+		mTikIkmoAdapter.updateViolationCount(mElectionsDB);
 	}
 
 	protected void activateSectionBeforeElections() {

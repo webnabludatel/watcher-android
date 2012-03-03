@@ -140,14 +140,14 @@ public class ElectionsDBHelper {
 			+ ");";
 
 	public long addCheckListItem(double lat, double lng, String name, long l,
-			String value, long mCurrentElectionsDistrictId, String violation, int screen_id) {
+			String value, long pollingPlaceId, String violation, int screen_id) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(CHECKLISTITEM_LAT_KEY, lat);
 		contentValues.put(CHECKLISTITEM_LNG_KEY, lng);
 		contentValues.put(CHECKLISTITEM_NAME_KEY, name);
 		contentValues.put(CHECKLISTITEM_TIMESTAMP_KEY, l);
 		contentValues.put(CHECKLISTITEM_VALUE_KEY, value);
-		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, mCurrentElectionsDistrictId);
+		contentValues.put(CHECKLISTITEM_POLLINGPLACE_KEY, pollingPlaceId);
 		contentValues.put(CHECKLISTITEM_VIOLATION_KEY, violation);
 		contentValues.put(CHECKLISTITEM_SCREEN_ID_KEY, screen_id );
 		contentValues.put(CHECKLISTITEM_SERVER_ID_KEY, -1L);
@@ -205,12 +205,12 @@ public class ElectionsDBHelper {
 				null, null, null, null);
 	}
 	
-	public int getCheckListItemsCountByScreenId(int screenId) {
+	public int getCheckListItemsCountByScreenIdAndPollingPlaceId(int screenId, long pollingPlaceId) {
 		Cursor c = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID}, 
 				CHECKLISTITEM_VIOLATION_KEY + " <> '' AND "
-				+CHECKLISTITEM_SCREEN_ID_KEY + " = "
-				+ screenId, null, null, null, null 
+					+ CHECKLISTITEM_POLLINGPLACE_KEY + " = " + pollingPlaceId + " AND "
+					+ CHECKLISTITEM_SCREEN_ID_KEY + " = " + screenId, null, null, null, null
 				);
 		try {
 			return c.getCount();
