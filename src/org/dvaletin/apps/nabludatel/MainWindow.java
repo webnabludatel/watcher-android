@@ -68,11 +68,11 @@ public class MainWindow extends TabActivity {
 
 		SyncTask checkListSyncTask = new CheckListSyncTask(cloud, this,
 				new SyncNotification(Consts.DATA_NOTIFICATION_ID, this, getString(R.string.upload_data_notification)));
-		syncronizers.add(new ExecuterWithNotification(checkListSyncTask, 5L));
+		syncronizers.add(new ExecuterWithNotification(checkListSyncTask, 15L));
 
 		SyncTask mediaSyncTask = new MediaSyncTask(this, cloud,
 				new SyncNotification(Consts.MEDIA_NOTIFICATION_ID, this, getString(R.string.upload_media_notification)));
-		syncronizers.add(new ExecuterWithNotification(mediaSyncTask, 30L));
+		syncronizers.add(new ExecuterWithNotification(mediaSyncTask, 60L));
 	}
 
 	private void setupUI() {

@@ -40,6 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="onGalleryVideoClick"
                         android:tag="ballot_box_opening_video"
                         android:text="@string/ballot_box_violations_gallery" />
 
