@@ -323,25 +323,10 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_devider" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@style/TextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/violations_video" />
-
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/counting_ballots_violations_video_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:tag="counting_ballots_violations_video"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/counting_ballots_violations_video"
@@ -350,7 +335,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakeVideoClick"
                         android:tag="counting_ballots_violations_video"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_video" />
                 </LinearLayout>
             </LinearLayout>
 

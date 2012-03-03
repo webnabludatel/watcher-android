@@ -24,25 +24,10 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@style/TextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ballot_box_opening_video" />
-
                 <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/ballot_box_opening_video_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:tag="ballot_box_opening_video"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/ballot_box_opening_video"
@@ -51,7 +36,7 @@
                         android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="ballot_box_opening_video"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/ballot_box_opening_video" />
                 </LinearLayout>
 
                 <ImageView

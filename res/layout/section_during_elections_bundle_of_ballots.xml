@@ -74,48 +74,19 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/violations_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/LinearLayout09"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onGalleryPhotoClick" >
 
                     <Button
-                        android:id="@+id/bundle_of_ballots_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="bundle_of_ballots_photo"
-                        android:text="@string/ballot_box_violations_gallery" />
-
-                    <Button
                         android:id="@+id/bundle_of_ballots_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="bundle_of_ballots_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_photo" />
                 </LinearLayout>
 
                 <ImageView
@@ -126,46 +97,18 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView01"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/violations_video" />
-
-                    <TextView
-                        android:id="@+id/videos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/LinearLayout02"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/bundle_of_ballots_video_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onGalleryVideoClick"
-                        android:tag="bundle_of_ballots_video"
-                        android:text="@string/ballot_box_violations_gallery" />
-
-                    <Button
                         android:id="@+id/bundle_of_ballots_video"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakeVideoClick"
                         android:tag="bundle_of_ballots_video"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/violations_video" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -335,47 +335,18 @@
                     android:src="@drawable/list_devider" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
+                    android:id="@+id/appearance_violation_photo_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/appearance_violation_photo" />
-
-                    <TextView
-                        android:id="@+id/photos_count"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/appearance_violation_photo_gallery"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <Button
-                        android:id="@+id/appearance_violation_photo_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onGalleryPhotoClick"
-                        android:tag="appearance_violation_photo"
-                        android:text="@string/ballot_box_violations_gallery" />
 
                     <Button
                         android:id="@+id/appearance_violation_photo_camera"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="onMakePhotoClick"
                         android:tag="counter_violations_photo"
-                        android:text="@string/ballot_box_violations_camera" />
+                        android:text="@string/appearance_violation_photo" />
                 </LinearLayout>
             </LinearLayout>
 
