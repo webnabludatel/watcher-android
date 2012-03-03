@@ -42,7 +42,7 @@ h3{font-size:110%;}
 .buzin .menu a, .buzin .submenu a, .buzin .menu span, .buzin .submenu span {border-bottom: 0;}
 .menu a:hover, .menu a:active, .submenu a:hover, .submenu a:active, .menu span:hover, .menu span:active, .submenu span:hover, .submenu span:active{background:#F0F0F0!important;}
 .menu a:before, .submenu a:before, .menu span:before, .submenu span:before{content:"›"; float:right; display:block; margin:0 -20px 0 10px; color:#7F7F7F; font-weight:normal; font-style:normal;}
-.buzin .menu a:before, .buzin .submenu a:before{content:"ℹ";padding:0 7px; font-weight:normal; border-radius:4px; text-shadow:0 1px 0 rgba(255,255,255,.5); background:#96deda;}
+.buzin .menu a:before, .buzin .submenu a:before{content:"i";padding:0 7px; font-weight:normal; border-radius:4px; text-shadow:0 1px 0 rgba(255,255,255,.5); background:#96deda;}
 .buzin .menu blockquote {border-left: 3px solid #96deda; padding-left: 10px; margin-left: 15px; display: none;}
 
 .text{padding:10px; background:#FFF;}
