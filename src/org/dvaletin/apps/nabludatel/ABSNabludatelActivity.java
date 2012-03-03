@@ -238,45 +238,49 @@ public abstract class ABSNabludatelActivity extends Activity {
 				CheckListItem checkListItem = saveCheckListItem(updateCheckListItem(checkListItemKey, value, ""));
 				Set<File> processedFiles = new HashSet<File>();
 				Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(checkListItem.getId(), mediaType);
-				c.moveToFirst();
-				for (int i = 0; i < c.getCount(); i++) {
-					long mediaRowId = c.getLong(0);
-					String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
-					long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
-					long timestamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
+				try {
+					c.moveToFirst();
+					for (int i = 0; i < c.getCount(); i++) {
+						long mediaRowId = c.getLong(0);
+						String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+						long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
+						long timestamp = c.getLong(ElectionsDBHelper.MEDIAITEM_TIMESTAMP_COLUMN);
 
-					boolean found = false;
-					for (Entry<File, String> fe : files.entrySet()) {
-						File file = fe.getKey();
-						if (checkListItemKey.equals(fe.getValue()) &&
-								file.getAbsolutePath().equals(filePath)) {
-							// Update file
-							if (file.lastModified() != timestamp) {
-								mElectionsDB.updateMediaItem(
-										mediaRowId,
-										file.getAbsolutePath(),
-										mediaType, "",
-										file.lastModified(),
-										checkListItem.getId(),
-										mCurrentPollingPlaceId
-								);
+						boolean found = false;
+						for (Entry<File, String> fe : files.entrySet()) {
+							File file = fe.getKey();
+							if (checkListItemKey.equals(fe.getValue()) &&
+									file.getAbsolutePath().equals(filePath)) {
+								// Update file
+								if (file.lastModified() != timestamp) {
+									mElectionsDB.updateMediaItem(
+											mediaRowId,
+											file.getAbsolutePath(),
+											mediaType, "",
+											file.lastModified(),
+											checkListItem.getId(),
+											mCurrentPollingPlaceId
+									);
+								}
+								processedFiles.add(file);
+								found = true;
 							}
-							processedFiles.add(file);
-							found = true;
 						}
-					}
-					if (!found) {
-						// Remove file (record found in DB, but file does not exists)
-						if (mediaItemServerId > 0L) {
-							// Only mark record in DB (not really delete it)
-							mElectionsDB.resetMediaItemServerStatus(mediaRowId);
-						} else {
-							// No server records, delete from DB
-							mElectionsDB.removeMediaItem(mediaRowId);
+						if (!found) {
+							// Remove file (record found in DB, but file does not exists)
+							if (mediaItemServerId > 0L) {
+								// Only mark record in DB (not really delete it)
+								mElectionsDB.resetMediaItemServerStatus(mediaRowId);
+							} else {
+								// No server records, delete from DB
+								mElectionsDB.removeMediaItem(mediaRowId);
+							}
 						}
-					}
 
-					c.moveToNext();
+						c.moveToNext();
+					}
+				} finally {
+					c.close();
 				}
 
 				for (Entry<File, String> fe : files.entrySet()) {
@@ -326,34 +330,38 @@ public abstract class ABSNabludatelActivity extends Activity {
 		fillActiveViews((ViewGroup)(findViewById(android.R.id.content)).getRootView());
 
 		Cursor c = mElectionsDB.getCheckListItemsByPollingPlaceIdAndScreenId(this.mCurrentPollingPlaceId, screenId);
-		c.moveToFirst();
+		try {
+			c.moveToFirst();
 
-		for (int i = 0; i < c.getCount(); i++) {
-			String key = c
-					.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN);
-			if(activeViews.keySet().contains(key)){
-				CheckListItem checkListItem = new CheckListItem(c.getLong(0),
-						c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN),
-						c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
-						c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
-						c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
-						c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN),
-						c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN),
-						c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN));
-				mCheckList.put(key, checkListItem);
+			for (int i = 0; i < c.getCount(); i++) {
+				String key = c
+						.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN);
+				if(activeViews.keySet().contains(key)){
+					CheckListItem checkListItem = new CheckListItem(c.getLong(0),
+							c.getLong(ElectionsDBHelper.CHECKLISTITEM_TIMESTAMP_COLUMN),
+							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LAT_COLUMN),
+							c.getDouble(ElectionsDBHelper.CHECKLISTITEM_LNG_COLUMN),
+							c.getString(ElectionsDBHelper.CHECKLISTITEM_NAME_COLUMN),
+							c.getString(ElectionsDBHelper.CHECKLISTITEM_VALUE_COLUMN),
+							c.getLong(ElectionsDBHelper.CHECKLISTITEM_POLLINGPLACE_COLUMN),
+							c.getString(ElectionsDBHelper.CHECKLISTITEM_VIOLATION_COLUMN));
+					mCheckList.put(key, checkListItem);
 
-				restoreMediaItems(checkListItem, photos, Consts.PHOTO_FILE);
-				TextView tp = (TextView)findViewById(R.id.photos_count);
-				if( tp!= null ){
-					tp.setText("("+photos.size()+")");
+					restoreMediaItems(checkListItem, photos, Consts.PHOTO_FILE);
+					TextView tp = (TextView)findViewById(R.id.photos_count);
+					if( tp!= null ){
+						tp.setText("("+photos.size()+")");
+					}
+					restoreMediaItems(checkListItem, videos, Consts.VIDEO_FILE);
+					TextView tv = (TextView)findViewById(R.id.videos_count);
+					if( tv!= null ){
+						tv.setText("("+videos.size()+")");
+					}
 				}
-				restoreMediaItems(checkListItem, videos, Consts.VIDEO_FILE);
-				TextView tv = (TextView)findViewById(R.id.videos_count);
-				if( tv!= null ){
-					tv.setText("("+videos.size()+")");
-				}
+				c.moveToNext();
 			}
-			c.moveToNext();
+		} finally {
+			c.close();
 		}
 
 		restore((ViewGroup) findViewById(android.R.id.content).getRootView(),
@@ -362,27 +370,31 @@ public abstract class ABSNabludatelActivity extends Activity {
 
 	private void restoreMediaItems(CheckListItem checkListItem, Map<File, String> medias, String mediaType) {
 		Cursor c = mElectionsDB.getMediaItemsByCheckListItemIdAndMediaType(checkListItem.getId(), mediaType);
-		c.moveToFirst();
-		for (int i = 0; i < c.getCount(); i++) {
-			long mediaRowId = c.getLong(0);
-			String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
-			long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
+		try {
+			c.moveToFirst();
+			for (int i = 0; i < c.getCount(); i++) {
+				long mediaRowId = c.getLong(0);
+				String filePath = c.getString(ElectionsDBHelper.MEDIAITEM_FILEPATH_COLUMN);
+				long mediaItemServerId = c.getLong(ElectionsDBHelper.MEDIAITEM_SERVER_ID_COLUMN);
 
-			File file = new File(filePath);
-			if (file.exists()) {
-				medias.put(file, checkListItem.getKey());
-			} else {
-				// Remove file (record found in DB, but file does not exists)
-				if (mediaItemServerId > 0L) {
-					// Only mark record in DB (not really delete it)
-					mElectionsDB.resetMediaItemServerStatus(mediaRowId);
+				File file = new File(filePath);
+				if (file.exists()) {
+					medias.put(file, checkListItem.getKey());
 				} else {
-					// No server records, delete from DB
-					mElectionsDB.removeMediaItem(mediaRowId);
+					// Remove file (record found in DB, but file does not exists)
+					if (mediaItemServerId > 0L) {
+						// Only mark record in DB (not really delete it)
+						mElectionsDB.resetMediaItemServerStatus(mediaRowId);
+					} else {
+						// No server records, delete from DB
+						mElectionsDB.removeMediaItem(mediaRowId);
+					}
 				}
-			}
 
-			c.moveToNext();
+				c.moveToNext();
+			}
+		} finally {
+			c.close();
 		}
 	}
 
@@ -564,13 +576,17 @@ public abstract class ABSNabludatelActivity extends Activity {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = {MediaStore.Images.Media.DATA};
 				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-				cursor.moveToFirst();
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				String path = cursor.getString(columnIndex);
-				photos.put(new File(path), lastPhotoKey);
-				TextView t = (TextView)findViewById(R.id.photos_count);
-				if( t!= null ){
-					t.setText("("+photos.size()+")");
+				try {
+					cursor.moveToFirst();
+					int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+					String path = cursor.getString(columnIndex);
+					photos.put(new File(path), lastPhotoKey);
+					TextView t = (TextView)findViewById(R.id.photos_count);
+					if( t!= null ){
+						t.setText("("+photos.size()+")");
+					}
+				} finally {
+					cursor.close();
 				}
 			}
 			lastPhotoKey = null;
@@ -581,13 +597,17 @@ public abstract class ABSNabludatelActivity extends Activity {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = {MediaStore.Video.Media.DATA};
 				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-				cursor.moveToFirst();
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				String path = cursor.getString(columnIndex);
-				videos.put(new File(path), lastPhotoKey);
-				TextView t = (TextView)findViewById(R.id.videos_count);
-				if( t!= null ){
-					t.setText("("+videos.size()+")");
+				try {
+					cursor.moveToFirst();
+					int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+					String path = cursor.getString(columnIndex);
+					videos.put(new File(path), lastPhotoKey);
+					TextView t = (TextView)findViewById(R.id.videos_count);
+					if( t!= null ){
+						t.setText("("+videos.size()+")");
+					}
+				} finally {
+					cursor.close();
 				}
 			}
 		}

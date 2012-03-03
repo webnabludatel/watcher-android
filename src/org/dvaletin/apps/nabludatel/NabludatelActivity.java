@@ -55,81 +55,85 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		String from[] = new String[] { ElectionsDBHelper.POLLINGPLACE_NAME_KEY };
 		int[] to = new int[] { android.R.id.text1 };
 		Cursor c = mElectionsDB.getPollingPlaceNames();
-		if (c.getCount() > 0) {
-			SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-					android.R.layout.simple_spinner_item, c, from, to);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			district.setAdapter(adapter);
-			
-			getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
-			mCurrentPollingPlaceId = prefs.getLong(
-					Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
-			if (mCurrentPollingPlaceId > 0) {
-				district.setSelection((int) mCurrentPollingPlaceId-1);
-				mCurrentPollingPlaceType = mElectionsDB
-						.getPollingPlaceType(mCurrentPollingPlaceId);
+		try {
+			if (c.getCount() > 0) {
+				SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+						android.R.layout.simple_spinner_item, c, from, to);
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				district.setAdapter(adapter);
 
-				findViewById(R.id.main_layout).setVisibility(View.VISIBLE);
-				findViewById(R.id.watchingTitlePane).setVisibility(View.VISIBLE);
+				getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
+				mCurrentPollingPlaceId = prefs.getLong(
+						Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
+				if (mCurrentPollingPlaceId > 0) {
+					district.setSelection((int) mCurrentPollingPlaceId-1);
+					mCurrentPollingPlaceType = mElectionsDB
+							.getPollingPlaceType(mCurrentPollingPlaceId);
+
+					findViewById(R.id.main_layout).setVisibility(View.VISIBLE);
+					findViewById(R.id.watchingTitlePane).setVisibility(View.VISIBLE);
+				} else {
+					findViewById(R.id.main_layout).setVisibility(View.INVISIBLE);
+					findViewById(R.id.watchingTitlePane).setVisibility(View.INVISIBLE);
+				}
+				district.setOnLongClickListener(new View.OnLongClickListener() {
+
+					@Override
+					public boolean onLongClick(View v) {
+						long id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
+						if (id != -1L) {
+							Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
+							intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id);
+							startActivityForResult(intent, Consts.DISTRICT_ACTIVITY_REQUEST_CODE);
+						}
+						return true;
+					}
+				});
+
+				district.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> arg0, View arg1,
+							int position, long id) {
+						long prev_item_id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
+						if (id != prev_item_id) {
+
+							prefs.edit()
+									.putLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id)
+									.commit();
+							NabludatelActivity.this.activateRootMenu();
+						}
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+					}
+
+				});
+				fillCheckListItems();
+				ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
+				if(mBeforeElectionsAdapter != null)
+					mUikListViewAdapter.getListViewItem(0).setDescription(this.mBeforeElectionsAdapter.getTotalVioltionsCount());
+
+				if(this.mCountingAdapter != null)
+					mUikListViewAdapter.getListViewItem(2).setDescription(mCountingAdapter.getTotalVioltionsCount());
+
+				if(this.mDuringElectionsAdapter != null)
+					mUikListViewAdapter.getListViewItem(1).setDescription(mDuringElectionsAdapter.getTotalVioltionsCount());
+
+				if(this.mFinalMeetingAdapter != null)
+					mUikListViewAdapter.getListViewItem(3).setDescription(mFinalMeetingAdapter.getTotalVioltionsCount());
+
+				if(this.mTikIkmoAdapter != null)
+					this.mTikIkmoViewAdapter.getListViewItem(0).setDescription(mTikIkmoAdapter.getTotalVioltionsCount());
+
+				mMainSelector.invalidateViews();
+
 			} else {
 				findViewById(R.id.main_layout).setVisibility(View.INVISIBLE);
 				findViewById(R.id.watchingTitlePane).setVisibility(View.INVISIBLE);
 			}
-			district.setOnLongClickListener(new View.OnLongClickListener() {
-
-				@Override
-				public boolean onLongClick(View v) {
-					long id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
-					if (id != -1L) {
-						Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
-						intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id);
-						startActivityForResult(intent, Consts.DISTRICT_ACTIVITY_REQUEST_CODE);
-					}
-					return true;
-				}
-			});
-
-			district.setOnItemSelectedListener(new OnItemSelectedListener() {
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1,
-						int position, long id) {
-					long prev_item_id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
-					if (id != prev_item_id) {
-
-						prefs.edit()
-								.putLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id)
-								.commit();
-						NabludatelActivity.this.activateRootMenu();
-					}
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-				}
-
-			});
-			fillCheckListItems();
-			ListView mMainSelector = (ListView) findViewById(R.id.main_selector);
-			if(mBeforeElectionsAdapter != null)
-				mUikListViewAdapter.getListViewItem(0).setDescription(this.mBeforeElectionsAdapter.getTotalVioltionsCount());
-			
-			if(this.mCountingAdapter != null)
-				mUikListViewAdapter.getListViewItem(2).setDescription(mCountingAdapter.getTotalVioltionsCount());
-			
-			if(this.mDuringElectionsAdapter != null)
-				mUikListViewAdapter.getListViewItem(1).setDescription(mDuringElectionsAdapter.getTotalVioltionsCount());
-			
-			if(this.mFinalMeetingAdapter != null)
-				mUikListViewAdapter.getListViewItem(3).setDescription(mFinalMeetingAdapter.getTotalVioltionsCount());
-			
-			if(this.mTikIkmoAdapter != null)
-				this.mTikIkmoViewAdapter.getListViewItem(0).setDescription(mTikIkmoAdapter.getTotalVioltionsCount());
-			
-			mMainSelector.invalidateViews();
-
-		} else {
-			findViewById(R.id.main_layout).setVisibility(View.INVISIBLE);
-			findViewById(R.id.watchingTitlePane).setVisibility(View.INVISIBLE);
+		} finally {
+			c.close();
 		}
 	}
 
