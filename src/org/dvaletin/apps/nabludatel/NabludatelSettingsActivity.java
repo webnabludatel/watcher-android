@@ -9,6 +9,7 @@ import org.dvaletin.apps.nabludatel.utils.LocalProperties;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -34,13 +35,14 @@ import com.facebook.android.SessionEvents.LogoutListener;
 import com.facebook.android.FacebookError;
 
 public class NabludatelSettingsActivity extends ABSNabludatelActivity {
-	private static final String T = NabludatelSettingsActivity.class.getSimpleName();
+	private static final String T = NabludatelSettingsActivity.class
+			.getSimpleName();
 	private static final int NABLUDATEL_MANUAL_SETUP = 1001;
 
 	private NabludatelCloud cloudHelper;
 	private Facebook mFacebook;
 	private SessionListener mSessionListener = new SessionListener();
-
+	ProgressDialog mSpinner;
 	private AsyncFacebookRunner mAsyncRunner;
 
 	public void onRegistrationStatusTitleInfoClick(View v) {
@@ -90,11 +92,7 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 			public void onNothingSelected(AdapterView<?> adapterView) {
 			}
 		});
-		Button facebookButton = (Button) NabludatelSettingsActivity.this
-				.findViewById(R.id.facebook);
-		if(mFacebook.isSessionValid())
-			facebookButton.setText(prefs.getString(Consts.PREFS_FACEBOOK_EMAIL,
-						getString(R.string.nabludatel_settings_facebook)));
+
 		String email = prefs.getString(Consts.PREFS_USER_EMAIL,
 				getString(R.string.nabludatel_settings_manual));
 		Button manual = (Button) findViewById(R.id.manual);
@@ -105,6 +103,11 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 		SessionEvents.addAuthListener(mSessionListener);
 		SessionEvents.addLogoutListener(mSessionListener);
 		mAsyncRunner = new AsyncFacebookRunner(mFacebook);
+		Button facebookButton = (Button) NabludatelSettingsActivity.this
+				.findViewById(R.id.facebook);
+		if (mFacebook.isSessionValid())
+			facebookButton.setText(prefs.getString(Consts.PREFS_FACEBOOK_EMAIL,
+					getString(R.string.nabludatel_settings_facebook)));
 	}
 
 	@Override
@@ -166,9 +169,9 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 			mFacebook.authorize(this, new String[] { "publish_stream",
 					"publish_checkins", "publish_actions" },
 					new LoginDialogListener());
-		}else{
+		} else {
 			AsyncFacebookRunner asyncRunner = new AsyncFacebookRunner(mFacebook);
-            asyncRunner.logout(this, new LogoutRequestListener());
+			asyncRunner.logout(this, new LogoutRequestListener());
 		}
 	}
 
@@ -192,9 +195,8 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (resultCode != 0 && (
-				requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ||
-				requestCode == Consts.GALLERY_IMAGE_ACTIVITY_REQUEST_CODE)) {
+		if (resultCode != 0
+				&& (requestCode == Consts.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE || requestCode == Consts.GALLERY_IMAGE_ACTIVITY_REQUEST_CODE)) {
 			savePhotos();
 		}
 
@@ -249,29 +251,31 @@ public class NabludatelSettingsActivity extends ABSNabludatelActivity {
 
 			try {
 				JSONObject me = new JSONObject(response);
-				final String first = me.getString("first_name"); // gets first name
+				final String first = me.getString("first_name"); // gets first
+																	// name
 				final String last = me.getString("last_name");
 				final String email = me.getString("email");
 				NabludatelSettingsActivity.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                    	NabludatelSettingsActivity.this
-						.saveFaceBook(first, last, email);
-                    }
-                });
-            } catch (JSONException e) {
-                Log.w(T, "JSON Error in response", e);
-            }
-        }
-    }
+					public void run() {
+						NabludatelSettingsActivity.this.saveFaceBook(first,
+								last, email);
+					}
+				});
+			} catch (JSONException e) {
+				Log.w(T, "JSON Error in response", e);
+			}
+		}
+	}
 
 	private class LogoutRequestListener extends BaseRequestListener {
-        public void onComplete(String response, final Object state) {
-        	NabludatelSettingsActivity.this.runOnUiThread(new Runnable() {
-                public void run() {
-                	Button b = (Button) NabludatelSettingsActivity.this.findViewById(R.id.facebook);
-                	b.setText(R.string.nabludatel_settings_facebook);
-                }
-            });
-        }
-    }
+		public void onComplete(String response, final Object state) {
+			NabludatelSettingsActivity.this.runOnUiThread(new Runnable() {
+				public void run() {
+					Button b = (Button) NabludatelSettingsActivity.this
+							.findViewById(R.id.facebook);
+					b.setText(R.string.nabludatel_settings_facebook);
+				}
+			});
+		}
+	}
 }

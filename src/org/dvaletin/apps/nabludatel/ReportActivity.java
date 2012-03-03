@@ -55,9 +55,8 @@ public class ReportActivity extends ABSNabludatelActivity {
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nabludatel_report);
-		mSpinner = new ProgressDialog(this);
-        mSpinner.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mSpinner.setMessage("Отправляю...");
+		
+
         
         mFacebook = new Facebook(LocalProperties.getFacebookSecret());
 		SessionStore.restore(mFacebook, this);
@@ -68,8 +67,19 @@ public class ReportActivity extends ABSNabludatelActivity {
 	}
 	
 	@Override
+	public void onPause(){
+		mSpinner = null;
+		super.onPause();
+	}
+	
+	@Override
 	public void onResume(){
 		super.onResume();
+		mSpinner = new ProgressDialog(this);
+        mSpinner.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mSpinner.setMessage("Отправляю отчет...");
+        
+        
 		this.setTitle("Отчёт");
 		TextView reportViolationsTitle = (TextView)findViewById(R.id.report_violation_list_title);
 		LinearLayout reportFrame = (LinearLayout)findViewById(R.id.report_frame);
@@ -82,7 +92,6 @@ public class ReportActivity extends ABSNabludatelActivity {
 			reportFrame.removeAllViews();
 			Cursor badCursor = mElectionsDB.getViolationsByPollingPlaceId(pollingPlaceId);
 			try {
-				findViewById(R.id.report_facebook).setVisibility(View.VISIBLE);
 				Cursor goodCursor = mElectionsDB.getNoneViolationsByPollingPlaceId(pollingPlaceId);
 				try {
 					int bad = badCursor.getCount();
@@ -140,7 +149,6 @@ public class ReportActivity extends ABSNabludatelActivity {
 			reportViolationsTitle.setText(getString(R.string.report_no_polling_place_title));
 			reportFrame.setVisibility(View.INVISIBLE);
 			howToComplainPane.setVisibility(View.INVISIBLE);
-			findViewById(R.id.report_facebook).setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -220,7 +228,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 	}
 
 	public void onPostToFaceBook(View v){
-		
+		SessionStore.restore(mFacebook, this);
 		if (!mFacebook.isSessionValid()) {
 			mFacebook.authorize(this, new String[] { "publish_stream",
 					"publish_checkins", "publish_actions" },
@@ -266,6 +274,8 @@ public class ReportActivity extends ABSNabludatelActivity {
 
 	
 	void startSpinner(){
+		if(mSpinner == null)
+			return;
 		this.runOnUiThread(new Runnable(){
 
 			@Override
@@ -275,6 +285,8 @@ public class ReportActivity extends ABSNabludatelActivity {
 	}
 	
 	void stopSpinner(){
+		if(mSpinner == null)
+			return;
 		this.runOnUiThread(new Runnable() {
 
 			@Override
@@ -313,6 +325,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 
 		public void onAuthSucceed() {
 			SessionStore.save(mFacebook, ReportActivity.this);
+			findViewById(R.id.report_facebook).setVisibility(View.VISIBLE);
 			Bundle parameters = new Bundle();
 			parameters.putString("message", reportMessage);
 			startSpinner();
@@ -326,6 +339,7 @@ public class ReportActivity extends ABSNabludatelActivity {
 		}
 
 		public void onLogoutFinish() {
+			findViewById(R.id.report_facebook).setVisibility(View.INVISIBLE);
 			SessionStore.clear(ReportActivity.this);
 		}
 	}
