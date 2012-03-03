@@ -36,7 +36,7 @@ public class SpravochnikActivity extends ABSNabludatelActivity {
 		        if (failingUrl.contains("#")) {
 		            Log.v("LOG", "failing url:"+ failingUrl);
 		            final int sdkVersion = Integer.parseInt(Build.VERSION.SDK);
-		            if (sdkVersion > 9) {
+		            if (sdkVersion > 8) {
 		                String[] temp;
 		                temp = failingUrl.split("#");
 		                view.loadUrl(temp[0]); // load page without internal link
