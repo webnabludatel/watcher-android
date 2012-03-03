@@ -208,9 +208,10 @@ public class ElectionsDBHelper {
 	public int getCheckListItemsCountByScreenId(int screenId) {
 		Cursor c = db().query(CHECKLISTITEM_TABLE, new String[]{
 				CHECKLISTITEM_ROW_ID}, 
-				CHECKLISTITEM_VIOLATION_KEY + " <> '' AND "
-				+CHECKLISTITEM_SCREEN_ID_KEY + " = "
-				+ screenId, null, null, null, null 
+				CHECKLISTITEM_VALUE_KEY + " <> " + "'undef' AND " 
+//				+ CHECKLISTITEM_VIOLATION_KEY + " <> '' AND "
+				+CHECKLISTITEM_SCREEN_ID_KEY + " = " + screenId,
+				null, null, null, null 
 				);
 		if(c == null)
 			return 0;
@@ -495,5 +496,22 @@ public class ElectionsDBHelper {
 			return res.getLong(CHECKLISTITEM_SERVER_ID_COLUMN);
 		}
 		return -1L;
+	}
+
+	public long removePollingPlace(long rowIndex) {
+		String where = POLLINGPLACE_ROW_ID + " = " + rowIndex;
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(POLLINGPLACE_TYPE_KEY, "deleted");
+		return db().update(POLLINGPLACE_TABLE, contentValues, where, null);
+	}
+
+	public Cursor getActivePollingPlaceNames() {
+		Cursor res = db().query(POLLINGPLACE_TABLE, new String[] {
+				POLLINGPLACE_ROW_ID, POLLINGPLACE_NAME_KEY}, 
+				POLLINGPLACE_TYPE_KEY + " <> " + "'deleted'", null,	null, null, null);
+		if (res != null) {
+			res.moveToFirst();
+		}
+		return res;
 	}
 }

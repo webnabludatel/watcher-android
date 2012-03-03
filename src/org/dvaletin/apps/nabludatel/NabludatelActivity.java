@@ -3,9 +3,11 @@ package org.dvaletin.apps.nabludatel;
 import java.util.ArrayList;
 
 import org.dvaletin.apps.nabludatel.utils.*;
-import org.dvaletin.apps.nabludatel.utils.NabludatelCheckListItemViewAdapter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -24,6 +27,7 @@ import android.widget.TextView;
 
 public class NabludatelActivity extends ABSNabludatelActivity {
 
+	private static final int DIALOG_ELECTIONS_DISTRICT_LONG_PRESS = 1000;
 	NabludatelCustomListViewAdapter mUikListViewAdapter;
 	NabludatelCheckListItemViewAdapter mBeforeElectionsAdapter;
 	NabludatelCheckListItemViewAdapter mDuringElectionsAdapter;
@@ -54,7 +58,7 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
 		String from[] = new String[] { ElectionsDBHelper.POLLINGPLACE_NAME_KEY };
 		int[] to = new int[] { android.R.id.text1 };
-		Cursor c = mElectionsDB.getPollingPlaceNames();
+		Cursor c = mElectionsDB.getActivePollingPlaceNames();
 		if (c.getCount() > 0) {
 			SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
 					android.R.layout.simple_spinner_item, c, from, to);
@@ -64,8 +68,16 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 			getSharedPreferences(Consts.PREFS_FILENAME, MODE_PRIVATE);
 			mCurrentPollingPlaceId = prefs.getLong(
 					Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1);
+			c = mElectionsDB.getActivePollingPlaceNames();
 			if (mCurrentPollingPlaceId > 0) {
-				district.setSelection((int) mCurrentPollingPlaceId-1);
+				for(int i=0; i< c.getCount(); i++){
+					if(c.getLong(0) == mCurrentPollingPlaceId){
+						district.setSelection(i);
+						break;
+					}
+					c.moveToNext();
+				}
+//				district.setSelection((int) mCurrentPollingPlaceId-1);
 				mCurrentPollingPlaceType = mElectionsDB
 						.getPollingPlaceType(mCurrentPollingPlaceId);
 
@@ -79,12 +91,13 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 
 				@Override
 				public boolean onLongClick(View v) {
-					long id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
-					if (id != -1L) {
-						Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
-						intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id);
-						startActivityForResult(intent, Consts.DISTRICT_ACTIVITY_REQUEST_CODE);
-					}
+//					long id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
+//					if (id != -1L) {
+//						Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
+//						intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id);
+//						startActivityForResult(intent, Consts.DISTRICT_ACTIVITY_REQUEST_CODE);
+//					}
+					NabludatelActivity.this.showDialog(DIALOG_ELECTIONS_DISTRICT_LONG_PRESS);
 					return true;
 				}
 			});
@@ -540,5 +553,58 @@ public class NabludatelActivity extends ABSNabludatelActivity {
 		intent.putExtra(Consts.PREFS_LONGITUDE, lng);
 		this.startActivityForResult(intent, layoutId);
 
+	}
+	
+	@Override
+	public Dialog onCreateDialog(int id){
+		switch(id){
+		case DIALOG_ELECTIONS_DISTRICT_LONG_PRESS:{
+			AlertDialog.Builder b = new AlertDialog.Builder(this);
+			b.setMessage("Вы можете отредактировать или удалить текущий участок")
+			.setPositiveButton("Редактировать", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					long id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
+					if (id != -1L) {
+						Intent intent = new Intent(NabludatelActivity.this, ElectionsDistrictActivity.class);
+						intent.putExtra(Consts.PREFS_CURRENT_POLLING_PLACE_ID, id);
+						startActivityForResult(intent, Consts.DISTRICT_ACTIVITY_REQUEST_CODE);
+					}
+					
+				}} )
+				.setNeutralButton("Удалить", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						NabludatelActivity.this.deleteCurrentPollingPlace();
+					}
+				} ).setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				}
+			);
+			return b.create();
+				
+		}
+		}
+		return null;
+	}
+
+
+	protected void deleteCurrentPollingPlace() {
+		long id = prefs.getLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, -1L);
+		this.mElectionsDB.removePollingPlace(id);
+		prefs.edit().remove(Consts.PREFS_CURRENT_POLLING_PLACE_ID).commit();
+		Spinner district = (Spinner) findViewById(R.id.elections_district_spinner);
+		district.setAdapter(new ArrayAdapter<String>(this, R.array.elections_district));
+		district.invalidate();
+		mCurrentPollingPlaceId = -1;
+//		prefs.edit().putLong(Consts.PREFS_CURRENT_POLLING_PLACE_ID, 1).commit();
+		this.activateRootMenu();
+		
 	}
 }

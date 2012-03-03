@@ -75,7 +75,7 @@
     <string name="absentee_vote_registry_check_allowed">Вы своевременно (до выезда) ознакомились с реестром голосования на дому </string>
     <string name="absentee_vote_registry_is_valid">Вместо выписки из реестра "список из собеса" или "совета ветеранов"</string>
     <string name="absentee_vote_ballots_number_mismatch">Количество бюллетеней превышает число заявок более чем на 5%</string>
-    <string name="absentee_vote_registry_is_correct">Реестр заполнен правильно: указаны ФИО, что ещё нужно?</string>
+    <string name="absentee_vote_registry_is_correct">Реестр заполнен правильно</string>
     <string name="absentee_vote_protocol_concluded">Составлен ли своевременно акт о голосовании вне участка</string>
     <string name="section_during_elections_absentee_vote_title">Нарушения при голосовании вне участка</string>
     <string name="section_during_elections_bundle_of_ballots_title">Голосование пачкой бюллетеней (вброс)</string>
