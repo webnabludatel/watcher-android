@@ -197,9 +197,12 @@ public abstract class ABSNabludatelActivity extends Activity {
 			HashMap<String, Integer> itemsCache = new HashMap<String, Integer>();
 			for (Entry<File, String> entry : files.entrySet()) {
 				String key = entry.getValue();
-				Integer items = itemsCache.get(key);
-				itemsCache.put(entry.getValue(),
-						(items != null ? items : 0) + 1);
+				if (key != null) {
+					Integer items = itemsCache.get(key);
+					itemsCache.put(key, (items != null ? items : 0) + 1);
+				} else {
+					files.remove(entry.getKey());
+				}
 			}
 
 			for (Entry<String, Integer> entry : itemsCache.entrySet()) {
