@@ -44,9 +44,9 @@ public class Tumbler extends SeekBar {
 
 	@Override
 	protected synchronized void onDraw(Canvas canvas) {
-		if (this.getTumblerValue().equals("true")) {
+		if ("true".equalsIgnoreCase(this.getTumblerValue())) {
 			this.setBackgroundResource(R.drawable.for_frontend_15);
-		} else if (this.getTumblerValue().equals("false")) {
+		} else if ("false".equalsIgnoreCase(this.getTumblerValue())) {
 			this.setBackgroundResource(R.drawable.for_frontend_11);
 		} else {
 			this.setBackgroundResource(R.drawable.for_frontend_04);
